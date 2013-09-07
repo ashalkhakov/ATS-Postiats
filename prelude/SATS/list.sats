@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Mon Aug 26 03:33:24 2013
+** Time of generation: Sat Sep  7 10:34:56 2013
 *)
 
 (* ****** ****** *)
@@ -138,6 +138,13 @@ list_of_list_vt
   list_cons(x, list_nil())
 #define list_pair(x1, x2)
   list_cons(x1, list_cons (x2, list_nil()))
+
+(* ****** ****** *)
+
+fun{x:t0p}
+list_make_sing (x: x):<!wrt> list_vt (x, 1)
+fun{x:t0p}
+list_make_pair (x1: x, x2: x):<!wrt> list_vt (x, 2)
 
 (* ****** ****** *)
 
@@ -564,17 +571,24 @@ fun{x:t0p} list_forall (xs: List (INV(x))):<> bool
 
 (* ****** ****** *)
 
-fun{x:t0p} list_equal$pred (x, x):<> bool
-fun{x:t0p} list_equal (xs1: List (INV(x)), xs2: List(x)):<> bool
+fun{x:t0p}
+list_equal$pred (x, x):<> bool
+fun{x:t0p}
+list_equal (xs1: List (INV(x)), xs2: List(x)):<> bool
+overload = with list_equal
 
 (* ****** ****** *)
-
-fun{x:t0p} list_find
-  (List (INV(x)), x: &x? >> opt(x, b)):<> #[b: bool] bool(b)
+//
 fun{x:t0p} list_find$pred (x):<> bool
+//
+fun{
+x:t0p
+} list_find
+  (List (INV(x)), x: &x? >> opt(x, b)):<> #[b: bool] bool(b)
+//
 fun{x:t0p} list_find_exn (xs: List (INV(x))):<!exn> x
 fun{x:t0p} list_find_opt (xs: List (INV(x))):<> Option_vt (x)
-
+//
 (* ****** ****** *)
 
 fun{
@@ -704,10 +718,10 @@ x:t0p}{y:t0p
 
 fun{
 a:vt0p
-} list_tabulate$fopr (i: int): a
+} list_tabulate$fopr (i: int): (a)
 fun{
 a:vt0p
-} list_tabulate {n:nat} (n: int n): list_vt (a, n)
+} list_tabulate{n:nat} (n: int n): list_vt (a, n)
 
 (* ****** ****** *)
 
@@ -719,11 +733,11 @@ x,y:t0p
 
 fun{
 x,y:t0p}{xy:vt0p
-} list_zipwith$fopr (x, y): xy
+} list_zipwith$fopr (x, y): (xy)
 fun{
 x,y:t0p}{xy:vt0p
-} list_zipwith
-  {m,n:int} (
+} list_zipwith{m,n:int}
+(
   xs: list (INV(x), m), ys: list (INV(y), n)
 ) : list_vt (xy, min(m,n)) // endfun
 
@@ -731,18 +745,18 @@ x,y:t0p}{xy:vt0p
 
 fun{
 x,y:t0p
-} list_cross
-  {m,n:int} (
+} list_cross{m,n:int}
+(
   xs: list (INV(x), m), ys: list (INV(y), n)
-) :<!wrt> list_vt ((x, y), m*n) // end of [list_cross]
+) :<!wrt> list_vt ((x, y), m*n) // endfun
 
 fun{
 x,y:t0p}{xy:vt0p
-} list_crosswith$fopr (x, y): xy
+} list_crosswith$fopr (x, y): (xy)
 fun{
 x,y:t0p}{xy:vt0p
-} list_crosswith
-  {m,n:int} (
+} list_crosswith{m,n:int}
+(
   xs: list (INV(x), m), ys: list (INV(y), n)
 ) : list_vt (xy, m*n) // end of [list_crosswith]
 

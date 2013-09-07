@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Mon Jul 22 19:30:03 2013
+** Time of generation: Fri Sep  6 15:28:54 2013
 *)
 
 (* ****** ****** *)
@@ -86,9 +86,7 @@ string_index_p
   n: int, int(*i*), int(*c*)
 ) =
   | string_index_p_eqz (n, n, 0)
-  | {i:int | n > i}
-    {c:int8 | c != 0}
-    string_index_p_neqz (n, i, c)
+  | {i:int | n > i}{c:int8 | c != 0} string_index_p_neqz (n, i, c)
 // end of [string_index_p]
 
 (* ****** ****** *)

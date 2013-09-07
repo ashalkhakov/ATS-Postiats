@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sat Sep  7 10:34:56 2013
+** Time of generation: Sat Sep  7 12:11:53 2013
 *)
 
 (* ****** ****** *)
@@ -130,7 +130,7 @@ list_vt2t
 castfn
 list_of_list_vt
   {x:t0p}{n:int}
-  (xs: list_vt (INV(x), n)):<> list (x, n)
+  (xs: list_vt (INV(x), n)):<!wrt> list (x, n)
 //
 (* ****** ****** *)
 

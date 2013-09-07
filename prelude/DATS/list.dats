@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Aug 23 10:20:57 2013
+** Time of generation: Sat Sep  7 12:07:07 2013
 *)
 
 (* ****** ****** *)
@@ -43,6 +43,13 @@
 
 staload UN = "prelude/SATS/unsafe.sats"
 staload _(*anon*) = "prelude/DATS/unsafe.dats"
+
+(* ****** ****** *)
+
+implement{x}
+list_make_sing (x) = list_vt_cons{x}(x, list_vt_nil)
+implement{x}
+list_make_pair (x1, x2) = list_vt_cons{x}(x1, list_vt_cons{x}(x2, list_vt_nil))
 
 (* ****** ****** *)
 

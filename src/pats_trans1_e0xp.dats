@@ -85,6 +85,42 @@ macdef list_sing (x) = list_cons (,(x), list_nil)
 (* ****** ****** *)
 
 implement
+do_e0xpact_prerr
+  (v) = case+ v of
+  | V1ALint i => prerr i
+  | V1ALchar c => prerr c
+  | V1ALstring s => prerr s
+  | V1ALfloat f => prerr f
+  | V1ALerr () => let
+      val () = assertloc (false) in (*deadcode*)
+    end (* end of [V1ALerr] *)
+// end of [do_e0xpact_prerr]
+
+(* ****** ****** *)
+
+implement
+do_e0xpact_error
+  (loc, v) = let
+//
+  val () = prerr_error1_loc (loc)
+  val () = prerr ": [#error] directive is encountered: "
+//
+  val () = (case+ v of
+    | V1ALint i => prerr i
+    | V1ALchar c => prerr c
+    | V1ALstring s => prerr s
+    | V1ALfloat f => prerr f
+    | V1ALerr () => let
+        val () = assertloc (false) in (*deadcode*)
+      end (* end of [V1ALerr] *)
+  ) : void // end of [val]
+in
+  exit {void} (1)
+end // end of [do_e0xpact_error]
+
+(* ****** ****** *)
+
+implement
 do_e0xpact_assert
   (loc, v) = let
   val is_false = (
@@ -108,38 +144,6 @@ in
     exit {void} (1)
   end // end of [if]
 end // end of [do_e0xpact_assert]
-
-implement
-do_e0xpact_error
-  (loc, v) = let
-//
-  val () = prerr_error1_loc (loc)
-  val () = prerr ": [#error] directive is encountered: "
-//
-  val () = (case+ v of
-    | V1ALint i => prerr i
-    | V1ALstring s => prerr s
-    | V1ALfloat f => prerr f
-    | V1ALchar c => prerr c
-    | V1ALerr () => let
-        val () = assertloc (false) in (*deadcode*)
-      end (* end of [V1ALerr] *)
-  ) : void // end of [val]
-in
-  exit {void} (1)
-end // end of [do_e0xpact_error]
-
-implement
-do_e0xpact_prerr
-  (v) = case+ v of
-  | V1ALint i => prerr i
-  | V1ALstring s => prerr s
-  | V1ALfloat f => prerr f
-  | V1ALchar c => prerr c
-  | V1ALerr () => let
-      val () = assertloc (false) in (*deadcode*)
-    end (* end of [V1ALerr] *)
-// end of [do_e0xpact_prerr]
 
 (* ****** ****** *)
 //

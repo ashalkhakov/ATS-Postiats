@@ -9,8 +9,8 @@
 
 (* ****** ****** *)
 //
-#include "share/atscntrb_reloc.hats"
-#include "share/atslibpre_staload_tmpdef.hats"
+#include "share/atspre_define.hats"
+#include "share/atspre_staload.hats"
 //
 (* ****** ****** *)
 

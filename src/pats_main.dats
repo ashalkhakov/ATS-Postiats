@@ -358,10 +358,10 @@ dynload "pats_comarg.dats"
 
 %{^
 //
+extern void patsopt_PATSHOME_set () ;
 extern char *patsopt_PATSHOME_get () ;
+extern void patsopt_PATSHOMERELOC_set () ;
 extern char *patsopt_PATSHOMERELOC_get () ;
-extern void patsopt_PATSHOME_set (char *val) ;
-extern void patsopt_PATSHOMERELOC_set (char *val) ;
 //
 %} // end of [%{^]
 
@@ -399,9 +399,12 @@ end // end of [patsopt_usage]
 
 (* ****** ****** *)
 //
+(*
+HX: VERSION-0.0.1 released on September 2, 2013
+*)
 #define PATS_MAJOR_VERSION 0
 #define PATS_MINOR_VERSION 0
-#define PATS_MICRO_VERSION 1
+#define PATS_MICRO_VERSION 2
 (*
 //
 // HX-2011-04-27: this is supported in Postiats:

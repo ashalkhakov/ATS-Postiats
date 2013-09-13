@@ -220,13 +220,17 @@ fun fileref_get_line_charlst (inp: FILEref): charlst_vt
 fun fileref_get_lines_charlstlst (inp: FILEref): List0_vt (charlst_vt)
 
 (* ****** ****** *)
-
+//
 (*
 ** HX: for handling files of "tiny" size
 *)
 fun fileref_get_file_charlst (inp: FILEref): List0_vt (char)
-fun fileref_nget_file_charlst {n:nat} (inp: FILEref, n: int n): listLte_vt (char, n)
-
+//
+(* ****** ****** *)
+//
+fun fileref_nget_file_charlst{n:nat}
+  (inp: FILEref, n: &int(n) >> int(n2)): #[n2:nat | n2 <= n] list_vt (char, n2)
+//
 (* ****** ****** *)
 
 fun fileref_put_charlst (inp: FILEref, cs: NSH(List(char))): void

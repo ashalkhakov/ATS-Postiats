@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Thu Aug  8 16:36:00 2013
+** Time of generation: Wed Sep 18 08:53:55 2013
 *)
 
 (* ****** ****** *)
@@ -536,7 +536,7 @@ if c != CNUL then let
   val () = res :=
     list_vt_cons {charNZ}{0} (c, _)
   val+list_vt_cons (_, res1) = res
-  val x = $UN.cast{string(n-1)} (ptr1_succ(p))
+  val x = $UN.cast{string(n-1)}(ptr1_succ<char>(p))
   val () = loop (x, res1)
 in
   fold@ (res)

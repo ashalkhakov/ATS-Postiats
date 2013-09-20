@@ -280,9 +280,9 @@ list_tail_exn{n:int}
 (* ****** ****** *)
 
 fun{x:t0p}
-list_last{n:pos} (xs: list (INV(x), n)):<> x
+list_last{n:pos} (xs: list (INV(x), n)):<> (x)
 fun{x:t0p}
-list_last_exn{n:int} (xs: list (INV(x), n)):<!exn> x
+list_last_exn{n:int} (xs: list (INV(x), n)):<!exn> (x)
 
 (* ****** ****** *)
 //

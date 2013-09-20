@@ -263,7 +263,7 @@ end (* end of [auxsplit_lr] *)
 
 (* ****** ****** *)
 //
-// HX: quick sorting
+// HX: quick-sorting
 //
 fun auxqsort
 (

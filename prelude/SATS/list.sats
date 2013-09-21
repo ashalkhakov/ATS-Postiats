@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sat Sep  7 12:11:53 2013
+** Time of generation: Sat Sep 21 00:31:21 2013
 *)
 
 (* ****** ****** *)
@@ -240,33 +240,25 @@ end // end of [fprintlst_mac]
 *)
 
 (* ****** ****** *)
-
+//
 fun{
 } list_is_nil
-  {x:t0p}{n:int} (xs: list (x, n)):<> bool (n==0)
-// end of [list_is_nil]
-
+  {x:t0p}{n:int} (xs: list (x, n)):<> bool(n==0)
 fun{
 } list_is_cons
-  {x:t0p}{n:int} (xs: list (x, n)):<> bool (n > 0)
-// end of [list_is_cons]
-
+  {x:t0p}{n:int} (xs: list (x, n)):<> bool(n > 0)
+//
 fun{x:t0p}
-list_is_sing
-  {n:int} (xs: list (INV(x), n)):<> bool (n==1)
-// end of [list_is_sing]
-
+list_is_sing{n:int} (xs: list (INV(x), n)):<> bool(n==1)
 fun{x:t0p}
-list_is_pair
-  {n:int} (xs: list (INV(x), n)):<> bool (n==2)
-// end of [list_is_pair]
-
+list_is_pair {n:int} (xs: list (INV(x), n)):<> bool(n==2)
+//
 (* ****** ****** *)
 
 fun{x:t0p}
-list_head{n:pos} (xs: list (INV(x), n)):<> x
+list_head{n:pos} (xs: list (INV(x), n)):<> (x)
 fun{x:t0p}
-list_head_exn{n:int} (xs: list (INV(x), n)):<!exn> x
+list_head_exn{n:int} (xs: list (INV(x), n)):<!exn> (x)
 
 (* ****** ****** *)
 //

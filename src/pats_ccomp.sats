@@ -954,6 +954,7 @@ fun primval_make_d2vfunlab
 (* ****** ****** *)
 
 fun primval_make_tmp (loc: location, tmp: tmpvar): primval
+fun primval_make_tmpref (loc: location, tmp: tmpvar): primval
 
 (* ****** ****** *)
 
@@ -1826,6 +1827,7 @@ fun emit_location (out: FILEref, x: location): void
 (* ****** ****** *)
 
 fun emit_int (out: FILEref, x: int): void
+fun emit_intinf (out: FILEref, x: intinf): void
 fun emit_bool (out: FILEref, x: bool): void
 fun emit_char (out: FILEref, x: char): void
 fun emit_float (out: FILEref, x: double): void

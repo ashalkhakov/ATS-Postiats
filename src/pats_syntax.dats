@@ -178,7 +178,7 @@ fn name_is_cloref0 (name: string): bool =
   if name = "cloref" then true else name = "cloref0"
 fn name_is_cloref1 (name: string): bool = name = "cloref1"
 
-in // in of [local]
+in (* in of [local] *)
 
 implement
 e0fftag_i0de (id) = let
@@ -752,7 +752,7 @@ fun loop {n:nat} .<n>. (
   | list_nil () => tok.token_loc + x.s0exp_loc
 // end of [loop]
 //
-in // in of [local]
+in (* in of [local] *)
 //
 implement
 s0exp_extype
@@ -2185,13 +2185,15 @@ in '{
 
 local
 
-fun d0exp_macsyn (
+fun
+d0exp_macsyn
+(
   loc: location, knd: macsynkind, d0e: d0exp
 ): d0exp = '{
   d0exp_loc= loc, d0exp_node= D0Emacsyn (knd, d0e)
 } // end of [d0exp_macsyn]
 
-in // in of [local]
+in (* in of [local] *)
 
 implement
 d0exp_macsyn_cross
@@ -2347,13 +2349,17 @@ in '{
 (* ****** ****** *)
 
 implement
-f0undec_make (
+f0undec_make
+(
   fid, arg, eff, res, def, ann
 ) = let
-  val loc = (case+ ann of
-    | WITHT0YPEnone () => fid.i0de_loc + def.d0exp_loc
-    | WITHT0YPEsome (knd, s0e) => fid.i0de_loc + s0e.s0exp_loc
-  ) : location // end of [val]
+//
+val loc = (
+case+ ann of
+| WITHT0YPEnone () => fid.i0de_loc + def.d0exp_loc
+| WITHT0YPEsome (knd, s0e) => fid.i0de_loc + s0e.s0exp_loc
+) : location // end of [val]
+//
 in '{
   f0undec_loc= loc
 , f0undec_sym= fid.i0de_sym
@@ -2368,22 +2374,25 @@ in '{
 (* ****** ****** *)
 
 implement
-v0ardec_make (
-  tokopt, id, s0eopt, varwth, d0eopt
+v0ardec_make
+(
+  tokopt, id, varwth, s0eopt, ini
 ) = let
 //
 var knd: int = 0
 //
-val loc_hd = (
+val loc_hd =
+(
   case+ tokopt of
-  | Some tok => let
-      val () = knd := 1 in tok.token_loc
-    end
   | None () => id.i0de_loc
-) : location
+  | Some tok =>
+      let val () = knd := 1 in tok.token_loc end
+    // end of [Some]
+) : location // end of [val]
 //
-val loc_tl = (
-  case+ d0eopt of
+val loc_tl =
+(
+  case+ ini of
   | Some d0e => d0e.d0exp_loc
   | None () => (
     case+ varwth of
@@ -2394,6 +2403,7 @@ val loc_tl = (
     ) // end of [None]
   )
 ) : location // end of [val]
+//
 val loc = loc_hd + loc_tl
 //
 in '{
@@ -2401,17 +2411,21 @@ in '{
 , v0ardec_knd= knd
 , v0ardec_sym= id.i0de_sym
 , v0ardec_sym_loc= id.i0de_loc
-, v0ardec_type= s0eopt
 , v0ardec_wth= varwth
-, v0ardec_ini= d0eopt
+, v0ardec_type= s0eopt // type annotation
+, v0ardec_ini= ini // value for initialization
 } end // end of [v0ardec_make]
 
 (* ****** ****** *)
 
 implement
 i0mpdec_make
-  (qid, arg, res, def) = let
-  val loc = qid.impqi0de_loc + def.d0exp_loc
+(
+  qid, arg, res, def
+) = let
+//
+val loc = qid.impqi0de_loc + def.d0exp_loc
+//
 in '{
   i0mpdec_loc= loc
 , i0mpdec_qid= qid
@@ -2424,7 +2438,9 @@ in '{
 
 local
 
-fun loop {n:nat} .<n>. (
+fun
+loop{n:nat} .<n>.
+(
   tok: token, id: i0de, ids: list (i0de, n)
 ) : location =
   case+ ids of

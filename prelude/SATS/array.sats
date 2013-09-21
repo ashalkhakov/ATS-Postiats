@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Tue Aug 20 17:55:50 2013
+** Time of generation: Sat Sep 21 16:11:31 2013
 *)
 
 (* ****** ****** *)
@@ -147,10 +147,6 @@ array_getref_at
 //
 (* ****** ****** *)
 
-fun{a:t0p}
-array_get_at_size
-  {n:int} (A: &RD(@[INV(a)][n]), i: sizeLt n):<> a
-
 fun{
 a:t0p}{tk:tk
 } array_get_at_gint
@@ -169,10 +165,6 @@ overload array_get_at with array_get_at_guint of 0
 
 (* ****** ****** *)
 
-fun{a:t0p}
-array_set_at_size
-  {n:int} (A: &(@[INV(a)][n]), i: sizeLt n, x: a):<!wrt> void
-
 fun{
 a:t0p}{tk:tk
 } array_set_at_gint
@@ -190,12 +182,6 @@ overload array_set_at with array_set_at_gint of 0
 overload array_set_at with array_set_at_guint of 0
 
 (* ****** ****** *)
-
-fun{a:vt0p}
-array_exch_at_size{n:int}
-(
-  A: &(@[INV(a)][n]), i: sizeLt n, x: &a >> _
-) :<!wrt> void // end of [array_exch_at_size]
 
 fun{
 a:vt0p}{tk:tk
@@ -273,23 +259,36 @@ array_ptr_tabulate
 // end of [arrayptr_tabulate]
 
 (* ****** ****** *)
-
-fun{a:vt0p}
-fprint_array{n:int}
-(
-  out: FILEref, A: &RD(@[INV(a)][n]), n: size_t n
-) : void // end of [fprint_array]
+//
 fun{}
 fprint_array$sep (out: FILEref): void
-
-(* ****** ****** *)
-
+//
+fun{a:vt0p}
+fprint_array_int{n:int}
+(
+  out: FILEref, A: &RD(@[INV(a)][n]), n: int(n)
+) : void // end of [fprint_array_int]
+fun{a:vt0p}
+fprint_array_size{n:int}
+(
+  out: FILEref, A: &RD(@[INV(a)][n]), n: size_t(n)
+) : void // end of [fprint_array_size]
+//
+symintr fprint_array
+overload fprint_array with fprint_array_int
+overload fprint_array with fprint_array_size
+//
 fun{a:vt0p}
 fprint_array_sep{n:int}
 (
   out: FILEref
 , A: &RD(@[INV(a)][n]), n: size_t n, sep: NSH(string)
 ) : void // end of [fprint_array_sep]
+//
+(* ****** ****** *)
+
+overload fprint with fprint_array
+overload fprint with fprint_array_sep
 
 (* ****** ****** *)
 

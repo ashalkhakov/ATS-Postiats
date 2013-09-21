@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Mon Jul 22 19:30:24 2013
+** Time of generation: Sat Sep 21 00:40:45 2013
 *)
 
 (* ****** ****** *)
@@ -64,82 +64,64 @@ arrayref_make_rlist (asz, xs) =
 
 (* ****** ****** *)
 
-implement{a}
-arrayref_get_at_size
+implement
+{a}{tk}(*tmp*)
+arrayref_get_at_gint
   (A, i) = let
 //
-val
-(
-vbox pf | p
-) = arrayref_get_viewptr (A)
-//
-in
-  array_get_at_size (!p, i)
-end // end of [arrayref_get_at_size]
-
-implement{a}{tk}
-arrayref_get_at_gint
-  (A, i) =
-(
-  arrayref_get_at_size (A, g1i2u(i))
-) // end of [arrayref_get_at_gint]
-
-implement{a}{tk}
+val (vbox pf | p) =
+  arrayref_get_viewptr (A) in array_get_at_gint (!p, i)
+end // end of [arrayref_get_at_gint]
+implement
+{a}{tk}(*tmp*)
 arrayref_get_at_guint
-  (A, i) =
-(
-  arrayref_get_at_size (A, g1u2u(i))
-) // end of [arrayref_get_at_guint]
+  (A, i) = let
+//
+val (vbox pf | p) =
+  arrayref_get_viewptr (A) in array_get_at_guint (!p, i)
+end // end of [arrayref_get_at_guint]
 
 (* ****** ****** *)
 
-implement{a}
-arrayref_set_at_size
-  (A, i, x) = let
-//
-val (vbox pf | p) =
-  arrayref_get_viewptr (A) in array_set_at_size (!p, i, x)
-//
-end // end of [arrayref_set_at_size]
-
-implement{a}{tk}
+implement
+{a}{tk}(*tmp*)
 arrayref_set_at_gint
-  (A, i, x) =
-(
-  arrayref_set_at_size (A, g1i2u(i), x)
-) // end of [arrayref_set_at_gint]
-
-implement{a}{tk}
-arrayref_set_at_guint
-  (A, i, x) =
-(
-  arrayref_set_at_size (A, g1u2u(i), x)
-) // end of [arrayref_set_at_guint]
-
-(* ****** ****** *)
-
-implement{a}
-arrayref_exch_at_size
   (A, i, x) = let
 //
 val (vbox pf | p) =
-  arrayref_get_viewptr (A) in array_exch_at_size (!p, i, x)
+  arrayref_get_viewptr (A) in array_set_at_gint (!p, i, x)
 //
-end // end of [arrayref_exch_at_size]
+end // end of [arrayref_set_at_gint]
+implement
+{a}{tk}(*tmp*)
+arrayref_set_at_guint
+  (A, i, x) = let
+//
+val (vbox pf | p) =
+  arrayref_get_viewptr (A) in array_set_at_guint (!p, i, x)
+//
+end // end of [arrayref_set_at_guint]
 
-implement{a}{tk}
+(* ****** ****** *)
+
+implement
+{a}{tk}(*tmp*)
 arrayref_exch_at_gint
-  (A, i, x) =
-(
-  arrayref_exch_at_size (A, g1i2u(i), x)
-) // end of [arrayref_exch_at_gint]
-
-implement{a}{tk}
+  (A, i, x) = let
+//
+val (vbox pf | p) =
+  arrayref_get_viewptr (A) in array_exch_at_gint (!p, i, x)
+//
+end // end of [arrayref_exch_at_gint]
+implement
+{a}{tk}(*tmp*)
 arrayref_exch_at_guint
-  (A, i, x) =
-(
-  arrayref_exch_at_size (A, g1u2u(i), x)
-) // end of [arrayref_exch_at_guint]
+  (A, i, x) = let
+//
+val (vbox pf | p) =
+  arrayref_get_viewptr (A) in array_exch_at_guint (!p, i, x)
+//
+end // end of [arrayref_exch_at_guint]
 
 (* ****** ****** *)
 

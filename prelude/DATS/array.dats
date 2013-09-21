@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Tue Aug 20 17:25:34 2013
+** Time of generation: Sat Sep 21 16:11:31 2013
 *)
 
 (* ****** ****** *)
@@ -56,20 +56,38 @@ array_getref_at
   val p = ptr0_add_guint<a> (addr@(A), i) in $UN.cast{cPtr1(a)}(p)
 end // end of [array_getref_at]
 
-implement{a}
-array_get_at_size (A, i) = let
+(* ****** ****** *)
+
+implement{a}{tk}
+array_get_at_gint (A, i) = let
+  val p = ptr0_add_gint<a> (addr@(A), i) in $UN.ptr0_get<a> (p)
+end // end of [array_get_at_gint]
+implement{a}{tk}
+array_get_at_guint (A, i) = let
   val p = ptr0_add_guint<a> (addr@(A), i) in $UN.ptr0_get<a> (p)
-end // end of [array_get_at_size]
+end // end of [array_get_at_guint]
 
-implement{a}
-array_set_at_size (A, i, x) = let
+(* ****** ****** *)
+
+implement{a}{tk}
+array_set_at_gint (A, i, x) = let
+  val p = ptr0_add_gint<a> (addr@(A), i) in $UN.ptr0_set<a> (p, x)
+end // end of [array_set_at_uint]
+implement{a}{tk}
+array_set_at_guint (A, i, x) = let
   val p = ptr0_add_guint<a> (addr@(A), i) in $UN.ptr0_set<a> (p, x)
-end // end of [array_set_at_size]
+end // end of [array_set_at_guint]
 
-implement{a}
-array_exch_at_size (A, i, x) = let
+(* ****** ****** *)
+
+implement{a}{tk}
+array_exch_at_gint (A, i, x) = let
+  val p = ptr0_add_gint<a> (addr@(A), i) in $UN.ptr0_exch<a> (p, x)
+end // end of [array_exch_at_gint]
+implement{a}{tk}
+array_exch_at_guint (A, i, x) = let
   val p = ptr0_add_guint<a> (addr@(A), i) in $UN.ptr0_exch<a> (p, x)
-end // end of [array_exch_at_size]
+end // end of [array_exch_at_guint]
 
 (* ****** ****** *)
 
@@ -197,7 +215,17 @@ implement{}
 fprint_array$sep (out) = fprint (out, ", ")
 
 implement{a}
-fprint_array
+fprint_array_int
+  (out, A, asz) = let
+//
+prval () = lemma_array_param (A)
+//
+in
+  fprint_array_size (out, A, i2sz(asz))
+end // end of [fprint_array_int]
+
+implement{a}
+fprint_array_size
   (out, A, asz) = let
 //
 typedef tenv = int
@@ -216,7 +244,7 @@ val _(*n*) = array_foreach_env<a><tenv> (A, asz, env)
 //
 in
   // nothing
-end // end of [fprint_array]
+end // end of [fprint_array_size]
 
 implement{a}
 fprint_array_sep

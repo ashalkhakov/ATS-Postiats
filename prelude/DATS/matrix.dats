@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrix.atxt
-** Time of generation: Mon Aug  5 23:24:35 2013
+** Time of generation: Sat Sep 21 13:53:44 2013
 *)
 
 (* ****** ****** *)
@@ -60,18 +60,35 @@ matrix_getref_at_size
 (* ****** ****** *)
 
 implement{a}
+matrix_get_at_int
+  (M, i, n, j) = $UN.cptr_get (matrix_getref_at_int (M, i, n, j))
+// end of [matrix_get_at_int]
+
+implement{a}
+matrix_set_at_int
+  (M, i, n, j, x) = $UN.cptr_set (matrix_getref_at_int (M, i, n, j), x)
+// end of [matrix_set_at_int]
+
+implement{a}
+matrix_exch_at_int
+  (M, i, n, j, x) = $UN.cptr_exch (matrix_getref_at_int (M, i, n, j), x)
+// end of [matrix_exch_at_int]
+
+(* ****** ****** *)
+
+implement{a}
 matrix_get_at_size
-  (M, i, n, j) = $UN.cptr_get (matrix_getref_at (M, i, n, j))
+  (M, i, n, j) = $UN.cptr_get (matrix_getref_at_size (M, i, n, j))
 // end of [matrix_get_at_size]
 
 implement{a}
 matrix_set_at_size
-  (M, i, n, j, x) = $UN.cptr_set (matrix_getref_at (M, i, n, j), x)
+  (M, i, n, j, x) = $UN.cptr_set (matrix_getref_at_size (M, i, n, j), x)
 // end of [matrix_set_at_size]
 
 implement{a}
 matrix_exch_at_size
-  (M, i, n, j, x) = $UN.cptr_exch (matrix_getref_at (M, i, n, j), x)
+  (M, i, n, j, x) = $UN.cptr_exch (matrix_getref_at_size (M, i, n, j), x)
 // end of [matrix_exch_at_size]
 
 (* ****** ****** *)
@@ -128,7 +145,17 @@ implement{}
 fprint_matrix$sep2 (out) = fprint (out, "; ")
 
 implement{a}
-fprint_matrix
+fprint_matrix_int
+  (out, M, m, n) = let
+//
+prval () = lemma_matrix_param (M)
+//
+in
+  fprint_matrix_size (out, M, i2sz(m), i2sz(n))
+end // end of [fprint_matrix_int]
+
+implement{a}
+fprint_matrix_size
   {m,n} (out, M, m, n) = let
 //
 implement
@@ -158,7 +185,7 @@ end // end of [loop]
 //
 in
   loop (out, addr@ (M), m, n, i2sz(0))
-end // end of [fprint_matrix]
+end // end of [fprint_matrix_size]
 
 (* ****** ****** *)
 
@@ -174,7 +201,7 @@ implement
 fprint_matrix$sep2<> (out) = fprint (out, sep2)
 //
 in
-  fprint_matrix (out, M, m, n)
+  fprint_matrix_size (out, M, m, n)
 end // end of [fprint_matrix_sep]
 
 (* ****** ****** *)

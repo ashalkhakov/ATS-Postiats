@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrix.atxt
-** Time of generation: Thu Jul 25 13:29:36 2013
+** Time of generation: Sat Sep 21 13:49:36 2013
 *)
 
 (* ****** ****** *)
@@ -67,14 +67,26 @@ matrix_v (
 ) = matrix (a, row, col) @ l
 
 (* ****** ****** *)
-
-praxi matrix2array_v
+//
+praxi
+lemma_matrix_param{a:vt0p}
+  {l:addr}{m,n:int} (M: &matrix(INV(a), m, n)): [m >= 0; n >= 0] void
+//
+praxi
+lemma_matrix_v_param{a:vt0p}
+  {l:addr}{m,n:int} (pf: !matrix_v (INV(a), l, m, n)): [m >= 0; n >= 0] void
+//
+(* ****** ****** *)
+//
+praxi
+array2matrix_v
   {a:vt0p}{l:addr}{m,n:int}
-  (pf: matrix_v (INV(a), l, m, n)): array_v (a, l, m*n)
-praxi array2matrix_v
+  (pf: array_v (INV(a), l, m * n)) : matrix_v (a, l, m, n)
+praxi
+matrix2array_v
   {a:vt0p}{l:addr}{m,n:int}
-  (pf: array_v (INV(a), l, m*n)): matrix_v (a, l, m, n)
-
+  (pf: matrix_v (INV(a), l, m, n)) : array_v (a, l, m * n)
+//
 (* ****** ****** *)
 //
 // HX: ATS matrices is of row-major style
@@ -117,7 +129,7 @@ matrix_get_at_int
 (
   M: &RD(matrix (INV(a), m, n))
 , i: natLt (m), n: int n, j: natLt (n)
-) :<> (a) // end of [matrix_get_at_int]
+) :<> (a) // endfun
 overload [] with matrix_get_at_int
 
 fun{a:t0p}
@@ -126,7 +138,7 @@ matrix_get_at_size
 (
   M: &RD(matrix (INV(a), m, n))
 , i: sizeLt (m), n: size_t n, j: sizeLt (n)
-) :<> (a) // end of [matrix_get_at_size]
+) :<> (a) // endfun
 overload [] with matrix_get_at_size
 
 symintr matrix_get_at
@@ -141,7 +153,7 @@ matrix_set_at_int
 (
   M: &matrix (INV(a), m, n)
 , i: natLt (m), n: int n, j: natLt (n), x: a
-) :<!wrt> void // end of [matrix_set_at_int]
+) :<!wrt> void // endfun
 overload [] with matrix_set_at_int
 
 fun{a:t0p}
@@ -150,7 +162,7 @@ matrix_set_at_size
 (
   M: &matrix (INV(a), m, n)
 , i: sizeLt (m), n: size_t n, j: sizeLt (n), x: a
-) :<!wrt> void // end of [matrix_set_at_size]
+) :<!wrt> void // endfun
 overload [] with matrix_set_at_size
 
 symintr matrix_set_at
@@ -165,7 +177,7 @@ matrix_exch_at_int
 (
   M: &matrix (INV(a), m, n)
 , i: natLt (m), n: int n, j: natLt (n), x: &a>>a
-) :<!wrt> void // end of [matrix_exch_at_int]
+) :<!wrt> void // endfun
 
 fun{a:vt0p}
 matrix_exch_at_size
@@ -173,7 +185,7 @@ matrix_exch_at_size
 (
   M: &matrix (INV(a), m, n)
 , i: sizeLt (m), n: size_t n, j: sizeLt (n), x: &a>>a
-) :<!wrt> void // end of [matrix_exch_at_size]
+) :<!wrt> void // endfun
 
 symintr matrix_exch_at
 overload matrix_exch_at with matrix_exch_at_int
@@ -209,21 +221,30 @@ matrix_ptr_tabulate
 // end of [matrixptr_tabulate]
 
 (* ****** ****** *)
-
+//
 fun{
 } fprint_matrix$sep1 (out: FILEref): void // col separation
 fun{
 } fprint_matrix$sep2 (out: FILEref): void // row separation
-
+//
 fun{a:vt0p}
-fprint_matrix{m,n:int}
+fprint_matrix_int{m,n:int}
+(
+  out: FILEref
+, M: &matrix (INV(a), m, n), m: int (m), n: int (n)
+) : void // end of [fprint_matrix_int]
+fun{a:vt0p}
+fprint_matrix_size{m,n:int}
 (
   out: FILEref
 , M: &matrix (INV(a), m, n), m: size_t (m), n: size_t (n)
-) : void // end of [fprint_matrix]
-
+) : void // end of [fprint_matrix_size]
+//
+symintr fprint_matrix
+overload fprint_matrix with fprint_matrix_int
+overload fprint_matrix with fprint_matrix_size
 overload fprint with fprint_matrix
-
+//
 (* ****** ****** *)
 
 fun{a:vt0p}

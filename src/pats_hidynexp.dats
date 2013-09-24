@@ -558,14 +558,18 @@ hidexp_xchng_ptr
 
 implement
 hidexp_arrpsz
-  (loc, hse, hse_elt, hdes, asz) =
-  hidexp_make_node (loc, hse, HDEarrpsz (hse_elt, hdes, asz))
+(
+  loc, hse, hse_elt, hdes_elt, asz
+) = hidexp_make_node
+  (loc, hse, HDEarrpsz (hse_elt, hdes_elt, asz))
 // end of [hidexp_arrpsz]
 
 implement
 hidexp_arrinit
-  (loc, hse, hse_elt, asz, hdes_elt) =
-  hidexp_make_node (loc, hse, HDEarrinit (hse_elt, asz, hdes_elt))
+(
+  loc, hse, hse_elt, hde_asz, hdes_elt, asz
+) = hidexp_make_node
+  (loc, hse, HDEarrinit (hse_elt, hde_asz, hdes_elt, asz))
 // end of [hidexp_arrinit]
 
 (* ****** ****** *)
@@ -713,15 +717,17 @@ hivaldec_make
 } // end of [hivaldec_make]
 
 implement
-hivardec_make (
-  loc, knd, d2v, d2vw, type, ini
+hivardec_make
+(
+  loc, knd
+, d2v, d2vw, type, init
 ) = '{
   hivardec_loc= loc
 , hivardec_knd= knd
 , hivardec_dvar_ptr= d2v
 , hivardec_dvar_view= d2vw
 , hivardec_type= type
-, hivardec_ini= ini
+, hivardec_init= init
 } // end of [hivardec_make]
 
 (* ****** ****** *)

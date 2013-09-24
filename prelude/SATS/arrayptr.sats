@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Mon Jul 22 19:30:08 2013
+** Time of generation: Sun Sep 22 22:36:48 2013
 *)
 
 (* ****** ****** *)
@@ -257,11 +257,6 @@ overload fprint with fprint_arrayptr_sep
 
 symintr arrayptr_get_at
 
-fun{a:t0p}
-arrayptr_get_at_size{n:int}
-  (A: !arrayptr (INV(a), n), i: sizeLt (n)):<> (a)
-// end of [arrayptr_get_at_size]
-
 fun{
 a:t0p}{tk:tk
 } arrayptr_get_at_gint
@@ -283,11 +278,6 @@ overload arrayptr_get_at with arrayptr_get_at_guint
 
 symintr arrayptr_set_at
 
-fun{a:t0p}
-arrayptr_set_at_size{n:int}
-  (A: !arrayptr (INV(a), n), i: sizeLt (n), x: a):<!wrt> void
-// end of [arrayptr_set_at_size]
-
 fun{
 a:t0p}{tk:tk
 } arrayptr_set_at_gint
@@ -308,11 +298,6 @@ overload arrayptr_set_at with arrayptr_set_at_guint of 0
 (* ****** ****** *)
 
 symintr arrayptr_exch_at
-
-fun{a:vt0p}
-arrayptr_exch_at_size{n:int}
-  (A: !arrayptr (INV(a), n), i: sizeLt (n), x: &a):<!wrt> void
-// end of [arrayptr_exch_at_size]
 
 fun{
 a:vt0p}{tk:tk

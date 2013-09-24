@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Mon Jul 22 19:30:08 2013
+** Time of generation: Mon Sep 23 13:50:59 2013
 *)
 
 (* ****** ****** *)
@@ -150,12 +150,6 @@ overload fprint with fprint_arrayref_sep
 
 (* ****** ****** *)
 
-fun{a:t0p}
-arrayref_get_at_size
-  {n:int} (
-  A: arrayref (a, n), i: sizeLt (n)
-) :<!ref> a // end of [arrayref_get_at_size]
-
 fun{
 a:t0p}{tk:tk
 } arrayref_get_at_gint
@@ -178,12 +172,6 @@ overload arrayref_get_at with arrayref_get_at_guint of 0
 
 (* ****** ****** *)
 
-fun{a:t0p}
-arrayref_set_at_size
-  {n:int} (
-  A: arrayref (a, n), i: sizeLt (n), x: a
-) :<!refwrt> void // end of [arrayref_set_at_size]
-
 fun{
 a:t0p}{tk:tk
 } arrayref_set_at_gint
@@ -205,12 +193,6 @@ overload arrayref_set_at with arrayref_set_at_gint of 0
 overload arrayref_set_at with arrayref_set_at_guint of 0
 
 (* ****** ****** *)
-
-fun{a:vt0p}
-arrayref_exch_at_size
-  {n:int} (
-  A: arrayref (a, n), i: sizeLt (n), x: &a >> _
-) :<!refwrt> void // end of [arrayref_exch_at_size]
 
 fun{
 a:vt0p}{tk:tk
@@ -298,7 +280,7 @@ a:vt0p}{env:vt0p
 //
 (*
 fun{a:vt0p}
-array_tabulate$fwork (index: size_t): (a)
+array_tabulate$fopr (index: size_t): (a)
 *)
 fun{a:vt0p}
 arrayref_tabulate
@@ -343,10 +325,16 @@ arrszref_make_arrayref
 
 (* ****** ****** *)
 
-fun{}
-arrszref_get_ref {a:vt0p} (A: arrszref (a)):<> Ptr1
-fun{}
-arrszref_get_size {a:vt0p} (A: arrszref (a)):<> size_t
+fun{
+} arrszref_get_ref{a:vt0p} (A: arrszref (a)):<> Ptr1
+fun{
+} arrszref_get_size{a:vt0p} (A: arrszref (a)):<> size_t
+
+(* ****** ****** *)
+
+symintr .ref .size
+overload .ref with arrszref_get_ref
+overload .size with arrszref_get_size
 
 (* ****** ****** *)
 
@@ -394,6 +382,7 @@ overload fprint with fprint_arrszref_sep
 fun{a:t0p}
 arrszref_get_at_size
   (A: arrszref (a), i: size_t):<!exnref> a
+// end of [arrszref_get_at_size]
 
 fun{
 a:t0p}{tk:tk

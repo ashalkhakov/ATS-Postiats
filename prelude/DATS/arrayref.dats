@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Sat Sep 21 00:40:45 2013
+** Time of generation: Mon Sep 23 14:00:54 2013
 *)
 
 (* ****** ****** *)
@@ -175,8 +175,10 @@ end // end of [arrayref_foreach_env]
 (* ****** ****** *)
 
 implement{a}
-arrayref_iforeach (A, asz) = let
-  var env: void = () in arrayref_iforeach_env<a><void> (A, asz, env)
+arrayref_iforeach
+  (A, asz) = let
+  var env: void = () in
+  arrayref_iforeach_env<a><void> (A, asz, env)
 end // end of [arrayref_iforeach]
 
 implement
@@ -191,8 +193,10 @@ end // end of [arrayref_iforeach_env]
 (* ****** ****** *)
 
 implement{a}
-arrayref_rforeach (A, asz) = let
-  var env: void = () in arrayref_rforeach_env<a><void> (A, asz, env)
+arrayref_rforeach
+  (A, asz) = let
+  var env: void = () in
+  arrayref_rforeach_env<a><void> (A, asz, env)
 end // end of [arrayref_rforeach]
 
 implement
@@ -208,7 +212,7 @@ end // end of [arrayref_rforeach_env]
 
 implement{a}
 arrayref_tabulate
-  (asz) = arrayptr_refize (arrayptr_tabulate (asz))
+  (asz) = arrayptr_refize (arrayptr_tabulate<a> (asz))
 // end of [arrayref_tabulate]
 
 (* ****** ****** *)
@@ -249,26 +253,30 @@ arrszref_make_arrayref (A, asz) = ARRSZREF (A, asz)
 implement{}
 arrszref_get_ref
   (ASZ) = let
-  val+ARRSZREF
-    (A, _) = ASZ in $UN.cast2Ptr1(A)
-  // end of [val]
-end // end of [arrszref_get_ref]
+//
+val+ARRSZREF
+  (A, asz) = ASZ in $UN.cast2Ptr1(A)
+//
+end // end of [arrszref_get_size]
+
+(* ****** ****** *)
 
 implement{}
-arrszref_get_size
-  (ASZ) = let
-  val+ARRSZREF (_(*A*), asz) = ASZ in asz
-end // end of [arrszref_get_size]
+arrszref_get_size (ASZ) =
+  let val+ARRSZREF (A, asz) = ASZ in asz end 
+// end of [arrszref_get_size]
+
+(* ****** ****** *)
 
 implement{}
 arrszref_get_refsize
-  (ASZ, aszr) = let
+  (ASZ, asz_r) = let
 //
 val+ARRSZREF (A, asz) = ASZ
 prval () = lemma_arrayref_param (A)
 //
 in
-  aszr := asz; A
+  asz_r := asz; A(*arrayref*)
 end // end of [arrszref_get_refsize]
 
 end // end of [local]
@@ -351,8 +359,8 @@ val i = g1ofg0_uint (i)
 in
 //
 if n > i
-  then arrayref_get_at_size (A, i)
-  else $raise ArraySubscriptExn((*fun*))
+then arrayref_get_at_guint (A, i)
+else $raise ArraySubscriptExn((*void*))
 //
 end // end of [arrszref_get_at_size]
 
@@ -363,8 +371,8 @@ arrszref_get_at_gint
 in
 //
 if i >= 0
-  then arrszref_get_at_size (ASZ, g0i2u(i))
-  else $raise ArraySubscriptExn((*fun*)) // i < 0
+then arrszref_get_at_size (ASZ, g0i2u(i))
+else $raise ArraySubscriptExn((* i < 0 *))
 //
 end // end of [arrszref_get_at_gint]
 
@@ -389,8 +397,8 @@ val i = g1ofg0_uint (i)
 in
 //
 if n > i
-  then arrayref_set_at_size (A, i, x)
-  else $raise ArraySubscriptExn((*fun*))
+then arrayref_set_at_guint (A, i, x)
+else $raise ArraySubscriptExn((*void*))
 //
 end // end of [arrszref_set_at_size]
 
@@ -401,8 +409,9 @@ arrszref_set_at_gint
 in
 //
 if i >= 0
-  then arrszref_set_at_size (ASZ, g0i2u(i), x)
-  else $raise ArraySubscriptExn((*fun*)) // i < 0
+then
+  arrszref_set_at_size (ASZ, g0i2u(i), x)
+else $raise ArraySubscriptExn((* i < 0 *))
 //
 end // end of [arrszref_set_at_gint]
 
@@ -427,8 +436,8 @@ val i = g1ofg0_uint (i)
 in
 //
 if n > i
-  then arrayref_exch_at_size (A, i, x)
-  else $raise ArraySubscriptExn((*fun*))
+then arrayref_exch_at_guint (A, i, x)
+else $raise ArraySubscriptExn((*void*))
 // end of [if]
 //
 end // end of [arrszref_exch_at_size]
@@ -440,8 +449,9 @@ arrszref_exch_at_gint
 in
 //
 if i >= 0
-  then arrszref_exch_at_size (ASZ, g0i2u(i), x)
-  else $raise ArraySubscriptExn((*fun*)) // i < 0
+then
+  arrszref_exch_at_size (ASZ, g0i2u(i), x)
+else $raise ArraySubscriptExn((* i < 0 *))
 //
 end // end of [arrszref_exch_at_gint]
 

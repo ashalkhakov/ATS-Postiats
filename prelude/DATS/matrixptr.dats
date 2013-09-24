@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixptr.atxt
-** Time of generation: Mon Jul 22 19:30:25 2013
+** Time of generation: Mon Sep 23 13:57:10 2013
 *)
 
 (* ****** ****** *)
@@ -53,20 +53,12 @@ arrayptr2matrixptr_size (A, m, n) = $UN.castvwtp0 (A)
 (* ****** ****** *)
 
 implement{a}
-matrixptr_make_elt_int
+matrixptr_make_elt
   {m, n} (m, n, x0) = let
   val mn = $UN.cast{Size}(m * n)
 in
   $UN.castvwtp0{matrixptr(a,m,n)}(arrayptr_make_elt<a> (mn, x0))
-end // end of [matrixptr_make_elt_int]
-
-implement{a}
-matrixptr_make_elt_size
-  {m, n} (m, n, x0) = let
-  val mn = $UN.cast{Size}(m * n)
-in
-  $UN.castvwtp0{matrixptr(a,m,n)}(arrayptr_make_elt<a> (mn, x0))
-end // end of [matrixptr_make_elt_size]
+end // end of [matrixptr_make_elt]
 
 (* ****** ****** *)
 
@@ -162,6 +154,13 @@ end // end of [fprint_matrixptr_sep]
 (*
 implement matrixptr_free = ATS_MFREE
 *)
+
+(* ****** ****** *)
+
+implement{a}
+matrixptr_tabulate
+  (nrow, ncol) = matrixptr_encode2(matrix_ptr_tabulate<a> (nrow, ncol))
+// end of [matrixptr_tabulate]
 
 (* ****** ****** *)
 

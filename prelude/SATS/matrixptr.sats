@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixptr.atxt
-** Time of generation: Mon Jul 22 19:30:09 2013
+** Time of generation: Mon Sep 23 13:55:39 2013
 *)
 
 (* ****** ****** *)
@@ -138,20 +138,14 @@ overload arrayptr2matrixptr with arrayptr2matrixptr_int
 overload arrayptr2matrixptr with arrayptr2matrixptr_size
 //
 (* ****** ****** *)
-//
+
 fun{
 a:t0p
-} matrixptr_make_elt_int
-  {m,n:nat} (m: int m, n: int n, x: a):<!wrt> matrixptr(a, m, n)
-fun{
-a:t0p
-} matrixptr_make_elt_size
-  {m,n:int} (m: size_t m, n: size_t n, x: a):<!wrt> matrixptr(a, m, n)
-//
-symintr matrixptr_make_elt
-overload matrixptr_make_elt with matrixptr_make_elt_int
-overload matrixptr_make_elt with matrixptr_make_elt_size
-//
+} matrixptr_make_elt
+  {m,n:int}
+  (m: size_t m, n: size_t n, x: a):<!wrt> matrixptr(a, m, n)
+// end of [matrixptr_make_elt]
+
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -255,6 +249,16 @@ a:vt0p
   (A: matrixptr(INV(a), l, m, n)):<!wrt> void = "mac#%"
 // end of [matrixptr_freelin]
 
+(* ****** ****** *)
+//
+(*
+fun{a:vt0p}
+matrix_tabulate$fopr (i: size_t, j: size_t): (a)
+*)
+fun{a:vt0p}
+matrixptr_tabulate
+  {m,n:int} (nrow: size_t m, ncol: size_t n): matrixptr (a, m, n)
+//
 (* ****** ****** *)
 
 (* end of [matrixptr.sats] *)

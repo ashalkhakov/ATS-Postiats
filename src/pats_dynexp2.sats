@@ -928,7 +928,7 @@ and v2aldec = '{
 , v2aldec_pat= p2at
 , v2aldec_def= d2exp
 , v2aldec_ann= s2expopt // [withtype] annotation
-} // end of [v2aldec]
+} (* end of [v2aldec] *)
 
 and v2aldeclst = List (v2aldec)
 
@@ -936,13 +936,14 @@ and v2aldeclst = List (v2aldec)
 
 and v2ardec = '{
   v2ardec_loc= location
-, v2ardec_knd= int (* knd=0/1:sta/dyn *)
+, v2ardec_knd= int (* knd=0/1:var/ptr *)
 , v2ardec_svar= s2var // static address
-, v2ardec_dvar= d2var // dynamic address
-, v2ardec_wth= d2varopt // proof of at-view
+, v2ardec_dvar= d2var // dynamic variable
+, v2ardec_pfat= d2varopt // proof of at-view
 , v2ardec_type= s2expopt (* type annotation *)
-, v2ardec_ini= d2expopt // value for initialization
-} // end of [v2ardec]
+, v2ardec_init= d2expopt // value for initialization
+, v2ardec_dvaropt= d2varopt // address of variable
+} (* end of [v2ardec] *)
 
 and v2ardeclst = List (v2ardec)
 
@@ -952,7 +953,7 @@ and prv2ardec = '{
   prv2ardec_loc= location
 , prv2ardec_dvar= d2var // dynamic address
 , prv2ardec_type= s2expopt (* optional type anno *)
-, prv2ardec_ini= d2expopt // initial value (optional)
+, prv2ardec_init= d2expopt // initial value (optional)
 } // end of [prv2ardec]
 
 and prv2ardeclst = List (prv2ardec)
@@ -1394,38 +1395,6 @@ fun d2mac_set_def (x: d2mac, def: d2exp): void
 
 (* ****** ****** *)
 
-fun f2undec_make
-(
-  loc: location, d2v_fun: d2var, def: d2exp, ann: s2expopt
-) : f2undec // end of [f2undec_make]
-
-(* ****** ****** *)
-
-fun v2aldec_make
-(
-  loc: location, p2t: p2at, def: d2exp, ann: s2expopt
-) : v2aldec // end of [v2aldec_make]
-
-(* ****** ****** *)
-
-fun v2ardec_make
-(
-  loc: location
-, knd: int // knd=0/1:sta/dyn
-, s2v: s2var // static address
-, d2v: d2var // dynamic address
-, wth: d2varopt // proof of at-view
-, type: s2expopt // type annotatio
-, ini: d2expopt // value for initialization
-) : v2ardec // end of [v2ardec_make]
-
-fun prv2ardec_make
-(
-  loc: location, d2v: d2var, type: s2expopt, ini: d2expopt
-) : prv2ardec // end of [prv2ardec_make]
-
-(* ****** ****** *)
-
 fun i2mpdec_make
 (
   loc: location
@@ -1436,6 +1405,39 @@ fun i2mpdec_make
 , tmpgua: s2explstlst
 , def: d2exp
 ) : i2mpdec // end of [i2mpdec_make]
+
+(* ****** ****** *)
+
+fun f2undec_make
+(
+  loc: location, d2v: d2var, def: d2exp, ann: s2expopt
+) : f2undec // end of [f2undec_make]
+
+(* ****** ****** *)
+
+fun v2aldec_make
+(
+  loc: location, p2t0: p2at, def: d2exp, ann: s2expopt
+) : v2aldec // end of [v2aldec_make]
+
+(* ****** ****** *)
+
+fun v2ardec_make
+(
+  loc: location
+, knd: int // knd=0/1:var/ptr
+, s2v: s2var // static address
+, d2v: d2var // dynamic variable
+, pfat: d2varopt // proof of at-view
+, type: s2expopt // type annotatio
+, init: d2expopt // value for initialization
+, d2vopt: d2varopt // address of variable
+) : v2ardec // end of [v2ardec_make]
+
+fun prv2ardec_make
+(
+  loc: location, d2v: d2var, type: s2expopt, init: d2expopt
+) : prv2ardec // end of [prv2ardec_make]
 
 (* ****** ****** *)
 //

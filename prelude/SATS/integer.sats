@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Tue Aug 20 17:55:50 2013
+** Time of generation: Tue Sep 24 22:24:44 2013
 *)
 
 (* ****** ****** *)
@@ -75,7 +75,19 @@ fun g0int2int_int_llint (x: int):<> llint = "mac#%"
 fun g0int2int_int_ssize (x: int):<> ssize_t = "mac#%"
 //
 (* ****** ****** *)
-
+//
+fun{tk:tk}
+g0int2string (x: g0int (tk)):<!wrt> Strptr1
+//
+fun g0int2string_int (x: int):<!wrt> Strptr1 = "mac#%"
+fun g0int2string_lint (x: lint):<!wrt> Strptr1 = "mac#%"
+fun g0int2string_llint (x: llint):<!wrt> Strptr1 = "mac#%"
+(*
+fun g0int2string_ssize (x: ssize_t):<!wrt> Strptr1 = "mac#%"
+*)
+//
+(* ****** ****** *)
+//
 fun{tk:tk}
 g0string2int (str: NSH(string)):<> g0int (tk)
 //

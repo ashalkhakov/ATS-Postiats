@@ -246,6 +246,7 @@ fun{
 // these functions are based on [fgets];
 // they should only be applied to files containing
 // no occurrences of the NUL character ('\000').
+// Also note that [exit] is called in case of failure
 //
 fun{
 } fileref_get_line_string (inp: FILEref): Strptr1

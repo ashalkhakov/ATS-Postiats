@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer.atxt
-** Time of generation: Tue Aug 20 17:55:51 2013
+** Time of generation: Tue Sep 24 22:24:45 2013
 */
 
 /* ****** ****** */
@@ -138,6 +138,74 @@ int fprintf (FILE *stream, const char *format, ...) ;
 #define atspre_g1uint2uint_size_ullint atspre_g0uint2uint_size_ullint
 #define atspre_g0uint2uint_size_size(x) (x)
 #define atspre_g1uint2uint_size_size atspre_g0uint2uint_size_size
+//
+/* ****** ****** */
+//
+extern
+int snprintf
+(
+  char *str, size_t size, const char *format, ...
+) ; // end of [snprintf]
+//
+ATSinline()
+atstype_string
+atspre_g0int2string_int
+  (atstype_int x)
+{
+  size_t n0 ;
+  char *res ;
+  size_t ntot ;
+  n0 = 4 ;
+  res = ATS_MALLOC(n0) ;
+  ntot = snprintf(res, n0, "%i", x) ;
+  if (ntot >= n0)
+  {
+    ATS_MFREE(res) ;
+    res = (char*)ATS_MALLOC(ntot+1) ;
+    ntot = snprintf(res, ntot+1, "%i", x) ;
+  }
+  return res ;
+}
+//
+ATSinline()
+atstype_string
+atspre_g0int2string_lint
+  (atstype_lint x)
+{
+  size_t n0 ;
+  char *res ;
+  size_t ntot ;
+  n0 = 4 ;
+  res = ATS_MALLOC(n0) ;
+  ntot = snprintf(res, n0, "%li", x) ;
+  if (ntot >= n0)
+  {
+    ATS_MFREE(res) ;
+    res = (char*)ATS_MALLOC(ntot+1) ;
+    ntot = snprintf(res, ntot+1, "%li", x) ;
+  }
+  return res ;
+}
+//
+ATSinline()
+atstype_string
+atspre_g0int2string_llint
+  (atstype_llint x)
+{
+  size_t n0 ;
+  char *res ;
+  size_t ntot ;
+  n0 = 8 ;
+  res = ATS_MALLOC(n0) ;
+  ntot = snprintf(res, n0, "%lli", x) ;
+  if (ntot >= n0)
+  {
+    ATS_MFREE(res) ;
+    res = (char*)ATS_MALLOC(ntot+1) ;
+    ntot = snprintf(res, ntot+1, "%lli", x) ;
+  }
+  return res ;
+}
 //
 /* ****** ****** */
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Thu Aug  8 16:34:04 2013
+** Time of generation: Tue Sep 24 22:24:44 2013
 *)
 
 (* ****** ****** *)
@@ -685,6 +685,15 @@ implement g1uint_neq<sizeknd> = g1uint_neq_size
 implement g1uint_compare<sizeknd> = g1uint_compare_size
 implement g1uint_max<sizeknd> = g1uint_max_size
 implement g1uint_min<sizeknd> = g1uint_min_size
+//
+(* ****** ****** *)
+//
+implement g0int2string<intknd> = g0int2string_int
+implement g0int2string<lintknd> = g0int2string_lint
+implement g0int2string<llintknd> = g0int2string_llint
+(*
+implement g0int2string<ssizeknd> = g0int2string_ssize
+*)
 //
 (* ****** ****** *)
 //

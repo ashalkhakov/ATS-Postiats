@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/float.atxt
-** Time of generation: Wed Jul 31 07:34:56 2013
+** Time of generation: Wed Sep 25 03:17:24 2013
 */
 
 /* ****** ****** */
@@ -45,6 +45,10 @@
 
 #ifndef ATSLIB_PRELUDE_FLOAT_CATS
 #define ATSLIB_PRELUDE_FLOAT_CATS
+
+/* ****** ****** */
+
+#include <math.h>
 
 /* ****** ****** */
 
@@ -237,6 +241,19 @@ atstype_ldouble
 atspre_g0float_div_ldouble
   (atstype_ldouble f1, atstype_ldouble f2) { return (f1 / f2) ; }
 // end of [atspre_g0float_div_ldouble]
+//
+ATSinline()
+atstype_float
+atspre_g0float_mod_float
+  (atstype_float f1, atstype_float f2) { return fmodf (f1, f2) ; }
+ATSinline()
+atstype_double
+atspre_g0float_mod_double
+  (atstype_double f1, atstype_double f2) { return fmod (f1, f2) ; }
+ATSinline()
+atstype_ldouble
+atspre_g0float_mod_ldouble
+  (atstype_ldouble f1, atstype_ldouble f2) { return fmodl (f1, f2) ; }
 //
 /* ****** ****** */
 

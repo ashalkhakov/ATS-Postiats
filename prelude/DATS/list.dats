@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sat Sep  7 12:07:07 2013
+** Time of generation: Wed Sep 25 16:48:35 2013
 *)
 
 (* ****** ****** *)
@@ -1000,18 +1000,20 @@ list_equal (xs1, xs2) = let
 in
 //
 case+ xs1 of
-| list_cons (x1, xs1) => (
-  case+ xs2 of
-  | list_cons (x2, xs2) => let
-      val iseq = list_equal$pred (x1, x2)
-    in
-      if iseq then list_equal<x> (xs1, xs2) else false
-    end
-  | list_nil () => false
+| list_cons (x1, xs1) =>
+  (
+    case+ xs2 of
+    | list_cons
+        (x2, xs2) => let
+        val iseq = list_equal$pred<x> (x1, x2)
+      in
+        if iseq then list_equal<x> (xs1, xs2) else false
+      end
+    | list_nil () => false
   ) // end of [list_cons]
-| list_nil () => (
-  case+ xs2 of
-  | list_cons _ => false | list_nil () => true
+| list_nil ((*void*)) =>
+  (
+    case+ xs2 of list_cons _ => false | list_nil () => true
   ) // end of [list_nil]
 //
 end // end of [list_equal]

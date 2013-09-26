@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sat Sep 21 00:31:21 2013
+** Time of generation: Wed Sep 25 16:48:34 2013
 *)
 
 (* ****** ****** *)
@@ -261,14 +261,14 @@ fun{x:t0p}
 list_head_exn{n:int} (xs: list (INV(x), n)):<!exn> (x)
 
 (* ****** ****** *)
-//
+
 fun{x:t0p}
 list_tail{n:pos}
   (xs: SHR(list (INV(x), n))):<> list (x, n-1)
 fun{x:t0p}
 list_tail_exn{n:int}
   (xs: SHR(list (INV(x), n))):<!exn> list (x, n-1)
-//
+
 (* ****** ****** *)
 
 fun{x:t0p}
@@ -278,6 +278,13 @@ list_last_exn{n:int} (xs: list (INV(x), n)):<!exn> (x)
 
 (* ****** ****** *)
 //
+symintr .head .tail .last
+overload .head with list_head
+overload .tail with list_tail
+overload .last with list_last
+//
+(* ****** ****** *)
+
 fun{
 x:t0p
 } list_nth{n:int}

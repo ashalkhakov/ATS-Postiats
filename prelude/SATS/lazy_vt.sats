@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/lazy_vt.atxt
-** Time of generation: Mon Jul 22 19:30:04 2013
+** Time of generation: Sat Sep 28 21:38:09 2013
 *)
 
 (* ****** ****** *)
@@ -40,27 +40,27 @@ sortdef t0p = t@ype and vt0p = vt@ype
 (* ****** ****** *)
 //
 // HX: [lazy_vt(VT)] :
-// suspended computation of a linear value of viewtype VT
+// suspended computation of viewtype VT
 //
-absvtype
-lazy_vt0ype_vtype
-  (a:vt@ype+) // boxed linear type // unnamed
-stadef lazy_vt = lazy_vt0ype_vtype
+absvtype lazy_vt0ype_vtype (vt@ype+) = ptr
+//
+vtypedef lazy_vt (a: vt0p)= lazy_vt0ype_vtype (a)
 //
 (* ****** ****** *)
-
-fun{a:vt0p}
-lazy_vt_free (x: lazy_vt (a)):<!wrt> void
+//
+fun
+lazy_vt_free{a:vt0p}
+  (lazyval: lazy_vt (a)):<!wrt> void = "mac#atspre_lazy_vt_free"
 overload ~ with lazy_vt_free
-
+//
 (* ****** ****** *)
 //
 // HX: lazy linear streams
 //
 datavtype
 stream_vt_con (a:vt@ype+) =
-  | stream_vt_cons (a) of (a, stream_vt a) | stream_vt_nil (a) of ()
-where stream_vt (a:vt@ype) = lazy_vt (stream_vt_con a)
+  | stream_vt_nil of ((*void*)) | stream_vt_cons of (a, stream_vt(a))
+where stream_vt (a:vt@ype) = lazy_vt (stream_vt_con(a))
 //
 (* ****** ****** *)
 
@@ -89,7 +89,7 @@ a:vt0p}{env:vt0p
 (* ****** ****** *)
 //
 fun{a:vt0p}
-stream_vt_filter$pred (x: &a): bool
+stream_vt_filter$pred (x: &a):<> bool
 //
 fun{a:t0p}
 stream_vt_filter (xs: stream_vt (INV(a))): stream_vt (a)
@@ -97,11 +97,11 @@ stream_vt_filter (xs: stream_vt (INV(a))): stream_vt (a)
 fun{a:t0p}
 stream_vt_filter_fun (
   xs: stream_vt (INV(a)), pred: (&a) -<fun> bool
-) :<> stream_vt (a) // end of [stream_vt_filter_fun]
+) : stream_vt (a) // end of [stream_vt_filter_fun]
 fun{a:t0p}
 stream_vt_filter_cloptr (
   xs: stream_vt (INV(a)), pred: (&a) -<cloptr> bool
-) :<> stream_vt (a) // end of [stream_vt_filter_cloptr]
+) : stream_vt (a) // end of [stream_vt_filter_cloptr]
 //
 fun{a:vt0p}
 stream_vt_filterlin$clear (x: &a >> a?):<!wrt> void
@@ -112,7 +112,7 @@ stream_vt_filterlin (xs: stream_vt (INV(a))): stream_vt (a)
 //
 fun{
 a:vt0p}{b:vt0p
-} stream_vt_map$fwork (x: &a >> a?!): b // lin-cleared
+} stream_vt_map$fopr (x: &a >> a?!): b // lin-cleared
 fun{
 a:vt0p}{b:vt0p
 } stream_vt_map (xs: stream_vt (INV(a))): stream_vt (b)
@@ -130,7 +130,7 @@ a:vt0p}{b:vt0p
 //
 fun{
 a1,a2:vt0p}{b:vt0p
-} stream_vt_map2$fwork
+} stream_vt_map2$fopr
   (x1: &a1 >> a1?!, x2: &a2 >> a2?!): b
 fun{
 a1,a2:vt0p}{b:vt0p

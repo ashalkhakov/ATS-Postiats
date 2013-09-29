@@ -336,6 +336,12 @@ hidexp_empty (loc, hse) =
   hidexp_make_node (loc, hse, HDEempty ())
 // end of [hidexp_empty]
 
+implement
+hidexp_ignore
+  (loc, hse, hde) = 
+  hidexp_make_node (loc, hse, HDEignore (hde))
+// end of [hidexp_ignore]
+
 (* ****** ****** *)
 
 implement
@@ -599,6 +605,25 @@ hidexp_fix
   hidexp_make_node (loc, hse, HDEfix (knd, f_d2v, hde_def))
 // end of [hidexp_fix]
 
+(* ****** ****** *)
+//
+implement
+hidexp_delay
+  (loc, hse, hde) =
+  hidexp_make_node (loc, hse, HDEdelay (hde))
+// end of [hidexp_delay]
+implement
+hidexp_ldelay
+  (loc, hse, _eval, _free) =
+  hidexp_make_node (loc, hse, HDEldelay (_eval, _free))
+// end of [hidexp_ldelay]
+//
+implement
+hidexp_lazyeval
+  (loc, hse, lin, hde) =
+  hidexp_make_node (loc, hse, HDElazyeval (lin, hde))
+// end of [hidexp_lazyeval]
+//
 (* ****** ****** *)
 
 implement

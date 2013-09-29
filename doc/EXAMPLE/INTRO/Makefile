@@ -53,6 +53,8 @@ all:: intrange
 all:: linenmbr
 all:: listfuns
 all:: ordset
+all:: sieve_lazy
+all:: sieve_llazy
 all:: staref
 all:: strprefix
 all:: tally
@@ -82,6 +84,8 @@ cleanall:: ; $(RMF) intrange
 cleanall:: ; $(RMF) linenmbr
 cleanall:: ; $(RMF) listfuns
 cleanall:: ; $(RMF) ordset
+cleanall:: ; $(RMF) sieve_lazy
+cleanall:: ; $(RMF) sieve_llazy
 cleanall:: ; $(RMF) staref
 cleanall:: ; $(RMF) strprefix
 cleanall:: ; $(RMF) tally
@@ -144,7 +148,8 @@ intrange: intrange.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
 
 ######
 
-linenmbr: linenmbr.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $< myatslib.dats 
+linenmbr: linenmbr.dats ; \
+  $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $< myatslib.dats 
 
 ######
 
@@ -153,6 +158,15 @@ listfuns: listfuns.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
 ######
 
 ordset: ordset.dats ; $(PATSCC) -DATS_MEMALLOC_LIBC -o $@ $<
+
+######
+
+sieve_lazy: sieve_lazy.dats ; \
+  $(PATSCC) -D_GNU_SOURCE -DATS_MEMALLOC_GCBDW -O2 -o $@ $< -lgc
+
+sieve_llazy: sieve_llazy_dats.c ; \
+  $(PATSCC) -cleanaft -D_GNU_SOURCE -DATS_MEMALLOC_LIBC -O2 -o $@ $<
+sieve_llazy_dats.c: sieve_llazy.dats ; $(PATSCC) -ccats $<
 
 ######
 

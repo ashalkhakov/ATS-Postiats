@@ -276,6 +276,7 @@ and hidexp_node =
 //
   | HDEtop of () // for uninitialized
   | HDEempty of () // for the void value
+  | HDEignore of (hidexp) // ignoring the value of hidexp
 //
   | HDEextval of (string(*name*)) // externally named values
   | HDEcastfn of (d2cst, hidexp(*arg*)) // castfn application
@@ -347,6 +348,10 @@ and hidexp_node =
   | HDElam of (int(*knd=0/1:flat/boxed*), hipatlst, hidexp) // HX: lam_dyn
 //
   | HDEfix of (int(*knd=0/1:flat/boxed*), d2var(*fixvar*), hidexp) // fixed-point
+//
+  | HDEdelay of hidexp(*eval*) // delayed evaluation
+  | HDEldelay of (hidexp(*eval*), hidexp(*free*)) // delayed evaluation
+  | HDElazyeval of (int(*lin*), hidexp) // lazy-value evaluation
 //
   | HDEloop of (* for/while-loops *)
     (
@@ -475,6 +480,7 @@ fun prerr_hidexp (x: hidexp): void
 overload prerr with prerr_hidexp
 
 fun fprint_hidexplst : fprint_type (hidexplst)
+fun fprint_hidexpopt : fprint_type (hidexpopt)
 fun fprint_labhidexplst : fprint_type (labhidexplst)
 
 (* ****** ****** *)
@@ -557,6 +563,8 @@ fun hidexp_top
   (loc: location, hse: hisexp): hidexp
 fun hidexp_empty
   (loc: location, hse: hisexp): hidexp
+fun hidexp_ignore
+  (loc: location, hse: hisexp, hde: hidexp): hidexp
 
 (* ****** ****** *)
 
@@ -747,6 +755,16 @@ fun hidexp_fix
   loc: location, hse: hisexp, knd: int, f_d2v: d2var, hde_def: hidexp
 ) : hidexp // end of [hidexp_fix]
 
+(* ****** ****** *)
+//
+fun hidexp_delay
+  (loc: location, hse: hisexp, hde: hidexp): hidexp
+fun hidexp_ldelay
+  (loc: location, hse: hisexp, _eval: hidexp, _free: hidexp): hidexp
+//
+fun hidexp_lazyeval
+  (loc: location, hse: hisexp, lin: int, hde: hidexp): hidexp
+//
 (* ****** ****** *)
 
 fun hidexp_loop

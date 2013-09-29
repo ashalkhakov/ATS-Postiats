@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/lazy.atxt
-** Time of generation: Mon Jul 22 19:30:04 2013
+** Time of generation: Sat Sep 28 21:29:45 2013
 *)
 
 (* ****** ****** *)
@@ -39,12 +39,12 @@ sortdef t0p = t@ype
 
 (* ****** ****** *)
 //
-// HX:
-// [lazy(T)] : suspended computation of a value of type T
+// HX: [lazy(T)] :
+// suspended evaluation of type T
 //
-abstype
-lazy_t0ype_type (t@ype+) // boxed type // unnamed
-stadef lazy = lazy_t0ype_type
+abstype lazy_t0ype_type (t@ype+) = ptr
+//
+typedef lazy (a:t0p) = lazy_t0ype_type (a)
 //
 (* ****** ****** *)
 //
@@ -52,16 +52,16 @@ stadef lazy = lazy_t0ype_type
 //
 datatype
 stream_con (a:t@ype+) =
-  | stream_cons (a) of (a, stream a) | stream_nil (a) of ()
-where stream (a:t@ype) = lazy (stream_con a)
+  | stream_nil of ((*void*)) | stream_cons of (a, stream(a))
+where stream (a:t@ype) = lazy (stream_con(a))
 //
 (* ****** ****** *)
 
-(*
 exception StreamSubscriptExn of ()
-*)
+(*
 fun StreamSubscriptExn ():<> exn = "mac#StreamSubscriptExn_make"
 fun isStreamSubscriptExn (x: !exn):<> bool = "mac#isStreamSubscriptExn"
+*)
 
 (* ****** ****** *)
 
@@ -129,7 +129,7 @@ stream_filter_cloref
 
 fun{
 a:t0p}{b:t0p
-} stream_map$fwork (x: a):<!laz> b
+} stream_map$fopr (x: a):<!laz> b
 fun{
 a:t0p}{b:t0p
 } stream_map (xs: stream (INV(a))):<> stream (b)
@@ -148,7 +148,7 @@ a:t0p}{b:t0p
 
 fun{
 a1,a2:t0p}{b:t0p
-} stream_map2$fwork (x1: a1, x2: a2):<!laz> b
+} stream_map2$fopr (x1: a1, x2: a2):<!laz> b
 fun{
 a1,a2:t0p}{b:t0p
 } stream_map2

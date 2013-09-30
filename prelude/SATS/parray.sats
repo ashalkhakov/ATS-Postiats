@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/parray.atxt
-** Time of generation: Mon Jul 22 19:30:11 2013
+** Time of generation: Mon Sep 30 01:01:40 2013
 *)
 
 (* ****** ****** *)
@@ -48,6 +48,7 @@ sortdef vtp = viewtype
 (*
 ** HX: for null-pointer terminated arrays
 *)
+
 dataview
 parray_v (
   a:viewt@ype+, addr(*l*), int(*n*)

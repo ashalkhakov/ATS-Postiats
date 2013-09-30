@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/extern.atxt
-** Time of generation: Sat Aug 10 10:52:58 2013
+** Time of generation: Mon Sep 30 01:01:40 2013
 *)
 
 (* ****** ****** *)
@@ -38,6 +38,10 @@
 (* Author: Hongwei Xi *)
 (* Authoremail: hwxi AT cs DOT bu DOT edu *)
 (* Start time: March, 2012 *)
+
+(* ****** ****** *)
+
+sortdef vt0p = viewt@ype
 
 (* ****** ****** *)
 //

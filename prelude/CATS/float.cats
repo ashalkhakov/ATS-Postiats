@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/float.atxt
-** Time of generation: Fri Sep 27 21:57:46 2013
+** Time of generation: Mon Sep 30 01:02:03 2013
 */
 
 /* ****** ****** */

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/lazy_vt.atxt
-** Time of generation: Sat Sep 28 21:38:09 2013
+** Time of generation: Mon Sep 30 01:01:33 2013
 *)
 
 (* ****** ****** *)

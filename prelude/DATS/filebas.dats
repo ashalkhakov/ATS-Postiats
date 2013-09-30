@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Thu Jul 25 11:29:34 2013
+** Time of generation: Mon Sep 30 01:01:43 2013
 *)
 
 (* ****** ****** *)
@@ -456,17 +456,9 @@ fileref_get_file_charlst
 implement
 fileref_nget_file_charlst
   {n} (inp, n) = let
-  var res: ptr?
-  val nl = loop (inp, n, res)
-  val n2 = g1ofg0_int (n - nl)
-  prval [n2:int] EQINT () = eqint_make_gint (n2)
-  val () = n := n2
-  prval () = __assert () where
-  {
-    extern praxi __assert (): [0 <= n2; n2 <= n] void
-  } (* end of [prval] *)
+  var res: ptr; val _(*nleft*) = loop (inp, n, res)
 in
-  $UN.castvwtp0{list_vt(char,n2)}(res)
+  $UN.castvwtp0{listLte_vt(char,n)}(res)
 end // end of [fileref_nget_file_charlst]
 
 end // end of [local]

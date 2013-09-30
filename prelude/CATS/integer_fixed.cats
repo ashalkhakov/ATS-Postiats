@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Tue Aug 27 23:57:08 2013
+** Time of generation: Mon Sep 30 01:02:00 2013
 */
 
 /* ****** ****** */

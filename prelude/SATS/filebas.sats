@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Thu Jul 25 08:35:16 2013
+** Time of generation: Mon Sep 30 01:01:33 2013
 *)
 
 (* ****** ****** *)
@@ -38,6 +38,10 @@
 (* Author: Hongwei Xi *)
 (* Authoremail: hwxi AT cs DOT bu DOT edu *)
 (* Start time: February, 2012 *)
+
+(* ****** ****** *)
+
+sortdef t0p = t@ype and vt0p = viewt@ype
 
 (* ****** ****** *)
 
@@ -220,17 +224,13 @@ fun fileref_get_line_charlst (inp: FILEref): charlst_vt
 fun fileref_get_lines_charlstlst (inp: FILEref): List0_vt (charlst_vt)
 
 (* ****** ****** *)
-//
+
 (*
 ** HX: for handling files of "tiny" size
 *)
 fun fileref_get_file_charlst (inp: FILEref): List0_vt (char)
-//
-(* ****** ****** *)
-//
-fun fileref_nget_file_charlst{n:nat}
-  (inp: FILEref, n: &int(n) >> int(n2)): #[n2:nat | n2 <= n] list_vt (char, n2)
-//
+fun fileref_nget_file_charlst {n:nat} (inp: FILEref, n: int n): listLte_vt (char, n)
+
 (* ****** ****** *)
 
 fun fileref_put_charlst (inp: FILEref, cs: NSH(List(char))): void
@@ -246,7 +246,6 @@ fun{
 // these functions are based on [fgets];
 // they should only be applied to files containing
 // no occurrences of the NUL character ('\000').
-// Also note that [exit] is called in case of failure
 //
 fun{
 } fileref_get_line_string (inp: FILEref): Strptr1

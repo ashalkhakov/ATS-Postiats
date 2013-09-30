@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer.atxt
-** Time of generation: Mon Sep 30 10:24:05 2013
+** Time of generation: Mon Sep 30 12:15:13 2013
 */
 
 /* ****** ****** */
@@ -141,16 +141,15 @@ int fprintf (FILE *stream, const char *format, ...) ;
 //
 /* ****** ****** */
 //
-/*
-//
 // HX-2013-09: declared in [stdio.h]
 //
+#ifndef snprintf
 extern
 int snprintf
 (
   char *str, size_t size, const char *format, ...
 ) ; // end of [snprintf]
-*/
+#endif // end of [ifndef]
 //
 ATSinline()
 atstype_string

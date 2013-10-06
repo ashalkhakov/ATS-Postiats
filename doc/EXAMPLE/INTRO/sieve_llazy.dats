@@ -19,8 +19,6 @@
 #include
 "share/atspre_staload.hats"
 //
-staload "prelude/DATS/lazy_vt.dats"
-//
 (* ****** ****** *)
 
 #define :: stream_vt_cons
@@ -91,10 +89,10 @@ implement
 main0 () = begin
 //
 (*
-println! ("prime 1000 = ", prime_get (1000)) ; // = 7927
-println! ("prime 5000 = ", prime_get (5000)) ; // = 48619
+println! ("prime(1000) = ", prime_get (1000)) ; // = 7927
+println! ("prime(5000) = ", prime_get (5000)) ; // = 48619
 *)
-println! ("prime 10000 = ", prime_get (10000)) ; // = 104743
+println! ("prime(10000) = ", prime_get (10000)) ; // = 104743
 //
 end // end of [main0]
 

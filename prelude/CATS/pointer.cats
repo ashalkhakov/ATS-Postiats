@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Mon Sep 30 01:02:02 2013
+** Time of generation: Mon Sep 30 14:09:19 2013
 */
 
 /* ****** ****** */
@@ -48,9 +48,10 @@
 
 /* ****** ****** */
 
+#ifndef fprintf
 extern
 int fprintf (FILE *stream, const char *format, ...) ;
-// in [stdio.h]
+#endif // end of [ifndef]
 
 /* ****** ****** */
 

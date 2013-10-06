@@ -29,8 +29,8 @@
 
 (*
 ** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/lazy_vt.atxt
-** Time of generation: Mon Sep 30 01:01:33 2013
+** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
+** Time of generation: Sun Oct  6 09:14:48 2013
 *)
 
 (* ****** ****** *)
@@ -64,6 +64,11 @@ where stream_vt (a:vt@ype) = lazy_vt (stream_vt_con(a))
 //
 (* ****** ****** *)
 
+vtypedef
+streamopt_vt (a:vt0p) = Option_vt(stream_vt(a))
+
+(* ****** ****** *)
+
 fun{a:vt0p}
 stream2list_vt
   (xs: stream_vt (INV(a))): List0_vt (a)
@@ -76,15 +81,22 @@ stream_vt_free (xs: stream_vt a):<!wrt> void
 
 (* ****** ****** *)
 
+fun{a:t0p}
+stream_vt_drop
+  (xs: stream_vt(INV(a)), n: intGte(0)): streamopt_vt(a)
+// end of [stream_vt_drop]
+
+(* ****** ****** *)
+
 fun{
 a:vt0p}{env:vt0p
 } stream_vt_foreach$fwork
-  (x: &a >> a?!, env: &env): void // lin-cleared
+  (x: &a >> a?!, env: &env >> _): void // lin-cleared
 fun{a:vt0p}
 stream_vt_foreach (xs: stream_vt (INV(a))): void
 fun{
 a:vt0p}{env:vt0p
-} stream_vt_foreach_env (xs: stream_vt (a), &env): void
+} stream_vt_foreach_env (xs: stream_vt (INV(a)), &env >> _): void
 
 (* ****** ****** *)
 //
@@ -129,31 +141,33 @@ a:vt0p}{b:vt0p
 (* ****** ****** *)
 //
 fun{
-a1,a2:vt0p}{b:vt0p
+a1,a2:t0p}{b:vt0p
 } stream_vt_map2$fopr
-  (x1: &a1 >> a1?!, x2: &a2 >> a2?!): b
+  (x1: &a1 >> _, x2: &a2 >> _): b
 fun{
-a1,a2:vt0p}{b:vt0p
+a1,a2:t0p}{b:vt0p
 } stream_vt_map2 (
   xs1: stream_vt (INV(a1))
 , xs2: stream_vt (INV(a2))
 ) : stream_vt (b) // end of [stream_vt_map2]
 //
 fun{
-a1,a2:vt0p}{b:vt0p
-} stream_vt_map2_fun (
+a1,a2:t0p}{b:vt0p
+} stream_vt_map2_fun
+(
   xs1: stream_vt (INV(a1))
 , xs2: stream_vt (INV(a2))
-, f: (&a1 >> a1?!, &a2 >> a2?!) -<fun> b
+, f: (&a1 >> _, &a2 >> _) -<fun> b
 ) : stream_vt (b) // end of [stream_vt_map2_fun]
 fun{
-a1,a2:vt0p}{b:vt0p
-} stream_vt_map2_cloptr (
+a1,a2:t0p}{b:vt0p
+} stream_vt_map2_cloptr
+(
   xs1: stream_vt (INV(a1))
 , xs2: stream_vt (INV(a2))
-, f: (&a1 >> a1?!, &a2 >> a2?!) -<cloptr> b
+, f: (&a1 >> _, &a2 >> _) -<cloptr> b
 ) : stream_vt (b) // end of [stream_vt_map2_cloptr]
 //
 (* ****** ****** *)
 
-(* end of [lazy_vt.sats] *)
+(* end of [stream_vt.sats] *)

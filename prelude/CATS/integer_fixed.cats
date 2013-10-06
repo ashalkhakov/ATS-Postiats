@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Mon Sep 30 01:02:00 2013
+** Time of generation: Mon Sep 30 14:09:19 2013
 */
 
 /* ****** ****** */
@@ -64,9 +64,10 @@ typedef uint64_t atstype_uint64 ;
 
 /* ****** ****** */
 
+#ifndef fprintf
 extern
 int fprintf (FILE *stream, const char *format, ...) ;
-// in [stdio.h]
+#endif // end of [ifndef]
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_quicksort.atxt
-** Time of generation: Mon Sep 30 01:01:54 2013
+** Time of generation: Sat Oct  5 14:39:01 2013
 *)
 
 (* ****** ****** *)
@@ -48,6 +48,7 @@ staload UN = "prelude/SATS/unsafe.sats"
 implement{a}
 list_vt_quicksort$cmp (x1, x2) = gcompare_ref<a> (x1, x2)
 
+(* ****** ****** *)
 (*
 ** HX-2012-05:
 ** copy a list into an array, perform quicksort on the

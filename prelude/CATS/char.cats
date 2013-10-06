@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Mon Sep 30 01:02:03 2013
+** Time of generation: Mon Sep 30 14:09:20 2013
 */
 
 /* ****** ****** */
@@ -64,9 +64,10 @@ extern int toascii (int c) ; // _XOPEN_SOURCE
 
 /* ****** ****** */
 
+#ifndef fprintf
 extern
 int fprintf (FILE *stream, const char *format, ...) ;
-// in [stdio.h]
+#endif // end of [ifndef]
 
 /* ****** ****** */
 

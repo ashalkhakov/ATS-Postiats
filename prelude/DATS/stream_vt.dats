@@ -37,7 +37,7 @@
 (* ****** ****** *)
 
 #if VERBOSE_PRELUDE #then
-#print "Loading [lazy_vt.dats] starts!\n"
+#print "Loading [stream_vt.dats] starts!\n"
 #endif // end of [VERBOSE_PRELUDE]
 
 (* ****** ****** *)
@@ -52,8 +52,30 @@ stream_vt_free (xs) = ~(xs)
 (* ****** ****** *)
 
 implement{a}
-stream_vt_foreach (xs) = let
-  var env: void = () in stream_vt_foreach_env<a><void> (xs, env)
+stream_vt_drop
+  (xs, n) = let
+in
+//
+if n > 0 then
+(
+case+ !xs of
+| ~stream_vt_cons
+    (_, xs) => stream_vt_drop (xs, n-1)
+| ~stream_vt_nil ((*void*)) => None_vt ()
+) else (
+  Some_vt{stream_vt(a)}(xs)
+) (* end of [if] *)
+//
+end // end of [stream_vt_drop]
+
+(* ****** ****** *)
+
+implement{a}
+stream_vt_foreach
+  (xs) = let
+  var env: void = ()
+in
+  stream_vt_foreach_env<a><void> (xs, env)
 end // end of [stream_vt_foreach]
 
 implement{a}{env}
@@ -224,10 +246,148 @@ end // end of [local]
 
 (* ****** ****** *)
 
+local
+
+fun{
+a:vt0p}{b:vt0p
+} stream_vt_map_con
+(
+  xs: stream_vt (a)
+) : stream_vt_con (b) = let
+  val xs_con = !xs
+in
+//
+case+ xs_con of
+| @stream_vt_cons (x, xs) => let
+    val y = stream_vt_map$fopr<a><b> (x)
+    val xs = xs
+    val ((*void*)) = free@ (xs_con)
+  in
+    stream_vt_cons{b}(y, stream_vt_map<a><b> (xs))
+  end (* end of [stream_vt_con] *)
+| ~stream_vt_nil ((*void*)) => stream_vt_nil ()
+//
+end // end of [stream_vt_map_con]
+
+in (* in of [local] *)
+
+implement
+{a}{b}(*tmp*)
+stream_vt_map (xs) = $ldelay (stream_vt_map_con<a><b> (xs), ~xs)
+
+end // end of [local]
+
+(* ****** ****** *)
+
+implement
+{a}{b}(*tmp*)
+stream_vt_map_fun
+  (xs, f) = let
+//
+implement
+{a2}{b2}
+stream_vt_map$fopr (x) = let
+  prval () = __assert (x) where
+  {
+    extern praxi __assert (x: &a2 >> a2?!): void
+  }
+  val (
+    pf, fpf | p_x
+  ) = $UN.ptr0_vtake{a}(addr@x)
+  val res = $UN.castvwtp0{b2}(f(!p_x))
+  prval () = $UN.castview0{void}(@(fpf, pf))
+in
+  res
+end (* end of [stream_vt_map$fopr] *)
+//
+in
+  stream_vt_map<a><b> (xs)
+end // end of [stream_vt_map_fun]
+
+(* ****** ****** *)
+
+local
+
+fun{
+a1,a2:t0p}{b:vt0p
+} stream_vt_map2_con
+(
+  xs1: stream_vt (a1)
+, xs2: stream_vt (a2)
+) : stream_vt_con (b) = let
+  val xs1_con = !xs1
+in
+//
+case+ xs1_con of
+| @stream_vt_cons
+    (x1, xs1) => let
+    val xs2_con = !xs2
+  in
+    case+ xs2_con of
+    | @stream_vt_cons
+        (x2, xs2) => let
+        val y = stream_vt_map2$fopr<a1,a2><b> (x1, x2)
+        val xs1 = xs1
+        and xs2 = xs2
+        val () = free@ (xs1_con)
+        and () = free@ (xs2_con)
+      in
+        stream_vt_cons{b}(y, stream_vt_map2<a1,a2><b> (xs1, xs2))
+      end // end of [stream_vt_cons]
+    | ~stream_vt_nil () => let
+        val xs1 = xs1
+        val () = free@ (xs1_con)
+      in
+        ~xs1; stream_vt_nil ()
+      end // end of [stream_vt_nil]
+  end // end of [stream_vt_cons]
+| ~stream_vt_nil ((*void*)) => (~xs2; stream_vt_nil ())
+//
+end // end of [stream_vt_map_con]
+
+in (* in of [local] *)
+
+implement
+{a1,a2}{b}
+stream_vt_map2
+  (xs1, xs2) = $ldelay
+  (stream_vt_map2_con<a1,a2><b> (xs1, xs2), (~xs1; ~xs2))
+// end of [stream_vt_map2]
+
+implement
+{a1,a2}{b}
+stream_vt_map2_fun
+  (xs1, xs2, f) = let
+//
+implement
+{a12,a22}{b2}
+stream_vt_map2$fopr
+  (x1, x2) = let
+  val (
+    pf1, fpf1 | p_x1
+  ) = $UN.ptr0_vtake{a1}(addr@x1)
+  and (
+    pf2, fpf2 | p_x2
+  ) = $UN.ptr0_vtake{a2}(addr@x2)
+  val res =
+    $UN.castvwtp0{b2}(f(!p_x1, !p_x2))
+  prval () = fpf1 (pf1) and () = fpf2 (pf2)
+in
+  res
+end (* end of [stream_vt_map2$fopr] *)
+//
+in
+  stream_vt_map2<a1,a2><b> (xs1, xs2)
+end // end of [stream_vt_map2_fun]
+
+end // end of [local]
+
+(* ****** ****** *)
+
 #if VERBOSE_PRELUDE #then
-#print "Loading [lazy_vt.dats] finishes!\n"
+#print "Loading [stream_vt.dats] finishes!\n"
 #endif // end of [VERBOSE_PRELUDE]
 
 (* ****** ****** *)
 
-(* end of [lazy_vt.dats] *)
+(* end of [stream_vt.dats] *)

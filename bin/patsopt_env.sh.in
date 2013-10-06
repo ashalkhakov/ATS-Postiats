@@ -22,7 +22,7 @@ prog=`basename $0`
 
 case $prog in
   patsopt)
-    exec "$prefix/bin/$prog" "$@"
+    exec "$PATSHOME/bin/$prog" "$@"
     ;;
   *)
     echo "This is a script for patsopt."

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_ptr.atxt
-** Time of generation: Mon Sep 30 01:02:00 2013
+** Time of generation: Mon Sep 30 14:09:18 2013
 */
 
 /* ****** ****** */
@@ -57,9 +57,10 @@ typedef uintptr_t atstype_uintptr ;
 
 /* ****** ****** */
 
+#ifndef fprintf
 extern
 int fprintf (FILE *stream, const char *format, ...) ;
-// in [stdio.h]
+#endif // end of [ifndef]
 
 /* ****** ****** */
 //

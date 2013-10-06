@@ -29,8 +29,8 @@
 
 (*
 ** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/lazy.atxt
-** Time of generation: Mon Sep 30 01:01:33 2013
+** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
+** Time of generation: Sun Oct  6 09:14:48 2013
 *)
 
 (* ****** ****** *)
@@ -129,26 +129,26 @@ stream_filter_cloref
 
 fun{
 a:t0p}{b:t0p
-} stream_map$fopr (x: a):<!laz> b
+} stream_map$fopr (x: a):<> b
 fun{
 a:t0p}{b:t0p
 } stream_map (xs: stream (INV(a))):<> stream (b)
 fun{
 a:t0p}{b:t0p
 } stream_map_fun
-  (xs: stream (INV(a)), f: (a) -<fun,!laz> b):<> stream (b)
+  (xs: stream (INV(a)), f: (a) -<fun> b):<> stream (b)
 // end of [stream_map_fun]
 fun{
 a:t0p}{b:t0p
 } stream_map_cloref
-  (xs: stream (INV(a)), f: (a) -<cloref,!laz> b):<> stream (b)
+  (xs: stream (INV(a)), f: (a) -<cloref> b):<> stream (b)
 // end of [stream_map_cloref]
 
 (* ****** ****** *)
 
 fun{
 a1,a2:t0p}{b:t0p
-} stream_map2$fopr (x1: a1, x2: a2):<!laz> b
+} stream_map2$fopr (x1: a1, x2: a2):<> b
 fun{
 a1,a2:t0p}{b:t0p
 } stream_map2
@@ -156,18 +156,18 @@ a1,a2:t0p}{b:t0p
 // end of [stream_map2]
 fun{
 a1,a2:t0p}{b:t0p
-} stream_map2_fun (
+} stream_map2_fun
+(
   xs1: stream (INV(a1))
-, xs2: stream (INV(a2))
-, f: (a1, a2) -<fun,!laz> b
+, xs2: stream (INV(a2)), f: (a1, a2) -<fun> b
 ) :<> stream (b)
 // end of [stream_map2_fun]
 fun{
 a1,a2:t0p}{b:t0p
-} stream_map2_cloref (
+} stream_map2_cloref
+(
   xs1: stream (INV(a1))
-, xs2: stream (INV(a2))
-, f: (a1, a2) -<cloref,!laz> b
+, xs2: stream (INV(a2)), f: (a1, a2) -<cloref> b
 ) :<> stream (b)
 // end of [stream_map2_cloref]
 
@@ -179,14 +179,16 @@ fun{a:t0p}
 stream_merge
   (xs1: stream (INV(a)), xs2: stream (a)):<> stream (a)
 fun{a:t0p}
-stream_merge_fun (
+stream_merge_fun
+(
   xs1: stream (INV(a)), xs2: stream (a), (a, a) -<fun> int
 ) :<> stream (a) // end of [stream_merge_fun]
 fun{a:t0p}
-stream_merge_cloref (
+stream_merge_cloref
+(
   xs1: stream (INV(a)), xs2: stream (a), (a, a) -<cloref> int
 ) :<> stream (a) // end of [stream_merge_cloref]
 
 (* ****** ****** *)
 
-(* end of [lazy.sats] *)
+(* end of [stream.sats] *)

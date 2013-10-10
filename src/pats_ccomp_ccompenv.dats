@@ -1035,12 +1035,10 @@ implement
 ccompenv_inc_tailcalenv
   (env, fl) = () where
 {
-//
 (*
 val (
 ) = println! ("ccompenv_inc_tailcalenv: fl = ", fl)
 *)
-//
 val CCOMPENV (!p) = env
 val tci = TCIfun (fl)
 val tcis = p->ccompenv_tailcalenv
@@ -1321,13 +1319,16 @@ prval () = fold@ (env)
 implement
 ccompenv_inc_flabsetenv
   (env) = let
-  val CCOMPENV (!p) = env
-  val flset = funlabset_vt_nil ()
-  val () =
-  (
-    p->ccompenv_flabsetenv := list_vt_cons (flset, p->ccompenv_flabsetenv)
-  )
-  prval () = fold@ (env)
+(*
+val () = println! ("ccompenv_inc_flabsetenv")
+*)
+val CCOMPENV (!p) = env
+val flset = funlabset_vt_nil ()
+val () = (
+  p->ccompenv_flabsetenv := list_vt_cons (flset, p->ccompenv_flabsetenv)
+) (* end of [val] *)
+prval () = fold@ (env)
+//
 in
   // nothing
 end // end of [ccompenv_inc_flabsetenv]
@@ -1341,7 +1342,9 @@ val CCOMPENV (!p) = env
 val-~list_vt_cons (fls, flss) = p->ccompenv_flabsetenv
 val () = p->ccompenv_flabsetenv := flss
 prval () = fold@ (env)
-//
+(*
+val () = fprintln! (stdout_ref, "ccompenv_getdec_flabsetenv: fls = ", fls)
+*)
 } // end of [ccompenv_getdec_flabsetenv]
 
 (* ****** ****** *)
@@ -1350,8 +1353,13 @@ implement
 ccompenv_add_flabsetenv
   (env, fl) = ((*void*)) where
 {
+(*
+val () =
+println! ("ccompenv_add_flabsetenv: fl = ", fl)
+*)
 //
 val CCOMPENV (!p) = env
+//
 val-list_vt_cons
   (!p_fls, _) = p->ccompenv_flabsetenv
 val () = !p_fls := funlabset_vt_add (!p_fls, fl)
@@ -1666,8 +1674,7 @@ ccompenv_add_vbindmapall
   (env, d2v, pmv) = let
 //
 (*
-val () =
-(
+val () = (
   println! ("ccompenv_add_vbindmapall: d2v = ", d2v);
   println! ("ccompenv_add_vbindmapall: pmv = ", pmv);
 ) : void // end of [val]
@@ -1973,16 +1980,26 @@ case+ xs of
   end // end of [MARKENVLSTcons_impdec2]
 //
 | MARKENVLSTcons_staload
-    (fenv, !p_xs) => tmpmat where
-  {
-    val-Some (map) =
-      filenv_get_tmpcstimpmapopt (fenv)
-    // end of [val]
-    val implst = tmpcstimpmap_find (map, d2c0)
-    val tmpmat = hiimpdeclst_tmpcst_match (implst, d2c0, t2mas)
-    val tmpmat = auxcont (tmpmat, !p_xs, d2c0, t2mas)
-    prval () = fold@ (xs)
-  } (* end of [MARKENVLSTcons_fundec] *)
+    (fenv, !p_xs) => let
+    val opt = filenv_get_tmpcstimpmapopt (fenv)
+  in
+    case+ opt of
+    | Some (map) => let
+        val implst = tmpcstimpmap_find (map, d2c0)
+        val tmpmat = hiimpdeclst_tmpcst_match (implst, d2c0, t2mas)
+        val tmpmat = auxcont (tmpmat, !p_xs, d2c0, t2mas)
+      in
+        fold@ (xs); tmpmat
+      end // end of [Some]
+//
+// HX-2013-10-08: pervasive SATS
+//
+    | None ((*void*)) => let
+        val tmpmat = auxlst (!p_xs, d2c0, t2mas)
+      in
+        fold@ (xs); tmpmat
+      end // end of [None]
+  end (* end of [MARKENVLSTcons_staload] *)
 //
 | MARKENVLSTcons_tmpsub (_, !p_xs) => let
     val res = auxlst (!p_xs, d2c0, t2mas) in fold@ (xs); res

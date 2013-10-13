@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Mon Sep 30 01:01:38 2013
+** Time of generation: Sat Oct 12 16:38:02 2013
 *)
 
 (* ****** ****** *)
@@ -114,6 +114,13 @@ fun{a:t0p}
 arrayref_make_elt
   {n:int} (asz: size_t n, x: a):<!wrt> arrayref (a, n)
 // end of [arrayref_make_elt]
+
+(* ****** ****** *)
+
+fun{
+} arrayref_make_intrange
+  {l,r:int | l <= r} (l: int l, r: int r):<!wrt> arrayref (int, r-l)
+// end of [arrayref_make_intrange]
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Mon Sep 30 01:01:57 2013
+** Time of generation: Sat Oct 12 16:39:20 2013
 *)
 
 (* ****** ****** *)
@@ -49,6 +49,13 @@ implement{a}
 arrayref_make_elt (asz, x) =
   arrayptr_refize(arrayptr_make_elt<a> (asz, x))
 // end of [arrayref_make_elt]
+
+(* ****** ****** *)
+
+implement{}
+arrayref_make_intrange (l, r) =
+  arrayptr_refize{int}(arrayptr_make_intrange (l, r))
+// end of [arrayref_make_intrange]
 
 (* ****** ****** *)
 

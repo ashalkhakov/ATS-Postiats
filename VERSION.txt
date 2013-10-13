@@ -1,3 +1,37 @@
+0.0.4
+<pre>
+
+This is the fourth release of ATS2, the successor of the ATS
+programming language. The compiler for ATS2 is given the name
+ATS/Positats, ATS2/Postiats or simply Postiats.
+
+The official website for ATS is:
+
+http://www.ats-lang.org
+
+ATS-Postiats is hosted at github:
+
+https://github.com/githwxi/ATS-Postiats
+
+Major releases of ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang/
+
+Major releases of external packages for ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang-contrib/
+
+Here is a list of major additions and changes since the last release:
+
+1. Fixing a glitch in the support for ATS_DYNLOADFLAG (reported by MD)
+
+2. Adding -D_ATS_EXCEPTION_NONE support for eliminating the code in the
+   run-time of ATS2 that deals with exceptions.
+
+</pre>
+
+######
+
 0.0.3
 <pre>
 
@@ -25,7 +59,7 @@ Here is a list of major additions and changes since the last release:
 
 1. Support for stack-allocated array-variables:
    var A = @[int][10]() // A: array(int?, 10) // uninitialized
-   var A = @[int][10](0) // A: array(int, 10) // intialized with 0's
+   var A = @[int][10](0) // A: array(int, 10) // initialized with 0's
    var A = @[int](0, 1, 2, 3, 4, 5, 6, 7, 8, 9) // A: array(int, 10)
 
 2. Support for ptr-style of stack-allocated variables:
@@ -42,7 +76,7 @@ Here is a list of major additions and changes since the last release:
    See ${PATSHOME}/doc/EXAMPLE/INTRO/sieve_llazy.dats
 
 6. Fixing a serious bug in closure compilation: the environment of a
-   deeply embedded function could be miscomputed and then cause the C
+   deeply embedded function could be miscomputed, causing the C target
    code generated from ATS source to contain errors.
 
 </pre>

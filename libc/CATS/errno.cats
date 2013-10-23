@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/errno.atxt
-** Time of generation: Mon Sep 30 01:02:08 2013
+** Time of generation: Fri Oct 18 01:45:07 2013
 */
 
 /* ****** ****** */
@@ -52,13 +52,24 @@
 
 /* ****** ****** */
 
+typedef int errno_t ;
+
+/* ****** ****** */
+
 #define ENONE 0
 
 /* ****** ****** */
 
 #define atslib_the_errno_get() (errno)
-#define atslib_the_errno_set(eno) (errno = eno)
+#define atslib_the_errno_set(eno) (errno = (eno))
 #define atslib_the_errno_reset() (errno = ENONE)
+
+ATSinline()
+atstype_bool
+atslib_the_errno_test(errno_t eno)
+{
+  return (errno==(eno)) ? atsbool_true : atsbool_false ;
+}
 
 /* ****** ****** */
 

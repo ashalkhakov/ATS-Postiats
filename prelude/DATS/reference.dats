@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/reference.atxt
-** Time of generation: Mon Sep 30 01:01:45 2013
+** Time of generation: Wed Oct 16 12:21:36 2013
 *)
 
 (* ****** ****** *)
@@ -78,16 +78,34 @@ end // end of [ref_exch_elt]
 
 (* ****** ****** *)
 
-implement{a}
-ref_app_fun (r, f) = let
+implement{}
+ref_app_fun{a} (r, f) = let
   val (vbox _ | p) = ref_get_viewptr (r) in f (!p)
 end // end of [ref_app_fun]
 
-implement{a}
-ref_app_funenv
+implement{}
+ref_app_funenv{a}
   (pfv | r, f, env) = let
   val (vbox _ | p) = ref_get_viewptr (r) in f (pfv | !p, env)
 end // end of [ref_app_funenv]
+
+(* ****** ****** *)
+
+implement{}
+ref_vtakeout{a} (r) = let
+//
+val (
+  vbox pf | p
+) = ref_get_viewptr (r)
+//
+prval (pf, fpf) = __copy (pf) where
+{
+  extern praxi __copy {l:addr} (pf: !a @ l): (a @ l, a @ l -<lin,prf> void)
+} (* end of [prval] *)
+//
+in
+  (pf, fpf | p)
+end // end of [ref_vtakeout]
 
 (* ****** ****** *)
 

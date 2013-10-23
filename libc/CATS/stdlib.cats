@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdlib.atxt
-** Time of generation: Mon Sep 30 01:02:09 2013
+** Time of generation: Fri Oct 18 22:11:14 2013
 */
 
 /* ****** ****** */
@@ -49,6 +49,32 @@
 /* ****** ****** */
 
 #include <stdlib.h>
+
+/* ****** ****** */
+
+#define atslib__Exit _Exit
+#define atslib_atexit atexit
+
+/* ****** ****** */
+
+#define atslib_abort abort
+
+/* ****** ****** */
+
+#define atslib_abs abs
+#define atslib_labs labs
+#define atslib_llabs llabs
+
+/* ****** ****** */
+
+#define atslib_div div
+#define atslib_ldiv ldiv
+#define atslib_lldiv lldiv
+
+/* ****** ****** */
+
+#define atslib_a64l a64l
+#define atslib_l64a l64a
 
 /* ****** ****** */
 

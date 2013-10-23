@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/reference.atxt
-** Time of generation: Mon Sep 30 01:01:32 2013
+** Time of generation: Wed Oct 16 12:21:36 2013
 *)
 
 (* ****** ****** *)
@@ -81,19 +81,27 @@ fun{a:vt0p} ref_exch_elt (r: ref a, x: &a>>a):<!refwrt> void
 ** avoiding using the [vbox] pattern
 *)
 
-fun{a:vt0p}
-ref_app_fun
+fun{}
+ref_app_fun{a:vt0p}
 (
-  r: ref a, f: (&a>>a) -<0,!wrt> void
+  r: ref a, f: (&(a)>>_) -<0,!wrt> void
 ) :<!refwrt> void // end of [ref_app_fun]
 
-fun{a:vt0p}
-ref_app_funenv
+fun{}
+ref_app_funenv{a:vt0p}
   {v:view}{vt:viewtype}
 (
-  pfv: !v | r: ref a, f: (!v | &a>>a, !vt) -<0,!wrt> void, env: !vt
+  pfv: !v | r: ref a, f: (!v | &(a)>>_, !vt) -<0,!wrt> void, env: !vt
 ) :<!refwrt> void // end of [ref_app_funenv]
 
+(* ****** ****** *)
+//
+// HX-2013-10: unsafe but convenient
+//
+fun{}
+ref_vtakeout{a:vt0p} (r: ref a)
+  :<!ref> [l:addr] (a @ l, (a @ l) -<lin,prf> void | ptr(l))
+//
 (* ****** ****** *)
 
 (* end of [reference.sats] *)

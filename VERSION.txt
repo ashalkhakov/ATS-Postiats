@@ -28,6 +28,8 @@ Here is a list of major additions and changes since the last release:
 2. Adding -D_ATS_EXCEPTION_NONE support for eliminating the code in the
    run-time of ATS2 that deals with exceptions.
 
+3. Fixing a glitch in proof-assignment compilation.
+
 </pre>
 
 ######
@@ -166,7 +168,7 @@ https://sourceforge.net/projects/ats2-lang/
 The actual implementation of ATS2 started in the March of 2011, and
 it took about two and one-half years to reach this stage. As of now,
 the code base for the compiler of ATS2 consists of 140,000+ lines of
-code (LOC), which are nearly all written in ATS2.
+code (LOC), which are nearly all written in ATS.
 
 When compared to ATS1, the single most important new feature is the
 template system of ATS2. This is a feature that could potentially change

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/bool.atxt
-** Time of generation: Mon Sep 30 01:01:28 2013
+** Time of generation: Fri Oct 18 00:00:17 2013
 *)
 
 (* ****** ****** *)
@@ -121,6 +121,8 @@ fun neq_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload != with neq_bool0_bool0 of 0
 overload <> with neq_bool0_bool0 of 0
+
+(* ****** ****** *)
 
 fun compare_bool0_bool0
   (b1: bool, b2: bool):<> Sgn = "mac#%"

@@ -30,29 +30,13 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Sun Oct  6 09:14:48 2013
+** Time of generation: Wed Oct 16 10:12:51 2013
 *)
 
 (* ****** ****** *)
 
 sortdef t0p = t@ype and vt0p = vt@ype
 
-(* ****** ****** *)
-//
-// HX: [lazy_vt(VT)] :
-// suspended computation of viewtype VT
-//
-absvtype lazy_vt0ype_vtype (vt@ype+) = ptr
-//
-vtypedef lazy_vt (a: vt0p)= lazy_vt0ype_vtype (a)
-//
-(* ****** ****** *)
-//
-fun
-lazy_vt_free{a:vt0p}
-  (lazyval: lazy_vt (a)):<!wrt> void = "mac#atspre_lazy_vt_free"
-overload ~ with lazy_vt_free
-//
 (* ****** ****** *)
 //
 // HX: lazy linear streams

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/unistd.atxt
-** Time of generation: Mon Sep 30 01:02:10 2013
+** Time of generation: Fri Oct 18 22:11:14 2013
 */
 
 /* ****** ****** */
@@ -61,8 +61,6 @@ do { \
 
 /* ****** ****** */
 
-/* ****** ****** */
-
 #define atslib_close close
 #define atslib_close0 atslib_close
 #define atslib_close1 atslib_close
@@ -80,6 +78,14 @@ do { \
 
 #define atslib_execv(path, argv) execv((char*)path, (char**)argv)
 #define atslib_execvp(path, argv) execvp((char*)path, (char**)argv)
+
+/* ****** ****** */
+
+#define atslib_encrypt encrypt
+
+/* ****** ****** */
+
+#define atslib_fork fork
 
 /* ****** ****** */
 

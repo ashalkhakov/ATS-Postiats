@@ -30,22 +30,13 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Tue Oct  8 11:03:01 2013
+** Time of generation: Wed Oct 16 10:12:51 2013
 *)
 
 (* ****** ****** *)
 
 sortdef t0p = t@ype
 
-(* ****** ****** *)
-//
-// HX: [lazy(T)] :
-// suspended evaluation of type T
-//
-abstype lazy_t0ype_type (t@ype+) = ptr
-//
-typedef lazy (a:t0p) = lazy_t0ype_type (a)
-//
 (* ****** ****** *)
 //
 // HX: lazy streams

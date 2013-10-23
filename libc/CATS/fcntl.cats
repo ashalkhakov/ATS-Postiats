@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/fcntl.atxt
-** Time of generation: Mon Sep 30 01:02:08 2013
+** Time of generation: Fri Oct 18 00:00:17 2013
 */
 
 /* ****** ****** */
@@ -64,6 +64,10 @@ atslib_fildes_isgtez
 {
   return (fd >= 0 ? atsbool_true : atsbool_false) ;
 } // end of [atslib_fildes_isgtez]
+
+/* ****** ****** */
+
+#define atslib_fcntlflags_lor(x1, x2) ((x1)|(x2))
 
 /* ****** ****** */
 

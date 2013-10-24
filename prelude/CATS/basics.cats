@@ -54,6 +54,38 @@
 /* ****** ****** */
 
 ATSinline()
+atstype_int
+atspre_lor_int_int
+(
+  atstype_int x1
+, atstype_int x2
+) {
+  return ((x1)|(x2)) ;
+} /* [atspre_lor_int_int] */
+
+ATSinline()
+atstype_int
+atspre_land_int_int
+(
+  atstype_int x1
+, atstype_int x2
+) {
+  return ((x1)&(x2)) ;
+} /* [atspre_land_int_int] */
+
+ATSinline()
+atstype_int
+atspre_lxor_int_int
+(
+  atstype_int x1
+, atstype_int x2
+) {
+  return ((x1)^(x2)) ;
+} /* [atspre_lxor_int_int] */
+
+/* ****** ****** */
+
+ATSinline()
 atsvoid_t0ype
 atspre_cloptr_free
 (

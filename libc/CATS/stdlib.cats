@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdlib.atxt
-** Time of generation: Fri Oct 18 22:11:14 2013
+** Time of generation: Wed Oct 30 21:42:35 2013
 */
 
 /* ****** ****** */
@@ -115,8 +115,15 @@
 
 /* ****** ****** */
 
-#define atslib_qsort qsort
-#define atslib_bsearch bsearch
+#define \
+atslib_qsort(base, nmemb, size, compar) \
+  qsort(base, nmemb, size, (void*)compar)
+
+/* ****** ****** */
+
+#define \
+atslib_bsearch(key, base, nmemb, size, compar) \
+  bsearch(key, base, nmemb, size, (void*)compar)
 
 /* ****** ****** */
 

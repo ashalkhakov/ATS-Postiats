@@ -17,7 +17,6 @@ all: \
 prolog1 : ; if [ ! -f ./configure ] ; then \
   echo "Please execute 'bash autogen.sh' to make [configure]." ; exit 1 ; \
 fi
-
 prolog2 : ; if [ ! -f ./config.mk ] ; then \
   echo "Please perform configuration by executing './configure'." ; exit 1 ; \
 fi

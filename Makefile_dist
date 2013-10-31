@@ -5,26 +5,25 @@
 ######
 
 all: \
-  prolog1 \
-  prolog2 \
-  config.h \
+  config.mk \
   bin2_patsopt \
   bin_patscc \
   ccomp/atslib/lib/libatslib.a \
 
 ######
 
-prolog1 : ; if [ ! -f ./configure ] ; then \
-  echo "Please execute 'bash autogen.sh' to make [configure]." ; exit 1 ; \
-fi
-prolog2 : ; if [ ! -f ./config.mk ] ; then \
-  echo "Please perform configuration by executing './configure'." ; exit 1 ; \
-fi
+configure : ; /bin/bash autogen.sh
 
 ######
-
-config.h : ; ./configure
-
+#
+# HX: this seems to be working
+#
+# config.mk : configure ; ./configure
+#
+#######
+#
+config.mk : configure ; echo "Please execute './configure'." ; exit 1 ;
+#
 ######
 
 src_patsopt: ; make -j4 -C src patsopt

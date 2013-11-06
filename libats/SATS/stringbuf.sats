@@ -29,101 +29,93 @@
 
 (* Author: Hongwei Xi *)
 (* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: December, 2012 *)
+(* Start time: July, 2013 *)
+
+(* ****** ****** *)
+
+#define ATS_PACKNAME "ATSLIB.libats.stringbuf"
+#define ATS_STALOADFLAG 0 // no static loading at run-time
+#define ATS_EXTERN_PREFIX "atslib_" // prefix for external names
+
+(* ****** ****** *)
+
+%{#
+#include "libats/CATS/stringbuf.cats"
+%} // end of [%{#]
+
+(* ****** ****** *)
+
+absvtype stringbuf_vtype = ptr
+vtypedef stringbuf = stringbuf_vtype
 
 (* ****** ****** *)
 //
-// HX: shared by linset_listord (* ordered list *)
-// HX: shared by linset_avltree (* AVL-tree-based *)
+// HX: for recapacitizing policy
+//
+fun{} stringbuf$recapacitize ((*void*)): int
 //
 (* ****** ****** *)
 
-absvtype
-linset_node_vtype (a:t@ype+, l:addr) = ptr
-
-(* ****** ****** *)
-//
-// HX: local shorthand
-//
-stadef mynode = linset_node_vtype
-//
-vtypedef
-mynode (a:t0p) = [l:addr] mynode (a, l)
-vtypedef
-mynode0 (a:t0p) = [l:addr | l >= null] mynode (a, l)
-vtypedef
-mynode1 (a:t0p) = [l:addr | l >  null] mynode (a, l)
-//
-(* ****** ****** *)
-
-castfn
-mynode2ptr
-  {a:t0p}{l:addr} (nx: !mynode (INV(a), l)):<> ptr (l)
-// end of [mynode2ptr]
-
-overload ptrcast with mynode2ptr
-
-(* ****** ****** *)
-//
 fun{}
-mynode_null{a:t0p} ():<> mynode (a, null)
-//
-praxi
-mynode_free_null{a:t0p} (nx: mynode (a, null)): void
-//
-(* ****** ****** *)
-
-fun{a:t0p}
-mynode_make_elt (x: a):<!wrt> mynode1 (a)
+stringbuf_make_nil (cap: sizeGte(1)): stringbuf
 
 (* ****** ****** *)
 
 fun{}
-mynode_free{a:t0p} (mynode1 (a)):<!wrt> void
+stringbuf_free (sbf: stringbuf):<!wrt> void
+
+fun{}
+stringbuf_getfree_strnptr
+  (sbf: stringbuf, n: &size_t? >> size_t(n)):<!wrt> #[n:nat] strnptr(n)
+// end of [stringbuf_getfree_strnptr]
 
 (* ****** ****** *)
 
-fun{a:t0p}
-mynode_get_elt (nx: !mynode1 (INV(a))):<> a
-fun{a:t0p}
-mynode_set_elt{l:agz}
-  (nx: !mynode (a?, l) >> mynode (a, l), x0: a):<!wrt> void
-// end of [mynode_set_elt]
+fun{}
+stringbuf_get_size (sbf: !stringbuf):<> size_t
+fun{}
+stringbuf_get_capacity (sbf: !stringbuf):<> size_t
 
 (* ****** ****** *)
 
-fun{a:t0p}
-mynode_getfree_elt (nx: mynode1 (INV(a))):<!wrt> a
+symintr stringbuf_insert
 
 (* ****** ****** *)
 
-fun{a:t0p}
-linset_insert_ngc
-(
-  set: &set(INV(a)) >> _, nx0: mynode1 (a)
-) :<!wrt> mynode0 (a) // endfun
+fun{}
+stringbuf_insert_char (sbf: !stringbuf, x: charNZ): int
+fun{}
+stringbuf_insert_string (sbf: !stringbuf, x: string): int
+fun{}
+stringbuf_insert_strlen{n:int} (!stringbuf, string(n), size_t(n)): int
 
 (* ****** ****** *)
 
-fun{a:t0p}
-linset_takeout_ngc
-  (set: &set(INV(a)) >> _, x0: a):<!wrt> mynode0 (a)
-// end of [linset_takeout_ngc]
+overload stringbuf_insert with stringbuf_insert_char
+overload stringbuf_insert with stringbuf_insert_string
 
 (* ****** ****** *)
 
-fun{a:t0p}
-linset_takeoutmax_ngc
-  (set: &set(INV(a)) >> _):<!wrt> mynode0 (a)
-// end of [linset_takeoutmax]
+fun{}
+stringbuf_insert_int (sbf: !stringbuf, x: int): int
+fun{}
+stringbuf_insert_bool (sbf: !stringbuf, x: bool): int
+fun{}
+stringbuf_insert_double (sbf: !stringbuf, x: double): int
 
 (* ****** ****** *)
 
-fun{a:t0p}
-linset_takeoutmin_ngc
-  (set: &set(INV(a)) >> _):<!wrt> mynode0 (a)
-// end of [linset_takeoutmin]
+overload stringbuf_insert with stringbuf_insert_int
+overload stringbuf_insert with stringbuf_insert_bool
+overload stringbuf_insert with stringbuf_insert_double
 
 (* ****** ****** *)
 
-(* end of [linset_node.hats] *)
+fun{}
+stringbuf_reset_capacity
+  (sbf: !stringbuf, m2: sizeGte(1)):<!wrt> bool(*done/ignored*)
+// end of [stringbuf_reset_capacity]
+
+(* ****** ****** *)
+
+(* end of [stringbuf.sats] *)

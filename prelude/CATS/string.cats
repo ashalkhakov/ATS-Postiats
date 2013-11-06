@@ -6,12 +6,12 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2012 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
-** the terms of the GNU LESSER GENERAL PUBLIC LICENSE as published by the
-** Free Software Foundation; either version 2.1, or (at your option)  any
+** the terms of  the GNU GENERAL PUBLIC LICENSE (GPL) as published by the
+** Free Software Foundation; either version 3, or (at  your  option)  any
 ** later version.
 **
 ** ATS is distributed in the hope that it will be useful, but WITHOUT ANY
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
-** Time of generation: Mon Sep 30 01:02:03 2013
+** Time of generation: Tue Nov  5 11:25:01 2013
 */
 
 /* ****** ****** */
@@ -55,22 +55,24 @@ size_t strlen (const char *str) ;
 extern
 int // (sign)
 strcmp (const char *x1, const char *x2) ;
-
+//
 extern
 char *strchr(const char *str1, int c2) ;
 extern
 char *strrchr(const char *str1, int c2) ;
 extern
 char *strstr(const char *str1, const char *str2) ;
-
+//
 extern
 size_t strspn(const char *str1, const char *acc2) ;
 extern
 size_t strcspn(const char *str1, const char *rej2) ;
-
+//
+#ifndef memcpy
 extern
 void *memcpy(void *dest, const void *src, size_t n) ;
-
+#endif // #ifndef
+//
 /* ****** ****** */
 //
 // [stdio.h]

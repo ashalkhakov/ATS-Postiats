@@ -78,43 +78,67 @@ stringbuf_get_capacity (sbf: !stringbuf):<> size_t
 
 (* ****** ****** *)
 
+fun{}
+stringbuf_reset_capacity
+  (sbf: !stringbuf, m2: sizeGte(1)):<!wrt> bool(*done/ignored*)
+// end of [stringbuf_reset_capacity]
+
+(* ****** ****** *)
+
 symintr stringbuf_insert
 
 (* ****** ****** *)
 
 fun{}
-stringbuf_insert_char (sbf: !stringbuf, x: charNZ): int
+stringbuf_insert_char (!stringbuf, x: charNZ): int
 fun{}
-stringbuf_insert_string (sbf: !stringbuf, x: string): int
+stringbuf_insert_string (!stringbuf, x: string): int
 fun{}
 stringbuf_insert_strlen{n:int} (!stringbuf, string(n), size_t(n)): int
+fun{}
+stringbuf_insert_bool (sbf: !stringbuf, x: bool): int
 
 (* ****** ****** *)
 
 overload stringbuf_insert with stringbuf_insert_char
 overload stringbuf_insert with stringbuf_insert_string
+overload stringbuf_insert with stringbuf_insert_bool
 
 (* ****** ****** *)
 
 fun{}
 stringbuf_insert_int (sbf: !stringbuf, x: int): int
 fun{}
-stringbuf_insert_bool (sbf: !stringbuf, x: bool): int
+stringbuf_insert_uint (sbf: !stringbuf, x: uint): int
 fun{}
-stringbuf_insert_double (sbf: !stringbuf, x: double): int
+stringbuf_insert_lint (sbf: !stringbuf, x: lint): int
+fun{}
+stringbuf_insert_ulint (sbf: !stringbuf, x: ulint): int
 
 (* ****** ****** *)
 
 overload stringbuf_insert with stringbuf_insert_int
-overload stringbuf_insert with stringbuf_insert_bool
-overload stringbuf_insert with stringbuf_insert_double
+overload stringbuf_insert with stringbuf_insert_uint
+overload stringbuf_insert with stringbuf_insert_lint
+overload stringbuf_insert with stringbuf_insert_ulint
+
+(* ****** ****** *)
+(*
+//
+fun
+stringbuf_insert_snprintf
+  (sbf: !stringbuf, recap: int, fmt: string, ...) = "mac#%"
+//
+*)
+(* ****** ****** *)
+
+fun{a:t0p}
+stringbuf_insert_val (sbf: !stringbuf, x: a): int
 
 (* ****** ****** *)
 
-fun{}
-stringbuf_reset_capacity
-  (sbf: !stringbuf, m2: sizeGte(1)):<!wrt> bool(*done/ignored*)
-// end of [stringbuf_reset_capacity]
+fun{a:t0p}
+stringbuf_insert_list (sbf: !stringbuf, x: List(a)): int
 
 (* ****** ****** *)
 

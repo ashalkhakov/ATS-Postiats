@@ -83,7 +83,7 @@ cleanall:: ; $(RMF) prelude_pointer.exe
 
 all:: prelude_string
 prelude_string: prelude_string.exe
-prelude_string.exe: prelude_string_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
+prelude_string.exe: prelude_string_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< -L$(PATSLIB) -latslib
 prelude_string_dats.c: prelude_string.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output prelude_string_dats.c --dynamic prelude_string.dats
 clean:: ; $(RMF) prelude_string_dats.o
 clean:: ; $(RMF) prelude_string_dats.c
@@ -400,19 +400,12 @@ cleanall:: ; $(RMF) libats_refcount.exe
 
 all:: libats_stringbuf
 libats_stringbuf: libats_stringbuf.exe
-libats_stringbuf.exe: libats_stringbuf_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
+libats_stringbuf.exe: libats_stringbuf_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< -L$(PATSLIB) -latslib
 libats_stringbuf_dats.c: libats_stringbuf.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output libats_stringbuf_dats.c --dynamic libats_stringbuf.dats
 clean:: ; $(RMF) libats_stringbuf_dats.o
 clean:: ; $(RMF) libats_stringbuf_dats.c
 cleanall:: ; $(RMF) libats_stringbuf.exe
 
-all:: libats_strobjref
-libats_strobjref: libats_strobjref.exe
-libats_strobjref.exe: libats_strobjref_dats.c ;   $(CCOPT) -D_GNU_SOURCE -O2     -I$(PATSHOMEQ) -I$(PATSHOMEQ)/ccomp/runtime -DATS_MEMALLOC_LIBC -o $@ $< 
-libats_strobjref_dats.c: libats_strobjref.dats ;   $(PATSOPT) -IATS$(PATSHOMEQ)/contrib --output libats_strobjref_dats.c --dynamic libats_strobjref.dats
-clean:: ; $(RMF) libats_strobjref_dats.o
-clean:: ; $(RMF) libats_strobjref_dats.c
-cleanall:: ; $(RMF) libats_strobjref.exe
 
 
 ######

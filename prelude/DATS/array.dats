@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Fri Nov  1 20:38:14 2013
+** Time of generation: Fri Nov 15 12:27:16 2013
 *)
 
 (* ****** ****** *)
@@ -201,9 +201,12 @@ val
   pf, pfgc | p
 ) = array_ptr_alloc<a> (asz)
 //
-implement
-array_initize$init<a> (i, x) = x := array_tabulate$fopr<a> (i)
+local
+implement{a}
+array_initize$init (i, x) = x := array_tabulate$fopr<a> (i)
+in (*in of [local]*)
 val () = array_initize<a> (!p, asz)
+end // end of [local]
 //
 in
   @(pf, pfgc | p)
@@ -696,8 +699,9 @@ implement{a}
 array_initize_elt
   (A, asz, elt) = let
 //
-implement
-array_initize$init<a> (i, xi) = xi := elt
+implement{a2}
+array_initize$init
+  (i, xi) = xi := $UN.castvwtp0{a2}(elt)
 //
 in
   $effmask_all (array_initize<a> (A, asz))

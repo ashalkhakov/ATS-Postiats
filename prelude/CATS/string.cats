@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
-** Time of generation: Tue Nov  5 11:25:01 2013
+** Time of generation: Tue Nov 12 00:57:17 2013
 */
 
 /* ****** ****** */
@@ -204,6 +204,21 @@ atspre_fprint_stropt
 #define atspre_print_stropt(x) atspre_fprint_stropt(stdout, (x))
 #define atspre_prerr_stropt(x) atspre_fprint_stropt(stderr, (x))
 
+/* ****** ****** */
+//
+#include <stdarg.h>
+//
+// HX-2013-11:
+// these are implemented in [string.dats]
+//
+extern
+atstype_string // Strptr0
+atspre_string_make_snprintf(atstype_string fmt, ...) ;
+extern
+atstype_string // Strptr0
+atspre_string_make_vsnprintf
+  (atstype_size bsz0, atstype_string fmt, va_list ap0) ;
+//
 /* ****** ****** */
 
 #endif // ifndef ATSLIB_PRELUDE_STRING_CATS

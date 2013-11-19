@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Fri Nov  1 20:08:15 2013
+** Time of generation: Tue Nov 12 10:16:02 2013
 */
 
 /* ****** ****** */
@@ -236,7 +236,8 @@ atspre_compare_int_int
 
 ATSinline()
 atsvoid_t0ype
-atspre_fprint_char (
+atspre_fprint_char
+(
   atstype_ref out, atstype_char c
 ) {
   int err = 0 ;
@@ -250,6 +251,28 @@ atspre_fprint_char (
 } // end of [atspre_fprint_char]
 #define atspre_print_char(c) atspre_fprint_char(stdout, (c))
 #define atspre_prerr_char(c) atspre_fprint_char(stderr, (c))
+
+ATSinline()
+atsvoid_t0ype
+atspre_fprint_uchar
+(
+  atstype_ref out, atstype_uchar c
+) {
+  atspre_fprint_char (out, (atstype_char)c) ; return ;
+} // end of [atspre_fprint_uchar]
+#define atspre_print_uchar(c) atspre_fprint_uchar(stdout, (c))
+#define atspre_prerr_uchar(c) atspre_fprint_uchar(stderr, (c))
+
+ATSinline()
+atsvoid_t0ype
+atspre_fprint_schar
+(
+  atstype_ref out, atstype_schar c
+) {
+  atspre_fprint_char (out, (atstype_char)c) ; return ;
+} // end of [atspre_fprint_schar]
+#define atspre_print_schar(c) atspre_fprint_schar(stdout, (c))
+#define atspre_prerr_schar(c) atspre_fprint_schar(stderr, (c))
 
 /* ****** ****** */
 //

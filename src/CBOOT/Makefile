@@ -228,6 +228,7 @@ SOURCES := \
   pats_constraint3.dats \
   pats_constraint3_init.dats \
   pats_constraint3_print.dats \
+  pats_constraint3_jsonize.dats \
   pats_constraint3_simplify.dats \
   pats_constraint3_icnstr.dats \
   pats_constraint3_solve.dats \

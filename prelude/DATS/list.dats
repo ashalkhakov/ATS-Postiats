@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Nov  1 20:38:12 2013
+** Time of generation: Fri Dec  6 14:24:21 2013
 *)
 
 (* ****** ****** *)
@@ -344,6 +344,48 @@ val () = $effmask_wrt (loop (xs, i, x, res))
 in
   res
 end // end of [list_insert_at]
+
+(* ****** ****** *)
+
+implement{a}
+list_takeout_at
+  (xs, i, x0) = let
+//
+fun loop{n:int}
+  {i:nat | i < n} .<i>.
+(
+  xs: list (a, n)
+, i: int i, x0: &a? >> a
+, res: &ptr? >> list (a, n-1)
+) :<!wrt> void = let
+//
+val+list_cons (x, xs) = xs
+//
+in
+//
+if i > 0 then let
+  val () =
+    res := list_cons{a}{0}(x, _(*?*))
+  val+list_cons
+    (_, res1) = res // res1 = res.1
+  val () = loop (xs, i-1, x0, res1)
+  prval () = fold@ (res)
+in
+  // nothing
+end else let
+  val () = x0 := x; val () = res := xs
+in
+  // nothing
+end // end of [if]
+//
+end // end of [loop]
+//
+var res: ptr?
+val () = loop (xs, i, x0, res)
+//
+in
+  res
+end // end of [list_takeout_at]
 
 (* ****** ****** *)
 
@@ -710,268 +752,6 @@ end // end of [list_drop_exn]
 
 (* ****** ****** *)
 
-implement
-{x}{env}
-list_foreach$cont (x, env) = true
-
-implement{x}
-list_foreach (xs) = let
-  var env: void = () in list_foreach_env<x><void> (xs, env)
-end // end of [list_foreach]
-
-implement
-{x}{env}
-list_foreach_env
-  (xs, env) = let
-//
-prval () = lemma_list_param (xs)
-//
-fun loop
-  {n:nat} .<n>. (
-  xs: list (x, n), env: &env
-) : void = let
-in
-//
-case+ xs of
-| list_cons (x, xs) => let
-    val test =
-      list_foreach$cont<x><env> (x, env)
-    // end of [val]
-  in
-    if test then let
-      val () = list_foreach$fwork<x><env> (x, env)
-    in
-      loop (xs, env)
-    end else () // end of [if]
-  end // end of [list_cons]
-| list_nil () => ()
-//
-end // end of [loop]
-//
-in
-  loop (xs, env)
-end // end of [list_foreach_env]
-
-implement{x}
-list_foreach_funenv
-  {v}{vt}{fe}
-  (pfv | xs, f, env) = let
-//
-prval () = lemma_list_param (xs)
-//
-fun loop {n:nat} .<n>. (
-  pfv: !v
-| xs: list (x, n)
-, f: (!v | x, !vt) -<fun,fe> void
-, env: !vt
-) :<fe> void =
-  case+ xs of
-  | list_cons (x, xs) => let
-      val () = f (pfv | x, env) in loop (pfv | xs, f, env)
-    end // end of [list_cons]
-  | list_nil () => ()
-// end of [loop]
-in
-  loop (pfv | xs, f, env)
-end // end of [list_foreach_funenv]
-
-(* ****** ****** *)
-
-implement
-{x,y}{env}
-list_foreach2$cont (x, y, env) = true
-
-implement{x,y}
-list_foreach2 (xs, ys) = let
-  var env: void = () in list_foreach2_env<x,y><void> (xs, ys, env)
-end // end of [list_foreach2]
-
-implement
-{x,y}{env}
-list_foreach2_env
-  (xs, ys, env) = let
-//
-prval () = lemma_list_param (xs)
-prval () = lemma_list_param (ys)
-//
-fun loop
-  {m,n:nat} .<m>. (
-  xs: list (x, m), ys: list (y, n), env: &env
-) : void = let
-in
-//
-case+ xs of
-| list_cons
-    (x, xs) => (
-  case+ ys of
-  | list_cons (y, ys) => let
-      val test =
-        list_foreach2$cont<x,y><env> (x, y, env)
-      // end of [val]
-    in
-      if test then let
-        val () = list_foreach2$fwork<x,y><env> (x, y, env)
-      in
-        loop (xs, ys, env)
-      end else () // end of [if]
-    end // end of [list_cons]
-  | list_nil () => ()
-  ) // end of [list_cons]
-| list_nil () => ()
-//
-end // end of [loop]
-//
-in
-  loop (xs, ys, env)
-end // end of [list_foreach2_env]
-
-(* ****** ****** *)
-
-implement
-{x}{env}
-list_iforeach$cont (i, x, env) = true
-
-implement{x}
-list_iforeach (xs) = let
-  var env: void = () in list_iforeach_env<x><void> (xs, env)
-end // end of [list_iforeach]
-
-implement
-{x}{env}
-list_iforeach_env
-  (xs, env) = let
-//
-prval () = lemma_list_param (xs)
-//
-fun loop
-  {n:nat}
-  {i:int} .<n>. (
-  i: int i, xs: list (x, n), env: &env
-) : intBtwe(i,n+i) =
-  case+ xs of
-  | list_cons
-      (x, xs) => let
-      val test =
-        list_iforeach$cont<x><env> (i, x, env)
-      // end of [test]
-    in
-      if test then let
-        val () = list_iforeach$fwork<x><env> (i, x, env)
-      in
-        loop (succ(i), xs, env)
-      end else (i) // end of [if]
-    end // end of [list_cons]
-  | list_nil () => (i) // number of processed elements
-// end of [loop]
-//
-in
-  loop (0, xs, env)
-end // end of [list_iforeach_env]
-
-(* ****** ****** *)
-
-implement{x}
-list_iforeach_funenv
-  {v}{vt}{n}{fe}
-  (pfv | xs, f, env) = let
-//
-prval () = lemma_list_param (xs)
-//
-fun loop
-  {i:nat | i <= n} .<n-i>. (
-  pfv: !v
-| i: int i
-, xs: list (x, n-i)
-, f: (!v | natLt(n), x, !vt) -<fun,fe> void
-, env: !vt
-) :<fe> int n =
-  case+ xs of
-  | list_cons (x, xs) => let
-      val () = f (pfv | i, x, env) in loop (pfv | i+1, xs, f, env)
-    end // end of [list_cons]
-  | list_nil () => i // = size(xs)
-// end of [loop]
-in
-  loop (pfv | 0, xs, f, env)
-end // end of [list_iforeach_funenv]
-
-(* ****** ****** *)
-
-implement
-{x,y}{env}
-list_iforeach2$cont (i, x, y, env) = true
-
-implement{x,y}
-list_iforeach2 (xs, ys) = let
-  var env: void = () in list_iforeach2_env<x,y><void> (xs, ys, env)
-end // end of [list_iforeach2]
-
-implement
-{x,y}{env}
-list_iforeach2_env
-  (xs, ys, env) = let
-//
-prval () = lemma_list_param (xs)
-prval () = lemma_list_param (ys)
-//
-fun loop
-  {m,n:nat}{i:int} .<m>. (
-  i: int i, xs: list (x, m), ys: list (y, n), env: &env
-) : intBtwe(i, min(m,n)+i) = let
-in
-//
-case+ xs of
-| list_cons (x, xs) => (
-  case+ ys of
-  | list_cons (y, ys) => let
-      val test =
-        list_iforeach2$cont<x,y><env> (i, x, y, env)
-      // end of [val]
-    in
-      if test then let
-        val () = list_iforeach2$fwork<x,y><env> (i, x, y, env)
-      in
-        loop (succ(i), xs, ys, env)
-      end else (i) // end of [if]
-    end // end of [list_cons]
-  | list_nil () => i // the number of processed elements
-  ) // end of [list_cons]
-| list_nil () => i // the number of processed elements
-//
-end // end of [loop]
-//
-in
-  loop (0, xs, ys, env)
-end // end of [list_iforeach2_env]
-
-(* ****** ****** *)
-
-implement
-{res}{x}
-list_foldleft (xs, ini) = let
-//
-prval () = lemma_list_param (xs)
-//
-fun loop
-  {n:nat} .<n>.
-  (xs: list (x, n), acc: res): res =
-  case+ xs of
-  | list_cons (x, xs) => let
-      val acc =
-        list_foldleft$fopr<res><x> (acc, x)
-      // end of [val]
-    in
-      loop (xs, acc)
-    end // end of [list_cons]
-  | list_nil () => acc // end of [list_nil]
-// end of [loop]
-//
-in
-  loop (xs, ini)
-end // end of [list_foldleft]
-
-(* ****** ****** *)
-
 implement{x}
 list_exists (xs) = let
 in
@@ -997,10 +777,12 @@ end // end of [list_forall]
 (* ****** ****** *)
 
 implement{a}
-list_equal$pred (x1, x2) = gequal_val<a> (x1, x2)
+list_equal$eqfn = gequal_val<a>
 
-implement{x}
-list_equal (xs1, xs2) = let
+implement
+{x}(*tmp*)
+list_equal
+  (xs1, xs2) = let
 in
 //
 case+ xs1 of
@@ -1009,7 +791,7 @@ case+ xs1 of
     case+ xs2 of
     | list_cons
         (x2, xs2) => let
-        val iseq = list_equal$pred<x> (x1, x2)
+        val iseq = list_equal$eqfn<x> (x1, x2)
       in
         if iseq then list_equal<x> (xs1, xs2) else false
       end
@@ -1045,6 +827,86 @@ case+ xs of
 | list_nil () => None_vt(*void*)
 //
 end // end of [list_find_opt]
+
+(* ****** ****** *)
+
+implement{key}
+list_assoc$eqfn = gequal_val<key>
+
+implement
+{key,itm}
+list_assoc
+  (kxs, k0, x0) = let
+//
+fun loop
+(
+  kxs: List @(key, itm)
+, k0: key, x0: &itm? >> opt (itm, b)
+) : #[b:bool] bool(b) =
+(
+  case+ kxs of
+  | list_cons
+      (kx, kxs) => let
+      val iseq = list_assoc$eqfn<key> (k0, kx.0)
+    in
+      if iseq
+        then let
+          val () = x0 := kx.1
+          prval () = opt_some{itm}(x0)
+        in
+          true
+        end // end of [then]
+        else loop (kxs, k0, x0)
+      // end of [if]
+    end // end of [list_cons]
+  | list_nil ((*void*)) =>
+      let prval () = opt_none{itm}(x0) in false end 
+    // end of [list_nil]
+) (* end of [loop] *)
+//
+in
+  $effmask_all (loop (kxs, k0, x0))
+end // end of [list_assoc]
+
+(* ****** ****** *)
+
+implement
+{key,itm}
+list_assoc_exn
+  (kxs, k0) = let
+  var x0: itm?
+  val ans = list_assoc<key,itm> (kxs, k0, x0)
+in
+//
+if ans
+  then let
+    prval () = opt_unsome{itm}(x0) in x0
+  end // end of [then]
+  else let
+    prval () = opt_unnone{itm}(x0) in $raise NotFoundExn()
+  end // end of [else]
+//
+end // end of [list_assoc_exn]
+
+(* ****** ****** *)
+
+implement
+{key,itm}
+list_assoc_opt
+  (kxs, k0) = let
+  var x0: itm?
+  val ans = list_assoc<key,itm> (kxs, k0, x0)
+in
+//
+if ans
+  then let
+    prval () = opt_unsome{itm}(x0) in Some_vt{itm}(x0)
+  end // end of [then]
+  else let
+    prval () = opt_unnone{itm}(x0) in None_vt((*void*))
+  end // end of [else]
+//
+end // end of [list_assoc_opt]
 
 (* ****** ****** *)
 
@@ -1490,6 +1352,268 @@ val () = loop1 (xs, ys, res)
 in
   res
 end // end of [list_crosswith]
+
+(* ****** ****** *)
+
+implement
+{x}{env}
+list_foreach$cont (x, env) = true
+
+implement{x}
+list_foreach (xs) = let
+  var env: void = () in list_foreach_env<x><void> (xs, env)
+end // end of [list_foreach]
+
+implement
+{x}{env}
+list_foreach_env
+  (xs, env) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun loop
+  {n:nat} .<n>. (
+  xs: list (x, n), env: &env
+) : void = let
+in
+//
+case+ xs of
+| list_cons (x, xs) => let
+    val test =
+      list_foreach$cont<x><env> (x, env)
+    // end of [val]
+  in
+    if test then let
+      val () = list_foreach$fwork<x><env> (x, env)
+    in
+      loop (xs, env)
+    end else () // end of [if]
+  end // end of [list_cons]
+| list_nil () => ()
+//
+end // end of [loop]
+//
+in
+  loop (xs, env)
+end // end of [list_foreach_env]
+
+implement{x}
+list_foreach_funenv
+  {v}{vt}{fe}
+  (pfv | xs, f, env) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun loop {n:nat} .<n>. (
+  pfv: !v
+| xs: list (x, n)
+, f: (!v | x, !vt) -<fun,fe> void
+, env: !vt
+) :<fe> void =
+  case+ xs of
+  | list_cons (x, xs) => let
+      val () = f (pfv | x, env) in loop (pfv | xs, f, env)
+    end // end of [list_cons]
+  | list_nil () => ()
+// end of [loop]
+in
+  loop (pfv | xs, f, env)
+end // end of [list_foreach_funenv]
+
+(* ****** ****** *)
+
+implement
+{x,y}{env}
+list_foreach2$cont (x, y, env) = true
+
+implement{x,y}
+list_foreach2 (xs, ys) = let
+  var env: void = () in list_foreach2_env<x,y><void> (xs, ys, env)
+end // end of [list_foreach2]
+
+implement
+{x,y}{env}
+list_foreach2_env
+  (xs, ys, env) = let
+//
+prval () = lemma_list_param (xs)
+prval () = lemma_list_param (ys)
+//
+fun loop
+  {m,n:nat} .<m>. (
+  xs: list (x, m), ys: list (y, n), env: &env
+) : void = let
+in
+//
+case+ xs of
+| list_cons
+    (x, xs) => (
+  case+ ys of
+  | list_cons (y, ys) => let
+      val test =
+        list_foreach2$cont<x,y><env> (x, y, env)
+      // end of [val]
+    in
+      if test then let
+        val () = list_foreach2$fwork<x,y><env> (x, y, env)
+      in
+        loop (xs, ys, env)
+      end else () // end of [if]
+    end // end of [list_cons]
+  | list_nil () => ()
+  ) // end of [list_cons]
+| list_nil () => ()
+//
+end // end of [loop]
+//
+in
+  loop (xs, ys, env)
+end // end of [list_foreach2_env]
+
+(* ****** ****** *)
+
+implement
+{x}{env}
+list_iforeach$cont (i, x, env) = true
+
+implement{x}
+list_iforeach (xs) = let
+  var env: void = () in list_iforeach_env<x><void> (xs, env)
+end // end of [list_iforeach]
+
+implement
+{x}{env}
+list_iforeach_env
+  (xs, env) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun loop
+  {n:nat}
+  {i:int} .<n>. (
+  i: int i, xs: list (x, n), env: &env
+) : intBtwe(i,n+i) =
+  case+ xs of
+  | list_cons
+      (x, xs) => let
+      val test =
+        list_iforeach$cont<x><env> (i, x, env)
+      // end of [test]
+    in
+      if test then let
+        val () = list_iforeach$fwork<x><env> (i, x, env)
+      in
+        loop (succ(i), xs, env)
+      end else (i) // end of [if]
+    end // end of [list_cons]
+  | list_nil () => (i) // number of processed elements
+// end of [loop]
+//
+in
+  loop (0, xs, env)
+end // end of [list_iforeach_env]
+
+(* ****** ****** *)
+
+implement{x}
+list_iforeach_funenv
+  {v}{vt}{n}{fe}
+  (pfv | xs, f, env) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun loop
+  {i:nat | i <= n} .<n-i>. (
+  pfv: !v
+| i: int i
+, xs: list (x, n-i)
+, f: (!v | natLt(n), x, !vt) -<fun,fe> void
+, env: !vt
+) :<fe> int n =
+  case+ xs of
+  | list_cons (x, xs) => let
+      val () = f (pfv | i, x, env) in loop (pfv | i+1, xs, f, env)
+    end // end of [list_cons]
+  | list_nil () => i // = size(xs)
+// end of [loop]
+in
+  loop (pfv | 0, xs, f, env)
+end // end of [list_iforeach_funenv]
+
+(* ****** ****** *)
+
+implement
+{x,y}{env}
+list_iforeach2$cont (i, x, y, env) = true
+
+implement{x,y}
+list_iforeach2 (xs, ys) = let
+  var env: void = () in list_iforeach2_env<x,y><void> (xs, ys, env)
+end // end of [list_iforeach2]
+
+implement
+{x,y}{env}
+list_iforeach2_env
+  (xs, ys, env) = let
+//
+prval () = lemma_list_param (xs)
+prval () = lemma_list_param (ys)
+//
+fun loop
+  {m,n:nat}{i:int} .<m>. (
+  i: int i, xs: list (x, m), ys: list (y, n), env: &env
+) : intBtwe(i, min(m,n)+i) = let
+in
+//
+case+ xs of
+| list_cons (x, xs) => (
+  case+ ys of
+  | list_cons (y, ys) => let
+      val test =
+        list_iforeach2$cont<x,y><env> (i, x, y, env)
+      // end of [val]
+    in
+      if test then let
+        val () = list_iforeach2$fwork<x,y><env> (i, x, y, env)
+      in
+        loop (succ(i), xs, ys, env)
+      end else (i) // end of [if]
+    end // end of [list_cons]
+  | list_nil () => i // the number of processed elements
+  ) // end of [list_cons]
+| list_nil () => i // the number of processed elements
+//
+end // end of [loop]
+//
+in
+  loop (0, xs, ys, env)
+end // end of [list_iforeach2_env]
+
+(* ****** ****** *)
+
+implement
+{res}{x}
+list_foldleft (xs, ini) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun loop
+  {n:nat} .<n>.
+  (xs: list (x, n), acc: res): res =
+  case+ xs of
+  | list_cons (x, xs) => let
+      val acc =
+        list_foldleft$fopr<res><x> (acc, x)
+      // end of [val]
+    in
+      loop (xs, acc)
+    end // end of [list_cons]
+  | list_nil () => acc // end of [list_nil]
+// end of [loop]
+//
+in
+  loop (xs, ini)
+end // end of [list_foldleft]
 
 (* ****** ****** *)
 

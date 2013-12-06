@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Fri Nov  1 20:12:51 2013
+** Time of generation: Thu Nov 28 12:26:15 2013
 *)
 
 (* ****** ****** *)
@@ -318,56 +318,6 @@ list_vt_separate{n:int}
 
 (* ****** ****** *)
 
-fun{
-x:vt0p}{env:vt0p
-} list_vt_foreach$cont (x: &x, env: &env): bool
-fun{
-x:vt0p}{env:vt0p
-} list_vt_foreach$fwork (x: &x >> _, env: &(env) >> _): void
-fun{
-x:vt0p
-} list_vt_foreach (xs: !List_vt (INV(x))): void
-fun{
-x:vt0p}{env:vt0p
-} list_vt_foreach_env (xs: !List_vt (INV(x)), env: &(env) >> _): void
-
-fun{
-x:vt0p
-} list_vt_foreach_fun
-  {fe:eff} (
-  xs: !List_vt (INV(x)), f: (&x) -<fe> void
-) :<fe> void // end of [list_vt_foreach_fun]
-
-fun{
-x:vt0p
-} list_vt_foreach_funenv
-  {v:view}{vt:viewtype}{fe:eff} (
-  pfv: !v
-| xs: !List_vt (INV(x)), f: (!v | &x, !vt) -<fe> void, env: !vt
-) :<fe> void // end of [list_vt_foreach_funenv]
-
-(* ****** ****** *)
-
-fun{
-x:vt0p}{env:vt0p
-} list_vt_iforeach$cont
-  (i: int, x: &x, env: &env): bool
-fun{
-x:vt0p}{env:vt0p
-} list_vt_iforeach$fwork
-  (i: int, x: &x >> _, env: &(env) >> _): void
-fun{
-x:vt0p
-} list_vt_iforeach
-  {n:int} (xs: !list_vt (INV(x), n)): natLte(n)
-fun{
-x:vt0p}{env:vt0p
-} list_vt_iforeach_env
-  {n:int} (xs: !list_vt (INV(x), n), env: &(env) >> _): natLte(n)
-// end of [list_vt_iforeach_env]
-
-(* ****** ****** *)
-
 fun{x:t0p}
 list_vt_filter$pred (x: &RD(x)):<> bool
 fun{x:t0p}
@@ -415,6 +365,56 @@ x:vt0p}{y:vt0p
 fun{
 x:vt0p}{y:vt0p
 } list_vt_mapfree {n:int} (xs: list_vt (INV(x), n)): list_vt (y, n)
+
+(* ****** ****** *)
+
+fun{
+x:vt0p}{env:vt0p
+} list_vt_foreach$cont (x: &x, env: &env): bool
+fun{
+x:vt0p}{env:vt0p
+} list_vt_foreach$fwork (x: &x >> _, env: &(env) >> _): void
+fun{
+x:vt0p
+} list_vt_foreach (xs: !List_vt (INV(x))): void
+fun{
+x:vt0p}{env:vt0p
+} list_vt_foreach_env (xs: !List_vt (INV(x)), env: &(env) >> _): void
+
+fun{
+x:vt0p
+} list_vt_foreach_fun
+  {fe:eff} (
+  xs: !List_vt (INV(x)), f: (&x) -<fe> void
+) :<fe> void // end of [list_vt_foreach_fun]
+
+fun{
+x:vt0p
+} list_vt_foreach_funenv
+  {v:view}{vt:viewtype}{fe:eff} (
+  pfv: !v
+| xs: !List_vt (INV(x)), f: (!v | &x, !vt) -<fe> void, env: !vt
+) :<fe> void // end of [list_vt_foreach_funenv]
+
+(* ****** ****** *)
+
+fun{
+x:vt0p}{env:vt0p
+} list_vt_iforeach$cont
+  (i: int, x: &x, env: &env): bool
+fun{
+x:vt0p}{env:vt0p
+} list_vt_iforeach$fwork
+  (i: int, x: &x >> _, env: &(env) >> _): void
+fun{
+x:vt0p
+} list_vt_iforeach
+  {n:int} (xs: !list_vt (INV(x), n)): natLte(n)
+fun{
+x:vt0p}{env:vt0p
+} list_vt_iforeach_env
+  {n:int} (xs: !list_vt (INV(x), n), env: &(env) >> _): natLte(n)
+// end of [list_vt_iforeach_env]
 
 (* ****** ****** *)
 //

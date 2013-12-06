@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Fri Nov  1 20:38:04 2013
+** Time of generation: Tue Dec  3 17:40:37 2013
 *)
 
 (* ****** ****** *)
@@ -322,13 +322,24 @@ end // end of [let] // end of [g1int_ndiv]
 (* ****** ****** *)
 
 implement{tk}
+g1int_ndiv2 {i,j} (x, y) = let
+  val [q:int] q = g1int_div (x, y)
+  prval [q2:int,r:int] pf = divmod_istot{i,j}()
+  prval EQINT() = $UN.castview0{EQINT(q,q2)}(0)
+in
+  (pf | q)
+end // end of [let] // end of [g1int_ndiv2]
+
+(* ****** ****** *)
+
+implement{tk}
 g1int_nmod2 {i,j} (x, y) = let
   val [r:int] r = g1int_nmod (x, y)
   prval [q:int,r2:int] pf = divmod_istot{i,j}()
   prval EQINT() = $UN.castview0{EQINT(r,r2)}(0)
 in
   (pf | r)
-end // end of [g1int_nmod2]
+end // end of [let] // end of [g1int_nmod2]
 
 (* ****** ****** *)
 

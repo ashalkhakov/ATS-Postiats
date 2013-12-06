@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Fri Nov  1 20:38:08 2013
+** Time of generation: Tue Dec  3 17:40:41 2013
 *)
 
 (* ****** ****** *)
@@ -71,6 +71,13 @@ primplmnt
 unit_v_elim (pf) = let
   prval unit_v () = pf in (*nothing*)
 end // end of [unit_v_elim]
+
+(* ****** ****** *)
+
+implement{a}
+opt_unsome_get (x) =
+  let prval () = opt_unsome (x) in x end
+// end of [opt_unsome_get]
 
 (* ****** ****** *)
 

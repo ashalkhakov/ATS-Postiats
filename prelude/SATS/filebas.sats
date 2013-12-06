@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Fri Nov  1 20:12:48 2013
+** Time of generation: Thu Dec  5 21:09:18 2013
 *)
 
 (* ****** ****** *)
@@ -257,6 +257,21 @@ fun{
 //
 fun{
 } fileref_get_file_string (inp: FILEref): Strptr1
+//
+(* ****** ****** *)
+//
+fun{
+env:vt0p
+} fileref_foreach$cont (c: char, env: &env): bool
+fun{
+env:vt0p
+} fileref_foreach$fwork (c: char, env: &(env) >> _): bool
+//
+fun{
+} fileref_foreach (filr: FILEref): void
+fun{
+env:vt0p
+} fileref_foreach_env (filr: FILEref, env: &(env) >> _): void
 //
 (* ****** ****** *)
 

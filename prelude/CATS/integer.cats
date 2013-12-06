@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer.atxt
-** Time of generation: Fri Nov  1 20:08:13 2013
+** Time of generation: Wed Nov 20 17:50:37 2013
 */
 
 /* ****** ****** */
@@ -1016,7 +1016,6 @@ atspre_fprint_ssize
 #define atspre_g1int_sub_int atspre_g0int_sub_int
 #define atspre_g1int_mul_int atspre_g0int_mul_int
 #define atspre_g1int_div_int atspre_g0int_div_int
-#define atspre_g1int_mod_int atspre_g0int_mod_int
 #define atspre_g1int_nmod_int atspre_g0int_nmod_int
 #define atspre_g1int_isltz_int atspre_g0int_isltz_int
 #define atspre_g1int_isltez_int atspre_g0int_isltez_int
@@ -1044,7 +1043,6 @@ atspre_fprint_ssize
 #define atspre_g1int_sub_lint atspre_g0int_sub_lint
 #define atspre_g1int_mul_lint atspre_g0int_mul_lint
 #define atspre_g1int_div_lint atspre_g0int_div_lint
-#define atspre_g1int_mod_lint atspre_g0int_mod_lint
 #define atspre_g1int_nmod_lint atspre_g0int_nmod_lint
 #define atspre_g1int_isltz_lint atspre_g0int_isltz_lint
 #define atspre_g1int_isltez_lint atspre_g0int_isltez_lint
@@ -1072,7 +1070,6 @@ atspre_fprint_ssize
 #define atspre_g1int_sub_llint atspre_g0int_sub_llint
 #define atspre_g1int_mul_llint atspre_g0int_mul_llint
 #define atspre_g1int_div_llint atspre_g0int_div_llint
-#define atspre_g1int_mod_llint atspre_g0int_mod_llint
 #define atspre_g1int_nmod_llint atspre_g0int_nmod_llint
 #define atspre_g1int_isltz_llint atspre_g0int_isltz_llint
 #define atspre_g1int_isltez_llint atspre_g0int_isltez_llint
@@ -1100,7 +1097,6 @@ atspre_fprint_ssize
 #define atspre_g1int_sub_ssize atspre_g0int_sub_ssize
 #define atspre_g1int_mul_ssize atspre_g0int_mul_ssize
 #define atspre_g1int_div_ssize atspre_g0int_div_ssize
-#define atspre_g1int_mod_ssize atspre_g0int_mod_ssize
 #define atspre_g1int_nmod_ssize atspre_g0int_nmod_ssize
 #define atspre_g1int_isltz_ssize atspre_g0int_isltz_ssize
 #define atspre_g1int_isltez_ssize atspre_g0int_isltez_ssize

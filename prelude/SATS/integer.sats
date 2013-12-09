@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Fri Nov  1 20:12:44 2013
+** Time of generation: Mon Dec  9 00:02:47 2013
 *)
 
 (* ****** ****** *)
@@ -158,6 +158,18 @@ overload / with g0int_div of 0
 fun{tk:tk}
 g0int_mod : g0int_aop_type (tk)
 overload mod with g0int_mod of 0
+
+(* ****** ****** *)
+
+fun{}
+mul_int1_size0 {i:nat} (int(i), size_t): size_t
+fun{}
+mul_size0_int1 {j:nat} (size_t, int(j)): size_t
+
+(* ****** ****** *)
+
+overload * with mul_int1_size0 of 11
+overload * with mul_size0_int1 of 11
 
 (* ****** ****** *)
 
@@ -350,26 +362,43 @@ overload double with g1int_double of 10
 
 typedef
 g1int_add_type (tk:tk) =
-  {i,j:int} (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, i+j)
+  {i,j:int} (g1int (tk,i), g1int (tk,j)) -<fun0> g1int (tk, i+j)
 fun{tk:tk}
 g1int_add : g1int_add_type (tk)
+
+fun{}
+add_size1_int1
+  {i,j:int | i+j >= 0} (x: size_t (i), j: int (j)): size_t (i+j)
+
+(* ****** ****** *)
+
 overload + with g1int_add of 20
+overload + with add_size1_int1 of 22
+
+(* ****** ****** *)
 
 typedef
 g1int_sub_type (tk:tk) =
-  {i,j:int} (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, i-j)
+  {i,j:int} (g1int (tk,i), g1int (tk,j)) -<fun0> g1int (tk, i-j)
 fun{tk:tk}
 g1int_sub : g1int_sub_type (tk)
+
+fun{}
+sub_size1_int1
+  {i,j:int | i-j >= 0} (x: size_t (i), j: int (j)): size_t (i-j)
+
+(* ****** ****** *)
+
 overload - with g1int_sub of 20
+overload - with sub_size1_int1 of 22
 
 (* ****** ****** *)
 
 typedef
 g1int_mul_type (tk:tk) =
-  {i,j:int} (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, i*j)
+  {i,j:int} (g1int (tk,i), g1int (tk,j)) -<fun0> g1int (tk, i*j)
 fun{tk:tk}
 g1int_mul : g1int_mul_type (tk)
-overload * with g1int_mul of 20
 
 fun{tk:tk}
 g1int_mul2
@@ -381,22 +410,35 @@ g1int_mul2
   (MUL (i, j, ij) | g1int (tk, ij))
 // end of [g1int_mul2]
 
+fun{}
+mul_int1_size1
+  {i,j:int | i >= 0} (x: int (i), j: size_t (j)): size_t (i*j)
+fun{}
+mul_size1_int1
+  {i,j:int | j >= 0} (x: size_t (i), j: int (j)): size_t (i*j)
+
+(* ****** ****** *)
+
+overload * with g1int_mul of 20
+overload * with mul_int1_size1 of 22
+overload * with mul_size1_int1 of 22
+
 (* ****** ****** *)
 
 typedef
 g1int_div_type (tk:tk) =
   {i,j:int | j != 0} (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk)
+
 fun{tk:tk}
 g1int_div : g1int_div_type (tk)
-overload / with g1int_div of 20
 
 typedef
 g1int_ndiv_type (tk:tk) =
   {i,j:int | i >= 0; j > 0}
   (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, ndiv_int_int (i, j))
+
 fun{tk:tk}
 g1int_ndiv : g1int_ndiv_type (tk)
-overload ndiv with g1int_ndiv of 20
 
 fun{tk:tk}
 g1int_ndiv2
@@ -409,6 +451,11 @@ g1int_ndiv2
 ] (
   DIVMOD (i, j, q, r) | g1int (tk, q)
 ) // end of [g1int_ndiv2]
+
+(* ****** ****** *)
+
+overload / with g1int_div of 20
+overload ndiv with g1int_ndiv of 20
 
 (* ****** ****** *)
 
@@ -427,7 +474,6 @@ g1int_nmod_type
 
 fun{tk:tk}
 g1int_nmod : g1int_nmod_type (tk)
-overload nmod with g1int_nmod of 20
 
 fun{tk:tk}
 g1int_nmod2
@@ -436,12 +482,14 @@ g1int_nmod2
   x: g1int (tk, i), y: g1int (tk, j)
 ) :<> [q,r:int | 0 <= r; r < j] (DIVMOD (i, j, q, r) | g1int (tk, r))
 
+fun{tk:tk}
+nmod_g1int_int1
+  {i,j:int | i >= 0; j > 0} (x: g1int (tk, i), y: int (j)):<> natLt (j)
+
 (* ****** ****** *)
 
-fun{tk:tk}
-nmod_g1int_int
-  {i,j:int | i >= 0; j > 0} (x: g1int (tk, i), y: int (j)):<> natLt (j)
-overload nmod with nmod_g1int_int of 21
+overload nmod with g1int_nmod of 20
+overload nmod with nmod_g1int_int1 of 21
 
 (* ****** ****** *)
 

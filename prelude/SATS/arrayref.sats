@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Nov  1 20:12:53 2013
+** Time of generation: Mon Dec  9 14:31:24 2013
 *)
 
 (* ****** ****** *)
@@ -75,6 +75,12 @@ praxi
 lemma_arrayref_param
   {a:vt0p}{n:int} (A: arrayref (a, n)): [n >= 0] void
 // end of [lemma_arrayref_param]
+
+(* ****** ****** *)
+
+castfn
+arrayref2ptr{a:vt0p}{n:int} (A: arrayref(a, n)):<> Ptr0
+overload ptrcast with arrayref2ptr
 
 (* ****** ****** *)
 

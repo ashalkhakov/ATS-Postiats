@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2012 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -36,6 +36,12 @@
 #define ATS_PACKNAME "ATSLIB.libats.ML"
 #define ATS_STALOADFLAG 0 // no need for staloading at run-time
 #define ATS_EXTERN_PREFIX "atslib_ML_" // prefix for external names
+
+(* ****** ****** *)
+
+%{#
+#include "libats/ML/CATS/array0.cats"
+%} // end of [%{#]
 
 (* ****** ****** *)
 
@@ -73,7 +79,7 @@ sortdef t0p = t@ype and vt0p = viewt@ype
 //
 fun{}
 array0_of_arrszref
-  {a:vt0p} (A: arrszref (a)):<> array0 (a)
+  {a:vt0p} (arrszref (a)):<> array0 (a)
 //
 fun{}
 arrszref_of_array0

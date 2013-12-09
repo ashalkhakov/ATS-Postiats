@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Tue Dec  3 17:40:37 2013
+** Time of generation: Mon Dec  9 00:08:07 2013
 *)
 
 (* ****** ****** *)
@@ -185,6 +185,11 @@ implement fprint_val<ssize_t> (out, x) = fprint_ssize (out, x)
 //
 (* ****** ****** *)
 
+implement{} mul_int1_size0 (i, j) = i2sz(i) * j
+implement{} mul_size0_int1 (i, j) = i * i2sz(j)
+
+(* ****** ****** *)
+
 implement
 g1int2int<intknd,intknd> = g1int2int_int_int
 implement
@@ -306,12 +311,30 @@ implement{tk}
 g1int_sgn (x) = compare_g1int_int<tk> (x, 0)
 
 (* ****** ****** *)
+//
+implement{
+} add_size1_int1
+  {i,j}(i, j) = $UN.cast{size_t(i+j)}(i+g0i2u(j))
+implement{
+} sub_size1_int1
+  {i,j}(i, j) = $UN.cast{size_t(i-j)}(i-g0i2u(j))
+//
+(* ****** ****** *)
 
 implement{tk}
 g1int_mul2 {i,j} (x, y) = let
   prval pf = mul_make {i,j} () in (pf | g1int_mul<tk> (x, y))
 end // end of [let] // end of [g1int_mul2]
 
+(* ****** ****** *)
+//
+implement{
+} mul_int1_size1
+  {i,j}(i, j) = $UN.cast{size_t(i*j)}(g0i2u(i)*j)
+implement{
+} mul_size1_int1
+  {i,j}(i, j) = $UN.cast{size_t(i*j)}(i*g0i2u(j))
+//
 (* ****** ****** *)
 
 implement{tk}
@@ -344,11 +367,11 @@ end // end of [let] // end of [g1int_nmod2]
 (* ****** ****** *)
 
 implement
-nmod_g1int_int<intknd> (x, y) = g1i2i(g1int_nmod (x, g1i2i(y)))
+nmod_g1int_int1<intknd> (x, y) = g1i2i(g1int_nmod (x, g1i2i(y)))
 implement
-nmod_g1int_int<lintknd> (x, y) = g1i2i(g1int_nmod (x, g1i2i(y)))
+nmod_g1int_int1<lintknd> (x, y) = g1i2i(g1int_nmod (x, g1i2i(y)))
 implement
-nmod_g1int_int<llintknd> (x, y) = g1i2i(g1int_nmod (x, g1i2i(y)))
+nmod_g1int_int1<llintknd> (x, y) = g1i2i(g1int_nmod (x, g1i2i(y)))
 
 (* ****** ****** *)
 

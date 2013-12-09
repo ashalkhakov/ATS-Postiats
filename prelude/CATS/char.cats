@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Tue Nov 12 10:16:02 2013
+** Time of generation: Mon Dec  9 01:04:46 2013
 */
 
 /* ****** ****** */
@@ -50,6 +50,9 @@
 
 #include <ctype.h>
 
+/* ****** ****** */
+
+#if(0)
 #ifndef isascii
 extern int isascii (int c) ; // _XOPEN_SOURCE
 #endif // end of [isascii]
@@ -61,6 +64,7 @@ extern int isblank (int c) ; // _XOPEN_SOURCE >= 600
 #ifndef toascii
 extern int toascii (int c) ; // _XOPEN_SOURCE
 #endif // end of [toascii]
+#endif // end of [ #if(0) ]
 
 /* ****** ****** */
 

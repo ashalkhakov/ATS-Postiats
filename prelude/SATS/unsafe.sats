@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Nov  1 20:12:51 2013
+** Time of generation: Sat Dec  7 17:14:28 2013
 *)
 
 (* ****** ****** *)
@@ -127,6 +127,13 @@ overload ptr_vtake with ptr0_vtake of 0
 castfn ptr1_vtake
   {a:vt0p}{l:addr} (ptr l):<> (a@l, a@l -<lin,prf> void | ptr l) 
 overload ptr_vtake with ptr1_vtake of 10
+
+(* ****** ****** *)
+
+castfn
+ref_vtake{a:vt0p}
+  {l:addr} (r: ref (a)):<> [l:addr] (a@l, a@l -<lin,prf> void | ptr l)
+// end of [ref_vtake]
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Fri Nov  1 20:12:53 2013
+** Time of generation: Mon Dec  9 15:31:08 2013
 *)
 
 (* ****** ****** *)
@@ -196,6 +196,14 @@ fun{a:t0p}
 arrayptr_make_rlist{n:int}
   (asz: int n, xs: list (INV(a), n)):<!wrt> arrayptr (a, n)
 // end of [arrayptr_make_rlist]
+
+(* ****** ****** *)
+
+fun{a:t0p}
+arrayptr_make_subarray
+  {n:int}{st,ln:int | st+ln <= n}
+  (A: RD(arrayref (a, n)), size_t (st), size_t (ln)): arrayptr (a, ln)
+// end of [arrayref_make_subarray]
 
 (* ****** ****** *)
 

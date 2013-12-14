@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/float.atxt
-** Time of generation: Tue Dec  3 17:40:37 2013
+** Time of generation: Sat Dec 14 11:29:04 2013
 *)
 
 (* ****** ****** *)
@@ -77,6 +77,10 @@ implement
 g0float2float<dblknd,fltknd> = g0float2float_double_float
 implement
 g0float2float<dblknd,dblknd> = g0float2float_double_double
+
+(* ****** ****** *)
+
+implement g0string2float<dblknd> = g0string2float_double
 
 (* ****** ****** *)
 

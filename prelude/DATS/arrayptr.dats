@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Tue Dec  3 17:40:49 2013
+** Time of generation: Mon Dec  9 15:41:19 2013
 *)
 
 (* ****** ****** *)
@@ -123,6 +123,32 @@ val () = array_initize_rlist<a> (!p, asz, xs)
 in
   arrayptr_encode(pf, pfgc | p)
 end // end of [arrayptr_make_rlist]
+
+(* ****** ****** *)
+
+implement{a}
+arrayptr_make_subarray
+  {n}{st,ln}(A, st, ln) = let
+//
+val p1 =
+ptr_add<a> ($UN.cast2ptr(A), st)
+val (
+  pf1, fpf | p1
+) = $UN.ptr_vtake{array(a,ln)}(p1)
+//
+val A2 =
+arrayptr_make_uninitized<a> (ln)
+val p2 = ptrcast (A2)
+prval pf2 = arrayptr_takeout (A2)
+//
+val () = array_copy<a> (!p2, !p1, ln)
+//
+prval () = fpf (pf1)
+prval () = arrayptr_addback (pf2 | A2)
+//
+in
+  A2
+end // end of [arrayptr_make_subarray]
 
 (* ****** ****** *)
 

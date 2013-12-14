@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/strptr.atxt
-** Time of generation: Tue Dec  3 17:40:41 2013
+** Time of generation: Mon Dec  9 23:58:12 2013
 *)
 
 (* ****** ****** *)
@@ -206,6 +206,26 @@ end else
 // end of [if]
 //
 end // end of [strptr_append]
+
+(* ****** ****** *)
+
+implement{}
+strptrlst_free (xs) = let
+//
+fun loop
+  (xs: List_vt(Strptr0)): void = let
+in
+//
+case+ xs of
+| ~list_vt_cons
+    (x, xs) => (strptr_free (x); loop (xs))
+| ~list_vt_nil () => ()
+//
+end // end of [loop]
+//
+in
+  $effmask_all (loop (xs))
+end // end of [strptrlst_free]
 
 (* ****** ****** *)
 

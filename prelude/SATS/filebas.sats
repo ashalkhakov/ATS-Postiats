@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Thu Dec  5 21:09:18 2013
+** Time of generation: Fri Dec 27 15:49:09 2013
 *)
 
 (* ****** ****** *)
@@ -261,17 +261,21 @@ fun{
 (* ****** ****** *)
 //
 fun{
-env:vt0p
-} fileref_foreach$cont (c: char, env: &env): bool
-fun{
-env:vt0p
-} fileref_foreach$fwork (c: char, env: &(env) >> _): bool
+} fileref_foreach$bufsize (): sizeGte(1)
 //
 fun{
-} fileref_foreach (filr: FILEref): void
+env:vt0p
+} fileref_foreach$fwork (c: char, env: &(env) >> _): void
 fun{
 env:vt0p
-} fileref_foreach_env (filr: FILEref, env: &(env) >> _): void
+} fileref_foreach$fworkv
+  {n:int} (arrayref(char, n), size_t(n), &(env) >> _): void
+//
+fun{
+} fileref_foreach (inp: FILEref): void
+fun{
+env:vt0p
+} fileref_foreach_env (inp: FILEref, env: &(env) >> _): void
 //
 (* ****** ****** *)
 

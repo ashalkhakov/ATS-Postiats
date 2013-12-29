@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,13 +30,39 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/memory.atxt
-** Time of generation: Tue Dec  3 17:40:38 2013
+** Time of generation: Wed Dec 18 23:00:51 2013
 *)
 
 (* ****** ****** *)
+
+staload
+UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
+implement{
+} memory$free{l}
+  (pfat, pfmf | p) = let
 //
-// HX: it is still empty!
+prval pfgc = $UN.castview0{mfree_gc_v(l)}(pfmf)
 //
+in
+  mfree_gc (pfat, pfgc | p)
+end // end of [memory$free]
+
+(* ****** ****** *)
+
+implement{
+} memory$alloc
+  {n} (bsz) = let
+//
+val [l:addr]
+  (pfat, pfgc | p) = malloc_gc (bsz)
+prval pfmf = $UN.castview0{memory$free_v(l)}(pfgc)
+in
+  (pfat, pfmf | p)
+end // end of [memory$alloc]
+
 (* ****** ****** *)
 
 (* end of [memory.dats] *)

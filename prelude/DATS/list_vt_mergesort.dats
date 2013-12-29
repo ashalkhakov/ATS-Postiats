@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_mergesort.atxt
-** Time of generation: Tue Dec  3 17:40:46 2013
+** Time of generation: Sat Dec 21 22:52:00 2013
 *)
 
 (* ****** ****** *)
@@ -138,8 +138,13 @@ implement{a}
 list_vt_mergesort_fun
   (xs, cmp) = let
 //
-implement
-list_vt_mergesort$cmp<a> (x1, x2) = cmp (x1, x2)
+implement{a2}
+list_vt_mergesort$cmp
+  (x1, x2) = let
+//
+val cmp = $UN.cast{cmpref(a2)}(cmp) in cmp (x1, x2)
+//
+end (* end of [list_vt_mergesort$cmp] *)
 //
 in
   list_vt_mergesort (xs)

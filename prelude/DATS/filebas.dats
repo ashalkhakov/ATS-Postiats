@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Tue Dec  3 17:40:38 2013
+** Time of generation: Sat Dec 21 22:52:00 2013
 *)
 
 (* ****** ****** *)
@@ -700,6 +700,85 @@ atspre_fileref_get_line_string_main2
 //
 } // end of [atspre_fileref_get_line_string_main2]
 %}
+
+(* ****** ****** *)
+
+implement{}
+fileref_foreach$bufsize () = i2sz(4096)
+
+(* ****** ****** *)
+
+implement
+{env}(*tmp*)
+fileref_foreach$fworkv
+  (A, n, env) = let
+//
+implement
+{a}{env}
+array_foreach$cont (x, env) = true
+implement
+array_foreach$fwork<char><env>
+  (x, env) = fileref_foreach$fwork<env> (x, env)
+//
+in
+  ignoret (arrayref_foreach_env<char><env> (A, n, env))
+end // end of [fileref_foreach$fworkv]
+
+(* ****** ****** *)
+
+implement{}
+fileref_foreach (inp) = let
+   var env: void = () in fileref_foreach_env (inp, env)
+end // end of [fileref_foreach]
+
+(* ****** ****** *)
+
+local
+//
+staload "libc/SATS/stdio.sats"
+//
+extern
+fun fread
+  (ptr, size_t, size_t, FILEref): Size = "mac#atslib_fread"
+//
+in (* in of [local] *)
+
+implement
+{env}(*tmp*)
+fileref_foreach_env
+   (inp, env) = let
+//
+fun loop
+  {l:addr}{n:int}
+(
+  pf: !b0ytes(n) @ l
+| inp: FILEref, bufp: ptr(l), bsz: size_t(n), env: &env
+) : void = let
+//
+val bsz2 = fread (bufp, i2sz(1), bsz, inp)
+prval [n2:int] EQINT() = g1uint_get_index (bsz2)
+//
+in
+//
+if bsz2 > 0 then
+{
+  val A = $UN.cast{arrayref(char,n2)}(bufp)
+  val () = fileref_foreach$fworkv<env> (A, bsz2, env)
+  val ((*void*)) = loop (pf | inp, bufp, bsz, env)
+} (* end of [if] *)
+//
+end // end of [loop]
+//
+val bsz = fileref_foreach$bufsize<> ()
+val (pf1, pf2 | bufp) = memory$alloc<> (bsz)
+val ((*void*)) = loop (pf1 | inp, bufp, bsz, env)
+val ((*void*)) = memory$free<> (pf1, pf2 | bufp)
+//
+in
+  // nothing
+end // end of [fileref_foreach_env]
+
+end // end of [local]
 
 (* ****** ****** *)
 

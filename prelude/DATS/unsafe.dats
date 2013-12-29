@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/unsafe.atxt
-** Time of generation: Tue Dec  3 17:40:46 2013
+** Time of generation: Wed Dec 18 23:00:58 2013
 *)
 
 (* ****** ****** *)
@@ -112,6 +112,17 @@ ptr0_intch
 
 implement{a} ptr1_intch = ptr0_intch<a>
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+ptr0_get_at (p, i) =
+  ptr0_get<a> (ptr0_add_gint<a> (p, i))
+implement
+{a}(*tmp*)
+ptr0_set_at (p, i, x) =
+  ptr0_set<a> (ptr0_add_gint<a> (p, i), x)
+//
 (* ****** ****** *)
 
 implement{a}

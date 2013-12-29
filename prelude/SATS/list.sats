@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Thu Dec  5 21:09:19 2013
+** Time of generation: Fri Dec 27 15:49:12 2013
 *)
 
 (* ****** ****** *)
@@ -426,7 +426,7 @@ fun{
 x:t0p
 } list_split_at
   {n:int}{i:nat | i <= n}
-  (xs: SHR(list (INV(x), n)), i: int i):<> (list_vt (x, i), list (x, n-i))
+  (xs: SHR(list (INV(x), n)), i: int i):<!wrt> (list_vt (x, i), list (x, n-i))
 // end of [list_split_at]
 
 (* ****** ****** *)

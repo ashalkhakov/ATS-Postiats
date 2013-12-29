@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Sat Dec  7 17:14:28 2013
+** Time of generation: Fri Dec 27 15:49:11 2013
 *)
 
 (* ****** ****** *)
@@ -158,6 +158,11 @@ fun{a:vt0p} ptr1_exch (p: Ptr1, x: &INV(a) >> a):<!wrt> void
 fun{a:vt0p} ptr0_intch (p1: ptr, p2: ptr):<!wrt> void
 fun{a:vt0p} ptr1_intch (p1: Ptr1, p2: Ptr1):<!wrt> void
 //
+(* ****** ****** *)
+
+fun{a:vt0p} ptr0_get_at (p: ptr, i: int):<> a
+fun{a:vt0p} ptr0_set_at (p: ptr, i: int, x: a):<!wrt> void
+
 (* ****** ****** *)
 //
 // HX-2012-06:

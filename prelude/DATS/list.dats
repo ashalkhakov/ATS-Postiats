@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Dec  6 14:24:21 2013
+** Time of generation: Sun Dec 22 00:11:47 2013
 *)
 
 (* ****** ****** *)
@@ -749,6 +749,45 @@ fun loop
 in
   loop (xs, i)
 end // end of [list_drop_exn]
+
+(* ****** ****** *)
+
+implement{x}
+list_split_at
+  (xs, i) = let
+//
+fun loop
+  {n:int}
+  {i:nat | i <= n} .<n>.
+(
+  xs: list (x, n), i: int i
+, res: &ptr? >> list_vt (x, i)
+) :<!wrt> list (x, n-i) =
+(
+if i > 0
+  then let
+    val+list_cons (x, xs) = xs
+    val () =
+      res := list_vt_cons{x}{0}(x, _)
+    // end of [val]
+    val+list_vt_cons (_, res1) = res
+    val xs2 = loop (xs, i-1, res1)
+    prval () = fold@ (res)
+  in
+    xs2
+  end // end of [then]
+  else let
+    val () = res := list_vt_nil () in xs
+  end // end of [else]
+// end of [if]
+)
+//
+var res: ptr
+val xs2 = loop (xs, i, res)
+//
+in
+  (res, xs2)
+end // end of [list_split_at]
 
 (* ****** ****** *)
 
@@ -1636,12 +1675,19 @@ in
   list_vt_mergesort<a> (xs)
 end // end of [list_mergesort]
 
+(* ****** ****** *)
+
 implement{a}
 list_mergesort_fun
   (xs, cmp) = let
 //
-implement
-list_mergesort$cmp<a> (x1, x2) = cmp (x1, x2)
+implement{a2}
+list_mergesort$cmp
+  (x1, x2) = let
+//
+val cmp = $UN.cast{cmpval(a2)}(cmp) in cmp (x1, x2)
+//
+end // end of [list_mergesort$cmp]
 //
 in
   list_mergesort<a> (xs)
@@ -1668,12 +1714,19 @@ in
   list_vt_quicksort<a> (xs)
 end // end of [list_quicksort]
 
+(* ****** ****** *)
+
 implement{a}
 list_quicksort_fun
   (xs, cmp) = let
 //
-implement
-list_quicksort$cmp<a> (x1, x2) = cmp (x1, x2)
+implement{a2}
+list_quicksort$cmp
+  (x1, x2) = let
+//
+val cmp = $UN.cast{cmpval(a2)}(cmp) in cmp (x1, x2)
+//
+end // end of [list_quicksort$cmp]
 //
 in
   list_quicksort<a> (xs)

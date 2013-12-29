@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/memory.atxt
-** Time of generation: Fri Nov  1 20:12:46 2013
+** Time of generation: Fri Dec 27 15:49:07 2013
 *)
 
 (* ****** ****** *)
@@ -83,23 +83,49 @@ fun minit_gc (): void = "mac#%"
 //
 (* ****** ****** *)
 
-fun mfree_gc
+fun
+mfree_gc
   {l:addr}{n:int}
 (
-  pfat: b0ytes n @ l, pfgc: mfree_gc_v (l) | ptr l
-) :<!wrt> void = "mac#%" // endfun
+  pfat: b0ytes n @ l
+, pfgc: mfree_gc_v (l) | ptr l
+) :<!wrt> void = "mac#%"
 
-(* ****** ****** *)
-
-fun malloc_gc
+fun
+malloc_gc
   {n:int}
 (
-  n: size_t (n)
+  bsz: size_t (n)
 ) :<!wrt>
   [l:agz]
 (
   b0ytes n @ l, mfree_gc_v (l) | ptr l
 ) = "mac#%" // endfun
+
+(* ****** ****** *)
+
+absview memory$free_v (l:addr)
+
+(* ****** ****** *)
+
+fun{
+} memory$free
+  {l:addr}{n:int}
+(
+  pfat: b0ytes n @ l
+, pfmf: memory$free_v (l) | ptr l
+) :<!wrt> void // end-of-fun
+
+fun{
+} memory$alloc
+  {n:int}
+(
+  bsz: size_t (n)
+) :<!wrt>
+  [l:agz]
+(
+  b0ytes n @ l, memory$free_v (l) | ptr l
+) (* end of [memory$alloc] *)
 
 (* ****** ****** *)
 

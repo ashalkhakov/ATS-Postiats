@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/checkast.atxt
-** Time of generation: Fri Dec 27 17:18:44 2013
+** Time of generation: Mon Dec 30 20:47:28 2013
 *)
 
 (* ****** ****** *)
@@ -73,10 +73,6 @@ checkast_gintBtwe{i,j:int}
 
 (* ****** ****** *)
 
-fun{} checkast_Strptr1 (x: Strptr0, msg: string): Strptr1
-
-(* ****** ****** *)
-
 macdef
 ckastloc_gintLt (x, i) = checkast_gintLt (,(x), ,(i), $mylocation)
 macdef
@@ -89,6 +85,10 @@ macdef
 ckastloc_gintBtw (x, i, j) = checkast_gintBtw (,(x), ,(i), ,(j), $mylocation)
 macdef
 ckastloc_gintBtwe (x, i, j) = checkast_gintBtwe (,(x), ,(i), ,(j), $mylocation)
+
+(* ****** ****** *)
+
+fun{} checkast_Strptr1 (x: Strptr0, msg: string): Strptr1
 
 (* ****** ****** *)
 

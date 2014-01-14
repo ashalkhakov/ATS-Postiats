@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Fri Dec 27 15:49:04 2013
+** Time of generation: Thu Jan  2 12:04:09 2014
 *)
 
 (* ****** ****** *)
@@ -414,6 +414,12 @@ fun toupper_int (c: int):<> int = "mac#%"
 fun toupper_char (c: char):<> char = "mac#%"
 overload toupper with toupper_int
 overload toupper with toupper_char
+
+(* ****** ****** *)
+
+fun int2digit (i: intBtw(0, 10)): char = "mac#%"
+fun int2xdigit (i: intBtw(0, 16)): char = "mac#%"
+fun int2xxdigit (i: intBtw(0, 16)): char = "mac#%"
 
 (* ****** ****** *)
 

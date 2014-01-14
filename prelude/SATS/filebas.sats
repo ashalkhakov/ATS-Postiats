@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Fri Dec 27 15:49:09 2013
+** Time of generation: Sat Jan 11 01:58:26 2014
 *)
 
 (* ****** ****** *)
@@ -229,7 +229,7 @@ fun fileref_get_lines_charlstlst (inp: FILEref): List0_vt (charlst_vt)
 ** HX: for handling files of "tiny" size
 *)
 fun fileref_get_file_charlst (inp: FILEref): List0_vt (char)
-fun fileref_nget_file_charlst {n:nat} (inp: FILEref, n: int n): listLte_vt (char, n)
+fun fileref_get2_file_charlst (inp: FILEref, n: int): List0_vt (char)
 
 (* ****** ****** *)
 

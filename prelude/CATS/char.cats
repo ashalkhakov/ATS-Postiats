@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Mon Dec  9 01:04:46 2013
+** Time of generation: Fri Jan  3 02:30:34 2014
 */
 
 /* ****** ****** */
@@ -472,6 +472,26 @@ atstype_char
 atspre_toupper_char
   (atstype_char c) { return toupper(c) ; }
 //
+/* ****** ****** */
+
+ATSinline()
+atstype_char
+atspre_int2digit
+  (atstype_int i) { return ('0' + i) ; }
+// end of [atspre_int2digit]
+ATSinline()
+atstype_char
+atspre_int2xdigit
+  (atstype_int i) {
+  return (i < 10) ? ('0' + i) : ('a' + (i - 10)) ;
+} // end of [atspre_int2xdigit]
+ATSinline()
+atstype_char
+atspre_int2xxdigit
+  (atstype_int i) {
+  return (i < 10) ? ('0' + i) : ('A' + (i - 10)) ;
+} // end of [atspre_int2xxdigit]
+
 /* ****** ****** */
 
 #endif // ifndef ATSLIB_PRELUDE_CHAR_CATS

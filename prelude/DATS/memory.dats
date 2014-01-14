@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/memory.atxt
-** Time of generation: Wed Dec 18 23:00:51 2013
+** Time of generation: Thu Jan  9 12:46:48 2014
 *)
 
 (* ****** ****** *)
@@ -59,6 +59,7 @@ implement{
 val [l:addr]
   (pfat, pfgc | p) = malloc_gc (bsz)
 prval pfmf = $UN.castview0{memory$free_v(l)}(pfgc)
+//
 in
   (pfat, pfmf | p)
 end // end of [memory$alloc]

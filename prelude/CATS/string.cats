@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
-** Time of generation: Tue Nov 12 00:57:17 2013
+** Time of generation: Wed Jan  1 03:36:24 2014
 */
 
 /* ****** ****** */
@@ -167,6 +167,26 @@ atspre_fprint_string
 } // end of [atspre_fprint_string]
 #define atspre_print_string(x) atspre_fprint_string(stdout, (x))
 #define atspre_prerr_string(x) atspre_fprint_string(stderr, (x))
+
+/* ****** ****** */
+
+ATSinline()
+atsvoid_t0ype
+atspre_fprint_substring
+(
+  atstype_ref out
+, atstype_string x
+, atstype_size st, atstype_size ln  
+) {
+  int err = 0 ;
+  err += fwrite(((char*)x)+st, 1, ln, out) ;
+/*
+  if (err < 0) {
+    fprintf(stderr, "exit(ATS): [fprint_substring] failed.") ; exit(1) ;
+  } // end of [if]
+*/
+  return ;
+} // end of [atspre_fprint_substring]
 
 /* ****** ****** */
 

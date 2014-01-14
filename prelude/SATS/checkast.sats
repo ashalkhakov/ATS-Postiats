@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/checkast.atxt
-** Time of generation: Mon Dec 30 20:47:28 2013
+** Time of generation: Fri Jan  3 02:30:33 2014
 *)
 
 (* ****** ****** *)
@@ -54,22 +54,22 @@ sortdef t0p = t@ype and vt0p = viewt@ype
 
 fun{tk:tk}
 checkast_gintLt{i:int}
-  (x: g0int(tk), i: int i, msg: string): g1intLt(tk, i)
+  (x: g0int(tk), i: int i, msg: RD(string)): g1intLt(tk, i)
 fun{tk:tk}
 checkast_gintLte{i:int}
-  (x: g0int(tk), i: int i, msg: string): g1intLte(tk, i)
+  (x: g0int(tk), i: int i, msg: RD(string)): g1intLte(tk, i)
 fun{tk:tk}
 checkast_gintGt{i:int}
-  (x: g0int(tk), i: int i, msg: string): g1intGt(tk, i)
+  (x: g0int(tk), i: int i, msg: RD(string)): g1intGt(tk, i)
 fun{tk:tk}
 checkast_gintGte{i:int}
-  (x: g0int(tk), i: int i, msg: string): g1intGte(tk, i)
+  (x: g0int(tk), i: int i, msg: RD(string)): g1intGte(tk, i)
 fun{tk:tk}
 checkast_gintBtw{i,j:int}
-  (x: g0int(tk), i: int i, j: int j, msg: string): g1intBtw(tk, i, j)
+  (x: g0int(tk), i: int i, j: int j, msg: RD(string)): g1intBtw(tk, i, j)
 fun{tk:tk}
 checkast_gintBtwe{i,j:int}
-  (x: g0int(tk), i: int i, j: int j, msg: string): g1intBtwe(tk, i, j)
+  (x: g0int(tk), i: int i, j: int j, msg: RD(string)): g1intBtwe(tk, i, j)
 
 (* ****** ****** *)
 
@@ -88,7 +88,18 @@ ckastloc_gintBtwe (x, i, j) = checkast_gintBtwe (,(x), ,(i), ,(j), $mylocation)
 
 (* ****** ****** *)
 
-fun{} checkast_Strptr1 (x: Strptr0, msg: string): Strptr1
+fun{}
+checkast_Ptr1 (x: ptr, msg: RD(string)): Ptr1
+
+(* ****** ****** *)
+
+macdef
+ckastloc_Ptr1 (x) = checkast_Ptr1 (,(x), $mylocation)
+
+(* ****** ****** *)
+
+fun{}
+checkast_Strptr1 (x: Strptr0, msg: RD(string)): Strptr1
 
 (* ****** ****** *)
 

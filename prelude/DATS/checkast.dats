@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/checkast.atxt
-** Time of generation: Fri Dec 27 17:19:38 2013
+** Time of generation: Tue Dec 31 11:45:36 2013
 *)
 
 (* ****** ****** *)
@@ -41,7 +41,14 @@
 
 (* ****** ****** *)
 
+staload
+UN = "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
+(*
 staload "prelude/SATS/checkast.sats"
+*)
 
 (* ****** ****** *)
 
@@ -162,6 +169,48 @@ if x >= i
   end // end of [else]
 //
 end // end of [checkast_gintBtwe]
+
+(* ****** ****** *)
+
+implement{}
+checkast_Ptr1
+  (x, errmsg) = let
+  val x = g1ofg0_ptr(x)
+in
+//
+if x > 0
+  then (x)
+  else let
+    val () =
+      fprint! (stderr_ref, "exit(ATS): ", errmsg) in exit(1)
+    // end of [val]
+  end // end of [else]
+// end of [if]
+//
+end // end of [checkast_Ptr1]
+
+(* ****** ****** *)
+
+implement{}
+checkast_Strptr1
+  (x, errmsg) = let
+  val p = strptr2ptr(x)
+in
+//
+if p > 0
+  then (x)
+  else let
+    prval () =
+      strptr_free_null (x)
+    val ((*void*)) =
+      fprint! (stderr_ref, "exit(ATS): ", errmsg)
+    val ((*void*)) = exit_void(1)
+  in
+    $UN.castvwtp0{Strptr1}(0)
+  end // end of [else]
+// end of [if]
+//
+end // end of [checkast_Strptr1]
 
 (* ****** ****** *)
 

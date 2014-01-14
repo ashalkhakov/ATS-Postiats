@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Sat Dec 21 22:52:00 2013
+** Time of generation: Sat Jan 11 02:02:04 2014
 *)
 
 (* ****** ****** *)
@@ -412,6 +412,12 @@ in
 end // end of [fileref_get_lines_charlstlst]
 
 (* ****** ****** *)
+//
+implement
+fileref_get_file_charlst
+  (inp) = fileref_get2_file_charlst (inp, ~1)
+//
+(* ****** ****** *)
 
 local
 
@@ -448,18 +454,11 @@ end // end of [loop]
 in (* in of [local] *)
 
 implement
-fileref_get_file_charlst
-  (inp) = res where {
-  var res: ptr; val _ = loop (inp, ~1, res)
-} // end of [fileref_get_file_charlst]
-
-implement
-fileref_nget_file_charlst
-  {n} (inp, n) = let
+fileref_get2_file_charlst
+  (inp, n) = res where
+{
   var res: ptr; val _(*nleft*) = loop (inp, n, res)
-in
-  $UN.castvwtp0{listLte_vt(char,n)}(res)
-end // end of [fileref_nget_file_charlst]
+} // end of [fileref_nget_file_charlst]
 
 end // end of [local]
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Fri Dec 27 15:49:08 2013
+** Time of generation: Wed Jan  1 03:30:15 2014
 *)
 
 (* ****** ****** *)
@@ -269,6 +269,14 @@ fun print_string (x: string): void = "mac#%"
 fun prerr_string (x: string): void = "mac#%"
 fun fprint_string (out: FILEref, x: string): void = "mac#%"
 
+(* ****** ****** *)
+//
+fun fprint_substring
+  {n:int}{st,ln:nat | st+ln <= n}
+(
+  out: FILEref, str: string(n), st: size_t(st), ln: size_t(ln)
+) : void = "mac#%" // end of [fprint_substring]
+//
 (* ****** ****** *)
 
 fun{

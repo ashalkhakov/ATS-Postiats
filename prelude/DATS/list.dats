@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Tue Dec 31 11:45:36 2013
+** Time of generation: Wed Jan 15 14:23:02 2014
 *)
 
 (* ****** ****** *)
@@ -1053,6 +1053,34 @@ val () = loop (xs, res)
 in
   res (*list_vt (y, n)*)
 end // end of [list_map]
+
+(* ****** ****** *)
+
+implement
+{x}{y}(*tmp*)
+list_map_fun
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_map$fopr (x2) = $UN.castvwtp0{y2}(f($UN.cast{x}(x2)))
+//
+in
+  list_map<x><y> (xs)
+end // end of [list_map_fun]
+
+implement
+{x}{y}(*tmp*)
+list_map_cloref
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_map$fopr (x2) = $UN.castvwtp0{y2}(f($UN.cast{x}(x2)))
+//
+in
+  list_map<x><y> (xs)
+end // end of [list_map_cloref]
 
 (* ****** ****** *)
 

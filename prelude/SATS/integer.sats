@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Fri Dec 27 15:49:05 2013
+** Time of generation: Wed Jan 15 01:02:15 2014
 *)
 
 (* ****** ****** *)
@@ -162,9 +162,9 @@ overload mod with g0int_mod of 0
 (* ****** ****** *)
 
 fun{}
-mul_int1_size0 {i:nat} (int(i), size_t): size_t
+mul_int1_size0 {i:nat} (int(i), size_t):<> size_t
 fun{}
-mul_size0_int1 {j:nat} (size_t, int(j)): size_t
+mul_size0_int1 {j:nat} (size_t, int(j)):<> size_t
 
 (* ****** ****** *)
 
@@ -368,7 +368,7 @@ g1int_add : g1int_add_type (tk)
 
 fun{}
 add_size1_int1
-  {i,j:int | i+j >= 0} (x: size_t (i), j: int (j)): size_t (i+j)
+  {i,j:int | i+j >= 0} (x: size_t (i), j: int (j)):<> size_t (i+j)
 
 (* ****** ****** *)
 
@@ -385,7 +385,7 @@ g1int_sub : g1int_sub_type (tk)
 
 fun{}
 sub_size1_int1
-  {i,j:int | i-j >= 0} (x: size_t (i), j: int (j)): size_t (i-j)
+  {i,j:int | i-j >= 0} (x: size_t (i), j: int (j)):<> size_t (i-j)
 
 (* ****** ****** *)
 
@@ -412,10 +412,10 @@ g1int_mul2
 
 fun{}
 mul_int1_size1
-  {i,j:int | i >= 0} (x: int (i), j: size_t (j)): size_t (i*j)
+  {i,j:int | i >= 0} (x: int (i), j: size_t (j)):<> size_t (i*j)
 fun{}
 mul_size1_int1
-  {i,j:int | j >= 0} (x: size_t (i), j: int (j)): size_t (i*j)
+  {i,j:int | j >= 0} (x: size_t (i), j: int (j)):<> size_t (i*j)
 
 (* ****** ****** *)
 
@@ -650,7 +650,7 @@ overload compare with compare_g1int_int of 21
 (* ****** ****** *)
 
 fun{tk:tk}
-g1int_sgn {i:int} (x: g1int (tk, i)): int(sgn(i))
+g1int_sgn {i:int} (x: g1int (tk, i)):<> int(sgn(i))
 
 (* ****** ****** *)
 //

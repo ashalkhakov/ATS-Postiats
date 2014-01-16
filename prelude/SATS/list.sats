@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Fri Dec 27 15:49:12 2013
+** Time of generation: Wed Jan 15 14:23:02 2014
 *)
 
 (* ****** ****** *)
@@ -530,6 +530,17 @@ x:t0p}{y:vt0p
 } list_map {n:int}
   (xs: list (INV(x), n)): list_vt (y, n)
 // end of [list_map]
+
+(* ****** ****** *)
+
+fun{
+x:t0p}{y:vt0p
+} list_map_fun{n:int}
+  (xs: list (INV(x), n), f: (x) -<fun1> y): list_vt(y, n)
+fun{
+x:t0p}{y:vt0p
+} list_map_cloref{n:int}
+  (xs: list (INV(x), n), f: (x) -<cloref1> y): list_vt(y, n)
 
 (*
 fun{

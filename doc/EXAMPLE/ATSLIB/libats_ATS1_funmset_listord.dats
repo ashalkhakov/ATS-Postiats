@@ -1,5 +1,6 @@
 (*
-** for testing [libats/ATS1/funheap]
+** for testing
+** [libats/ATS1/funmset_listord]
 *)
 
 (* ****** ****** *)
@@ -43,6 +44,14 @@ val-( 3 ) = sz2i(funmset_size(mxs0))
 val-( 0 ) = funmset_get_ntime (mxs0, 0, cmp)
 val-( 2 ) = funmset_get_ntime (mxs0, 1, cmp)
 val-( 1 ) = funmset_get_ntime (mxs0, 2, cmp)
+//
+val xs = funmset_listize (mxs0)
+val () = fprintln! (stdout_ref, "xs = ", xs)
+val ((*void*)) = list_vt_free (xs)
+//
+val xs = funmset_mlistize (mxs0)
+val () = fprintln! (stdout_ref, "xs = ", xs)
+val ((*void*)) = list_vt_free (xs)
 //
 } (* end of [val] *)
 

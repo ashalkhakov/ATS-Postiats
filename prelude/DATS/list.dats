@@ -30,13 +30,13 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Wed Jan 15 14:23:02 2014
+** Time of generation: Thu Jan 16 16:37:24 2014
 *)
 
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
 (* Start time: Feburary, 2012 *)
 
 (* ****** ****** *)

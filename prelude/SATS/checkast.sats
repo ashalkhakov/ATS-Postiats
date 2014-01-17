@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/checkast.atxt
-** Time of generation: Fri Jan  3 02:30:33 2014
+** Time of generation: Thu Jan 16 16:37:10 2014
 *)
 
 (* ****** ****** *)

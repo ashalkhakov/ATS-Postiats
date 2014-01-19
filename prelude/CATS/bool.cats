@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/bool.atxt
-** Time of generation: Thu Jan 16 16:37:31 2014
+** Time of generation: Sat Jan 18 01:26:55 2014
 */
 
 /* ****** ****** */
@@ -96,9 +96,21 @@ atspre_mul_bool_bool (
   atstype_bool b1, atstype_bool b2
 ) {
   return (b1) ? (b2) : atsbool_false ;
-} // end of [atspre_add_bool_bool]
+} // end of [atspre_mul_bool_bool]
 #define atspre_mul_bool0_bool0 atspre_mul_bool_bool
 #define atspre_mul_bool1_bool1 atspre_mul_bool_bool
+
+/* ****** ****** */
+
+ATSinline()
+atstype_bool
+atspre_xor_bool_bool (
+  atstype_bool b1, atstype_bool b2
+) {
+  return (b1) ? (!b2) : (b2) ;
+} // end of [atspre_xor_bool_bool]
+#define atspre_xor_bool0_bool0 atspre_xor_bool_bool
+#define atspre_xor_bool1_bool1 atspre_xor_bool_bool
 
 /* ****** ****** */
 

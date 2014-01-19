@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Jan 16 16:37:24 2014
+** Time of generation: Sun Jan 19 15:11:05 2014
 *)
 
 (* ****** ****** *)
@@ -675,37 +675,43 @@ fun loop
 ) :<!wrt> #[
   j:nat | (i <= n && i == j) || (i > n && n == j)
 ] bool (i <= n) = let
+//
 in
-  if i > 0 then (
-    case+ xs of
-    | list_cons
-        (x, xs1) => let
-        val () = res :=
-          list_vt_cons{a}{0}(x, _(*?*))
-        val+list_vt_cons
-          (_, res1) = res // res1 = res.1
-        val ans = loop (xs1, i-1, res1)
-        prval () = fold@ (res)
-      in
-        ans
-      end // end of [list_cons]
-    | list_nil () => let
-        val () = res := list_vt_nil ()
-      in
-        false(*fail*)
-      end // end of [list_nil]
-  ) else let
-    val () = res := list_vt_nil () in true(*succ*)
-  end (* end of [if] *)
+//
+if i > 0
+then let
+in
+//
+case+ xs of
+| list_cons
+    (x, xs1) => let
+    val ((*void*)) =
+    res := list_vt_cons{a}{0}(x, _)
+    val+list_vt_cons (_, res1) = res
+    val ans = loop (xs1, i-1, res1)
+  in
+    fold@ (res); ans
+  end // end of [list_cons]
+| list_nil () => let
+    val ((*void*)) =
+    res := list_vt_nil () in false(*fail*)
+  end // end of [list_nil]
+//
+end // end of [then]
+else let
+  val () = res := list_vt_nil () in true(*succ*)
+end // end of [else]
+// end of [if]
+//
 end // end of [loop] 
 //   
 var res: ptr
-val ans = loop {n}{i} (xs, i, res)
+val ans = loop{n}{i}(xs, i, res)
 //
 in
 //
-if ans then
-  res // i <= n && length (res) == i
+if ans
+then res // i <= n && length (res) == i
 else let
   val () = list_vt_free<a> (res) in $raise ListSubscriptExn()
 end // end of [if]
@@ -1713,13 +1719,33 @@ implement{a2}
 list_mergesort$cmp
   (x1, x2) = let
 //
-val cmp = $UN.cast{cmpval(a2)}(cmp) in cmp (x1, x2)
+typedef cmp2 = cmpval(a2)
+//
+val cmp2 = $UN.cast{cmp2}(cmp) in cmp2 (x1, x2)
 //
 end // end of [list_mergesort$cmp]
 //
 in
   list_mergesort<a> (xs)
 end // end of [list_mergesort_fun]
+
+implement{a}
+list_mergesort_cloref
+  (xs, cmp) = let
+//
+implement{a2}
+list_mergesort$cmp
+  (x1, x2) = let
+//
+typedef cmp2 = (a2, a2) -<cloref> int
+//
+val cmp2 = $UN.cast{cmp2}(cmp) in cmp2 (x1, x2)
+//
+end // end of [list_mergesort$cmp]
+//
+in
+  list_mergesort<a> (xs)
+end // end of [list_mergesort_cloref]
 
 (* ****** ****** *)
 

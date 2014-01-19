@@ -155,11 +155,11 @@ typedef void* atstype_cloptr ;
 
 /* ****** ****** */
 //
-// HX: making it so large!!!
+// HX: making it not usable!!!
 //
 typedef
 struct {
-  char _[(atstype_uint)(-1)] ;
+  char _[0XFFFF] ;
 } atstype_var[0] ;
 
 /* ****** ****** */

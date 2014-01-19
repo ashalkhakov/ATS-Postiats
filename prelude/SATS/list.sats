@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Thu Jan 16 16:37:11 2014
+** Time of generation: Sat Jan 18 21:18:47 2014
 *)
 
 (* ****** ****** *)
@@ -313,7 +313,7 @@ list_remove_at
 fun{x:t0p}
 list_takeout_at
   {n:int} (
-  xs: SHR(list (INV(x), n)), i: natLt (n), x: &(x?) >> x
+  xs: SHR(list (INV(x), n)), i: natLt (n), x: &(x)? >> x
 ) :<!wrt> list (x, n-1) // end of [list_takeout_at]
 
 (* ****** ****** *)
@@ -452,7 +452,7 @@ fun{x:t0p} list_find$pred (x):<> bool
 fun{
 x:t0p
 } list_find
-  (List (INV(x)), x: &x? >> opt(x, b)):<> #[b:bool] bool(b)
+  (List (INV(x)), x: &(x)? >> opt(x, b)):<> #[b:bool] bool(b)
 //
 fun{x:t0p} list_find_exn (xs: List (INV(x))):<!exn> x
 fun{x:t0p} list_find_opt (xs: List (INV(x))):<> Option_vt (x)
@@ -465,7 +465,9 @@ list_assoc$eqfn (k1: key, k2: key):<> bool
 fun{
 key,itm:t0p
 } list_assoc
-  (List @(key, itm), key, x: &itm? >> opt(itm, b)):<> #[b:bool] bool(b)
+(
+  List @(key, itm), key, x: &itm? >> opt(itm, b)
+) :<> #[b:bool] bool(b) // end of [list_assoc]
 //
 fun{
 key,itm:t0p
@@ -799,12 +801,21 @@ a:t0p
   xs: list (INV(a), n)
 ) :<!wrt> list_vt (a, n) // end of [list_mergesort]
 
+(* ****** ****** *)
+
 fun{
 a:t0p
 } list_mergesort_fun
   {n:int} (
   xs: list (INV(a), n), cmp: cmpval (a)
 ) :<!wrt> list_vt (a, n) // end of [list_mergesort_fun]
+
+fun{
+a:t0p
+} list_mergesort_cloref
+  {n:int} (
+  xs: list (INV(a), n), cmp: (a, a) -<cloref> int
+) :<!wrt> list_vt (a, n) // end of [list_mergesort_cloref]
 
 (* ****** ****** *)
 

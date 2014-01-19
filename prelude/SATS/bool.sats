@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/bool.atxt
-** Time of generation: Thu Jan 16 16:37:04 2014
+** Time of generation: Sat Jan 18 01:24:24 2014
 *)
 
 (* ****** ****** *)
@@ -99,6 +99,11 @@ fun mul_bool0_bool0
 overload * with mul_bool0_bool0 of 0
 
 (* ****** ****** *)
+//
+fun xor_bool0_bool0
+  (b1: bool, b2: bool):<> bool = "mac#%"
+//
+(* ****** ****** *)
 
 fun lt_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
@@ -129,14 +134,15 @@ fun compare_bool0_bool0
 overload compare with compare_bool0_bool0
 
 (* ****** ****** *)
-
+//
 fun print_bool (x: bool): void = "mac#%"
 fun prerr_bool (x: bool): void = "mac#%"
+fun fprint_bool : fprint_type (bool) = "mac#%"
+//
 overload print with print_bool
 overload prerr with prerr_bool
-fun fprint_bool : fprint_type (bool) = "mac#%"
 overload fprint with fprint_bool
-
+//
 (* ****** ****** *)
 //
 // HX: the return is statically allocated
@@ -189,8 +195,6 @@ overload * with mul_bool1_bool1 of 20
 (* ****** ****** *)
 
 //
-
-
 // (b1 < b2) == (~b1 && b2)
 //
 fun
@@ -204,7 +208,6 @@ fun
 lte_bool1_bool1 {b1,b2:bool}
   (b1: bool (b1), b2: bool (b2)) :<> bool (b1 <= b2) = "mac#%"
 overload <= with lte_bool1_bool1 of 20
-
 //
 // (b1 > b2) == (b1 && ~b2)
 //
@@ -220,6 +223,8 @@ gte_bool1_bool1 {b1,b2:bool}
   (b1: bool (b1), b2: bool (b2)) :<> bool (b1 >= b2) = "mac#%"
 overload >= with gte_bool1_bool1 of 20
 
+(* ****** ****** *)
+
 fun
 eq_bool1_bool1 {b1,b2:bool}
   (b1: bool (b1), b2: bool (b2)) :<> bool (b1 == b2) = "mac#%"
@@ -229,6 +234,8 @@ neq_bool1_bool1 {b1,b2:bool}
   (b1: bool (b1), b2: bool (b2)) :<> bool (b1 != b2) = "mac#%"
 overload != with neq_bool1_bool1 of 20
 overload <> with neq_bool1_bool1 of 20
+
+(* ****** ****** *)
 
 fun
 compare_bool1_bool1

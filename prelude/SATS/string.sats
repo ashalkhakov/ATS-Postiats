@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Thu Jan 16 16:37:07 2014
+** Time of generation: Sun Jan 19 13:59:34 2014
 *)
 
 (* ****** ****** *)
@@ -439,20 +439,20 @@ overload stropt_some with stropt1_some of 10
 (* ****** ****** *)
 
 fun{
-} stropt_is_none {n:int} (x: stropt n): bool (n < 0)
+} stropt_is_none{n:int} (stropt(n)):<> bool (n < 0)
 fun{
-} stropt_is_some {n:int} (x: stropt n): bool (n >= 0)
+} stropt_is_some{n:int} (stropt(n)):<> bool (n >= 0)
 
 (* ****** ****** *)
 
 castfn
-stropt_unsome {n:nat} (x: stropt n): string (n)
+stropt_unsome {n:nat} (x: stropt n):<> string (n)
 
 (* ****** ****** *)
 
 fun{
 } stropt_length
-  {n:int} (x: stropt (n)): ssize_t (n)
+  {n:int} (x: stropt (n)):<> ssize_t (n)
 // end of [stropt_length]
 
 (* ****** ****** *)

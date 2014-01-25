@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Jan 17 21:02:11 2014
+** Time of generation: Fri Jan 24 00:35:53 2014
 *)
 
 (* ****** ****** *)
@@ -42,6 +42,13 @@
 (* ****** ****** *)
 
 staload "prelude/SATS/unsafe.sats"
+
+(* ****** ****** *)
+
+implement{
+} int2ptr (i) = cast{ptr}(cast{intptr}(i))
+implement{
+} ptr2int (p) = cast{int}(cast{intptr}(p))
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Jan 17 21:01:55 2014
+** Time of generation: Fri Jan 24 00:36:14 2014
 *)
 
 (* ****** ****** *)
@@ -63,7 +63,8 @@ castfn castvwtp0 {to:vt0p}{from:vt0p} (x: INV(from)):<> to
 // done for treating a linear string as a nonlinear one
 // temporarily.
 //
-castfn castvwtp1 {to:vt0p}{from:vt0p} (x: !INV(from)>>from):<> to
+castfn
+castvwtp1{to:vt0p}{from:vt0p} (x: !INV(from)>>from):<> to
 //
 (* ****** ****** *)
 //
@@ -97,6 +98,10 @@ praxi cast2void {a:vt0p} (x: INV(a)):<prf> void
 
 praxi castview0 {to:view}{from:view} (pf: from):<prf> to
 praxi castview1 {to:view}{from:view} (pf: !INV(from)):<prf> to
+
+(* ****** ****** *)
+
+fun{} int2ptr (i: int): ptr and ptr2int (p: ptr): int
 
 (* ****** ****** *)
 //

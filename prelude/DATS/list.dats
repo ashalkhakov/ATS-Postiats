@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Jan 19 15:11:05 2014
+** Time of generation: Fri Jan 24 00:35:54 2014
 *)
 
 (* ****** ****** *)
@@ -632,7 +632,8 @@ end // end of [list_concat]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_take (xs, i) = let
 //
 fun loop
@@ -720,9 +721,9 @@ end (* end of [list_take_exn] *)
 
 (* ****** ****** *)
 
-implement{a}
-list_drop
-  (xs, i) = let
+implement
+{a}(*tmp*)
+list_drop (xs, i) = let
 //
 fun loop
   {n:int}
@@ -750,7 +751,7 @@ fun loop
     case+ xs of
     | list_cons (_, xs) => loop (xs, i-1)
     | list_nil () => $raise ListSubscriptExn()
-  ) else xs // end of [if]
+  ) else (xs) // end of [if]
 //
 in
   loop (xs, i)

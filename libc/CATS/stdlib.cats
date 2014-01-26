@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdlib.atxt
-** Time of generation: Fri Jan 17 21:02:31 2014
+** Time of generation: Sat Jan 25 23:43:32 2014
 */
 
 /* ****** ****** */
@@ -82,6 +82,30 @@
 #define atslib_atol atol
 #define atslib_atoll atoll
 #define atslib_atof atof
+
+/* ****** ****** */
+
+#define atslib_strtol0(nptr, base) atslib_strtol_unsafe(nptr, 0, base)
+#define atslib_strtol1(nptr, endptr, base) atslib_strtol_unsafe(nptr, endptr, base)
+#define atslib_strtol_unsafe(nptr, endptr, base) strtol((char*)(nptr), (char**)(endptr), base)
+
+/* ****** ****** */
+
+#define atslib_strtoll0(nptr, base) atslib_strtoll_unsafe(nptr, 0, base)
+#define atslib_strtoll1(nptr, endptr, base) atslib_strtoll_unsafe(nptr, endptr, base)
+#define atslib_strtoll_unsafe(nptr, endptr, base) strtoll((char*)(nptr), (char**)(endptr), base)
+
+/* ****** ****** */
+
+#define atslib_strtof0(nptr) atslib_strtof_unsafe(nptr, 0)
+#define atslib_strtof1(nptr, endptr) atslib_strtof_unsafe(nptr, endptr)
+#define atslib_strtof_unsafe(nptr, endptr) strtof((char*)(nptr), (char**)(endptr))
+
+/* ****** ****** */
+
+#define atslib_strtod0(nptr) atslib_strtod_unsafe(nptr, 0)
+#define atslib_strtod1(nptr, endptr) atslib_strtod_unsafe(nptr, endptr)
+#define atslib_strtod_unsafe(nptr, endptr) strtod((char*)(nptr), (char**)(endptr))
 
 /* ****** ****** */
 

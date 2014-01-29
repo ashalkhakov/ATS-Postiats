@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Fri Jan 17 21:01:56 2014
+** Time of generation: Mon Jan 27 21:25:25 2014
 *)
 
 (* ****** ****** *)
@@ -108,6 +108,13 @@ list_vt_cast
   list_vt_cons(x, list_vt_nil())
 #define list_vt_pair(x1, x2)
   list_vt_cons(x1, list_vt_cons (x2, list_vt_nil()))
+
+(* ****** ****** *)
+
+fun{x:vt0p}
+list_vt_make_sing (x: x):<!wrt> list_vt (x, 1)
+fun{x:vt0p}
+list_vt_make_pair (x1: x, x2: x):<!wrt> list_vt (x, 2)
 
 (* ****** ****** *)
 //

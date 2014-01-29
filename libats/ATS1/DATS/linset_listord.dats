@@ -163,6 +163,13 @@ end // end of [linset_is_subset]
 (* ****** ****** *)
 
 implement{a}
+linset_is_supset
+  (xs1, xs2, cmp) = linset_is_subset<a> (xs2, xs1, cmp)
+// end of [linset_is_supset]
+
+(* ****** ****** *)
+
+implement{a}
 linset_is_equal
   (xs1, xs2, cmp) = let
 //
@@ -426,6 +433,13 @@ val ((*void*)) = loop (xs1, xs2, res)
 in
   res
 end // end of [linset_union]
+
+(* ****** ****** *)
+
+implement{a}
+fprint_linset_sep
+  (out, xs, sep) = fprint_list_vt_sep (out, xs, sep)
+// end of [fprint_linset_sep]
 
 (* ****** ****** *)
 

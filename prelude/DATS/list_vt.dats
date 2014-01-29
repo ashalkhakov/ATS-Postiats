@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Fri Jan 17 21:02:12 2014
+** Time of generation: Mon Jan 27 21:25:26 2014
 *)
 
 (* ****** ****** *)
@@ -44,19 +44,13 @@
 staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
-implement{}
-list_vt_unnil (xs) = let
-  val+~list_vt_nil () = xs in (*nothing*)
-end // end of [list_vt_unnil]
-
-(* ****** ****** *)
-
+//
 implement{a}
-list_vt_uncons (xs) = let
-  val+~list_vt_cons (x, xs1) = xs in xs := xs1; x
-end // end of [list_vt_uncons]
-
+list_vt_make_sing (x) = list_vt_cons{a}(x, list_vt_nil)
+implement{a}
+list_vt_make_pair (x1, x2) =
+  list_vt_cons{a}(x1, list_vt_cons{a}(x2, list_vt_nil))
+//
 (* ****** ****** *)
 
 implement{a}
@@ -121,6 +115,20 @@ implement{x}
 list_vt_is_pair (xs) =
   case+ xs of list_vt_pair (x1, x2) => true | _ =>> false
 // end of [list_vt_is_pair]
+
+(* ****** ****** *)
+
+implement{}
+list_vt_unnil (xs) = let
+  val+~list_vt_nil () = xs in (*nothing*)
+end // end of [list_vt_unnil]
+
+(* ****** ****** *)
+
+implement{a}
+list_vt_uncons (xs) = let
+  val+~list_vt_cons (x, xs1) = xs in xs := xs1; x
+end // end of [list_vt_uncons]
 
 (* ****** ****** *)
 
@@ -585,9 +593,12 @@ list_vt_concat
 viewtypedef VT = List_vt (a)
 viewtypedef VT0 = List0_vt (a)
 //
-fun loop {n:nat} .<n>. (
+fun loop
+  {n:nat} .<n>.
+(
   res: VT, xss: list_vt (VT, n)
-) :<!wrt> VT0 =
+) :<!wrt> VT0 = let
+in
   case+ xss of
   | ~list_vt_cons
       (xs, xss) => let
@@ -598,7 +609,8 @@ fun loop {n:nat} .<n>. (
   | ~list_vt_nil () => let
       prval () = lemma_list_vt_param (res) in res
     end // end of [list_vt_nil]
-// end of [loop]
+end (* end of [loop] *)
+//
 val xss = list_vt_reverse (xss)
 //
 prval () = lemma_list_vt_param (xss)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Jan 24 00:35:54 2014
+** Time of generation: Mon Jan 27 21:25:26 2014
 *)
 
 (* ****** ****** *)
@@ -1028,8 +1028,9 @@ var res: ptr ; val () = loop (xs, 0, res)
 
 (* ****** ****** *)
 
-implement{x}{y}
-list_map {n} (xs) = let
+implement
+{x}{y}(*tmp*)
+list_map{n}(xs) = let
 //
 prval () = lemma_list_param (xs)
 //

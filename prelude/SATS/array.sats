@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Fri Jan 17 21:01:57 2014
+** Time of generation: Sat Feb 15 12:03:02 2014
 *)
 
 (* ****** ****** *)
@@ -322,7 +322,7 @@ array_copy_to_list_vt{n:int}
   A: &RD(@[INV(a)][n]) >> @[a?!][n], n: size_t n
 ) :<!wrt> list_vt (a, n) // endfun
 
-macdef array2lst = array_copy_to_list_vt
+macdef array2list = array_copy_to_list_vt
 
 (* ****** ****** *)
 
@@ -609,44 +609,42 @@ array_quicksort_stdlib{n:int}
 ) :<!wrt> void // end of [array_quicksort_stdlib]
 
 (* ****** ****** *)
-
-fun
-{a:vt0p}
-{b:vt0p}
-array_mapto$fwork
+//
+fun{
+a:vt0p}{b:vt0p
+} array_mapto$fwork
 (
   x: &a, y: &b? >> b
 ) : void // [array_mapto$fwork]
-fun
-{a:vt0p}
-{b:vt0p}
-array_mapto{n:int}
+//
+fun{
+a:vt0p}{b:vt0p
+} array_mapto{n:int}
 (
   A: &array(INV(a), n)
 , B: &array(b?, n) >> array (b, n)
 , n: size_t (n)
 ) : void // end of [array_mapto]
-
+//
 (* ****** ****** *)
-
-fun
-{a,b:vt0p}
-{c:vt0p}
-array_map2to$fwork
+//
+fun{
+a,b:vt0p}{c:vt0p
+} array_map2to$fwork
 (
   x: &a, y: &b, z: &c? >> c
 ) : void // [array_map2to$fwork]
-fun
-{a,b:vt0p}
-{c:vt0p}
-array_map2to{n:int}
+//
+fun{
+a,b:vt0p}{c:vt0p
+} array_map2to{n:int}
 (
   A: &array(INV(a), n)
 , B: &array(INV(b), n)
 , C: &array(c?, n) >> array (c, n)
 , n: size_t (n)
 ) : void // end of [array_map2to]
-
+//
 (* ****** ****** *)
 
 fun{}

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Jan 17 21:02:15 2014
+** Time of generation: Wed Feb 12 00:35:44 2014
 *)
 
 (* ****** ****** *)
@@ -69,6 +69,14 @@ arrayref_make_rlist (asz, xs) =
   arrayptr_refize(arrayptr_make_rlist<a> (asz, xs))
 // end of [arrayref_make_rlist]
 
+(* ****** ****** *)
+//
+implement{a}
+arrayref_head(A) = $UN.ptr0_get<a> (arrayref2ptr(A))
+implement{a}
+arrayref_tail{n}(A) =
+  $UN.cast{arrayref(a,n-1)}(ptr_succ<a>(arrayref2ptr(A)))
+//
 (* ****** ****** *)
 
 implement
@@ -377,10 +385,13 @@ arrszref_get_at_gint
   (ASZ, i) = let
 in
 //
-if i >= 0
-then arrszref_get_at_size (ASZ, g0i2u(i))
-else $raise ArraySubscriptExn((* i < 0 *))
-//
+if (
+i >= 0
+) then (
+  arrszref_get_at_size (ASZ, g0i2u(i))
+) else (
+  $raise ArraySubscriptExn((* i < 0 *))
+) // end of [if]
 end // end of [arrszref_get_at_gint]
 
 implement
@@ -415,10 +426,11 @@ arrszref_set_at_gint
   (ASZ, i, x) = let
 in
 //
-if i >= 0
-then
+if (
+i >= 0
+) then (
   arrszref_set_at_size (ASZ, g0i2u(i), x)
-else $raise ArraySubscriptExn((* i < 0 *))
+) else $raise ArraySubscriptExn((*i < 0*))
 //
 end // end of [arrszref_set_at_gint]
 
@@ -455,10 +467,11 @@ arrszref_exch_at_gint
   (ASZ, i, x) = let
 in
 //
-if i >= 0
-then
+if (
+i >= 0
+) then (
   arrszref_exch_at_size (ASZ, g0i2u(i), x)
-else $raise ArraySubscriptExn((* i < 0 *))
+) else $raise ArraySubscriptExn((*i < 0*))
 //
 end // end of [arrszref_exch_at_gint]
 
@@ -469,6 +482,28 @@ arrszref_exch_at_guint
 in
   arrszref_exch_at_size (ASZ, g0u2u(i), x)
 end // end of [arrszref_exch_at_guint]
+
+(* ****** ****** *)
+
+implement{a}
+arrszref_interchange
+  (ASZ, i, j) = $effmask_wrt let
+//
+var n: size_t
+val A = arrszref_get_refsize (ASZ, n)
+val i = g1ofg0_uint (i)
+val j = g1ofg0_uint (j)
+//
+in
+//
+if n > i
+then (
+  if n > j
+  then arrayref_interchange (A, i, j)
+  else $raise ArraySubscriptExn((*void*))
+) else $raise ArraySubscriptExn((*void*))
+//
+end // end of [arrszref_interchange]
 
 (* ****** ****** *)
 

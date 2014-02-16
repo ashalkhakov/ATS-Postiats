@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/extern.atxt
-** Time of generation: Fri Jan 17 21:02:02 2014
+** Time of generation: Thu Jan 30 09:21:54 2014
 *)
 
 (* ****** ****** *)
@@ -42,6 +42,41 @@
 (* ****** ****** *)
 
 sortdef vt0p = viewt@ype
+
+(* ****** ****** *)
+
+abstype
+carrayptr (a:t@ype, l:addr, n:int) = ptr(l)
+typedef
+carrayptr0 (a:t@ype, n:int) = [l:addr] carrayptr (a, l, n)
+typedef
+carrayptr1 (a:t@ype, n:int) = [l:addr | l > null] carrayptr (a, l, n)
+
+(* ****** ****** *)
+//
+// HX-2014-01-30: these are inherently unsafe:
+//
+castfn
+carrayptr_null
+  {a:t@ype}{n:nat} (p: ptr(null)):<> carrayptr (a, null, n)
+castfn
+carrayptr_array
+  {a:t@ype}{n:int} (A: &array(INV(a), n)):<> carrayptr1 (a, n)
+castfn
+carrayptr_arrayref
+  {a:t@ype}{n:int} (A: arrayref(INV(a), n)):<> carrayptr1 (a, n)
+castfn
+carrayptr_arrayptr
+  {a:t@ype}{l:addr}{n:int}
+  (A: !arrayptr(INV(a), l, n)):<> [l > null] carrayptr (a, l, n)
+//
+(* ****** ****** *)
+
+symintr carrayptr
+overload carrayptr with carrayptr_null
+overload carrayptr with carrayptr_array
+overload carrayptr with carrayptr_arrayref
+overload carrayptr with carrayptr_arrayptr
 
 (* ****** ****** *)
 //

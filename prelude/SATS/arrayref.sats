@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Jan 17 21:01:57 2014
+** Time of generation: Wed Feb 12 00:35:43 2014
 *)
 
 (* ****** ****** *)
@@ -162,11 +162,28 @@ overload fprint with fprint_arrayref
 overload fprint with fprint_arrayref_sep
 
 (* ****** ****** *)
+//
+// HX-2014-02:
+// [A] must survive [arrayref_tail(A)]
+// in order to support proper garbage-collection
+//
+fun{a:t0p}
+arrayref_head
+  {n:pos} (A: arrayref (a, n)):<!ref> (a) // A[0]
+fun{a:t0p}
+arrayref_tail
+  {n:pos} (A: arrayref (a, n)):<!ref> arrayref (a, n-1)
+//
+overload .head with arrayref_head
+overload .tail with arrayref_tail
+//
+(* ****** ****** *)
 
 fun{
 a:t0p}{tk:tk
 } arrayref_get_at_gint
-  {n:int}{i:nat | i < n} (
+  {n:int}{i:nat | i < n}
+(
   A: arrayref (a, n), i: g1int (tk, i)
 ) :<!ref> a // end of [arrayref_get_at_gint]
 overload [] with arrayref_get_at_gint of 0
@@ -174,7 +191,8 @@ overload [] with arrayref_get_at_gint of 0
 fun{
 a:t0p}{tk:tk
 } arrayref_get_at_guint
-  {n:int}{i:nat | i < n} (
+  {n:int}{i:nat | i < n}
+(
   A: arrayref (a, n), i: g1uint (tk, i)
 ) :<!ref> a // end of [arrayref_get_at_guint]
 overload [] with arrayref_get_at_guint of 0
@@ -242,12 +260,12 @@ array_foreach$fwork (x: &a >> a, env: &(env) >> _): void
 *)
 fun{
 a:vt0p
-} arrayref_foreach {n:int} (
+} arrayref_foreach{n:int} (
   A: arrayref (a, n), asz: size_t (n)
 ) : sizeLte(n) // end of [arrayref_foreach]
 fun{
 a:vt0p}{env:vt0p
-} arrayref_foreach_env {n:int} (
+} arrayref_foreach_env{n:int} (
   A: arrayref (a, n), asz: size_t (n), env: &(env)>>env
 ) : sizeLte(n) // end of [arrayref_foreach_env]
 
@@ -261,12 +279,12 @@ array_iforeach$fwork (i: size_t, x: &a >> a, env: &(env) >> _): void
 *)
 fun{
 a:vt0p
-} arrayref_iforeach {n:int} (
+} arrayref_iforeach{n:int} (
   A: arrayref (INV(a), n), asz: size_t (n)
 ) : sizeLte(n) // end of [arrayref_iforeach]
 fun{
 a:vt0p}{env:vt0p
-} arrayref_iforeach_env {n:int} (
+} arrayref_iforeach_env{n:int} (
   A: arrayref (INV(a), n), asz: size_t (n), env: &(env)>>env
 ) : sizeLte(n) // end of [arrayref_iforeach_env]
 
@@ -280,12 +298,12 @@ array_rforeach$fwork (x: &a >> a, env: &(env) >> _): void
 *)
 fun{
 a:vt0p
-} arrayref_rforeach {n:int} (
+} arrayref_rforeach{n:int} (
   A: arrayref (a, n), asz: size_t (n)
 ) : sizeLte(n) // end of [arrayref_rforeach]
 fun{
 a:vt0p}{env:vt0p
-} arrayref_rforeach_env {n:int} (
+} arrayref_rforeach_env{n:int} (
   A: arrayref (a, n), asz: size_t (n), env: &(env)>>env
 ) : sizeLte(n) // end of [arrayref_rforeach_env]
 
@@ -458,6 +476,13 @@ a:vt0p}{tk:tk
 symintr arrszref_exch_at
 overload arrszref_exch_at with arrszref_exch_at_gint of 0
 overload arrszref_exch_at with arrszref_exch_at_guint of 0
+
+(* ****** ****** *)
+
+fun{a:vt0p}
+arrszref_interchange
+  (A: arrszref (a), i: size_t, j: size_t):<!exnrefwrt> void
+// end of [arrszref_interchange]
 
 (* ****** ****** *)
 //

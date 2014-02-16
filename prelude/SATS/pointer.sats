@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Fri Jan 17 21:01:52 2014
+** Time of generation: Fri Feb  7 19:25:35 2014
 *)
 
 (* ****** ****** *)
@@ -388,7 +388,12 @@ cptr2ptr {a:vt0p}{l:addr} (p: cptr (a, l)):<> ptr (l)
 
 (* ****** ****** *)
 //
-fun cptr_null {a:vt0p} ():<> cptr (a, null) = "mac#%"
+fun cptr_null{a:vt0p} ():<> cptr (a, null) = "mac#%"
+//
+castfn cptr_rvar{a:vt0p} (x: &INV(a)):<> cPtr1 (a) // read
+castfn cptr_wvar{a:vt0p} (x: &a? >> a):<> cPtr1 (a) // write
+//
+(* ****** ****** *)
 //
 fun cptr_is_null
   {a:vt0p}{l:addr} (p: cptr (a, l)):<> bool (l==null) = "mac#%"

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sat Jan 18 21:18:47 2014
+** Time of generation: Tue Feb 11 10:31:20 2014
 *)
 
 (* ****** ****** *)
@@ -278,7 +278,6 @@ list_last_exn{n:int} (xs: list (INV(x), n)):<!exn> (x)
 
 (* ****** ****** *)
 //
-symintr .head .tail .last
 overload .head with list_head
 overload .tail with list_tail
 overload .last with list_last

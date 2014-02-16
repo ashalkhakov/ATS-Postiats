@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Fri Jan 17 21:02:15 2014
+** Time of generation: Tue Feb 11 22:19:25 2014
 *)
 
 (* ****** ****** *)
@@ -207,7 +207,8 @@ prval () = arrayptr_addback (pf | A)
 (* ****** ****** *)
 
 (*
-implement arrayptr_free = ATS_MFREE
+implement
+arrayptr_free = ATS_MFREE // HX: in arrayptr.cats
 *)
 
 (* ****** ****** *)

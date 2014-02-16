@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Mon Jan 27 21:25:26 2014
+** Time of generation: Sun Feb 16 01:22:00 2014
 *)
 
 (* ****** ****** *)
@@ -145,11 +145,12 @@ end // end of [list_make_array]
 (* ****** ****** *)
 
 implement{a}
-list_make_arrpsz {n} (A0) = let
+list_make_arrpsz
+  {n} (A0) = let
 //
 var asz: size_t
 val A = arrpsz_get_ptrsize (A0, asz)
-val p = ptrcast (A)
+val p = arrayptr2ptr (A)
 prval pfarr = arrayptr_takeout (A)
 val res = list_make_array (!p, asz)
 prval () = arrayptr_addback (pfarr | A)
@@ -1472,6 +1473,38 @@ in
   loop (xs, env)
 end // end of [list_foreach_env]
 
+(* ****** ****** *)
+
+implement{x}
+list_foreach_fun
+  (xs, f) = let
+//
+fun loop (xs: List(x)): void =
+//
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => (f (x); loop (xs))
+//
+in
+  $effmask_all (loop (xs))
+end // end of [list_foreach_fun]
+
+implement{x}
+list_foreach_cloref
+  (xs, f) = let
+//
+fun loop (xs: List(x)): void =
+//
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => (f (x); loop (xs))
+//
+in
+  $effmask_all (loop (xs))
+end // end of [list_foreach_cloref]
+
+(* ****** ****** *)
+
 implement{x}
 list_foreach_funenv
   {v}{vt}{fe}
@@ -1489,7 +1522,7 @@ fun loop {n:nat} .<n>. (
   | list_cons (x, xs) => let
       val () = f (pfv | x, env) in loop (pfv | xs, f, env)
     end // end of [list_cons]
-  | list_nil () => ()
+  | list_nil ((*void*)) => ()
 // end of [loop]
 in
   loop (pfv | xs, f, env)

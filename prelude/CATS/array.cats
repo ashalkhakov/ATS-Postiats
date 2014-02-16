@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/array.atxt
-** Time of generation: Fri Jan 17 21:02:25 2014
+** Time of generation: Tue Feb 11 10:31:21 2014
 */
 
 /* ****** ****** */
@@ -84,6 +84,28 @@ void *memmove(void *dst, const void *src, size_t n) ;
 #define atspre_array_memcpy memcpy
 #define atspre_array_memmove memmove
 //
+/* ****** ****** */
+
+ATSinline()
+atsvoid_t0ype
+atspre_array_foreach_funenv_tsz
+(
+  atstype_ptr A
+, atstype_size n
+, atstype_size tsz
+, atstype_funptr f
+, atstype_boxed env
+) {
+  char *p ;
+  size_t i ;
+  p = (char*)A ;
+  for (i = 0 ; i < n ; i += 1)
+  {
+    ((void(*)(void*, void*))(f))(p, env) ; p += tsz ;
+  }
+  return ;
+} // end of [atspre_array_foreach_funenv_tsz]
+
 /* ****** ****** */
 
 #endif // ifndef ATSLIB_PRELUDE_ARRAY_CATS

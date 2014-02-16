@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Fri Jan 17 21:02:22 2014
+** Time of generation: Fri Feb  7 13:38:16 2014
 */
 
 /* ****** ****** */
@@ -111,6 +111,11 @@ atstype_int8
 atspre_g0int_div_int8
   (atstype_int8 x1, atstype_int8 x2) { return (x1 / x2) ; }
 // end of [atspre_g0int_div_int8]
+ATSinline()
+atstype_int8
+atspre_g0int_mod_int8
+  (atstype_int8 x1, atstype_int8 x2) { return (x1 % x2) ; }
+// end of [atspre_g0int_mod_int8]
 ATSinline()
 atstype_bool
 atspre_g0int_isltz_int8 (atstype_int8 x)
@@ -236,6 +241,11 @@ atspre_g0int_div_int16
   (atstype_int16 x1, atstype_int16 x2) { return (x1 / x2) ; }
 // end of [atspre_g0int_div_int16]
 ATSinline()
+atstype_int16
+atspre_g0int_mod_int16
+  (atstype_int16 x1, atstype_int16 x2) { return (x1 % x2) ; }
+// end of [atspre_g0int_mod_int16]
+ATSinline()
 atstype_bool
 atspre_g0int_isltz_int16 (atstype_int16 x)
 {
@@ -360,6 +370,11 @@ atspre_g0int_div_int32
   (atstype_int32 x1, atstype_int32 x2) { return (x1 / x2) ; }
 // end of [atspre_g0int_div_int32]
 ATSinline()
+atstype_int32
+atspre_g0int_mod_int32
+  (atstype_int32 x1, atstype_int32 x2) { return (x1 % x2) ; }
+// end of [atspre_g0int_mod_int32]
+ATSinline()
 atstype_bool
 atspre_g0int_isltz_int32 (atstype_int32 x)
 {
@@ -483,6 +498,11 @@ atstype_int64
 atspre_g0int_div_int64
   (atstype_int64 x1, atstype_int64 x2) { return (x1 / x2) ; }
 // end of [atspre_g0int_div_int64]
+ATSinline()
+atstype_int64
+atspre_g0int_mod_int64
+  (atstype_int64 x1, atstype_int64 x2) { return (x1 % x2) ; }
+// end of [atspre_g0int_mod_int64]
 ATSinline()
 atstype_bool
 atspre_g0int_isltz_int64 (atstype_int64 x)
@@ -664,6 +684,41 @@ atspre_g0uint_div_uint8
   (atstype_uint8 x1, atstype_uint8 x2) { return (x1 / x2) ; }
 // end of [atspre_g0uint_div_uint8]
 ATSinline()
+atstype_uint8
+atspre_g0uint_mod_uint8
+  (atstype_uint8 x1, atstype_uint8 x2) { return (x1 % x2) ; }
+// end of [atspre_g0uint_mod_uint8]
+ATSinline()
+atstype_uint8
+atspre_g0uint_lsl_uint8
+  (atstype_uint8 x, atstype_int n) { return (x << n) ; }
+// end of [atspre_g0uint_lsl_uint8]
+ATSinline()
+atstype_uint8
+atspre_g0uint_lsr_uint8
+  (atstype_uint8 x, atstype_int n) { return (x >> n) ; }
+// end of [atspre_g0uint_lsr_uint8]
+ATSinline()
+atstype_uint8
+atspre_g0uint_lnot_uint8
+  (atstype_uint8 x) { return ~(x) ; }
+// end of [atspre_g0uint_lnot_uint8]
+ATSinline()
+atstype_uint8
+atspre_g0uint_lor_uint8
+  (atstype_uint8 x, atstype_uint8 y) { return (x | y) ; }
+// end of [atspre_g0uint_uint8_uint8]
+ATSinline()
+atstype_uint8
+atspre_g0uint_land_uint8
+  (atstype_uint8 x, atstype_uint8 y) { return (x & y) ; }
+// end of [atspre_g0uint_uint8_uint8]
+ATSinline()
+atstype_uint8
+atspre_g0uint_lxor_uint8
+  (atstype_uint8 x, atstype_uint8 y) { return (x ^ y) ; }
+// end of [atspre_g0uint_uint8_uint8]
+ATSinline()
 atstype_bool
 atspre_g0uint_isgtz_uint8 (atstype_uint8 x)
 {
@@ -764,6 +819,41 @@ atstype_uint16
 atspre_g0uint_div_uint16
   (atstype_uint16 x1, atstype_uint16 x2) { return (x1 / x2) ; }
 // end of [atspre_g0uint_div_uint16]
+ATSinline()
+atstype_uint16
+atspre_g0uint_mod_uint16
+  (atstype_uint16 x1, atstype_uint16 x2) { return (x1 % x2) ; }
+// end of [atspre_g0uint_mod_uint16]
+ATSinline()
+atstype_uint16
+atspre_g0uint_lsl_uint16
+  (atstype_uint16 x, atstype_int n) { return (x << n) ; }
+// end of [atspre_g0uint_lsl_uint16]
+ATSinline()
+atstype_uint16
+atspre_g0uint_lsr_uint16
+  (atstype_uint16 x, atstype_int n) { return (x >> n) ; }
+// end of [atspre_g0uint_lsr_uint16]
+ATSinline()
+atstype_uint16
+atspre_g0uint_lnot_uint16
+  (atstype_uint16 x) { return ~(x) ; }
+// end of [atspre_g0uint_lnot_uint16]
+ATSinline()
+atstype_uint16
+atspre_g0uint_lor_uint16
+  (atstype_uint16 x, atstype_uint16 y) { return (x | y) ; }
+// end of [atspre_g0uint_uint16_uint16]
+ATSinline()
+atstype_uint16
+atspre_g0uint_land_uint16
+  (atstype_uint16 x, atstype_uint16 y) { return (x & y) ; }
+// end of [atspre_g0uint_uint16_uint16]
+ATSinline()
+atstype_uint16
+atspre_g0uint_lxor_uint16
+  (atstype_uint16 x, atstype_uint16 y) { return (x ^ y) ; }
+// end of [atspre_g0uint_uint16_uint16]
 ATSinline()
 atstype_bool
 atspre_g0uint_isgtz_uint16 (atstype_uint16 x)
@@ -866,6 +956,41 @@ atspre_g0uint_div_uint32
   (atstype_uint32 x1, atstype_uint32 x2) { return (x1 / x2) ; }
 // end of [atspre_g0uint_div_uint32]
 ATSinline()
+atstype_uint32
+atspre_g0uint_mod_uint32
+  (atstype_uint32 x1, atstype_uint32 x2) { return (x1 % x2) ; }
+// end of [atspre_g0uint_mod_uint32]
+ATSinline()
+atstype_uint32
+atspre_g0uint_lsl_uint32
+  (atstype_uint32 x, atstype_int n) { return (x << n) ; }
+// end of [atspre_g0uint_lsl_uint32]
+ATSinline()
+atstype_uint32
+atspre_g0uint_lsr_uint32
+  (atstype_uint32 x, atstype_int n) { return (x >> n) ; }
+// end of [atspre_g0uint_lsr_uint32]
+ATSinline()
+atstype_uint32
+atspre_g0uint_lnot_uint32
+  (atstype_uint32 x) { return ~(x) ; }
+// end of [atspre_g0uint_lnot_uint32]
+ATSinline()
+atstype_uint32
+atspre_g0uint_lor_uint32
+  (atstype_uint32 x, atstype_uint32 y) { return (x | y) ; }
+// end of [atspre_g0uint_uint32_uint32]
+ATSinline()
+atstype_uint32
+atspre_g0uint_land_uint32
+  (atstype_uint32 x, atstype_uint32 y) { return (x & y) ; }
+// end of [atspre_g0uint_uint32_uint32]
+ATSinline()
+atstype_uint32
+atspre_g0uint_lxor_uint32
+  (atstype_uint32 x, atstype_uint32 y) { return (x ^ y) ; }
+// end of [atspre_g0uint_uint32_uint32]
+ATSinline()
 atstype_bool
 atspre_g0uint_isgtz_uint32 (atstype_uint32 x)
 {
@@ -966,6 +1091,41 @@ atstype_uint64
 atspre_g0uint_div_uint64
   (atstype_uint64 x1, atstype_uint64 x2) { return (x1 / x2) ; }
 // end of [atspre_g0uint_div_uint64]
+ATSinline()
+atstype_uint64
+atspre_g0uint_mod_uint64
+  (atstype_uint64 x1, atstype_uint64 x2) { return (x1 % x2) ; }
+// end of [atspre_g0uint_mod_uint64]
+ATSinline()
+atstype_uint64
+atspre_g0uint_lsl_uint64
+  (atstype_uint64 x, atstype_int n) { return (x << n) ; }
+// end of [atspre_g0uint_lsl_uint64]
+ATSinline()
+atstype_uint64
+atspre_g0uint_lsr_uint64
+  (atstype_uint64 x, atstype_int n) { return (x >> n) ; }
+// end of [atspre_g0uint_lsr_uint64]
+ATSinline()
+atstype_uint64
+atspre_g0uint_lnot_uint64
+  (atstype_uint64 x) { return ~(x) ; }
+// end of [atspre_g0uint_lnot_uint64]
+ATSinline()
+atstype_uint64
+atspre_g0uint_lor_uint64
+  (atstype_uint64 x, atstype_uint64 y) { return (x | y) ; }
+// end of [atspre_g0uint_uint64_uint64]
+ATSinline()
+atstype_uint64
+atspre_g0uint_land_uint64
+  (atstype_uint64 x, atstype_uint64 y) { return (x & y) ; }
+// end of [atspre_g0uint_uint64_uint64]
+ATSinline()
+atstype_uint64
+atspre_g0uint_lxor_uint64
+  (atstype_uint64 x, atstype_uint64 y) { return (x ^ y) ; }
+// end of [atspre_g0uint_uint64_uint64]
 ATSinline()
 atstype_bool
 atspre_g0uint_isgtz_uint64 (atstype_uint64 x)

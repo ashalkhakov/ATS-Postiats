@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Jan 24 00:36:14 2014
+** Time of generation: Fri Feb  7 19:25:36 2014
 *)
 
 (* ****** ****** *)
@@ -189,11 +189,17 @@ fun{a:t0p} ptr0_modby (p: ptr, x: a):<!wrt> void // !p %= x
 fun{a:t0p} ptr1_modby (p: Ptr1, x: a):<!wrt> void // !p %= x
 //
 (* ****** ****** *)
+
+fun{a:vt0p} ptr1_list_next (p: Ptr1): Ptr0 // HX: &(p->next)
+
+(* ****** ****** *)
 //
 // HX: only if you know what you are doing ...
 //
 castfn
-ptr2cptr {a:vt0p}{l:addr} (p: ptr l):<> cptr (a, l)
+ptr2cptr{a:vt0p}{l:addr} (p: ptr l):<> cptr (a, l)
+//
+(* ****** ****** *)
 //
 castfn
 cptr_vtake

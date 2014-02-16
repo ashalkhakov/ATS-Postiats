@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/tuple.atxt
-** Time of generation: Fri Jan 17 21:02:04 2014
+** Time of generation: Sat Feb 15 12:16:49 2014
 *)
 
 (* ****** ****** *)
@@ -64,7 +64,7 @@ in
 end // end of [fprint_tupval2]
 
 implement(a0,a1)
-fprint_val<tup(a0,a1)> (out, x) = fprint_tupval2 (out, x)
+fprint_val<tup(a0,a1)> (out, x) = fprint_tupval2<a0,a1> (out, x)
 
 (* ****** ****** *)
 
@@ -84,7 +84,7 @@ in
 end // end of [fprint_tupval3]
 
 implement(a0,a1,a2)
-fprint_val<tup(a0,a1,a2)> (out, x) = fprint_tupval3 (out, x)
+fprint_val<tup(a0,a1,a2)> (out, x) = fprint_tupval3<a0,a1,a2> (out, x)
 
 (* ****** ****** *)
 
@@ -106,7 +106,7 @@ in
 end // end of [fprint_tupval4]
 
 implement(a0,a1,a2,a3)
-fprint_val<tup(a0,a1,a2,a3)> (out, x) = fprint_tupval4 (out, x)
+fprint_val<tup(a0,a1,a2,a3)> (out, x) = fprint_tupval4<a0,a1,a2,a3> (out, x)
 
 (* ****** ****** *)
 
@@ -124,7 +124,7 @@ in
 end // end of [fprint_tupref2]
 
 implement(a0,a1)
-fprint_ref<tup(a0,a1)> (out, x) = fprint_tupref2 (out, x)
+fprint_ref<tup(a0,a1)> (out, x) = fprint_tupref2<a0,a1> (out, x)
 
 (* ****** ****** *)
 
@@ -144,7 +144,7 @@ in
 end // end of [fprint_tupref3]
 
 implement(a0,a1,a2)
-fprint_ref<tup(a0,a1,a2)> (out, x) = fprint_tupref3 (out, x)
+fprint_ref<tup(a0,a1,a2)> (out, x) = fprint_tupref3<a0,a1,a2> (out, x)
 
 (* ****** ****** *)
 
@@ -166,7 +166,7 @@ in
 end // end of [fprint_tupref4]
 
 implement(a0,a1,a2,a3)
-fprint_ref<tup(a0,a1,a2,a3)> (out, x) = fprint_tupref4 (out, x)
+fprint_ref<tup(a0,a1,a2,a3)> (out, x) = fprint_tupref4<a0,a1,a2,a3> (out, x)
 
 (* ****** ****** *)
 

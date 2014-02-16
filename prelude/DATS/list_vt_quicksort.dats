@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_quicksort.atxt
-** Time of generation: Fri Jan 17 21:02:12 2014
+** Time of generation: Wed Jan 29 10:29:40 2014
 *)
 
 (* ****** ****** *)
@@ -133,11 +133,16 @@ implement{a}
 list_vt_quicksort_fun
   (xs, cmp) = let
 //
-implement
-list_vt_quicksort$cmp<a> (x1, x2) = cmp (x1, x2)
+implement{a2}
+list_vt_quicksort$cmp
+  (x1, x2) = let
+//
+val cmp = $UN.cast{cmpref(a2)}(cmp) in cmp (x1, x2)
+//
+end (* end of [list_vt_quicksort$cmp] *)
 //
 in
-  list_vt_quicksort (xs)
+  list_vt_quicksort<a> (xs)
 end // end of [list_vt_quicksort_fun]
 
 (* ****** ****** *)

@@ -30,15 +30,15 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/malloc.atxt
-** Time of generation: Fri Jan 17 21:02:29 2014
+** Time of generation: Fri Feb 14 09:59:20 2014
 */
 
 /* ****** ****** */
 
 /*
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: February, 2013 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: March, 2013 *)
 */
 
 /* ****** ****** */

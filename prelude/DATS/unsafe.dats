@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Jan 24 00:35:53 2014
+** Time of generation: Wed Jan 29 10:34:04 2014
 *)
 
 (* ****** ****** *)
@@ -172,6 +172,20 @@ ptr0_modby (p, x) = let
   val x0 = ptr0_get<a> (p) in ptr0_set<a> (p, gmod_val<a> (x0, x))
 end // end of [ptr0_modby]
 implement{a} ptr1_modby = ptr0_modby<a>
+
+(* ****** ****** *)
+
+implement{a}
+ptr1_list_next
+  (p) = p_next where
+{
+  val xs =
+  castvwtp1{list_vt(a,1)}(p)
+  val+@list_vt_cons(_, xs_next) = xs
+  val p_next = addr@(xs_next)
+  prval ((*void*)) = fold@ (xs)
+  prval ((*void*)) = cast2void (xs)
+} (* end of [ptr1_list_next] *)
 
 (* ****** ****** *)
 

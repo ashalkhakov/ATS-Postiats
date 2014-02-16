@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Fri Jan 17 21:02:13 2014
+** Time of generation: Tue Feb 11 00:59:23 2014
 *)
 
 (* ****** ****** *)
@@ -448,12 +448,6 @@ end // end of [array_foreach_env]
 (* ****** ****** *)
 
 implement{a}
-array_foreach_funenv
-  {v}{vt} (pf | A, asz, f, env) =
-  array_foreach_funenv_tsz {a}{v}{vt} (pf | A, asz, sizeof<a>, f, env)
-// end of [array_foreach_funenv]
-
-implement{a}
 array_foreach_fun
   {n}{fe} (A, asz, f) = let
   typedef tfun = (!unit_v | &a, !ptr) -<fun,fe> void
@@ -484,6 +478,17 @@ end // end of [array_foreach_cloref]
 
 (* ****** ****** *)
 
+implement{a}
+array_foreach_funenv
+  {v}{vt}
+(
+  pf | A, asz, f, env
+) =
+  array_foreach_funenv_tsz{a}{v}{vt} (pf | A, asz, sizeof<a>, f, env)
+// end of [array_foreach_funenv]
+
+(* ****** ****** *)
+
 implement
 {a1,a2}{env}
 array_foreach2$cont (x1, x2, env) = true
@@ -493,8 +498,10 @@ implement
 array_foreach2$fwork (x1, x2, env) = ((*void*))
 *)
 
+(* ****** ****** *)
+
 implement
-{a1,a2}
+{a1,a2}(*tmp*)
 array_foreach2 (A1, A2, asz) = let
   var env: void = () in array_foreach2_env<a1,a2><void> (A1, A2, asz, env)
 end // end of [array_foreach2]

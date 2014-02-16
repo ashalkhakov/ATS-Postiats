@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_mergesort.atxt
-** Time of generation: Fri Jan 17 21:02:12 2014
+** Time of generation: Wed Jan 29 10:29:39 2014
 *)
 
 (* ****** ****** *)
@@ -147,7 +147,7 @@ val cmp = $UN.cast{cmpref(a2)}(cmp) in cmp (x1, x2)
 end (* end of [list_vt_mergesort$cmp] *)
 //
 in
-  list_vt_mergesort (xs)
+  list_vt_mergesort<a> (xs)
 end // end of [list_vt_mergesort_fun]
 
 (* ****** ****** *)

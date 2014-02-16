@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Fri Jan 17 21:02:07 2014
+** Time of generation: Sun Feb 16 17:19:59 2014
 *)
 
 (* ****** ****** *)
@@ -69,12 +69,18 @@ fun memcpy
 (* ****** ****** *)
 
 implement{}
-string_is_empty (str) = let
-  val p = string2ptr(str) in $UN.ptr1_get<char>(p) = CNUL
+string_is_empty
+  {n} (str) = let
+  val p = string2ptr(str)
+in
+  $UN.cast{bool(n==0)}($UN.ptr1_get<char>(p) = CNUL)
 end // end of [string_is_empty]
 implement{}
-string_isnot_empty (str) = let
-  val p = string2ptr(str) in $UN.ptr1_get<char>(p) != CNUL
+string_isnot_empty
+  {n} (str) = let
+  val p = string2ptr(str)
+in
+  $UN.cast{bool(n > 0)}($UN.ptr1_get<char>(p) != CNUL)
 end // end of [string_isnot_empty]
 
 (* ****** ****** *)
@@ -291,6 +297,15 @@ in
   castvwtp_trans{strnptr(ln)}((pf, pfgc | p_dst))
 end // end of [string_make_substring]
 
+(* ****** ****** *)
+//
+implement{}
+string_head
+  (str) = $UN.ptr0_get<charNZ> (string2ptr(str))
+implement{}
+string_tail{n}
+  (str) = $UN.cast{string(n-1)}(ptr_succ<char> (string2ptr(str)))
+//
 (* ****** ****** *)
 
 implement{}

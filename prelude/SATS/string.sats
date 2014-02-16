@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Sun Jan 19 13:59:34 2014
+** Time of generation: Sun Feb 16 17:19:59 2014
 *)
 
 (* ****** ****** *)
@@ -146,8 +146,10 @@ fun{
 
 (* ****** ****** *)
 
-fun{} string_is_empty (x: string):<> bool
-fun{} string_isnot_empty (x: string):<> bool
+fun{
+} string_is_empty{n:int} (str: string(n)):<> bool(n==0)
+fun{
+} string_isnot_empty{n:int} (str: string(n)):<> bool(n > 0)
 
 (* ****** ****** *)
 //
@@ -276,6 +278,16 @@ fun fprint_substring
 (
   out: FILEref, str: string(n), st: size_t(st), ln: size_t(ln)
 ) : void = "mac#%" // end of [fprint_substring]
+//
+(* ****** ****** *)
+//
+fun{
+} string_head{n:pos} (str: string(n)):<> charNZ
+fun{
+} string_tail{n:pos} (str: string(n)):<> string(n-1)
+//
+overload .head with string_head
+overload .tail with string_tail
 //
 (* ****** ****** *)
 

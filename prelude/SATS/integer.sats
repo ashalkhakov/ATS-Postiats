@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Fri Jan 17 21:01:50 2014
+** Time of generation: Mon Feb 17 20:12:53 2014
 *)
 
 (* ****** ****** *)
@@ -1690,11 +1690,25 @@ macdef i2u (x) = g1int2uint_int_uint (,(x))
 macdef i2sz (x) = g1int2uint_int_size (,(x))
 macdef i2ssz (x) = g1int2int_int_ssize (,(x))
 //
+(* ****** ****** *)
+//
 macdef u2i (x) = g1uint2int_uint_int (,(x))
 macdef u2sz (x) = g1uint2uint_uint_size (,(x))
 //
+(* ****** ****** *)
+//
+(*
 macdef sz2i (x) = g1uint2int_size_int (,(x))
 macdef sz2u (x) = g1uint2uint_size_uint (,(x))
+*)
+//
+symintr sz2i
+overload sz2i with g0uint2int_size_int of 0
+overload sz2i with g1uint2int_size_int of 10
+//
+symintr sz2u
+overload sz2u with g0uint2uint_size_uint of 0
+overload sz2u with g1uint2uint_size_uint of 10
 //
 (* ****** ****** *)
 

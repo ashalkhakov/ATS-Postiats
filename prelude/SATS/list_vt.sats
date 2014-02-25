@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Mon Jan 27 21:25:25 2014
+** Time of generation: Mon Feb 24 21:03:49 2014
 *)
 
 (* ****** ****** *)
@@ -133,23 +133,16 @@ fprint_list_vt_sep (
   out: FILEref, xs: !List_vt (INV(x)), sep: NSH(string)
 ) : void // end of [fprint_list_vt_sep]
 //
-overload print with print_list_vt
-overload prerr with prerr_list_vt
-overload fprint with fprint_list_vt
-overload fprint with fprint_list_vt_sep
-//
 (* ****** ****** *)
-
+//
 fun{x:vt0p}
 list_vt_is_nil
   {n:int} (xs: !list_vt (INV(x), n)):<> bool (n==0)
-overload iseqz with list_vt_is_nil
-
+//
 fun{x:vt0p}
 list_vt_is_cons
   {n:int} (xs: !list_vt (INV(x), n)):<> bool (n > 0)
-overload isneqz with list_vt_is_cons
-
+//
 (* ****** ****** *)
 
 fun{x:vt0p}
@@ -177,20 +170,19 @@ list_vt_uncons{n:pos}
 (* ****** ****** *)
 
 fun{x:vt0p}
-list_vt_length {n:int} (xs: !list_vt (INV(x), n)):<> int n
-overload length with list_vt_length
+list_vt_length{n:int} (xs: !list_vt (INV(x), n)):<> int n
 
 (* ****** ****** *)
 
 fun{x:t0p}
-list_vt_copy {n:int}
+list_vt_copy{n:int}
   (xs: !list_vt (INV(x), n)):<!wrt> list_vt (x, n)
 // end of [list_vt_copy]
 
 fun{x:vt0p}
 list_vt_copylin$copy (x: &RD(x)): x
 fun{x:vt0p}
-list_vt_copylin {n:int} (xs: !list_vt (INV(x), n)): list_vt (x, n)
+list_vt_copylin{n:int} (xs: !list_vt (INV(x), n)): list_vt (x, n)
 
 (* ****** ****** *)
 
@@ -201,35 +193,32 @@ list_vt_getref_at
 // end of [list_vt_getref_at]
 
 (* ****** ****** *)
-
+//
 fun{x:t0p}
-list_vt_get_at {n:int}
+list_vt_get_at{n:int}
   (xs: !list_vt (INV(x), n), i: natLt n):<> x
-overload [] with list_vt_get_at
-
-(* ****** ****** *)
-
+//
 fun{x:t0p}
-list_vt_set_at {n:int}
+list_vt_set_at{n:int}
   (xs: !list_vt (INV(x), n), i: natLt n, x: x):<!wrt> void
-overload [] with list_vt_set_at
-
+//
 (* ****** ****** *)
 
 fun{x:vt0p}
-list_vt_exch_at {n:int}
+list_vt_exch_at{n:int}
   (xs: !list_vt (INV(x), n), i: natLt n, x: &x>>_):<!wrt> void
 // end of [list_vt_exch_at]
 
 (* ****** ****** *)
 
 fun{x:vt0p}
-list_vt_insert_at {n:int} (
+list_vt_insert_at{n:int}
+(
   xs: &list_vt (INV(x), n) >> list_vt (x, n+1), i: natLte n, x: x
 ) :<!wrt> void // end of [list_vt_insert_at]
 
 fun{x:vt0p}
-list_vt_takeout_at {n:int}
+list_vt_takeout_at{n:int}
   (xs: &list_vt (INV(x), n) >> list_vt (x, n-1), i: natLt n):<!wrt> x
 // end of [list_vt_takeout_at]
 
@@ -247,15 +236,18 @@ list_vt_freelin (xs: List_vt (INV(x))):<!wrt> void
 (* ****** ****** *)
 
 fun{x:vt0p}
-list_vt_uninitize$clear (x: &x>>x?):<!wrt> void
+list_vt_uninitize$clear
+  (x: &(x)>>x?):<!wrt> void
 fun{
 x:vt0p
-} list_vt_uninitize {n:int} (
+} list_vt_uninitize
+  {n:int} (
   xs: !list_vt (INV(x), n) >> list_vt (x?, n)
 ) :<!wrt> void // end of [list_vt_uninitize]
 fun{
 x:vt0p
-} list_vt_uninitize_fun {n:int}{fe:eff} (
+} list_vt_uninitize_fun
+  {n:int}{fe:eff} (
   xs: !list_vt (INV(x), n) >> list_vt (x?, n), f: (&x>>x?) -<fe> void
 ) :<fe> void // end of [list_vt_uninitize_fun]
 
@@ -362,7 +354,24 @@ x:vt0p}{y:vt0p
 } list_vt_map$fopr (&x >> _): y
 fun{
 x:vt0p}{y:vt0p
-} list_vt_map {n:int} (!list_vt (INV(x), n)): list_vt (y, n)
+} list_vt_map{n:int} (!list_vt (INV(x), n)): list_vt (y, n)
+
+(* ****** ****** *)
+
+fun{
+x:vt0p}{y:vt0p
+} list_vt_map_fun{n:int}
+  (xs: !list_vt (INV(x), n), f: (&x) -<fun1> y): list_vt(y, n)
+
+fun{
+x:vt0p}{y:vt0p
+} list_vt_map_cloref{n:int}
+  (xs: !list_vt (INV(x), n), f: (&x) -<cloref1> y): list_vt(y, n)
+
+fun{
+x:vt0p}{y:vt0p
+} list_vt_map_clo{n:int}
+  (xs: !list_vt (INV(x), n), f: &(&x) -<clo1> y): list_vt(y, n)
 
 (* ****** ****** *)
 
@@ -371,7 +380,7 @@ x:vt0p}{y:vt0p
 } list_vt_mapfree$fopr (x: x): y
 fun{
 x:vt0p}{y:vt0p
-} list_vt_mapfree {n:int} (xs: list_vt (INV(x), n)): list_vt (y, n)
+} list_vt_mapfree{n:int} (xs: list_vt (INV(x), n)): list_vt (y, n)
 
 (* ****** ****** *)
 
@@ -460,6 +469,25 @@ a:vt0p
   {n:int} (
   xs: list_vt (INV(a), n), cmp: cmpref (a)
 ) :<!wrt> list_vt (a, n) // end of [list_vt_quicksort_fun]
+//
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+overload [] with list_vt_get_at
+overload [] with list_vt_set_at
+//
+overload iseqz with list_vt_is_nil
+overload isneqz with list_vt_is_cons
+//
+overload length with list_vt_length
+//
+overload free with list_vt_free
+//
+overload print with print_list_vt
+overload prerr with prerr_list_vt
+overload fprint with fprint_list_vt
+overload fprint with fprint_list_vt_sep
 //
 (* ****** ****** *)
 

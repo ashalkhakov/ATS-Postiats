@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Sun Feb 16 17:19:59 2014
+** Time of generation: Mon Feb 24 21:16:51 2014
 *)
 
 (* ****** ****** *)
@@ -91,6 +91,10 @@ string_index_p
 
 (* ****** ****** *)
 
+exception StringSubscriptExn of ((*void*))
+
+(* ****** ****** *)
+
 praxi
 lemma_string_param
   {n:int} (x: string n): [n >= 0] void
@@ -145,12 +149,12 @@ fun{
 // end of [string_make_substring]
 
 (* ****** ****** *)
-
+//
 fun{
 } string_is_empty{n:int} (str: string(n)):<> bool(n==0)
 fun{
 } string_isnot_empty{n:int} (str: string(n)):<> bool(n > 0)
-
+//
 (* ****** ****** *)
 //
 symintr string_is_atend
@@ -177,6 +181,13 @@ string_isnot_atend
   (string, index) = ~string_is_atend (,(string), ,(index))
 // end of [string_isnot_atend]
 
+(* ****** ****** *)
+//
+fun{
+} string_head{n:pos} (str: string(n)):<> charNZ
+fun{
+} string_tail{n:pos} (str: string(n)):<> string(n-1)
+//
 (* ****** ****** *)
 
 fun{}
@@ -280,16 +291,6 @@ fun fprint_substring
 ) : void = "mac#%" // end of [fprint_substring]
 //
 (* ****** ****** *)
-//
-fun{
-} string_head{n:pos} (str: string(n)):<> charNZ
-fun{
-} string_tail{n:pos} (str: string(n)):<> string(n-1)
-//
-overload .head with string_head
-overload .tail with string_tail
-//
-(* ****** ****** *)
 
 fun{
 } strchr {n:int}
@@ -348,19 +349,12 @@ overload string_length with string1_length of 10
 //
 (* ****** ****** *)
 //
-symintr string_copy
-//
 fun{
 } string0_copy
   (xs: NSH(string)):<!wrt> Strptr1
 fun{
 } string1_copy
   {n:int} (xs: NSH(string(n))):<!wrt> strnptr (n)
-//
-overload string_copy with string0_copy of 0
-(*
-overload string_copy with string1_copy of 10
-*)
 //
 (* ****** ****** *)
 //
@@ -401,7 +395,7 @@ fun{
 fun{
 } string_tabulate$fopr (size_t): charNZ
 fun{
-} string_tabulate {n:int} (n: size_t n): strnptr (n)
+} string_tabulate{n:int} (n: size_t(n)): strnptr(n)
 
 (* ****** ****** *)
 //
@@ -477,20 +471,30 @@ fun fprint_stropt (out: FILEref, x: Stropt0): void = "mac#%"
 //
 // overloading for certain symbols
 //
-overload iseqz with string_is_empty of 0
-overload isneqz with string_isnot_empty of 0
+overload iseqz with string_is_empty
+overload isneqz with string_isnot_empty
 //
-overload iseqz with stropt_is_none of 10
-overload isneqz with stropt_is_some of 10
+overload .head with string_head
+overload .tail with string_tail
 //
-overload length with string0_length of 0
-overload length with string1_length of 10
+overload length with string_length
 //
-overload length with stropt_length of 10
+overload copy with string0_copy of 0
+(*
+//
+// HX: too much of a surprise!
+//
+overload copy with string1_copy of 10
+*)
 //
 overload print with print_string of 0
 overload prerr with prerr_string of 0
 overload fprint with fprint_string of 0
+//
+overload iseqz with stropt_is_none
+overload isneqz with stropt_is_some
+//
+overload length with stropt_length
 //
 overload print with print_stropt of 0
 overload prerr with prerr_stropt of 0

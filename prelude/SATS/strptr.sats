@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Fri Jan 17 21:01:53 2014
+** Time of generation: Mon Feb 24 21:51:22 2014
 *)
 
 (* ****** ****** *)
@@ -202,10 +202,11 @@ fun neq_strptr_strptr
 overload != with neq_strptr_strptr
 overload <> with neq_strptr_strptr
 
+(* ****** ****** *)
+//
 fun compare_strptr_strptr
   (x1: !Strptr0, x2: !Strptr0):<> Sgn = "mac#%"
-overload compare with compare_strptr_strptr
-
+//
 (* ****** ****** *)
 
 fun eq_strptr_string
@@ -217,87 +218,76 @@ fun neq_strptr_string
 overload != with neq_strptr_string
 overload <> with neq_strptr_string
 
+(* ****** ****** *)
+//
 fun compare_strptr_string
   (x1: !Strptr1, x2: string):<> Sgn = "mac#%"
-overload compare with compare_strptr_string
-
+//
 (* ****** ****** *)
 
 fun strptr_free (x: Strptr0):<!wrt> void = "mac#%"
 fun strnptr_free (x: Strnptr0):<!wrt> void = "mac#%"
 
 (* ****** ****** *)
-
+//
 fun
 fprint_strptr
 (
   out: FILEref, x: !Strptr0
 ) : void = "mac#%"
-overload fprint with fprint_strptr
+//
 fun print_strptr (x: !Strptr0): void = "mac#%"
 fun prerr_strptr (x: !Strptr0): void = "mac#%"
-overload print with print_strptr
-overload prerr with prerr_strptr
-
+//
 (* ****** ****** *)
-
-fun
-fprint_strbuf{m,n:int}
-(
-  out: FILEref, buf: &strbuf (m, n)
-) : void = "mac#%" // endfun
-overload fprint with fprint_strbuf
+//
 fun print_strbuf
   {m,n:int} (buf: &strbuf(m, n)): void = "mac#%"
 fun prerr_strbuf
   {m,n:int} (buf: &strbuf(m, n)): void = "mac#%"
-overload print with print_strbuf
-overload prerr with prerr_strbuf
-
+//
+fun
+fprint_strbuf{m,n:int}
+  (out: FILEref, buf: &strbuf (m, n)): void = "mac#%"
+//
 (* ****** ****** *)
-
+//
 fun{}
 strnptr_get_at_size {n:int}
   (str: !strnptr (n), i: sizeLt n):<> charNZ
-overload [] with strnptr_get_at_size
-
+//
 fun{tk:tk}
 strnptr_get_at_gint
   {n:int}{i:nat | i < n}
   (s: !strnptr (n), i: g1int (tk, i)):<> charNZ
-overload [] with strnptr_get_at_gint of 0
 fun{tk:tk}
 strnptr_get_at_guint
   {n:int}{i:nat | i < n}
   (s: !strnptr (n), i: g1uint (tk, i)):<> charNZ
-overload [] with strnptr_get_at_guint of 0
-
+//
 symintr strnptr_get_at
 overload strnptr_get_at with strnptr_get_at_gint
 overload strnptr_get_at with strnptr_get_at_guint
-
+//
 (* ****** ****** *)
-
+//
 fun{}
 strnptr_set_at_size {n:int}
   (str: !strnptr (n), i: sizeLt n, c: charNZ):<!wrt> void
-overload [] with strnptr_set_at_size
-
+//
 fun{tk:tk}
 strnptr_set_at_gint
   {n:int}{i:nat | i < n}
   (s: !strnptr (n), i: g1int (tk, i), c: charNZ):<!wrt> void
-overload [] with strnptr_set_at_gint of 0
 fun{tk:tk}
 strnptr_set_at_guint
   {n:int}{i:nat | i < n}
   (s: !strnptr (n), i: g1uint (tk, i), c: charNZ):<!wrt> void
-overload [] with strnptr_set_at_guint of 0
-
+//
 symintr strnptr_set_at
 overload strnptr_set_at with strnptr_set_at_gint
 overload strnptr_set_at with strnptr_set_at_guint
-
+//
 (* ****** ****** *)
 
 fun{}
@@ -363,16 +353,38 @@ strnptr_rforeach_env
 //
 // overloading for certain symbols
 //
+overload [] with strnptr_get_at_size
+overload [] with strnptr_get_at_gint of 0
+overload [] with strnptr_get_at_guint of 0
+//
+overload [] with strnptr_set_at_size
+overload [] with strnptr_set_at_gint of 0
+overload [] with strnptr_set_at_guint of 0
+//
 overload iseqz with strptr_is_null
 overload iseqz with strnptr_is_null
 overload isneqz with strptr_isnot_null
 overload isneqz with strnptr_isnot_null
 //
-overload freelin with strptr_free
-overload freelin with strnptr_free
+overload compare with compare_strptr_strptr
+overload compare with compare_strptr_string
 //
 overload length with strptr_length
 overload length with strnptr_length
+//
+overload copy with strptr0_copy of 0
+overload copy with strptr1_copy of 10
+//
+overload free with strptr_free
+overload free with strnptr_free
+//
+overload print with print_strptr
+overload prerr with prerr_strptr
+overload fprint with fprint_strptr
+//
+overload print with print_strbuf
+overload prerr with prerr_strbuf
+overload fprint with fprint_strbuf
 //
 (* ****** ****** *)
 

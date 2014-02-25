@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Feb 16 01:22:00 2014
+** Time of generation: Thu Feb 20 23:50:37 2014
 *)
 
 (* ****** ****** *)
@@ -1091,6 +1091,21 @@ in
   list_map<x><y> (xs)
 end // end of [list_map_cloref]
 
+implement
+{x}{y}(*tmp*)
+list_map_clo
+  (xs, f) = let
+//
+val f = $UN.cast{(x) -<cloref1> y}(addr@f)
+//
+implement
+{x2}{y2}
+list_map$fopr (x2) = $UN.castvwtp0{y2}(f($UN.cast{x}(x2)))
+//
+in
+  list_map<x><y> (xs)
+end // end of [list_map_clo]
+
 (* ****** ****** *)
 
 (*
@@ -1299,6 +1314,47 @@ var res: ptr
 val () = loop (n, 0, res)
 //
 } // end of [list_tabulate]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_tabulate_fun (n, f) = let
+//
+val f = $UN.cast{int -> a}(f)
+//
+implement(a2)
+list_tabulate$fopr<a2> (n) = $UN.castvwtp0{a2}(f(n))
+//
+in
+  list_tabulate<a> (n)
+end // end of [list_tabulate_fun]
+
+implement
+{a}(*tmp*)
+list_tabulate_cloref (n, f) = let
+//
+val f = $UN.cast{int -<cloref1> a}(f)
+//
+implement(a2)
+list_tabulate$fopr<a2> (n) = $UN.castvwtp0{a2}(f(n))
+//
+in
+  list_tabulate<a> (n)
+end // end of [list_tabulate_cloref]
+
+implement
+{a}(*tmp*)
+list_tabulate_clo (n, f) = let
+//
+val f = $UN.cast{int -<cloref1> a}(addr@f)
+//
+implement(a2)
+list_tabulate$fopr<a2> (n) = $UN.castvwtp0{a2}(f(n))
+//
+in
+  list_tabulate<a> (n)
+end // end of [list_tabulate_clo]
 
 (* ****** ****** *)
 

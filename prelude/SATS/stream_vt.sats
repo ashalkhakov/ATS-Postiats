@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Fri Jan 17 21:02:00 2014
+** Time of generation: Mon Feb 24 18:41:43 2014
 *)
 
 (* ****** ****** *)
@@ -91,11 +91,13 @@ fun{a:t0p}
 stream_vt_filter (xs: stream_vt (INV(a))): stream_vt (a)
 //
 fun{a:t0p}
-stream_vt_filter_fun (
+stream_vt_filter_fun
+(
   xs: stream_vt (INV(a)), pred: (&a) -<fun> bool
 ) : stream_vt (a) // end of [stream_vt_filter_fun]
 fun{a:t0p}
-stream_vt_filter_cloptr (
+stream_vt_filter_cloptr
+(
   xs: stream_vt (INV(a)), pred: (&a) -<cloptr> bool
 ) : stream_vt (a) // end of [stream_vt_filter_cloptr]
 //

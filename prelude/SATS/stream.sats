@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Fri Jan 17 21:02:00 2014
+** Time of generation: Tue Feb 25 23:58:27 2014
 *)
 
 (* ****** ****** *)
@@ -47,13 +47,14 @@ stream_con (a:t@ype+) =
 where stream (a:t@ype) = lazy (stream_con(a))
 //
 (* ****** ****** *)
-
-exception StreamSubscriptExn of ()
+//
+exception StreamSubscriptExn of ((*void*))
+//
 (*
 fun StreamSubscriptExn ():<> exn = "mac#StreamSubscriptExn_make"
 fun isStreamSubscriptExn (x: !exn):<> bool = "mac#isStreamSubscriptExn"
 *)
-
+//
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -65,11 +66,11 @@ stream2list
 
 fun{a:t0p}
 stream_nth_exn
-  (xs: stream (INV(a)), i: intGte(0)):<!laz> a
+  (xs: stream (INV(a)), n: intGte(0)):<!laz> a
 // end of [stream_nth_exn]
 fun{a:t0p}
 stream_nth_opt
-  (xs: stream (INV(a)), i: intGte(0)):<!laz> Option_vt (a)
+  (xs: stream (INV(a)), n: intGte(0)):<!laz> Option_vt (a)
 // end of [stream_nth_opt]
 
 (* ****** ****** *)

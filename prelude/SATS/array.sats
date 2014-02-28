@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Sat Feb 15 12:03:02 2014
+** Time of generation: Thu Feb 27 21:19:13 2014
 *)
 
 (* ****** ****** *)
@@ -82,7 +82,8 @@ arrayopt_v (
 
 (* ****** ****** *)
 
-exception ArraySubscriptExn of ()
+exception
+ArraySubscriptExn of ()
 (*
 fun ArraySubscriptExn ():<> exn = "mac#%ArraySubscriptExn_make"
 fun isArraySubscriptExn (x: !exn):<> bool = "mac#%isArraySubscriptExn"

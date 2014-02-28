@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Mon Feb 24 21:03:49 2014
+** Time of generation: Thu Feb 27 21:19:12 2014
 *)
 
 (* ****** ****** *)
@@ -86,7 +86,8 @@ typedef listBtwe
 
 (* ****** ****** *)
 
-exception ListSubscriptExn of ()
+exception
+ListSubscriptExn of ()
 (*
 fun ListSubscriptExn ():<> exn = "mac#%ListSubscriptExn_make"
 fun isListSubscriptExn (x: !exn):<> bool = "mac#%isListSubscriptExn"

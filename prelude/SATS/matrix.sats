@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrix.atxt
-** Time of generation: Fri Jan 17 21:01:58 2014
+** Time of generation: Thu Feb 27 21:19:13 2014
 *)
 
 (* ****** ****** *)
@@ -65,6 +65,11 @@ viewdef
 matrix_v (
   a:viewt@ype+, l:addr, row:int, col:int
 ) = matrix (a, row, col) @ l
+
+(* ****** ****** *)
+
+exception
+MatrixSubscriptExn of ((*void*))
 
 (* ****** ****** *)
 //

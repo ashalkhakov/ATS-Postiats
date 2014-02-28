@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Wed Feb 12 00:35:44 2014
+** Time of generation: Thu Feb 27 21:10:23 2014
 *)
 
 (* ****** ****** *)
@@ -340,30 +340,6 @@ end // end of [arrszref_make_rlist]
 (* ****** ****** *)
 
 implement{a}
-fprint_arrszref
-  (out, ASZ) = let
-//
-var asz: size_t
-val A = arrszref_get_refsize (ASZ, asz)
-//
-in
-  fprint_arrayref (out, A, asz)
-end // end of [fprint_arrszref]
-
-implement{a}
-fprint_arrszref_sep
-  (out, ASZ, sep) = let
-//
-var asz: size_t
-val A = arrszref_get_refsize (ASZ, asz)
-//
-in
-  fprint_arrayref_sep (out, A, asz, sep)
-end // end of [fprint_arrszref_sep]
-
-(* ****** ****** *)
-
-implement{a}
 arrszref_get_at_size
   (ASZ, i) = $effmask_wrt let
 //
@@ -482,6 +458,30 @@ arrszref_exch_at_guint
 in
   arrszref_exch_at_size (ASZ, g0u2u(i), x)
 end // end of [arrszref_exch_at_guint]
+
+(* ****** ****** *)
+
+implement{a}
+fprint_arrszref
+  (out, ASZ) = let
+//
+var asz: size_t
+val A = arrszref_get_refsize (ASZ, asz)
+//
+in
+  fprint_arrayref (out, A, asz)
+end // end of [fprint_arrszref]
+
+implement{a}
+fprint_arrszref_sep
+  (out, ASZ, sep) = let
+//
+var asz: size_t
+val A = arrszref_get_refsize (ASZ, asz)
+//
+in
+  fprint_arrayref_sep (out, A, asz, sep)
+end // end of [fprint_arrszref_sep]
 
 (* ****** ****** *)
 

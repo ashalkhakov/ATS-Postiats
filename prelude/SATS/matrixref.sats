@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Fri Jan 17 21:01:59 2014
+** Time of generation: Thu Feb 27 21:06:49 2014
 *)
 
 (* ****** ****** *)
@@ -160,6 +160,27 @@ overload matrixref_exch_at with matrixref_exch_at_int of 0
 overload matrixref_exch_at with matrixref_exch_at_size of 0
 
 (* ****** ****** *)
+
+(*
+fprint_matrix$sep1 // col separation
+fprint_matrix$sep2 // row separation
+*)
+fun{a:vt0p}
+fprint_matrixref{m,n:int}
+(
+  out: FILEref
+, M: matrixref(a, m, n), m: size_t m, n: size_t n
+) : void // end of [fprint_matrixref]
+
+fun{a:vt0p}
+fprint_matrixref_sep{m,n:int}
+(
+  out: FILEref
+, M: matrixref(a, m, n), m: size_t (m), n: size_t (n)
+, sep1: NSH(string), sep2: NSH(string)
+) : void // end of [fprint_matrixref_sep]
+
+(* ****** ****** *)
 (*
 fun{a:vt0p}
 matrix_tabulate$fopr (i: size_t, j: size_t): (a)
@@ -250,6 +271,25 @@ a:t0p}{tk:tk
 } mtrxszref_set_at_guint
   (M: mtrxszref(a), i: g0uint(tk), j: g0uint(tk), x: a):<!exnref> void
 overload [] with mtrxszref_set_at_guint of 0
+
+(* ****** ****** *)
+
+(*
+fprint_matrix$sep1 // col separation
+fprint_matrix$sep2 // row separation
+*)
+fun{a:vt0p}
+fprint_mtrxszref
+(
+  out: FILEref, M: mtrxszref(a)
+) : void // end of [fprint_mtrxszref]
+
+fun{a:vt0p}
+fprint_mtrxszref_sep
+(
+  out: FILEref
+, M: mtrxszref(a), sep1: NSH(string), sep2: NSH(string)
+) : void // end of [fprint_mtrxszref_sep]
 
 (* ****** ****** *)
 

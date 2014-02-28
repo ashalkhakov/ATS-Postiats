@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Fri Jan 17 21:02:07 2014
+** Time of generation: Tue Feb 25 23:58:28 2014
 *)
 
 (* ****** ****** *)
@@ -123,11 +123,6 @@ tostring_val (x) =
 (* ****** ****** *)
 
 implement{a}
-print_val (x) = fprint_val<a> (stdout_ref, x)
-implement{a}
-prerr_val (x) = fprint_val<a> (stderr_ref, x)
-
-implement{a}
 fprint_val (out, x) = let
   val str = tostrptr_val<a> (x)
   val ((*void*)) = fprint_strptr (out, str)
@@ -138,13 +133,24 @@ end // end of [fprint_val]
 
 (* ****** ****** *)
 
+implement(a:t0p)
+fprint_ref<a> (out, x) = fprint_val<a> (out, x)
+
+(* ****** ****** *)
+
+(*
+//
+// HX-2014-02-25: commented out
+//
+implement{a}
+print_val (x) = fprint_val<a> (stdout_ref, x)
+implement{a}
+prerr_val (x) = fprint_val<a> (stderr_ref, x)
 implement{a}
 print_ref (x) = fprint_ref<a> (stdout_ref, x)
 implement{a}
 prerr_ref (x) = fprint_ref<a> (stderr_ref, x)
-
-implement(a:t0p)
-fprint_ref<a> (out, x) = fprint_val<a> (out, x)
+*)
 
 (* ****** ****** *)
 

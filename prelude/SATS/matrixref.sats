@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Thu Feb 27 21:06:49 2014
+** Time of generation: Fri Feb 28 20:46:36 2014
 *)
 
 (* ****** ****** *)
@@ -102,14 +102,12 @@ matrixref_get_at_int{m,n:int}
 (
   A: matrixref (a, m, n), i: natLt(m), n: int(n), j: natLt(n)
 ) :<!ref> (a) // end of [matrixref_get_at_int]
-overload [] with matrixref_get_at_int
 
 fun{a:t0p}
 matrixref_get_at_size{m,n:int}
 (
   A: matrixref (a, m, n), i: sizeLt(m), n: size_t(n), j: sizeLt(n)
 ) :<!ref> (a) // end of [matrixref_get_at_size]
-overload [] with matrixref_get_at_size
 //
 symintr matrixref_get_at
 overload matrixref_get_at with matrixref_get_at_int of 0
@@ -123,7 +121,6 @@ matrixref_set_at_int
 (
   A: matrixref (INV(a), m, n), i: natLt (m), n: int n, j: natLt (n), x: a
 ) :<!refwrt> void // end of [matrixref_set_at_int]
-overload [] with matrixref_set_at_int
 
 fun{a:t0p}
 matrixref_set_at_size
@@ -131,7 +128,6 @@ matrixref_set_at_size
 (
   A: matrixref (INV(a), m, n), i: sizeLt (m), n: size_t n, j: sizeLt (n), x: a
 ) :<!refwrt> void // end of [matrixref_set_at_size]
-overload [] with matrixref_set_at_size
 
 symintr matrixref_set_at
 overload matrixref_set_at with matrixref_set_at_int of 0
@@ -209,20 +205,19 @@ mtrxszref_make_matrixref
 ) :<!wrt> mtrxszref (a) // endfun
 
 (* ****** ****** *)
-
-fun{
-} mtrxszref_get_ref{a:vt0p} (M: mtrxszref (a)):<> Ptr1
-fun{
-} mtrxszref_get_nrow{a:vt0p} (M: mtrxszref (a)):<> size_t
-fun{
-} mtrxszref_get_ncol{a:vt0p} (M: mtrxszref (a)):<> size_t
-
+//
+fun{}
+mtrxszref_get_ref{a:vt0p} (M: mtrxszref (a)):<> Ptr1
+//
+fun{}
+mtrxszref_get_nrow{a:vt0p} (M: mtrxszref (a)):<> size_t
+fun{}
+mtrxszref_get_ncol{a:vt0p} (M: mtrxszref (a)):<> size_t
+//
 (* ****** ****** *)
 
-symintr .ref .nrow .ncol
+symintr .ref
 overload .ref with mtrxszref_get_ref
-overload .nrow with mtrxszref_get_nrow
-overload .ncol with mtrxszref_get_ncol
 
 (* ****** ****** *)
 
@@ -241,37 +236,31 @@ mtrxszref_make_elt
 // end of [mtrxszref_make_elt]
 
 (* ****** ****** *)
-
+//
+fun{a:t0p}
+mtrxszref_get_at_int
+  (M: mtrxszref(a), i: int, j: int):<!exnref> (a)
 fun{a:t0p}
 mtrxszref_get_at_size
-  (M: mtrxszref(a), i: size_t, j: size_t):<!exnref> a
-fun{
-a:t0p}{tk:tk
-} mtrxszref_get_at_gint
-  (M: mtrxszref(a), i: g0int(tk), j: g0int(tk)):<!exnref> a
-overload [] with mtrxszref_get_at_gint of 0
-fun{
-a:t0p}{tk:tk
-} mtrxszref_get_at_guint
-  (M: mtrxszref(a), i: g0uint(tk), j: g0uint(tk)):<!exnref> a
-overload [] with mtrxszref_get_at_guint of 0
-
+  (M: mtrxszref(a), i: size_t, j: size_t):<!exnref> (a)
+//
+symintr mtrxszref_get_at
+overload mtrxszref_get_at with mtrxszref_get_at_int of 0
+overload mtrxszref_get_at with mtrxszref_get_at_size of 0
+//
 (* ****** ****** *)
-
+//
+fun{a:t0p}
+mtrxszref_set_at_int
+  (M: mtrxszref(a), i: int, j: int, x: a):<!exnrefwrt> void
 fun{a:t0p}
 mtrxszref_set_at_size
-  (M: mtrxszref(a), i: size_t, j: size_t, x: a):<!exnref> void
-fun{
-a:t0p}{tk:tk
-} mtrxszref_set_at_gint
-  (M: mtrxszref(a), i: g0int(tk), j: g0int(tk), x: a):<!exnref> void
-overload [] with mtrxszref_set_at_gint of 0
-fun{
-a:t0p}{tk:tk
-} mtrxszref_set_at_guint
-  (M: mtrxszref(a), i: g0uint(tk), j: g0uint(tk), x: a):<!exnref> void
-overload [] with mtrxszref_set_at_guint of 0
-
+  (M: mtrxszref(a), i: size_t, j: size_t, x: a):<!exnrefwrt> void
+//
+symintr mtrxszref_set_at
+overload mtrxszref_set_at with mtrxszref_set_at_int of 0
+overload mtrxszref_set_at with mtrxszref_set_at_size of 0
+//
 (* ****** ****** *)
 
 (*
@@ -300,6 +289,33 @@ matrix_tabulate$fopr (i: size_t, j: size_t): (a)
 fun{a:vt0p}
 mtrxszref_tabulate (nrow: size_t, ncol: size_t): mtrxszref (a)
 //
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+
+overload [] with matrixref_get_at_int of 0
+overload [] with matrixref_get_at_size of 0
+overload [] with matrixref_set_at_int of 0
+overload [] with matrixref_set_at_size of 0
+overload [] with mtrxszref_get_at_int of 0
+overload [] with mtrxszref_get_at_size of 0
+overload [] with mtrxszref_set_at_int of 0
+overload [] with mtrxszref_set_at_size of 0
+
+(* ****** ****** *)
+
+overload .nrow with mtrxszref_get_nrow
+overload .ncol with mtrxszref_get_ncol
+
+(* ****** ****** *)
+
+overload fprint with fprint_matrixref
+overload fprint with fprint_matrixref_sep
+overload fprint with fprint_mtrxszref
+overload fprint with fprint_mtrxszref_sep
+
 (* ****** ****** *)
 
 (* end of [matrixref.sats] *)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Mon Feb 24 21:03:49 2014
+** Time of generation: Fri Feb 28 21:59:49 2014
 *)
 
 (* ****** ****** *)
@@ -178,6 +178,8 @@ fun{x:t0p}
 list_vt_copy{n:int}
   (xs: !list_vt (INV(x), n)):<!wrt> list_vt (x, n)
 // end of [list_vt_copy]
+
+(* ****** ****** *)
 
 fun{x:vt0p}
 list_vt_copylin$copy (x: &RD(x)): x
@@ -482,6 +484,7 @@ overload isneqz with list_vt_is_cons
 //
 overload length with list_vt_length
 //
+overload copy with list_vt_free
 overload free with list_vt_free
 //
 overload print with print_list_vt

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/errno.atxt
-** Time of generation: Fri Jan 17 21:02:28 2014
+** Time of generation: Fri Feb 28 17:55:39 2014
 */
 
 /* ****** ****** */

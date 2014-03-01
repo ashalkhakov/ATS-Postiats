@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Wed Feb 12 00:35:43 2014
+** Time of generation: Fri Feb 28 19:40:20 2014
 *)
 
 (* ****** ****** *)
@@ -80,7 +80,6 @@ lemma_arrayref_param
 
 castfn
 arrayref2ptr{a:vt0p}{n:int} (A: arrayref(a, n)):<> Ptr0
-overload ptrcast with arrayref2ptr
 
 (* ****** ****** *)
 
@@ -158,9 +157,6 @@ fprint_arrayref_sep
 , A: arrayref (a, n), asz: size_t n, sep: NSH(string)
 ) : void // end of [fprint_arrayref_sep]
 
-overload fprint with fprint_arrayref
-overload fprint with fprint_arrayref_sep
-
 (* ****** ****** *)
 //
 // HX-2014-02:
@@ -174,11 +170,8 @@ fun{a:t0p}
 arrayref_tail
   {n:pos} (A: arrayref (a, n)):<!ref> arrayref (a, n-1)
 //
-overload .head with arrayref_head
-overload .tail with arrayref_tail
-//
 (* ****** ****** *)
-
+//
 fun{
 a:t0p}{tk:tk
 } arrayref_get_at_gint
@@ -186,8 +179,7 @@ a:t0p}{tk:tk
 (
   A: arrayref (a, n), i: g1int (tk, i)
 ) :<!ref> a // end of [arrayref_get_at_gint]
-overload [] with arrayref_get_at_gint of 0
-
+//
 fun{
 a:t0p}{tk:tk
 } arrayref_get_at_guint
@@ -195,34 +187,31 @@ a:t0p}{tk:tk
 (
   A: arrayref (a, n), i: g1uint (tk, i)
 ) :<!ref> a // end of [arrayref_get_at_guint]
-overload [] with arrayref_get_at_guint of 0
-
+//
 symintr arrayref_get_at
 overload arrayref_get_at with arrayref_get_at_gint of 0
 overload arrayref_get_at with arrayref_get_at_guint of 0
-
+//
 (* ****** ****** *)
-
+//
 fun{
 a:t0p}{tk:tk
 } arrayref_set_at_gint
   {n:int}{i:nat | i < n} (
   A: arrayref (a, n), i: g1int (tk, i), x: a
 ) :<!refwrt> void // end of [arrayref_set_at_gint]
-overload [] with arrayref_set_at_gint of 0
-
+//
 fun{
 a:t0p}{tk:tk
 } arrayref_set_at_guint
   {n:int}{i:nat | i < n} (
   A: arrayref (a, n), i: g1uint (tk, i), x: a
 ) :<!refwrt> void // end of [arrayref_set_at_guint]
-overload [] with arrayref_set_at_guint of 0
-
+//
 symintr arrayref_set_at
 overload arrayref_set_at with arrayref_set_at_gint of 0
 overload arrayref_set_at with arrayref_set_at_guint of 0
-
+//
 (* ****** ****** *)
 
 fun{
@@ -363,9 +352,8 @@ fun{
 
 (* ****** ****** *)
 
-symintr .ref .size
+symintr .ref
 overload .ref with arrszref_get_ref
-overload .size with arrszref_get_size
 
 (* ****** ****** *)
 
@@ -405,55 +393,46 @@ fprint_arrszref_sep (
   out: FILEref, A: arrszref (a), sep: NSH(string)
 ) : void // end of [fprint_arrszref_sep]
 
-overload fprint with fprint_arrszref
-overload fprint with fprint_arrszref_sep
-
 (* ****** ****** *)
-
+//
 fun{a:t0p}
 arrszref_get_at_size
   (A: arrszref (a), i: size_t):<!exnref> a
-// end of [arrszref_get_at_size]
-
+//
 fun{
 a:t0p}{tk:tk
 } arrszref_get_at_gint
   (A: arrszref (a), i: g0int (tk)):<!exnref> a
-overload [] with arrszref_get_at_gint of 0
-
+//
 fun{
 a:t0p}{tk:tk
 } arrszref_get_at_guint
   (A: arrszref (a), i: g0uint (tk)):<!exnref> a
-overload [] with arrszref_get_at_guint of 0
-
+//
 symintr arrszref_get_at
 overload arrszref_get_at with arrszref_get_at_gint of 0
 overload arrszref_get_at with arrszref_get_at_guint of 0
-
+//
 (* ****** ****** *)
-
+//
 fun{a:t0p}
 arrszref_set_at_size
   (A: arrszref (a), i: size_t, x: a):<!exnrefwrt> void
-// end of [arrszref_set_at_size]
-
+//
 fun{
 a:t0p}{tk:tk
 } arrszref_set_at_gint
   (A: arrszref (a), i: g0int (tk), x: a):<!exnrefwrt> void
-overload [] with arrszref_set_at_gint of 0
-
+//
 fun{
 a:t0p}{tk:tk
 } arrszref_set_at_guint
   (A: arrszref (a), i: g0uint (tk), x: a):<!exnrefwrt> void
-overload [] with arrszref_set_at_guint of 0
-
+//
 symintr arrszref_set_at
 overload arrszref_set_at with arrszref_set_at_gint of 0
 overload arrszref_set_at with arrszref_set_at_guint of 0
-
+//
 (* ****** ****** *)
 
 fun{a:vt0p}
@@ -493,6 +472,41 @@ array_tabulate$fopr (index: size_t): (a)
 fun{a:vt0p}
 arrszref_tabulate (asz: size_t): arrszref (a)
 //
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+
+overload [] with arrayref_get_at_gint of 0
+overload [] with arrayref_get_at_guint of 0
+overload [] with arrayref_set_at_gint of 0
+overload [] with arrayref_set_at_guint of 0
+overload [] with arrszref_get_at_gint of 0
+overload [] with arrszref_get_at_guint of 0
+overload [] with arrszref_set_at_gint of 0
+overload [] with arrszref_set_at_guint of 0
+
+(* ****** ****** *)
+
+overload ptrcast with arrayref2ptr
+
+(* ****** ****** *)
+
+overload .head with arrayref_head
+overload .tail with arrayref_tail
+
+(* ****** ****** *)
+
+overload .size with arrszref_get_size
+
+(* ****** ****** *)
+
+overload fprint with fprint_arrayref
+overload fprint with fprint_arrayref_sep
+overload fprint with fprint_arrszref
+overload fprint with fprint_arrszref_sep
+
 (* ****** ****** *)
 
 (* end of [arrayref.sats] *)

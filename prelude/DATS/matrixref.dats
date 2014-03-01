@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixref.atxt
-** Time of generation: Thu Feb 27 22:55:52 2014
+** Time of generation: Fri Feb 28 20:11:23 2014
 *)
 
 (* ****** ****** *)
@@ -67,6 +67,14 @@ in
 end // end of [matrixref_get_at_size]
 
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+matrixref_get_at_int
+  (M, i, n, j) =
+  matrixref_get_at_size (M, i2sz(i), i2sz(n), i2sz(j))
+//
+(* ****** ****** *)
 
 implement{a}
 matrixref_set_at_size
@@ -81,6 +89,14 @@ in
   matrix_set_at_size (!p, i, n, j, x)
 end // end of [matrixref_set_at_size]
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+matrixref_set_at_int
+  (M, i, n, j, x) =
+  matrixref_set_at_size (M, i2sz(i), i2sz(n), i2sz(j), x)
+//
 (* ****** ****** *)
 
 implement{a}
@@ -190,14 +206,32 @@ end // end of [mtrxszref_make_elt]
 (* ****** ****** *)
 
 implement{a}
+mtrxszref_get_at_int
+  (MSZ, i, j) = let
+  val i = g1ofg0_int(i)
+  and j = g1ofg0_int(j)
+in
+//
+if i >= 0 then
+if j >= 0 then
+  mtrxszref_get_at_size (MSZ, i2sz(i), i2sz(j))
+else $raise MatrixSubscriptExn((* j < 0 *))
+else $raise MatrixSubscriptExn((* i < 0 *))
+//
+end // end of [mtrxszref_get_at_gint]
+
+implement{a}
 mtrxszref_get_at_size
-  (MSZ, i, j) = $effmask_wrt let
+  (MSZ, i, j) = let
 //
 var nrow: size_t
 and ncol: size_t
-val M = mtrxszref_get_refsize (MSZ, nrow, ncol)
-val i = g1ofg0_uint (i)
-val j = g1ofg0_uint (j)
+val M = $effmask_wrt
+(
+  mtrxszref_get_refsize (MSZ, nrow, ncol)
+)
+val i = g1ofg0_uint(i)
+and j = g1ofg0_uint(j)
 //
 in
 //
@@ -209,41 +243,35 @@ if nrow > i then (
 //
 end // end of [mtrxszref_get_at_size]
 
-implement
-{a}{tk}
-mtrxszref_get_at_gint
-  (MSZ, i, j) = let
+(* ****** ****** *)
+
+implement{a}
+mtrxszref_set_at_int
+  (MSZ, i, j, x) = let
+  val i = g1ofg0_int(i)
+  and j = g1ofg0_int(j)
 in
 //
 if i >= 0 then
 if j >= 0 then
-  mtrxszref_get_at_size (MSZ, g0i2u(i), g0i2u(j))
+  mtrxszref_set_at_size (MSZ, i2sz(i), i2sz(j), x)
 else $raise MatrixSubscriptExn((* j < 0 *))
 else $raise MatrixSubscriptExn((* i < 0 *))
 //
-end // end of [mtrxszref_get_at_gint]
-
-implement
-{a}{tk}
-mtrxszref_get_at_guint
-  (MSZ, i, j) = let
-in
-//
-mtrxszref_get_at_size (MSZ, g0u2u(i), g0u2u(j))
-//
-end // end of [mtrxszref_get_at_gint]
-
-(* ****** ****** *)
+end // end of [mtrxszref_set_at_int]
 
 implement{a}
 mtrxszref_set_at_size
-  (MSZ, i, j, x) = $effmask_wrt let
+  (MSZ, i, j, x) = let
 //
 var nrow: size_t
 and ncol: size_t
-val M = mtrxszref_get_refsize (MSZ, nrow, ncol)
+val M =
+(
+  mtrxszref_get_refsize (MSZ, nrow, ncol)
+)
 val i = g1ofg0_uint (i)
-val j = g1ofg0_uint (j)
+and j = g1ofg0_uint (j)
 //
 in
 //
@@ -254,30 +282,6 @@ if nrow > i then (
 ) else $raise MatrixSubscriptExn((*void*))
 //
 end // end of [mtrxszref_set_at_size]
-
-implement
-{a}{tk}
-mtrxszref_set_at_gint
-  (MSZ, i, j, x) = let
-in
-//
-if i >= 0 then
-if j >= 0 then
-  mtrxszref_set_at_size (MSZ, g0i2u(i), g0i2u(j), x)
-else $raise MatrixSubscriptExn((* j < 0 *))
-else $raise MatrixSubscriptExn((* i < 0 *))
-//
-end // end of [mtrxszref_set_at_gint]
-
-implement
-{a}{tk}
-mtrxszref_set_at_guint
-  (MSZ, i, j, x) = let
-in
-//
-mtrxszref_set_at_size (MSZ, g0u2u(i), g0u2u(j), x)
-//
-end // end of [mtrxszref_set_at_gint]
 
 (* ****** ****** *)
 

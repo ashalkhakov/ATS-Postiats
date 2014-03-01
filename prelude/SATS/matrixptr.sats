@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixptr.atxt
-** Time of generation: Fri Jan 17 21:01:58 2014
+** Time of generation: Fri Feb 28 21:00:55 2014
 *)
 
 (* ****** ****** *)
@@ -91,21 +91,19 @@ matrixptr_encode2 :
 // end of [matrixptr_encode2]
 
 (* ****** ****** *)
-
+//
 castfn
 matrixptr2ptr
   {a:vt0p}
   {l:addr}{m,n:int}
   (A: !matrixptr(INV(a), l, m, n)):<> ptr(l)
-overload ptrcast with matrixptr2ptr
-
+//
 castfn
 matrixptrout2ptr
   {a:t0p}
   {l:addr}{m,n:int}
   (A: !matrixptrout(INV(a), l, m, n)):<> ptr(l)
-overload ptrcast with matrixptrout2ptr
-
+//
 (* ****** ****** *)
 
 praxi
@@ -154,14 +152,12 @@ matrixptr_get_at_int
 (
   A: !matrixptr(INV(a), m, n), i: natLt (m), n: int n, j: natLt (n)
 ) :<> (a) // end of [matrixptr_get_at_int]
-overload [] with matrixptr_get_at_int
 fun{a:t0p}
 matrixptr_get_at_size
   {m,n:int}
 (
   A: !matrixptr(INV(a), m, n), i: sizeLt (m), n: size_t n, j: sizeLt (n)
 ) :<> (a) // end of [matrixptr_get_at_size]
-overload [] with matrixptr_get_at_size
 //
 symintr matrixptr_get_at
 overload matrixptr_get_at with matrixptr_get_at_int of 0
@@ -175,14 +171,12 @@ matrixptr_set_at_int
 (
   A: !matrixptr(INV(a), m, n), i: natLt (m), n: int n, j: natLt (n), x: a
 ) :<!wrt> void // end of [matrixptr_set_at_int]
-overload [] with matrixptr_set_at_int
 fun{a:t0p}
 matrixptr_set_at_size
   {m,n:int}
 (
   A: !matrixptr(INV(a), m, n), i: sizeLt (m), n: size_t n, j: sizeLt (n), x: a
 ) :<!wrt> void // end of [matrixptr_set_at_size]
-overload [] with matrixptr_set_at_size
 //
 symintr matrixptr_set_at
 overload matrixptr_set_at with matrixptr_set_at_int of 0
@@ -259,6 +253,27 @@ fun{a:vt0p}
 matrixptr_tabulate
   {m,n:int} (nrow: size_t m, ncol: size_t n): matrixptr (a, m, n)
 //
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+
+overload [] with matrixptr_get_at_int
+overload [] with matrixptr_get_at_size
+overload [] with matrixptr_set_at_int
+overload [] with matrixptr_set_at_size
+
+(* ****** ****** *)
+
+overload ptrcast with matrixptr2ptr
+overload ptrcast with matrixptrout2ptr
+
+(* ****** ****** *)
+
+overload fprint with fprint_matrixptr
+overload fprint with fprint_matrixptr_sep
+
 (* ****** ****** *)
 
 (* end of [matrixptr.sats] *)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Fri Feb 21 20:41:05 2014
+** Time of generation: Fri Feb 28 21:20:24 2014
 *)
 
 (* ****** ****** *)
@@ -352,14 +352,21 @@ val+~list_vt_cons (x1, xs1_i) = xs_i
 val () =
   $UN.ptr1_set<List0_vt(a)> (cptr2ptr(pi), xs1_i)
 //
-prval () = __assert (xs) where
+prval () =
+__assert (xs) where
 {
   extern
   praxi __assert (xs: &list_vt (a, n) >> list_vt (a, n-1)): void
-} // end of [prval]
+} (* end of [prval] *)
 //
 } // end of [list_vt_takeout_at]
 
+(* ****** ****** *)
+//
+implement{a}
+list_vt_copy (xs) =
+  list_copy<a> ($UN.list_vt2t(xs))
+//
 (* ****** ****** *)
 
 implement{a}

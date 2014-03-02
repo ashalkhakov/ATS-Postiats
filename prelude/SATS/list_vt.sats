@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Fri Feb 28 21:59:49 2014
+** Time of generation: Sat Mar  1 15:37:56 2014
 *)
 
 (* ****** ****** *)
@@ -174,20 +174,6 @@ list_vt_length{n:int} (xs: !list_vt (INV(x), n)):<> int n
 
 (* ****** ****** *)
 
-fun{x:t0p}
-list_vt_copy{n:int}
-  (xs: !list_vt (INV(x), n)):<!wrt> list_vt (x, n)
-// end of [list_vt_copy]
-
-(* ****** ****** *)
-
-fun{x:vt0p}
-list_vt_copylin$copy (x: &RD(x)): x
-fun{x:vt0p}
-list_vt_copylin{n:int} (xs: !list_vt (INV(x), n)): list_vt (x, n)
-
-(* ****** ****** *)
-
 fun{x:vt0p}
 list_vt_getref_at
   {n:int}{i:nat | i <= n}
@@ -223,6 +209,18 @@ fun{x:vt0p}
 list_vt_takeout_at{n:int}
   (xs: &list_vt (INV(x), n) >> list_vt (x, n-1), i: natLt n):<!wrt> x
 // end of [list_vt_takeout_at]
+
+(* ****** ****** *)
+
+fun{x:t0p}
+list_vt_copy{n:int}
+  (xs: !list_vt (INV(x), n)):<!wrt> list_vt (x, n)
+// end of [list_vt_copy]
+
+fun{x:vt0p}
+list_vt_copylin$copy (x: &RD(x)): x
+fun{x:vt0p}
+list_vt_copylin{n:int} (xs: !list_vt (INV(x), n)): list_vt (x, n)
 
 (* ****** ****** *)
 

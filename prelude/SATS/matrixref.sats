@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Fri Feb 28 20:46:36 2014
+** Time of generation: Sat Mar  1 15:37:56 2014
 *)
 
 (* ****** ****** *)
@@ -54,22 +54,32 @@ sortdef t0p = t@ype and vt0p = viewt@ype
 
 (* ****** ****** *)
 //
-// matrixref: reference to a matrix with no dimension info attached
+// matrixref:
+// reference to a matrix
+// with no dimension info attached
 //
 (* ****** ****** *)
-
+//
 abstype
 matrixref_vt0ype_int_int_type
-  (a:vt@ype(*invariant*), nrow: int, ncol:int) = ptr
+  (a:vt@ype(*inv*), nrow: int, ncol:int) = ptr
+//
 stadef matrixref = matrixref_vt0ype_int_int_type
-
+//
 (* ****** ****** *)
 
 praxi
 lemma_matrixref_param
-  {a:vt0p}{m,n:int} (A: matrixref (a, m, n)): [m >= 0; n >= 0] void
+  {a:vt0p}{m,n:int}
+  (A: matrixref (a, m, n)): [m >= 0; n >= 0] void
 // end of [lemma_matrixref_param]
 
+(* ****** ****** *)
+//
+castfn
+matrixref2ptr
+  {a:vt0p}{m,n:int} (M: matrixref(a, m, n)):<> Ptr0
+//
 (* ****** ****** *)
 
 castfn
@@ -308,6 +318,10 @@ overload [] with mtrxszref_set_at_size of 0
 
 overload .nrow with mtrxszref_get_nrow
 overload .ncol with mtrxszref_get_ncol
+
+(* ****** ****** *)
+
+overload ptrcast with matrixref2ptr
 
 (* ****** ****** *)
 

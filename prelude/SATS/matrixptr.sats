@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixptr.atxt
-** Time of generation: Fri Feb 28 21:00:55 2014
+** Time of generation: Sun Mar  9 17:11:48 2014
 *)
 
 (* ****** ****** *)
@@ -252,6 +252,13 @@ matrix_tabulate$fopr (i: size_t, j: size_t): (a)
 fun{a:vt0p}
 matrixptr_tabulate
   {m,n:int} (nrow: size_t m, ncol: size_t n): matrixptr (a, m, n)
+//
+fun{a:vt0p}
+matrixptr_tabulate_cloref
+  {m,n:int}
+(
+  nrow: size_t m, ncol: size_t n, f: (sizeLt(m), sizeLt(n)) -<cloref> a
+) : matrixptr (a, m, n) // end-of-fun
 //
 (* ****** ****** *)
 //

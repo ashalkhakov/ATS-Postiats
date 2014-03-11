@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Fri Feb 28 17:55:05 2014
+** Time of generation: Sun Mar  9 15:23:45 2014
 *)
 
 (* ****** ****** *)
@@ -88,12 +88,24 @@ arrayptr_encode :
   {a:vt0p}{l:addr}{n:int}
   (array_v (INV(a), l, n), mfree_gc_v l | ptr l) -<0> arrayptr (a, l, n)
 // end of [arrayptr_encode]
-
 castfn
 arrayptr_encode2 :
   {a:vt0p}{l:addr}{n:int}
   @(array_v (INV(a), l, n), mfree_gc_v l | ptr l) -<0> arrayptr (a, l, n)
 // end of [arrayptr_encode2]
+
+(* ****** ****** *)
+
+castfn
+arrayptr_objectify
+  {a:vt0p}{l:addr}{n:int}
+  (array_v (INV(a), l, n) | ptr(l)):<> (mfree_ngc_v(l) | arrayptr(a, l, n))
+// end of [arrayptr_objectify]
+castfn
+arrayptr_unobjectify
+  {a:vt0p}{l:addr}{n:int}
+  (mfree_ngc_v(l) | arrayptr(INV(a), l, n)):<> (array_v (a, l, n) | ptr(l))
+// end of [arrayptr_objectify]
 
 (* ****** ****** *)
 
@@ -470,6 +482,10 @@ array_tabulate$fopr (index: size_t): (a)
 fun{a:vt0p}
 arrayptr_tabulate
   {n:int} (asz: size_t n): arrayptr (a, n)
+//
+fun{a:vt0p}
+arrayptr_tabulate_cloref
+  {n:int} (size_t n, (sizeLt(n)) -<cloref> a): arrayptr (a, n)
 //
 (* ****** ****** *)
 

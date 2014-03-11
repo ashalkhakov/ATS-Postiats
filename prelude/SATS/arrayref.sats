@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Feb 28 19:40:20 2014
+** Time of generation: Mon Mar 10 11:57:33 2014
 *)
 
 (* ****** ****** *)
@@ -140,24 +140,6 @@ arrayref_make_rlist{n:int}
 // end of [arrayref_make_rlist]
 
 (* ****** ****** *)
-
-(*
-fun{}
-fprint_array$sep (out: FILEref): void
-*)
-fun{a:vt0p}
-fprint_arrayref
-  {n:int} (
-  out: FILEref, A: arrayref (INV(a), n), n: size_t n
-) : void // end of [fprint_arrayref]
-fun{a:vt0p}
-fprint_arrayref_sep
-  {n:int} (
-  out: FILEref
-, A: arrayref (a, n), asz: size_t n, sep: NSH(string)
-) : void // end of [fprint_arrayref_sep]
-
-(* ****** ****** *)
 //
 // HX-2014-02:
 // [A] must survive [arrayref_tail(A)]
@@ -242,6 +224,45 @@ arrayref_interchange
 (* ****** ****** *)
 
 (*
+fun{}
+fprint_array$sep (out: FILEref): void
+*)
+fun{a:vt0p}
+fprint_arrayref
+  {n:int} (
+  out: FILEref, A: arrayref (INV(a), n), n: size_t n
+) : void // end of [fprint_arrayref]
+fun{a:vt0p}
+fprint_arrayref_sep
+  {n:int} (
+  out: FILEref
+, A: arrayref (a, n), asz: size_t n, sep: NSH(string)
+) : void // end of [fprint_arrayref_sep]
+
+(* ****** ****** *)
+
+fun{a:t0p}
+arrayref_copy{n:int}
+  (A: arrayref (a, n), n: size_t (n)): arrayptr (a, n)
+// end of [arrayref_copy]
+
+(* ****** ****** *)
+//
+(*
+fun{a:vt0p}
+array_tabulate$fopr (index: size_t): (a)
+*)
+fun{a:vt0p}
+arrayref_tabulate
+  {n:int} (asz: size_t n): arrayref (a, n)
+//
+fun{a:vt0p}
+arrayref_tabulate_cloref
+  {n:int} (size_t n, (sizeLt(n)) -<cloref> a): arrayref (a, n)
+//
+(* ****** ****** *)
+
+(*
 fun{a:vt0p}{env:vt0p}
 array_foreach$cont (x: &a, env: &env): void
 fun{a:vt0p}{env:vt0p}
@@ -296,16 +317,6 @@ a:vt0p}{env:vt0p
   A: arrayref (a, n), asz: size_t (n), env: &(env)>>env
 ) : sizeLte(n) // end of [arrayref_rforeach_env]
 
-(* ****** ****** *)
-//
-(*
-fun{a:vt0p}
-array_tabulate$fopr (index: size_t): (a)
-*)
-fun{a:vt0p}
-arrayref_tabulate
-  {n:int} (asz: size_t n): arrayref (a, n)
-//
 (* ****** ****** *)
 //
 // arrszref: a reference to an array with size information attached
@@ -471,6 +482,10 @@ array_tabulate$fopr (index: size_t): (a)
 *)
 fun{a:vt0p}
 arrszref_tabulate (asz: size_t): arrszref (a)
+//
+fun{a:vt0p}
+arrszref_tabulate_cloref
+  {n:int} (size_t n, (sizeLt(n)) -<cloref> a): arrszref (a)
 //
 (* ****** ****** *)
 //

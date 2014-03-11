@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/time.atxt
-** Time of generation: Fri Feb 28 17:55:43 2014
+** Time of generation: Mon Mar  3 01:47:36 2014
 */
 
 /* ****** ****** */
@@ -58,6 +58,10 @@ typedef struct tm atslib_tm_struct_type ;
 /* ****** ****** */
 
 typedef clock_t atslib_clock_type ;
+
+/* ****** ****** */
+
+typedef struct timespec atslib_timespec_type ;
 
 /* ****** ****** */
 

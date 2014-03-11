@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Fri Feb 28 17:55:07 2014
+** Time of generation: Sat Mar  8 22:30:39 2014
 *)
 
 (* ****** ****** *)
@@ -64,12 +64,30 @@ fun{a:t0p}
 stream_vt_free (xs: stream_vt a):<!wrt> void
 
 (* ****** ****** *)
-
+//
 fun{a:t0p}
-stream_vt_drop
+stream_vt_drop_exn
+  (xs: stream_vt(INV(a)), n: intGte(0)): stream_vt(a)
+// end of [stream_vt_drop_exn]
+//
+fun{a:t0p}
+stream_vt_drop_opt
   (xs: stream_vt(INV(a)), n: intGte(0)): streamopt_vt(a)
-// end of [stream_vt_drop]
-
+// end of [stream_vt_drop_opt]
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+stream_vt_head
+  (xs: stream_vt(INV(a))):<!exnwrt> (a)
+fun{a:t0p}
+stream_vt_tail
+  (xs: stream_vt(INV(a))):<!exnwrt> stream_vt(a)
+//
+fun{a:vt0p}
+stream_vt_uncons
+  (xs: &stream_vt(INV(a)) >> stream_vt(a)):<!exnwrt> (a)
+//
 (* ****** ****** *)
 
 fun{
@@ -154,6 +172,15 @@ a1,a2:t0p}{b:vt0p
 , f: (&a1 >> _, &a2 >> _) -<cloptr> b
 ) : stream_vt (b) // end of [stream_vt_map2_cloptr]
 //
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+
+overload .head with stream_vt_head
+overload .tail with stream_vt_tail
+
 (* ****** ****** *)
 
 (* end of [stream_vt.sats] *)

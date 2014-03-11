@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Fri Feb 28 17:55:05 2014
+** Time of generation: Tue Mar  4 23:30:30 2014
 *)
 
 (* ****** ****** *)
@@ -250,16 +250,6 @@ array_ptr_free
 ) :<!wrt> void // end of [array_ptr_free]
 
 (* ****** ****** *)
-
-fun{a:vt0p}
-array_tabulate$fopr (i: size_t): (a)
-fun{a:vt0p}
-array_ptr_tabulate
-  {n:int} (asz: size_t n)
-  : [l:addr] (array_v (a, l, n), mfree_gc_v (l) | ptr l)
-// end of [arrayptr_tabulate]
-
-(* ****** ****** *)
 //
 fun{}
 fprint_array$sep (out: FILEref): void
@@ -324,6 +314,16 @@ array_copy_to_list_vt{n:int}
 ) :<!wrt> list_vt (a, n) // endfun
 
 macdef array2list = array_copy_to_list_vt
+
+(* ****** ****** *)
+
+fun{a:vt0p}
+array_tabulate$fopr (i: size_t): (a)
+fun{a:vt0p}
+array_ptr_tabulate
+  {n:int} (asz: size_t n)
+  : [l:addr] (array_v (a, l, n), mfree_gc_v (l) | ptr l)
+// end of [arrayptr_tabulate]
 
 (* ****** ****** *)
 

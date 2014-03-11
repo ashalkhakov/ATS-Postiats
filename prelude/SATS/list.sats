@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Fri Feb 28 17:55:02 2014
+** Time of generation: Fri Mar  7 17:07:43 2014
 *)
 
 (* ****** ****** *)
@@ -853,10 +853,6 @@ a:t0p
   xs: list (INV(a), n), cmp: cmpval (a)
 ) :<!wrt> list_vt (a, n) // end of [list_quicksort_fun]
 
-(* ****** ****** *)
-//
-// overloading for certain symbols
-//
 (* ****** ****** *)
 //
 // overloading for certain symbols

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Fri Feb 28 17:55:07 2014
+** Time of generation: Fri Mar  7 20:07:07 2014
 *)
 
 (* ****** ****** *)
@@ -180,6 +180,32 @@ stream_merge_cloref
 (
   xs1: stream (INV(a)), xs2: stream (a), (a, a) -<cloref> int
 ) :<!laz> stream (a) // end of [stream_merge_cloref]
+
+(* ****** ****** *)
+
+fun{a:t0p}
+stream_mergeq$cmp (x1: a, x2: a):<> int
+fun{a:t0p}
+stream_mergeq
+  (xs1: stream (INV(a)), xs2: stream (a)):<!laz> stream (a)
+fun{a:t0p}
+stream_mergeq_fun
+(
+  xs1: stream (INV(a)), xs2: stream (a), (a, a) -<fun> int
+) :<!laz> stream (a) // end of [stream_mergeq_fun]
+fun{a:t0p}
+stream_mergeq_cloref
+(
+  xs1: stream (INV(a)), xs2: stream (a), (a, a) -<cloref> int
+) :<!laz> stream (a) // end of [stream_mergeq_cloref]
+
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+
+overload [] with stream_nth_exn
 
 (* ****** ****** *)
 

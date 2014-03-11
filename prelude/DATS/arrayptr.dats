@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Fri Feb 28 17:55:28 2014
+** Time of generation: Sun Mar  9 17:09:03 2014
 *)
 
 (* ****** ****** *)
@@ -403,6 +403,19 @@ implement{a}
 arrayptr_tabulate
   (asz) = arrayptr_encode2(array_ptr_tabulate<a> (asz))
 // end of [arrayptr_tabulate]
+
+(* ****** ****** *)
+
+implement{a}
+arrayptr_tabulate_cloref
+  {n} (asz, f) = let
+//
+implement(a2)
+array_tabulate$fopr<a2> (i) = $UN.castvwtp0{a2}(f($UN.cast{sizeLt(n)}(i)))
+//
+in
+  arrayptr_tabulate<a> (asz)
+end // end of [arrayptr_tabulate_cloref]
 
 (* ****** ****** *)
 

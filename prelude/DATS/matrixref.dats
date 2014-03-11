@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixref.atxt
-** Time of generation: Fri Feb 28 20:11:23 2014
+** Time of generation: Sun Mar  9 17:11:48 2014
 *)
 
 (* ****** ****** *)
@@ -130,6 +130,12 @@ matrixref_tabulate
   (nrow, ncol) =
   matrixptr_refize (matrixptr_tabulate<a> (nrow, ncol))
 // end of [matrixref_tabulate]
+
+implement{a}
+matrixref_tabulate_cloref
+  (nrow, ncol, f) =
+  matrixptr_refize (matrixptr_tabulate_cloref<a> (nrow, ncol, f))
+// end of [matrixref_tabulate_cloref]
 
 (* ****** ****** *)
 
@@ -322,6 +328,18 @@ mtrxszref_tabulate
 in 
   mtrxszref_make_matrixref (M, nrow, ncol)
 end // end of [mtrxszref_tabulate]
+
+(* ****** ****** *)
+
+implement{a}
+mtrxszref_tabulate_cloref
+  (nrow, ncol, f) = let
+  val M =
+    matrixref_tabulate_cloref<a> (nrow, ncol, f)
+  // end of [val]
+in 
+  mtrxszref_make_matrixref (M, nrow, ncol)
+end // end of [mtrxszref_tabulate_cloref]
 
 (* ****** ****** *)
 

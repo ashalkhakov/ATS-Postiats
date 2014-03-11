@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Feb 28 17:55:29 2014
+** Time of generation: Mon Mar 10 11:57:33 2014
 *)
 
 (* ****** ****** *)
@@ -173,6 +173,33 @@ end // end of [fprint_arrayref_sep]
 
 (* ****** ****** *)
 
+implement
+{a}(*tmp*)
+arrayref_copy
+  {n} (A, n) = let
+  val (pf, fpf | p) =
+    $UN.ptr0_vtake{array(a,n)}(ptrcast(A))
+  val (pf2, pf2gc | p2) = array_ptr_alloc<a> (n)
+  val ((*void*)) = array_copy<a> (!p2, !p, n)
+  prval () = fpf (pf)
+in
+  $UN.castvwtp0{arrayptr(a,n)}((pf2, pf2gc | p2))
+end // end of [arrayref_copy]
+
+(* ****** ****** *)
+
+implement{a}
+arrayref_tabulate
+  (asz) = arrayptr_refize (arrayptr_tabulate<a> (asz))
+// end of [arrayref_tabulate]
+
+implement{a}
+arrayref_tabulate_cloref
+  (asz, f) = arrayptr_refize (arrayptr_tabulate_cloref<a> (asz, f))
+// end of [arrayref_tabulate_cloref]
+
+(* ****** ****** *)
+
 implement{a}
 arrayref_foreach (A, asz) = let
   var env: void = () in arrayref_foreach_env<a><void> (A, asz, env)
@@ -222,13 +249,6 @@ arrayref_rforeach_env
 in
   $effmask_ref (array_rforeach_env<a><env> (!p, asz, env))
 end // end of [arrayref_rforeach_env]
-
-(* ****** ****** *)
-
-implement{a}
-arrayref_tabulate
-  (asz) = arrayptr_refize (arrayptr_tabulate<a> (asz))
-// end of [arrayref_tabulate]
 
 (* ****** ****** *)
 
@@ -506,13 +526,18 @@ then (
 end // end of [arrszref_interchange]
 
 (* ****** ****** *)
-
+//
 implement{a}
 arrszref_tabulate (asz) = let
   val asz = g1ofg0_uint (asz)
   val A = arrayref_tabulate<a> (asz) in arrszref_make_arrayref(A, asz)
 end // end of [arrszref_tabulate]
-
+//
+implement{a}
+arrszref_tabulate_cloref (asz, f) = let
+  val A = arrayref_tabulate_cloref<a> (asz, f) in arrszref_make_arrayref(A, asz)
+end // end of [arrszref_tabulate_cloref]
+//
 (* ****** ****** *)
 
 (* end of [arrayref.dats] *)

@@ -83,6 +83,8 @@ case+
 //
 end // end of [funval_isbot]
 
+(* ****** ****** *)
+
 fun aux_funval
 (
   out: FILEref
@@ -161,10 +163,10 @@ val () = emit_primval (out, pmv_fun)
 val () = emit_text (out, ", ")
 val () = emit_lparen (out)
 //
-val hses_arg =
-(
+val hses_arg = (
 if isclo
-  then list_cons(hisexp_cloptr, hses_arg) else hses_arg
+  then list_cons (hisexp_cloptr, hses_arg)
+  else (hses_arg)
 ) : hisexplst // end of [val]
 val () = emit_hisexplst_sep (out, hses_arg, ", ")
 //
@@ -176,6 +178,8 @@ val () = emit_rparen (out)
 in
   // nothing
 end // end of [aux_funval2]
+
+(* ****** ****** *)
 
 fun aux_funenv
 (
@@ -213,7 +217,10 @@ pmv_fun.primval_node of
 //
 end // end of [aux_funenv]
 
-fun emit_fparamlst
+(* ****** ****** *)
+
+fun
+emit_fparamlst
 (
   out: FILEref, n: int, pmvs: primvalist
 ) : void = let
@@ -222,17 +229,19 @@ in
 case+ pmvs of
 | list_cons _ => let
     val () =
-    (
-      if (n > 0) then emit_text (out, ", ")
-    ) // end of [val]
+    if (n > 0) then
+      emit_text (out, ", ")
+    // end of [if]
   in
     emit_primvalist (out, pmvs)
   end (* end of [list_cons] *)
-| list_nil () => ()
+| list_nil ((*void*)) => ()
 //
 end // end of [emit_fparamlst]
 
-fun emit_fun_freeaft
+(* ****** ****** *)
+
+fun emit_freeaft_fun
 (
   out: FILEref, pmv: primval
 ) : void = let
@@ -247,9 +256,51 @@ case+
     emit_text (out, "ATSINSfreeclo(");
     emit_primval (out, pmv); emit_text (out, ") ;\n")
   ) (* end of [PMVrefarg] *)
-| _(*non-refarg*) => ()
+| _ => ()
 //
-end // end of [emit_fun_freeaft]
+end // end of [emit_freeaft_fun]
+
+(* ****** ****** *)
+
+(*
+//
+// HX-2014-03-02:
+// no support for auto-freeing of funarg
+// as it may interfere with tail-recursion
+//
+fun
+emit_freeaft_funarg
+(
+  out: FILEref, pmvs: primvalist
+) : void = let
+in
+//
+case+ pmvs of
+//
+| list_nil () => ()
+//
+| list_cons
+    (pmv, pmvs) => let
+    val () = (
+      case+
+        pmv.primval_node of
+      | PMVrefarg (
+          knd, freeknd, pmv
+        ) when freeknd > 0 =>
+        {
+          val () =
+          emit_text (out, "ATSINSfreeclo(")
+          val () = emit_primval (out, pmv)
+          val () = emit_text (out, ") ;\n")
+        } (* end of [PMVrefarg] *)
+      | _ (*non-refarg*) => ()
+    ) : void // end of [val]
+  in
+    emit_freeaft_funarg (out, pmvs)
+  end // end of [list_cons]
+//
+end // end of [emit_freeaft_funarg]
+*)
 
 in (* in of [local] *)
 
@@ -273,10 +324,9 @@ val noret =
 ) : bool // end of [val]
 //
 val () = emit_text (out, "ATSINSmove")
-val () =
-(
+val () = (
   if noret then emit_text (out, "_void")
-)
+) (* end of [val] *)
 val () = emit_text (out, "(")
 val () = emit_tmpvar (out, tmp)
 val () = emit_text (out, ", ")
@@ -288,7 +338,7 @@ val () = aux_funval (out, pmv_fun, hse_fun, isclo)
 val pmvs_arg =
 (
 if isclo
-  then list_cons (pmv_fun, pmvs_arg) else pmvs_arg
+  then list_cons (pmv_fun, pmvs_arg) else (pmvs_arg)
 ) : primvalist // end of [val]
 //
 val () = emit_lparen (out)
@@ -298,7 +348,11 @@ val () = emit_rparen (out)
 //
 val () = emit_text (out, ") ;\n")
 //
-val () = emit_fun_freeaft (out, pmv_fun)
+val () = emit_freeaft_fun (out, pmv_fun)
+//
+(*
+val () = emit_freeaft_funarg (out, pmvs_arg)
+*)
 //
 in
   // nothing
@@ -524,7 +578,7 @@ case+ hses of
   in
     loop (out, n+1, hses, sep, i+1)
   end // end of [list_cons]
-| list_nil () => ()
+| list_nil ((*void*)) => ()
 //
 end // end of [loop]
 //

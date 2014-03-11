@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Fri Feb 28 17:55:17 2014
+** Time of generation: Fri Mar  7 17:07:44 2014
 *)
 
 (* ****** ****** *)
@@ -64,6 +64,15 @@ primplmnt eqbool_make_bool (x) = EQBOOL ()
 
 primplmnt prop_verify () = ()
 primplmnt prop_verify_and_add () = ()
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+lazy_force (lazyval) = !lazyval
+implement
+{a}(*tmp*)
+lazy_vt_force (lazyval) = !lazyval
 
 (* ****** ****** *)
 

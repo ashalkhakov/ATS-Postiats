@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Sat Mar  1 15:37:56 2014
+** Time of generation: Sun Mar  9 17:12:50 2014
 *)
 
 (* ****** ****** *)
@@ -99,22 +99,32 @@ matrixref_get_viewptr
 
 (* ****** ****** *)
 
+castfn
+arrayref2matrixref
+  {a:vt0p}{m,n:nat} (A: arrayref (a, m*n)):<> matrixref (a, m, n)
+// end of [arrayref2matrixref]
+
+(* ****** ****** *)
+
 fun{
 a:t0p
-} matrixref_make_elt{m,n:int}
-  (m: size_t m, n: size_t n, x: a):<!wrt> matrixref (a, m, n)
+} matrixref_make_elt
+  {m,n:int}
+  (m: size_t m, n: size_t n, x0: a):<!wrt> matrixref (a, m, n)
 // end of [matrixref_make_elt]
 
 (* ****** ****** *)
 
 fun{a:t0p}
-matrixref_get_at_int{m,n:int}
+matrixref_get_at_int
+  {m,n:int}
 (
   A: matrixref (a, m, n), i: natLt(m), n: int(n), j: natLt(n)
 ) :<!ref> (a) // end of [matrixref_get_at_int]
 
 fun{a:t0p}
-matrixref_get_at_size{m,n:int}
+matrixref_get_at_size
+  {m,n:int}
 (
   A: matrixref (a, m, n), i: sizeLt(m), n: size_t(n), j: sizeLt(n)
 ) :<!ref> (a) // end of [matrixref_get_at_size]
@@ -194,6 +204,13 @@ matrix_tabulate$fopr (i: size_t, j: size_t): (a)
 fun{a:vt0p}
 matrixref_tabulate
   {m,n:int} (nrow: size_t m, ncol: size_t n): matrixref (a, m, n)
+//
+fun{a:vt0p}
+matrixref_tabulate_cloref
+  {m,n:int}
+(
+  nrow: size_t m, ncol: size_t n, f: (sizeLt(m), sizeLt(n)) -<cloref> a
+) : matrixref (a, m, n) // end-of-fun
 //
 (* ****** ****** *)
 //
@@ -291,13 +308,20 @@ fprint_mtrxszref_sep
 ) : void // end of [fprint_mtrxszref_sep]
 
 (* ****** ****** *)
-
+//
 (*
 fun{a:vt0p}
 matrix_tabulate$fopr (i: size_t, j: size_t): (a)
 *)
 fun{a:vt0p}
 mtrxszref_tabulate (nrow: size_t, ncol: size_t): mtrxszref (a)
+//
+fun{a:vt0p}
+mtrxszref_tabulate_cloref
+  {m,n:int}
+(
+  nrow: size_t m, ncol: size_t n, f: (sizeLt(m), sizeLt(n)) -<cloref> a
+) : mtrxszref (a) // end-of-fun
 //
 (* ****** ****** *)
 //

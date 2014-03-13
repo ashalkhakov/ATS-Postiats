@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Sun Mar  9 15:23:45 2014
+** Time of generation: Thu Mar 13 12:00:22 2014
 *)
 
 (* ****** ****** *)
@@ -108,18 +108,15 @@ arrayptr_unobjectify
 // end of [arrayptr_objectify]
 
 (* ****** ****** *)
-
+//
 castfn
 arrayptr2ptr
   {a:vt0p}
   {l:addr}{n:int} (A: !arrayptr (INV(a), l, n)):<> ptr (l)
-overload ptrcast with arrayptr2ptr
-
 castfn
 arrayptrout2ptr
   {a:t0p}{l:addr}{n:int} (A: !arrayptrout (INV(a), l, n)):<> ptr (l)
-overload ptrcast with arrayptrout2ptr
-
+//
 (* ****** ****** *)
 
 praxi
@@ -270,51 +267,42 @@ fprint_arrayptr_sep
 , A: !arrayptr (INV(a), l, n), n: size_t n, sep: NSH(string)
 ) : void // end of [fprint_arrayptr_sep]
 
-overload fprint with fprint_arrayptr
-overload fprint with fprint_arrayptr_sep
-
 (* ****** ****** *)
 
 symintr arrayptr_get_at
-
+//
 fun{
 a:t0p}{tk:tk
 } arrayptr_get_at_gint
   {n:int}{i:nat | i < n}
   (A: !arrayptr (INV(a), n), i: g1int (tk, i)):<> (a)
-overload [] with arrayptr_get_at_gint of 0
-
 fun{
 a:t0p}{tk:tk
 } arrayptr_get_at_guint
   {n:int}{i:nat | i < n}
   (A: !arrayptr (INV(a), n), i: g1uint (tk, i)):<> (a)
-overload [] with arrayptr_get_at_guint of 0
-
+//
 overload arrayptr_get_at with arrayptr_get_at_gint
 overload arrayptr_get_at with arrayptr_get_at_guint
-
+//
 (* ****** ****** *)
 
 symintr arrayptr_set_at
-
+//
 fun{
 a:t0p}{tk:tk
 } arrayptr_set_at_gint
   {n:int}{i:nat | i < n}
   (A: !arrayptr (INV(a), n), i: g1int (tk, i), x: a):<!wrt> void
-overload [] with arrayptr_set_at_gint of 0
-
 fun{
 a:t0p}{tk:tk
 } arrayptr_set_at_guint
   {n:int}{i:nat | i < n}
   (A: !arrayptr (INV(a), n), i: g1uint (tk, i), x: a):<!wrt> void
-overload [] with arrayptr_set_at_guint of 0
-
+//
 overload arrayptr_set_at with arrayptr_set_at_gint of 0
 overload arrayptr_set_at with arrayptr_set_at_guint of 0
-
+//
 (* ****** ****** *)
 
 symintr arrayptr_exch_at
@@ -487,6 +475,31 @@ fun{a:vt0p}
 arrayptr_tabulate_cloref
   {n:int} (size_t n, (sizeLt(n)) -<cloref> a): arrayptr (a, n)
 //
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+
+overload [] with arrayptr_get_at_gint of 0
+overload [] with arrayptr_get_at_guint of 0
+overload [] with arrayptr_set_at_gint of 0
+overload [] with arrayptr_set_at_guint of 0
+
+(* ****** ****** *)
+
+overload ptrcast with arrayptr2ptr
+overload ptrcast with arrayptrout2ptr
+
+(* ****** ****** *)
+
+overload free with arrayptr_free
+
+(* ****** ****** *)
+
+overload fprint with fprint_arrayptr
+overload fprint with fprint_arrayptr_sep
+
 (* ****** ****** *)
 
 (* end of [arrayptr.sats] *)

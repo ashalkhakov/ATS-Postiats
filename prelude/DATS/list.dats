@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Feb 28 17:55:24 2014
+** Time of generation: Tue Mar 18 16:39:33 2014
 *)
 
 (* ****** ****** *)
@@ -1283,6 +1283,46 @@ in
   res(*listLte_vt(y,n)*)
 end // end of [list_mapopt_funenv]
 *)
+
+(* ****** ****** *)
+
+implement
+{x1,x2}{y}(*tmp*)
+list_map2{n1,n2}(xs1, xs2) = let
+//
+prval () = lemma_list_param (xs1)
+prval () = lemma_list_param (xs2)
+//
+fun
+loop{n1,n2:nat}
+(
+  xs1: list (x1, n1)
+, xs2: list (x2, n2)
+, res: &ptr? >> list_vt (y, min(n1,n2))
+) : void = let
+in
+//
+case+ (xs1, xs2) of
+| (list_cons (x1, xs1),
+   list_cons (x2, xs2)) =>
+  {
+    val y = list_map2$fopr (x1, x2)
+    val () =
+      res := list_vt_cons{y}{0}(y, _)
+    val+list_vt_cons (_, res1) = res
+    val ((*void*)) = loop (xs1, xs2, res1)
+    prval ((*folded*)) = fold@ (res)
+  } (* end of [cons, cons] *)
+| (_, _) =>> (res := list_vt_nil((*void*)))
+//
+end // end of [loop]
+//
+var res: ptr
+val ((*void*)) = loop (xs1, xs2, res)
+//
+in
+  res
+end // end of [list_map2]
 
 (* ****** ****** *)
 

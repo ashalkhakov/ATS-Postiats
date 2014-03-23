@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Fri Mar  7 17:07:43 2014
+** Time of generation: Fri Mar 21 10:54:12 2014
 *)
 
 (* ****** ****** *)
@@ -562,6 +562,28 @@ x:t0p}{y:vt0p
 (* ****** ****** *)
 
 fun{
+x:t0p}{y:vt0p
+} list_mapopt$fopr (x): Option_vt (y)
+fun{
+x:t0p}{y:vt0p
+} list_mapopt{n:int}
+  (xs: list (INV(x), n)): listLte_vt (y, n)
+// end of [list_mapopt]
+
+(*
+fun{
+x:t0p}{y:t0p
+} list_mapopt_funenv
+  {v:view}{vt:viewtype}{n:int}{fe:eff} (
+  pfv: !v |
+  xs: list (INV(x), n)
+, f: (!v | x, !vt) -<fun,fe> Option_vt (y), env: !vt
+) :<fe> listLte_vt (y, n) // end of [list_mapopt_funenv]
+*)
+
+(* ****** ****** *)
+
+fun{
 x1,x2:t0p}{y:vt0p
 } list_map2$fopr (x1, x2): y
 fun{
@@ -583,28 +605,6 @@ x1,x2:t0p}{y:t0p
 , xs2: list (INV(x2), n2)
 , f: (!v | x1, x2, !vt) -<fun,fe> y, env: !vt
 ) :<fe> list_vt (y, min(n1,n2)) // end of [list_map2_funenv]
-*)
-
-(* ****** ****** *)
-
-fun{
-x:t0p}{y:vt0p
-} list_mapopt$fopr (x): Option_vt (y)
-fun{
-x:t0p}{y:vt0p
-} list_mapopt{n:int}
-  (xs: list (INV(x), n)): listLte_vt (y, n)
-// end of [list_mapopt]
-
-(*
-fun{
-x:t0p}{y:t0p
-} list_mapopt_funenv
-  {v:view}{vt:viewtype}{n:int}{fe:eff} (
-  pfv: !v |
-  xs: list (INV(x), n)
-, f: (!v | x, !vt) -<fun,fe> Option_vt (y), env: !vt
-) :<fe> listLte_vt (y, n) // end of [list_mapopt_funenv]
 *)
 
 (* ****** ****** *)

@@ -100,7 +100,8 @@ assume filenv_type = ref (filenv_struct)
 in (* in of [local] *)
 
 implement
-filenv_make (
+filenv_make
+(
   fil, s2tm, s2im, d2im, d2cs
 ) = let
 //
@@ -336,10 +337,10 @@ end // end of [local]
 implement
 the_s2rtenv_find_qua (q, id) = let
 (*
-  val () = print "the_s2rtenv_find_qua: qid = "
-  val () = $SYN.print_s0rtq (q)
-  val () = $SYM.print_symbol (id)
-  val () = print_newline ()
+val () =
+print "the_s2rtenv_find_qua: qid = "
+val () = ($SYN.print_s0rtq (q); $SYM.print_symbol (id))
+val () = print_newline ((*void*))
 *)
 in
 //

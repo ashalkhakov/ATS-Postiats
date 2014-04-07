@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Sat Mar  8 22:30:39 2014
+** Time of generation: Sun Apr  6 21:45:06 2014
 *)
 
 (* ****** ****** *)
@@ -172,6 +172,13 @@ a1,a2:t0p}{b:vt0p
 , f: (&a1 >> _, &a2 >> _) -<cloptr> b
 ) : stream_vt (b) // end of [stream_vt_map2_cloptr]
 //
+(* ****** ****** *)
+
+fun{a:vt0p}
+stream_vt_tabulate$fopr (i: int): (a)
+fun{a:vt0p}
+stream_vt_tabulate ((*void*)): stream_vt (a)
+
 (* ****** ****** *)
 //
 // overloading for certain symbols

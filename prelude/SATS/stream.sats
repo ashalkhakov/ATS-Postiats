@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Fri Mar  7 20:07:07 2014
+** Time of generation: Fri Apr  4 10:53:50 2014
 *)
 
 (* ****** ****** *)
@@ -88,20 +88,14 @@ stream_drop_exn
 // end of [stream_drop_exn]
 
 (* ****** ****** *)
-
-fun{
-env:vt0p
-} stream_foreach$cont (env: &env): bool
-fun{
-a:t0p}{env:vt0p
-} stream_foreach$fwork
-  (x: a, env: &env): void // lin-cleared
+//
 fun{a:t0p}
-stream_foreach (xs: stream (a)): void
-fun{
-a:t0p}{env:vt0p
-} stream_foreach_env (xs: stream (a), &env >> _): void
-
+stream_append
+  (xs: stream (INV(a)), ys: stream (a)):<!laz> stream(a)
+//
+fun{a:t0p}
+stream_concat (xss: stream(stream(INV(a)))):<!laz> stream(a)
+//
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -199,6 +193,21 @@ stream_mergeq_cloref
   xs1: stream (INV(a)), xs2: stream (a), (a, a) -<cloref> int
 ) :<!laz> stream (a) // end of [stream_mergeq_cloref]
 
+(* ****** ****** *)
+//
+fun{
+a:t0p}{env:vt0p
+} stream_foreach$cont (x: a, env: &env): bool
+fun{
+a:t0p}{env:vt0p
+} stream_foreach$fwork (x: a, env: &env): void
+//
+fun{a:t0p}
+stream_foreach (xs: stream (a)): void
+fun{
+a:t0p}{env:vt0p
+} stream_foreach_env (xs: stream (a), &env >> _): void
+//
 (* ****** ****** *)
 //
 // overloading for certain symbols

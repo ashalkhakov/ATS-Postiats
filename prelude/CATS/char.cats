@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Fri Feb 28 17:55:34 2014
+** Time of generation: Fri Apr  4 23:21:55 2014
 */
 
 /* ****** ****** */
@@ -162,7 +162,7 @@ atstype_bool
 atspre_lt_int_int
   (atstype_int i1, atstype_int i2) {
   return (i1 < i2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_lt_char_char]
+} // end of [atspre_lt_int_int]
 #define atspre_lt_char0_char0 atspre_lt_int_int
 #define atspre_lt_char1_char1 atspre_lt_int_int
 
@@ -171,7 +171,7 @@ atstype_bool
 atspre_lte_int_int
   (atstype_int i1, atstype_int i2) {
   return (i1 <= i2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_lte_char_char]
+} // end of [atspre_lte_int_int]
 #define atspre_lte_char0_char0 atspre_lte_int_int
 #define atspre_lte_char1_char1 atspre_lte_int_int
 
@@ -180,7 +180,7 @@ atstype_bool
 atspre_gt_int_int
   (atstype_int i1, atstype_int i2) {
   return (i1 > i2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_gt_char_char]
+} // end of [atspre_gt_int_int]
 #define atspre_gt_char0_char0 atspre_gt_int_int
 #define atspre_gt_char1_char1 atspre_gt_int_int
 
@@ -189,7 +189,7 @@ atstype_bool
 atspre_gte_int_int
   (atstype_int i1, atstype_int i2) {
   return (i1 >= i2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_gte_char_char]
+} // end of [atspre_gte_int_int]
 #define atspre_gte_char0_char0 atspre_gte_int_int
 #define atspre_gte_char1_char1 atspre_gte_int_int
 
@@ -198,7 +198,7 @@ atstype_bool
 atspre_eq_int_int
   (atstype_int i1, atstype_int i2) {
   return (i1 == i2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_eq_char_char]
+} // end of [atspre_eq_int_int]
 #define atspre_eq_char0_char0 atspre_eq_int_int
 #define atspre_eq_char1_char1 atspre_eq_int_int
 
@@ -207,7 +207,7 @@ atstype_bool
 atspre_neq_int_int
   (atstype_int i1, atstype_int i2) {
   return (i1 != i2 ? atsbool_true : atsbool_false) ;
-} // end of [atspre_neq_char_char]
+} // end of [atspre_neq_int_int]
 #define atspre_neq_char0_char0 atspre_neq_int_int
 #define atspre_neq_char1_char1 atspre_neq_int_int
 
@@ -220,7 +220,7 @@ atspre_compare_int_int
   (atstype_int i1, atstype_int i2)
 {
   return (i1 - i2) ;
-} // end of [atspre_compare_char_char]
+} // end of [atspre_compare_int_int]
 #define atspre_compare_char0_char0(c1, c2) atspre_compare_int_int(c1, c2)
 #define atspre_compare_char1_char1(c1, c2) atspre_compare_int_int(c1, c2)
 

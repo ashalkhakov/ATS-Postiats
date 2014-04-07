@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Fri Feb 28 17:55:31 2014
+** Time of generation: Fri Apr  4 23:21:55 2014
 */
 
 /* ****** ****** */
@@ -59,7 +59,7 @@ ATSinline()
 atstype_bool
 atspre_ptr_is_null
   (atstype_ptr p) {
-  return (p==(void*)0) ? atsbool_true : atsbool_false ;
+  return (p == (void*)0) ? atsbool_true : atsbool_false ;
 } // end of [atspre_ptr_is_null]
 #define atspre_ptr0_is_null atspre_ptr_is_null
 #define atspre_ptr1_is_null atspre_ptr_is_null
@@ -68,7 +68,7 @@ ATSinline()
 atstype_bool
 atspre_ptr_isnot_null
   (atstype_ptr p) {
-  return (p > (void*)0) ? atsbool_true : atsbool_false ;
+  return (p != (void*)0) ? atsbool_true : atsbool_false ;
 } // end of [atspre_ptr_isnot_null]
 #define atspre_ptr0_isnot_null atspre_ptr_isnot_null
 #define atspre_ptr1_isnot_null atspre_ptr_isnot_null

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Tue Mar 18 16:39:33 2014
+** Time of generation: Fri Apr  4 10:53:50 2014
 *)
 
 (* ****** ****** *)
@@ -1561,7 +1561,7 @@ case+ xs of
       loop (xs, env)
     end else () // end of [if]
   end // end of [list_cons]
-| list_nil () => ()
+| list_nil ((*void*)) => ()
 //
 end // end of [loop]
 //

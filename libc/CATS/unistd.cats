@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/unistd.atxt
-** Time of generation: Fri Feb 28 17:55:43 2014
+** Time of generation: Mon Apr  7 17:16:46 2014
 */
 
 /* ****** ****** */
@@ -130,6 +130,22 @@ do { \
 /* ****** ****** */
 
 #define atslib_pause pause
+
+/* ****** ****** */
+
+#define atslib_read_err read
+#define atslib_write_err write
+
+/* ****** ****** */
+
+#define atslib_pread pread
+#define atslib_pwrite pwrite
+
+/* ****** ****** */
+
+#define atslib_alarm alarm
+#define atslib_alarm_set alarm
+#define atslib_alarm_cancel() alarm(0)
 
 /* ****** ****** */
 

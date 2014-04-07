@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Thu Apr  3 09:52:27 2014
+** Time of generation: Mon Apr  7 18:23:07 2014
 *)
 
 (* ****** ****** *)
@@ -417,6 +417,20 @@ typedef constcharptr (l:addr) = charptr (l) // HX: commenting
 typedef constcharptr0 = charptr0 // HX: for commenting purpose
 typedef constcharptr1 = charptr1 // HX: for commenting purpose
 
+(* ****** ****** *)
+//
+absprop
+is_nullable (a: vt@ype+) // covariant
+//
+fun{a:vt0p}
+ptr_nullize
+  (pf: is_nullable (a) | x: &a? >> a):<!wrt> void
+fun
+ptr_nullize_tsz
+  {a:vt0p} (
+  pf: is_nullable (a) | x: &a? >> a, tsz: sizeof_t (a)
+) :<!wrt> void = "mac#%" // end of [ptr_nullize_tsz]
+//
 (* ****** ****** *)
 
 fun{a:vt0p}

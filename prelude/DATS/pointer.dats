@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/pointer.atxt
-** Time of generation: Fri Feb 28 17:55:11 2014
+** Time of generation: Mon Apr  7 18:12:05 2014
 *)
 
 (* ****** ****** *)
@@ -114,6 +114,13 @@ ptr_exch (pf | p, x) =
 {
   val tmp = x; val () = x := !p; val () = !p := tmp
 } // end of [ptr_exch]
+
+(* ****** ****** *)
+
+implement{a}
+ptr_nullize
+  (pf | x) = ptr_nullize_tsz (pf | x, sizeof<a>)
+// end of [ptr_nullize]
 
 (* ****** ****** *)
 

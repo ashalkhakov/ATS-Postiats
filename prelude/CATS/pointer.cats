@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Fri Apr  4 23:21:55 2014
+** Time of generation: Mon Apr  7 18:23:44 2014
 */
 
 /* ****** ****** */
@@ -45,6 +45,13 @@
 
 #ifndef ATSLIB_PRELUDE_POINTER_CATS
 #define ATSLIB_PRELUDE_POINTER_CATS
+
+/* ****** ****** */
+
+#ifndef memset
+extern
+void *memset(void *bufp, int c, size_t n) ;
+#endif // #ifndef
 
 /* ****** ****** */
 
@@ -211,6 +218,17 @@ atspre_neq_ptr_intz
 
 #define atspre_cptr_is_null atspre_ptr_is_null
 #define atspre_cptr_isnot_null atspre_ptr_isnot_null
+
+/* ****** ****** */
+
+ATSinline()
+atsvoid_t0ype
+atspre_ptr_nullize_tsz
+(
+  atstype_ptr p, atstype_size tsz
+) {
+  memset (p, 0, tsz) ; return /*void*/ ;
+} // end of [atspre_ptr_nullize_tsz]
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Sun Apr  6 21:45:06 2014
+** Time of generation: Mon Apr  7 12:00:17 2014
 *)
 
 (* ****** ****** *)
@@ -51,6 +51,16 @@ where stream_vt (a:vt@ype) = lazy_vt (stream_vt_con(a))
 vtypedef
 streamopt_vt (a:vt0p) = Option_vt(stream_vt(a))
 
+(* ****** ****** *)
+//
+// HX-2014-04-07:
+// this is a regular function
+// instead of a cast function
+//
+fun{a:t0p}
+stream_vt2t
+  (xs: stream_vt (INV(a))): stream (a)
+//
 (* ****** ****** *)
 
 fun{a:vt0p}

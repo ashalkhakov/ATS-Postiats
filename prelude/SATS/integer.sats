@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Thu Apr  3 09:52:28 2014
+** Time of generation: Thu Apr 10 00:18:22 2014
 *)
 
 (* ****** ****** *)
@@ -73,6 +73,18 @@ fun g0int2int_int_int (x: int):<> int = "mac#%"
 fun g0int2int_int_lint (x: int):<> lint = "mac#%"
 fun g0int2int_int_llint (x: int):<> llint = "mac#%"
 fun g0int2int_int_ssize (x: int):<> ssize_t = "mac#%"
+//
+fun g0int2int_lint_int (x: int):<> int = "mac#%"
+fun g0int2int_lint_lint (x: int):<> lint = "mac#%"
+fun g0int2int_lint_llint (x: int):<> llint = "mac#%"
+fun g0int2int_lint_ssize (x: int):<> ssize_t = "mac#%"
+//
+fun g0int2int_ssize_int (x: int):<> int = "mac#%"
+fun g0int2int_ssize_lint (x: int):<> lint = "mac#%"
+fun g0int2int_ssize_llint (x: int):<> llint = "mac#%"
+fun g0int2int_ssize_ssize (x: int):<> ssize_t = "mac#%"
+//
+fun g0int2int_sint_int (x: sint):<> int = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -706,6 +718,8 @@ fun g0uint2uint_size_uint (x: size_t):<> uint = "mac#%"
 fun g0uint2uint_size_ulint (x: size_t):<> ulint = "mac#%"
 fun g0uint2uint_size_ullint (x: size_t):<> ullint = "mac#%"
 fun g0uint2uint_size_size (x: size_t):<> size_t = "mac#%"
+//
+fun g0uint2uint_usint_uint (x: usint):<> uint = "mac#%"
 //
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Mon Apr  7 12:00:17 2014
+** Time of generation: Thu Apr 10 20:48:18 2014
 *)
 
 (* ****** ****** *)
@@ -211,6 +211,14 @@ a:t0p}{env:vt0p
 (* ****** ****** *)
 //
 // overloading for certain symbols
+//
+(* ****** ****** *)
+//
+fun{}
+fprint_stream$sep (out: FILEref): void
+fun{a:t0p}
+fprint_stream
+  (out: FILEref, xs: stream(INV(a)), n: int): void
 //
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/signal.atxt
-** Time of generation: Mon Apr  7 16:32:29 2014
+** Time of generation: Thu Apr 10 00:26:17 2014
 */
 
 /* ****** ****** */
@@ -85,9 +85,18 @@ typedef struct sigaction atslib_sigaction_struct ;
 
 /* ****** ****** */
 
+#define atslib_kill kill
+#define atslib_killpg killpg
+#define atslib_raise raise
+
+/* ****** ****** */
+
 #define atslib_sigwait sigwait
-#define atslib_sigsuspend sigsuspend
+
+/* ****** ****** */
+
 #define atslib_sigpause sigpause
+#define atslib_sigsuspend sigsuspend
 
 /* ****** ****** */
 

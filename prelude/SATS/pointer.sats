@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Mon Apr  7 18:23:07 2014
+** Time of generation: Fri Apr 11 23:02:07 2014
 *)
 
 (* ****** ****** *)
@@ -264,10 +264,12 @@ overload - with sub_ptr1_ptr1 of 20
 
 (* ****** ****** *)
 //
-fun{a:vt0p}
-ptr1_succ {l:addr} (p: ptr l):<> ptr (l+sizeof(a))
-fun{a:vt0p}
-ptr1_pred {l:addr} (p: ptr l):<> ptr (l-sizeof(a))
+fun{
+a:vt0p
+} ptr1_succ{l:addr} (p: ptr l):<> ptr (l+sizeof(a))
+fun{
+a:vt0p
+} ptr1_pred{l:addr} (p: ptr l):<> ptr (l-sizeof(a))
 //
 overload ptr_succ with ptr1_succ of 10
 overload ptr_pred with ptr1_pred of 10
@@ -384,7 +386,7 @@ stadef cPtr0 (a:vt0p) = [l:addr] cptr (a, l)
 stadef cPtr1 (a:vt0p) = [l:addr | l > null] cptr (a, l)
 
 castfn
-cptr2ptr {a:vt0p}{l:addr} (p: cptr (a, l)):<> ptr (l)
+cptr2ptr{a:vt0p}{l:addr} (p: cptr (a, l)):<> ptr (l)
 
 (* ****** ****** *)
 //
@@ -392,6 +394,13 @@ fun cptr_null{a:vt0p} ():<> cptr (a, null) = "mac#%"
 //
 castfn cptr_rvar{a:vt0p} (x: &INV(a)):<> cPtr1 (a) // read
 castfn cptr_wvar{a:vt0p} (x: &a? >> a):<> cPtr1 (a) // write
+//
+(* ****** ****** *)
+//
+fun cptr_succ
+  {a:vt0p}{l:addr} (p: cptr (a, l)):<> cptr (a, l+sizeof(a))
+fun cptr_pred
+  {a:vt0p}{l:addr} (p: cptr (a, l)):<> cptr (a, l-sizeof(a))
 //
 (* ****** ****** *)
 //
@@ -452,14 +461,22 @@ fun ptr_free
 //
 absvtype ptrlin (l:addr) = ptr
 //
-praxi ptrlin_free {l:addr} (p: ptrlin (l)): void
+praxi ptrlin_free{l:addr} (p: ptrlin (l)): void
 //
-castfn ptr2ptrlin {l:addr} (p: ptr l):<> ptrlin (l)
-castfn ptrlin2ptr {l:addr} (p: ptrlin l):<> ptr (l)
+castfn ptr2ptrlin{l:addr} (p: ptr l):<> ptrlin (l)
+castfn ptrlin2ptr{l:addr} (p: ptrlin l):<> ptr (l)
 //
 (* ****** ****** *)
 //
 // overloading for certain symbols
+//
+overload succ with ptr0_succ
+overload succ with ptr1_succ
+overload succ with cptr_succ
+//
+overload pred with ptr0_pred
+overload pred with ptr1_pred
+overload pred with cptr_pred
 //
 overload iseqz with ptr0_is_null of 0
 overload isneqz with ptr0_isnot_null of 0

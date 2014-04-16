@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Thu Apr 10 20:48:18 2014
+** Time of generation: Fri Apr 11 23:02:22 2014
 *)
 
 (* ****** ****** *)
@@ -76,7 +76,7 @@ stream_nth_opt
 (* ****** ****** *)
 
 fun{a:t0p}
-stream_take_exn {n:nat}
+stream_take_exn{n:nat}
   (xs: stream (INV(a)), n: int n):<!laz> list_vt (a, n)
 // end of [stream_take_lte]
 

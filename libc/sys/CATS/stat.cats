@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/stat.atxt
-** Time of generation: Fri Jan 17 21:02:33 2014
+** Time of generation: Tue Apr 29 22:18:59 2014
 */
 
 /* ****** ****** */
@@ -52,6 +52,12 @@
 
 /* ****** ****** */
 
+typedef
+struct stat
+atslib_stat_struct ;
+
+/* ****** ****** */
+
 #define atslib_umask umask
 
 /* ****** ****** */
@@ -61,6 +67,7 @@
 /* ****** ****** */
 
 #define atslib_mkdir mkdir
+#define atslib_mkdirat mkdirat
 
 /* ****** ****** */
 

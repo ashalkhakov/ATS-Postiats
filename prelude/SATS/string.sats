@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Fri Apr 11 23:02:13 2014
+** Time of generation: Fri May  2 02:13:24 2014
 *)
 
 (* ****** ****** *)
@@ -293,40 +293,40 @@ fun fprint_substring
 (* ****** ****** *)
 
 fun{
-} strchr {n:int}
+} strchr{n:int}
   (str: string (n), c0: char):<> ssizeBtwe (~1, n)
 // end of [strchr]
 
 fun{
-} strrchr {n:int}
+} strrchr{n:int}
   (str: string (n), c0: char):<> ssizeBtwe (~1, n)
 // end of [strrchr]
 
 fun{
-} strstr {n:int}
+} strstr{n:int}
   (haystack: string (n), needle: string):<> ssizeBtw (~1, n)
 // end of [strstr]
 
 (* ****** ****** *)
 
 fun{
-} strspn {n:int} // spanning
+} strspn{n:int} // spanning
   (str: string (n), accept: string):<> sizeLte (n)
 // end of [strspn]
 fun{
-} strcspn {n:int} // complement spanning
+} strcspn{n:int} // complement spanning
   (str: string (n), accept: string):<> sizeLte (n)
 // end of [strcspn]
 
 (* ****** ****** *)
 
 fun{
-} string_index {n:int}
+} string_index{n:int}
   (str: string (n), c0: charNZ):<> ssizeBtw (~1, n)
 // end of [string_index]
 
 fun{
-} string_rindex {n:int}
+} string_rindex{n:int}
   (str: string (n), c0: charNZ):<> ssizeBtw (~1, n)
 // end of [string_rindex]
 

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer.atxt
-** Time of generation: Thu Apr 10 00:26:17 2014
+** Time of generation: Sat Apr 26 21:19:10 2014
 */
 
 /* ****** ****** */
@@ -112,6 +112,9 @@ int snprintf (char *str, size_t size, const char *format, ...) ;
 //
 #define atspre_g0int2uint_llint_ullint(x) ((atstype_ullint)(x))
 #define atspre_g1int2uint_llint_ullint atspre_g0int2uint_llint_ullint
+//
+#define atspre_g0int2uint_ssize_size(x) ((atstype_size)(x))
+#define atspre_g1int2uint_ssize_size atspre_g0int2uint_ssize_size
 //
 /* ****** ****** */
 //

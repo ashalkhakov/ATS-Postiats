@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -28,53 +28,25 @@
 (* ****** ****** *)
 //
 // Author: Hongwei Xi
-// Authoremail: gmhwxi AT gmail DOT com
-// Start Time: April, 2011
+// Authoremail: gmhwxiATgmailDOTcom
+// Start Time: April, 2014
 //
 (* ****** ****** *)
 
-datatype
-comarg = COMARGkey of (int, string)
-
-viewtypedef
-comarglst (n:int) = list_vt (comarg, n)
+%{#
+#include "libc/sys/CATS/types.cats"
+%} // end of [%{#]
 
 (* ****** ****** *)
 
-fun comarg_parse (s: string):<> comarg
-
-fun comarglst_parse{n:nat}
-  (argc: int n, argv: &(@[string][n])):<> list_vt (comarg, n)
-// end of [comarglst_parse]
-
-(* ****** ****** *)
-
-fun comarg_warning (str: string): void
-
-(* ****** ****** *)
-
-fun is_DATS_flag (s: string): bool
-fun is_IATS_flag (s: string): bool
-
-(* ****** ****** *)
-
-fun DATS_extract (s: string): Stropt
-fun IATS_extract (s: string): Stropt
+#define ATS_PACKNAME "ATSLIB.libc"
+#define ATS_STALOADFLAG 0 // no need for staloading at run-time
+#define ATS_EXTERN_PREFIX "atslib_" // prefix for external names
 
 (* ****** ****** *)
 //
-// HX: for processing command-line flag: -DATSXYZ=def or -DATS XYZ=def
+// HX-2014-04-29: it is still empty
 //
-fun process_DATS_def (def: string): void
-//
-// HX: for processing command-line inclusion path : -IATSpath or -IATS path
-//
-fun process_IATS_dir (dir: string): void
-
 (* ****** ****** *)
 
-fun process_ATSPKGRELOCROOT ((*void*)): void
-
-(* ****** ****** *)
-
-(* end of [pats_comarg.sats] *)
+(* end of [types.dats] *)

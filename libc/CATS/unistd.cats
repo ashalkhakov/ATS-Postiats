@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/unistd.atxt
-** Time of generation: Mon Apr  7 17:16:46 2014
+** Time of generation: Tue Apr 29 22:49:17 2014
 */
 
 /* ****** ****** */
@@ -156,6 +156,10 @@ do { \
 
 #define atslib_usleep_int usleep
 #define atslib_usleep_uint usleep
+
+/* ****** ****** */
+
+#define atslib_rmdir rmdir
 
 /* ****** ****** */
 

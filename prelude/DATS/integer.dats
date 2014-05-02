@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Fri Feb 28 17:55:12 2014
+** Time of generation: Sat Apr 26 21:19:10 2014
 *)
 
 (* ****** ****** *)
@@ -404,16 +404,19 @@ implement
 g0int2uint<intknd,ullintknd> = g0int2uint_int_ullint
 implement
 g0int2uint<intknd,sizeknd> = g0int2uint_int_size
-
+//
 implement
 g0int2uint<lintknd,ulintknd> = g0int2uint_lint_ulint
 implement
 g0int2uint<lintknd,ullintknd> = g0int2uint_lint_ullint
 implement
 g0int2uint<lintknd,sizeknd> = g0int2uint_lint_size
-
+//
 implement
 g0int2uint<llintknd,ullintknd> = g0int2uint_llint_ullint
+//
+implement
+g0int2uint<ssizeknd,sizeknd> = g0int2uint_ssize_size
 
 (* ****** ****** *)
 //
@@ -589,6 +592,9 @@ implement
 g1int2uint<intknd,ullintknd> = g1int2uint_int_ullint
 implement
 g1int2uint<intknd,sizeknd> = g1int2uint_int_size
+//
+implement
+g1int2uint<ssizeknd,sizeknd> = g1int2uint_ssize_size
 
 (* ****** ****** *)
 //

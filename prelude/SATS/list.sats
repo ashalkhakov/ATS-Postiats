@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Fri Apr 11 23:02:17 2014
+** Time of generation: Sat May 10 00:46:57 2014
 *)
 
 (* ****** ****** *)
@@ -273,15 +273,21 @@ fun{x:t0p}
 list_last_exn{n:int} (xs: list (INV(x), n)):<!exn> (x)
 
 (* ****** ****** *)
-
+//
 fun{
 x:t0p
 } list_nth{n:int}
   (xs: list (INV(x), n), i: natLt (n)):<> (x)
+fun{x:t0p}
+list_nth_opt
+  (xs: List (INV(x)), i: intGte (0)):<> Option_vt (x)
 //
 fun{x:t0p}
 list_get_at{n:int}
   (xs: list (INV(x), n), i: natLt (n)):<> (x)
+fun{x:t0p}
+list_get_at_opt
+  (xs: List (INV(x)), i: intGte (0)):<> Option_vt (x)
 //
 (* ****** ****** *)
 
@@ -451,15 +457,17 @@ fun{
 key,itm:t0p
 } list_assoc
 (
-  List @(key, itm), key, x: &itm? >> opt(itm, b)
+  List @(INV(key), itm), key, x: &itm? >> opt(itm, b)
 ) :<> #[b:bool] bool(b) // end of [list_assoc]
 //
 fun{
 key,itm:t0p
-} list_assoc_exn (kxs: List @(key, itm), k: key):<!exn> itm
+} list_assoc_exn
+  (kxs: List @(INV(key), itm), k: key):<!exn> itm
 fun{
 key,itm:t0p
-} list_assoc_opt (kxs: List @(key, itm), k: key):<> Option_vt(itm)
+} list_assoc_opt
+  (kxs: List @(INV(key), itm), k: key):<> Option_vt(itm)
 //
 (* ****** ****** *)
 

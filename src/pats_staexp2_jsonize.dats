@@ -195,6 +195,15 @@ jsonize1_s2exp
   (s2e) = jsonize_s2exp (1(*hnfize*), s2e)
 // 
 (* ****** ****** *)
+//
+implement
+jsonize0_s2explst
+  (s2e) = jsonize_s2explst (0(*hnfize*), s2e)
+implement
+jsonize1_s2explst
+  (s2e) = jsonize_s2explst (1(*hnfize*), s2e)
+// 
+(* ****** ****** *)
 
 implement
 jsonize_s2exp
@@ -222,6 +231,11 @@ case+ s2e0.s2exp_node of
 | S2Ecst (s2c) =>
     jsonval_conarg1 ("S2Ecst", jsonize_s2cst (s2c))
 //
+| S2Eextype (name, arg) =>
+    jsonval_conarg1 ("S2Eextype", jsonval_string (name))
+| S2Eextkind (name, arg) =>
+    jsonval_conarg1 ("S2Eextkind", jsonval_string (name))
+//
 | S2Evar (s2v) =>
     jsonval_conarg1 ("S2Evar", jsonize_s2var (s2v))
 | S2EVar (s2V) =>
@@ -245,6 +259,17 @@ case+ s2e0.s2exp_node of
   in
     jsonval_conarg2 ("S2Eapp", s2e1(*fun*), s2es2(*arglst*))
   end // end of [S2Eapp]
+//
+| S2Efun
+  (
+    fc, lin, s2fe, npf, _arg, _res
+  ) => let
+    val npf = jsonval_int (npf)
+    val _arg = jsonize_s2explst (flag, _arg)
+    val _res = jsonize_s2exp (flag, _res)
+  in
+    jsonval_conarg3 ("S2Efun", npf, _arg, _res)
+  end // end of [S2Efun]
 //
 | S2Emetdec
     (s2es1, s2es2) => let

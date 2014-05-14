@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Mon Apr  7 18:23:44 2014
+** Time of generation: Tue May 13 13:41:35 2014
 */
 
 /* ****** ****** */
@@ -59,6 +59,12 @@ void *memset(void *bufp, int c, size_t n) ;
 extern
 int fprintf (FILE *stream, const char *format, ...) ;
 #endif // end of [ifndef]
+
+/* ****** ****** */
+
+ATSinline()
+atstype_ptr
+atspre_ptr_null () { return (void*)0 ; }
 
 /* ****** ****** */
 

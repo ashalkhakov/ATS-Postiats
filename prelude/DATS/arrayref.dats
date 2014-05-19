@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Wed Mar 12 10:13:17 2014
+** Time of generation: Sun May 18 11:30:31 2014
 *)
 
 (* ****** ****** *)
@@ -201,8 +201,10 @@ arrayref_tabulate_cloref
 (* ****** ****** *)
 
 implement{a}
-arrayref_foreach (A, asz) = let
-  var env: void = () in arrayref_foreach_env<a><void> (A, asz, env)
+arrayref_foreach
+  (A, asz) = let
+  var env: void = ()
+  in arrayref_foreach_env<a><void> (A, asz, env)
 end // end of [arrayref_foreach]
 
 implement

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixptr.atxt
-** Time of generation: Sun Mar  9 17:11:48 2014
+** Time of generation: Sun May 18 11:30:32 2014
 *)
 
 (* ****** ****** *)
@@ -154,6 +154,25 @@ end // end of [fprint_matrixptr_sep]
 (*
 implement matrixptr_free = ATS_MFREE
 *)
+
+(* ****** ****** *)
+
+implement{a}
+matrixptr_foreach
+  (A, m, n) = let
+  var env: void = () in
+  matrixptr_foreach_env<a><void> (A, m, n, env)
+end // end of [matrixptr_foreach]
+
+implement
+{a}{env}
+matrixptr_foreach_env
+  (A, m, n, env) = res where {
+  val p = ptrcast (A)
+  prval pfarr = matrixptr_takeout (A)
+  val res = matrix_foreach_env<a><env> (!p, m, n, env)
+  prval () = matrixptr_addback (pfarr | A)
+} // end of [matrixptr_foreach_env]
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Fri Apr 11 23:02:21 2014
+** Time of generation: Sun May 18 11:24:21 2014
 *)
 
 (* ****** ****** *)
@@ -212,6 +212,27 @@ matrixref_tabulate_cloref
   nrow: size_t m, ncol: size_t n, f: (sizeLt(m), sizeLt(n)) -<cloref> a
 ) : matrixref (a, m, n) // end-of-fun
 //
+(* ****** ****** *)
+
+(*
+fun{
+a:vt0p}{env:vt0p
+} matrix_foreach$fwork (x: &a >> _, env: &(env) >> _): void
+*)
+//
+fun{
+a:vt0p
+} matrixref_foreach{m,n:int}
+(
+  A: matrixref(a, m, n), m: size_t m, n: size_t n
+) : void // end of [matrixref_foreach]
+fun{
+a:vt0p}{env:vt0p
+} matrixref_foreach_env{m,n:int}
+(
+  A: matrixref(a, m, n), m: size_t m, n: size_t n, env: &(env) >> _
+) : void // end of [matrixref_foreach_env]
+
 (* ****** ****** *)
 //
 // mtrxszref: a reference to a matrix with size information attached

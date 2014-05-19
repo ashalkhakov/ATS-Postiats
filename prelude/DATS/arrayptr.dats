@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Sun Mar  9 17:09:03 2014
+** Time of generation: Sun May 18 11:30:31 2014
 *)
 
 (* ****** ****** *)
@@ -289,8 +289,10 @@ end // end of [arrayptr_interchange]
 (* ****** ****** *)
 
 implement{a}
-arrayptr_foreach (A, asz) = let
-  var env: void = () in arrayptr_foreach_env<a><void> (A, asz, env)
+arrayptr_foreach
+  (A, asz) = let
+  var env: void = () in
+  arrayptr_foreach_env<a><void> (A, asz, env)
 end // end of [arrayptr_foreach]
 
 implement

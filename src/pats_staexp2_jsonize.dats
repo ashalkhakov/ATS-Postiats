@@ -185,6 +185,28 @@ jsonval_labval2
 //
 end // end of [jsonize_d2con]
 
+implement
+jsonize_d2con_long
+  (d2c) = let
+//
+val sym =
+  jsonize_symbol (d2con_get_sym (d2c))
+val type =
+  jsonize1_s2exp (d2con_get_type (d2c))
+val stamp =
+  jsonize_stamp (d2con_get_stamp (d2c))
+//
+in
+//
+jsonval_labval3
+(
+  "d2con_name", sym
+, "d2con_type", type
+, "d2con_stamp", stamp
+)
+//
+end // end of [jsonize_d2con_long]
+
 (* ****** ****** *)
 // 
 implement
@@ -198,10 +220,19 @@ jsonize1_s2exp
 //
 implement
 jsonize0_s2explst
-  (s2e) = jsonize_s2explst (0(*hnfize*), s2e)
+  (s2es) = jsonize_s2explst (0(*hnfize*), s2es)
 implement
 jsonize1_s2explst
-  (s2e) = jsonize_s2explst (1(*hnfize*), s2e)
+  (s2es) = jsonize_s2explst (1(*hnfize*), s2es)
+// 
+(* ****** ****** *)
+//
+implement
+jsonize0_s2expopt
+  (opt) = jsonize_s2expopt (0(*hnfize*), opt)
+implement
+jsonize1_s2expopt
+  (opt) = jsonize_s2expopt (1(*hnfize*), opt)
 // 
 (* ****** ****** *)
 
@@ -279,6 +310,27 @@ case+ s2e0.s2exp_node of
     jsonval_conarg2 ("S2Emetdec", s2es1(*met*), s2es2(*bound*))
   end // end of [S2Emetdec]
 //
+| S2Eexi
+  (
+    s2vs, s2ps, s2e_body
+  ) => let
+    val s2vs = jsonize_s2varlst (s2vs)
+    val s2ps = jsonize_s2explst (flag, s2ps)
+    val s2e_body = jsonize_s2exp (flag, s2e_body)
+  in
+    jsonval_conarg3 ("S2Eexi", s2vs, s2ps, s2e_body)
+  end // end of [S2Eexi]
+| S2Euni
+  (
+    s2vs, s2ps, s2e_body
+  ) => let
+    val s2vs = jsonize_s2varlst (s2vs)
+    val s2ps = jsonize_s2explst (flag, s2ps)
+    val s2e_body = jsonize_s2exp (flag, s2e_body)
+  in
+    jsonval_conarg3 ("S2Euni", s2vs, s2ps, s2e_body)
+  end // end of [S2Euni]
+//
 | S2Einvar (s2e) =>
     jsonval_conarg1 ("S2Einvar", jsonize_s2exp (flag, s2e))
 //
@@ -309,15 +361,32 @@ fun auxlst
 //
 case+ s2es of
 | list_cons
-    (s2e, s2es) =>
-  (
-    list_cons (jsonize_s2exp (flag, s2e), auxlst (flag, s2es))
-  ) // end of [list_cons]
+    (s2e, s2es) => let
+    val s2e =
+      jsonize_s2exp (flag, s2e)
+    // end of [val]
+    val s2es = auxlst (flag, s2es)
+  in
+    list_cons (s2e, s2es)
+  end // end of [list_cons]
 | list_nil ((*void*)) => list_nil ()
 //
 in
   JSONlist (auxlst (flag, s2es))
 end // end of [jsonize_s2explst]
+
+(* ****** ****** *)
+
+implement
+jsonize_s2expopt
+  (flag, opt) = let
+in
+//
+case+ opt of
+| None () => JSONoption (None ())
+| Some (s2e) => JSONoption (Some (jsonize_s2exp (flag, s2e)))
+//
+end // end of [jsonize_s2expopt]
 
 (* ****** ****** *)
 

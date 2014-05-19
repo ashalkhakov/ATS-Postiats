@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Fri Apr 11 23:02:07 2014
+** Time of generation: Sat May 17 00:52:41 2014
 *)
 
 (* ****** ****** *)
@@ -465,6 +465,13 @@ praxi ptrlin_free{l:addr} (p: ptrlin (l)): void
 //
 castfn ptr2ptrlin{l:addr} (p: ptr l):<> ptrlin (l)
 castfn ptrlin2ptr{l:addr} (p: ptrlin l):<> ptr (l)
+//
+(* ****** ****** *)
+//
+// HX-2014-05-16:
+// A hack to stop buggy compilation
+//
+fun ptr_volatile (p: ptr): void
 //
 (* ****** ****** *)
 //

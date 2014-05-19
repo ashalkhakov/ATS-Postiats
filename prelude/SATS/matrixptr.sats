@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixptr.atxt
-** Time of generation: Fri Apr 11 23:02:20 2014
+** Time of generation: Sun May 18 11:22:00 2014
 *)
 
 (* ****** ****** *)
@@ -260,6 +260,27 @@ matrixptr_tabulate_cloref
   nrow: size_t m, ncol: size_t n, f: (sizeLt(m), sizeLt(n)) -<cloref> a
 ) : matrixptr (a, m, n) // end-of-fun
 //
+(* ****** ****** *)
+
+(*
+fun{
+a:vt0p}{env:vt0p
+} matrix_foreach$fwork (x: &a >> _, env: &(env) >> _): void
+*)
+//
+fun{
+a:vt0p
+} matrixptr_foreach{m,n:int}
+(
+  A: !matrixptr(INV(a), m, n) >> _, m: size_t m, n: size_t n
+) : void // end of [matrixptr_foreach]
+fun{
+a:vt0p}{env:vt0p
+} matrixptr_foreach_env{m,n:int}
+(
+  A: !matrixptr(INV(a), m, n) >> _, m: size_t m, n: size_t n, env: &(env) >> _
+) : void // end of [matrixptr_foreach_env]
+
 (* ****** ****** *)
 //
 // overloading for certain symbols

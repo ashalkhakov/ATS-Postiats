@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixref.atxt
-** Time of generation: Wed Mar 12 10:13:18 2014
+** Time of generation: Sun May 18 11:30:32 2014
 *)
 
 (* ****** ****** *)
@@ -122,6 +122,24 @@ fprint_matrixref_sep
   val () = fprint_matrixptr_sep<a> (out, M, nrow, ncol, sep1, sep2)
   prval () = $UN.cast2void (M)
 } (* end of [fprint_matrixref_sep] *)
+
+(* ****** ****** *)
+
+implement{a}
+matrixref_foreach
+  (A, m, n) = let
+  var env: void = ()
+  in matrixref_foreach_env<a><void> (A, m, n, env)
+end // end of [matrixref_foreach]
+
+implement
+{a}{env}
+matrixref_foreach_env
+  (A, m, n, env) = let
+  val (vbox pf | p) = matrixref_get_viewptr (A)
+in
+  $effmask_ref (matrix_foreach_env<a><env> (!p, m, n, env))
+end // end of [matrixref_foreach_env]
 
 (* ****** ****** *)
 

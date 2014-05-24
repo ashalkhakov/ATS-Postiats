@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sat May 10 00:46:57 2014
+** Time of generation: Wed May 21 21:35:46 2014
 *)
 
 (* ****** ****** *)
@@ -288,6 +288,15 @@ list_get_at{n:int}
 fun{x:t0p}
 list_get_at_opt
   (xs: List (INV(x)), i: intGte (0)):<> Option_vt (x)
+//
+(* ****** ****** *)
+//
+fun{x:t0p}
+list_set_at{n:nat}
+  (xs: list (INV(x), n), i: natLt (n), x: x):<> list (x, n)
+fun{x:t0p}
+list_exch_at{n:nat}
+  (xs: list (INV(x), n), i: natLt (n), x: x):<> (list (x, n), x)
 //
 (* ****** ****** *)
 

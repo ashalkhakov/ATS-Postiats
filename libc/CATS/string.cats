@@ -112,6 +112,10 @@
 
 /* ****** ****** */
 
+#define atslib_memset_unsafe memset
+
+/* ****** ****** */
+
 #define atslib_memmove_unsafe memmove
 
 /* ****** ****** */

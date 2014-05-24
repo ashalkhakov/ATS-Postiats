@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri May  9 21:50:34 2014
+** Time of generation: Wed May 21 21:43:02 2014
 *)
 
 (* ****** ****** *)
@@ -337,6 +337,34 @@ implement{a}
 list_get_at (xs, i) = list_nth<a> (xs, i)
 implement{a}
 list_get_at_opt (xs, i) = list_nth_opt<a> (xs, i)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_set_at
+  (xs, i, x_new) = let
+  val (xs1, xs2) =
+    $effmask_wrt (list_split_at<a> (xs, i))
+  val+list_cons (x_old, xs2) = xs2
+  val xs2 = list_cons{a}(x_new, xs2)
+in
+  $effmask_wrt (list_append1_vt<a> (xs1, xs2))
+end // ed of [list_set_at]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_exch_at
+  (xs, i, x_new) = let
+  val (xs1, xs2) =
+    $effmask_wrt (list_split_at<a> (xs, i))
+  val+list_cons (x_old, xs2) = xs2
+  val xs2 = list_cons{a}(x_new, xs2)
+in
+  ($effmask_wrt (list_append1_vt<a> (xs1, xs2)), x_old)
+end // ed of [list_exch_at]
 
 (* ****** ****** *)
 

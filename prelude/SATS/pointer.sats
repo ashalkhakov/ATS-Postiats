@@ -442,8 +442,9 @@ ptr_nullize_tsz
 //
 (* ****** ****** *)
 
-fun{a:vt0p}
-ptr_alloc ()
+fun{
+a:vt0p
+} ptr_alloc ()
   :<> [l:agz] (a? @ l, mfree_gc_v (l) | ptr l)
 // end of [ptr_alloc]
 

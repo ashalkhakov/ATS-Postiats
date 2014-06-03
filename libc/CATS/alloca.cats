@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/alloca.atxt
-** Time of generation: Fri Feb 28 17:55:39 2014
+** Time of generation: Tue May 27 13:06:43 2014
 */
 
 /* ****** ****** */
@@ -51,9 +51,15 @@
 #include <alloca.h>
 
 /* ****** ****** */
-
+//
 #define atslib_alloca(bsz) alloca(bsz)
-
+//
+/* ****** ****** */
+//
+#define atslib_ptr_alloca_tsz(tsz) alloca(tsz)
+//
+#define atslib_array_ptr_alloca_tsz(asz, tsz) alloca((asz)*(tsz))
+//
 /* ****** ****** */
 
 #endif // ifndef ATSLIB_LIBC_ALLOCA_CATS

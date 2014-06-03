@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Fri May  2 02:13:24 2014
+** Time of generation: Sat May 24 19:09:49 2014
 *)
 
 (* ****** ****** *)
@@ -361,9 +361,10 @@ fun{
 symintr string_append
 //
 fun{
-} string0_append (
+} string0_append
+(
   x1: NSH(string), x2: NSH(string)
-) :<!wrt> Strptr1 // endfun
+) :<!wrt> Strptr1 // end-of-fun
 fun{
 } string1_append
   {n1,n2:int} (
@@ -374,6 +375,18 @@ overload string_append with string0_append of 0
 (*
 overload string_append with string1_append of 20
 *)
+//
+(* ****** ****** *)
+//
+symintr string_append3
+//
+fun{
+} string0_append3
+(
+  x1: NSH(string), x2: NSH(string), x3: NSH(string)
+) :<!wrt> Strptr1 // end-of-fun
+//
+overload string_append3 with string0_append3 of 0
 //
 (* ****** ****** *)
 

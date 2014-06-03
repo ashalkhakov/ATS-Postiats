@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdio.atxt
-** Time of generation: Fri Feb 28 17:55:42 2014
+** Time of generation: Tue May 27 13:06:44 2014
 */
 
 /* ****** ****** */
@@ -66,7 +66,8 @@ do { \
 
 /* ****** ****** */
 
-#define atslib_clearerr clearerr
+#define \
+atslib_clearerr(p) clearerr(((FILE*)p))
 
 /* ****** ****** */
 
@@ -106,13 +107,15 @@ do { \
 
 /* ****** ****** */
 
-#define atslib_feof feof
+#define \
+atslib_feof(p) feof(((FILE*)p))
 #define atslib_feof0 atslib_feof
 #define atslib_feof1 atslib_feof
 
 /* ****** ****** */
 
-#define atslib_ferror ferror
+#define \
+atslib_ferror(p) ferror(((FILE*)p))
 #define atslib_ferror0 atslib_ferror
 #define atslib_ferror1 atslib_ferror
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_quicksort.atxt
-** Time of generation: Fri Feb 28 17:55:25 2014
+** Time of generation: Sun Jun  1 09:55:03 2014
 *)
 
 (* ****** ****** *)
@@ -51,10 +51,12 @@ list_vt_quicksort$cmp (x1, x2) = gcompare_ref<a> (x1, x2)
 (* ****** ****** *)
 (*
 ** HX-2012-05:
-** copy a list into an array, perform quicksort on the
-** array and then copy it back into the list
+** (1) Copying a list into an array
+** (2) Performing quicksort on the array
+** (3) Copying it back into the list
 *)
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_quicksort
   {n} (xs) = let
 //
@@ -129,7 +131,8 @@ end // end of [list_vt_quicksort]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_quicksort_fun
   (xs, cmp) = let
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Fri Feb 28 17:55:16 2014
+** Time of generation: Sun Jun  1 11:29:30 2014
 *)
 
 (* ****** ****** *)
@@ -55,7 +55,10 @@ staload _(*anon*) = "prelude/DATS/integer.dats"
 
 staload STDIO = "libc/SATS/stdio.sats"
 vtypedef FILEptr1 = $STDIO.FILEptr1 (*linear/nonnull*)
-staload STRING = "libc/SATS/string.sats"
+
+(* ****** ****** *)
+
+staload STAT = "libc/sys/SATS/stat.sats"
 
 (* ****** ****** *)
 
@@ -197,6 +200,33 @@ end // end of [local]
 extern
 castfn
 __cast_filp (r: FILEref): FILEptr1
+
+(* ****** ****** *)
+
+implement{}
+test_file_mode
+  (path) = let
+//
+typedef stat = $STAT.stat
+//
+var st: stat?
+val err = $STAT.stat (path, st)
+//
+in
+//
+if err >= 0
+then let
+  prval () = opt_unsome{stat}(st)
+  val test =
+  test_file_mode$pred<> ($UN.cast{uint}(st.st_mode))
+in
+  if test then 1(*true*) else 0(*false*)
+end // end of [then]
+else let
+  prval () = opt_unnone{stat}(st) in ~1(*failure*)
+end // end of [else]
+//
+end // end of [test_file_mode]
 
 (* ****** ****** *)
 

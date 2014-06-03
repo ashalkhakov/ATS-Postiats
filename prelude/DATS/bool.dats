@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/bool.atxt
-** Time of generation: Fri Feb 28 17:55:13 2014
+** Time of generation: Sun Jun  1 09:54:51 2014
 *)
 
 (* ****** ****** *)

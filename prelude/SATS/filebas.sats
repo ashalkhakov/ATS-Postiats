@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Fri Apr 11 23:02:14 2014
+** Time of generation: Sun Jun  1 11:29:29 2014
 *)
 
 (* ****** ****** *)
@@ -104,7 +104,12 @@ fun test_file_exists (path: NSH(string)): bool = "mac#%"
 // [stat] is called to obtain the mode of a given file
 // for [f] to be applied to it.
 //
-fun test_file_mode (path: NSH(string), f: uint -> bool): int
+fun{
+} test_file_mode (path: NSH(string)): int
+fun{} test_file_mode$pred (mode: uint): bool
+//
+fun test_file_mode_fun
+  (path: NSH(string), f: uint -> bool): int = "mac#%"
 //
 // HX: [stat] is called // ~1/0/1: error/false/true
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Fri Feb 28 17:55:15 2014
+** Time of generation: Sun Jun  1 09:54:52 2014
 *)
 
 (* ****** ****** *)
@@ -457,6 +457,21 @@ val p2 = memcpy (p + n1, string2ptr(x2), succ(n2))
 in
   castvwtp_trans{strnptr(n1+n2)}((pf, fpf | p))
 end // end of [string1_append]
+
+(* ****** ****** *)
+
+implement{}
+string0_append3
+  (x1, x2, x3) = let
+//
+var xs = @[string](x1, x2, x3)
+//
+in
+//
+stringarr_concat<>
+  ($UN.cast{arrayref(string,3)}(addr@xs), i2sz(3))
+//
+end // end of [string0_append3]
 
 (* ****** ****** *)
 

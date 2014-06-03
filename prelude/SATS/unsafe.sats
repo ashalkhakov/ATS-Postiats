@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Apr 11 23:02:16 2014
+** Time of generation: Fri May 30 23:34:35 2014
 *)
 
 (* ****** ****** *)
@@ -98,10 +98,12 @@ castfn cast2uintptr {a:t0p} (x: INV(a)):<> uintptr
 praxi cast2void {a:vt0p} (x: INV(a)):<prf> void
 
 (* ****** ****** *)
-
+//
 praxi castview0 {to:view}{from:view} (pf: from):<prf> to
 praxi castview1 {to:view}{from:view} (pf: !INV(from)):<prf> to
-
+//
+praxi castview2void {to:vt0p}{from:vt0p} (x: !INV(from) >> to):<prf> void
+//
 (* ****** ****** *)
 
 fun{} int2ptr (i: int): ptr and ptr2int (p: ptr): int

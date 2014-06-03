@@ -45,8 +45,8 @@
 
 (* ****** ****** *)
 
-#define NSH (x) x // for commenting: no sharing
-#define SHR (x) x // for commenting: it is shared
+#define NSH(x) x // for commenting: no sharing
+#define SHR(x) x // for commenting: it is shared
 
 (* ****** ****** *)
 
@@ -54,7 +54,44 @@ fun alloca
   {dummy:addr}{n:int}
 (
   pf: void@dummy | n: size_t (n)
-) : [l:addr] (bytes(n) @ l, bytes(n) @ l -> void@dummy | ptr (l)) = "mac#%"
+) : [l:addr]
+(
+  bytes(n) @ l, bytes(n) @ l -> void@dummy | ptr(l)
+) = "mac#%" // end of [alloca]
+
+(* ****** ****** *)
+
+(*
+fun{
+a:vt0p
+} ptr_alloca
+  {dummy:addr} (
+  pf: void@dummy | (*void*)
+) : [l:addr] (a? @ l, a? @ l -> void@dummy | ptr(l))
+*)
+fun
+ptr_alloca_tsz
+  {a:vt0p}{dummy:addr}
+  (pf: void@dummy | tsz: sizeof_t(a))
+: [l:addr] (a? @ l, a? @ l -> void@dummy | ptr(l)) = "mac#%"
+
+(* ****** ****** *)
+
+(*
+fun{
+a:vt0p
+} array_ptr_alloca
+  {dummy:addr}{n:int}
+(
+  pf: void@dummy | asz: size_t(n)
+) : [l:addr] (array(a?,n)@l, array(a?,n)@l -> void@dummy | ptr(l))
+*)
+fun
+array_ptr_alloca_tsz
+  {a:vt0p}{dummy:addr}{n:int}
+(
+  pf: void@dummy | asz: size_t(n), tsz: sizeof_t(a)
+) : [l:addr] (array(a?,n)@l, array(a?,n)@l -> void@dummy | ptr(l)) = "mac#%"
 
 (* ****** ****** *)
 

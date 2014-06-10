@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Fri Apr  4 23:21:55 2014
+** Time of generation: Mon Jun  9 08:18:05 2014
 */
 
 /* ****** ****** */
@@ -136,6 +136,28 @@ atstype_uint
 atspre_char2u2uint
   (atstype_char c) { return ((atstype_uint)((atstype_uchar)c)) ; }
 #define atspre_char2u2uint0 atspre_char2u2uint
+
+/* ****** ****** */
+
+ATSinline()
+atstype_bool
+atspre_char_iseqz
+  (atstype_char c)
+{
+  return ((c == 0) ? atsbool_true : atsbool_false) ;
+} // end of [atspre_char_iseqz]
+#define atspre_char0_iseqz(c) atspre_char_iseqz(c) 
+#define atspre_char1_iseqz(c) atspre_char_iseqz(c) 
+
+ATSinline()
+atstype_bool
+atspre_char_isneqz
+  (atstype_char c)
+{
+  return ((c != 0) ? atsbool_true : atsbool_false) ;
+} // end of [atspre_char_isneqz]
+#define atspre_char0_isneqz(c) atspre_char_isneqz(c) 
+#define atspre_char1_isneqz(c) atspre_char_isneqz(c) 
 
 /* ****** ****** */
 
@@ -338,6 +360,8 @@ atspre_neq_uchar_uchar
 #define atspre_neq_uchar0_uchar0 atspre_neq_uchar_uchar
 #define atspre_neq_uchar1_uchar1 atspre_neq_uchar_uchar
 
+
+/* ****** ****** */
 
 ATSinline()
 atstype_int

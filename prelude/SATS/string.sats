@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Sat May 24 19:09:49 2014
+** Time of generation: Mon Jun  9 13:43:08 2014
 *)
 
 (* ****** ****** *)
@@ -86,7 +86,9 @@ string_index_p
   n: int, int(*i*), int(*c*)
 ) =
   | string_index_p_eqz (n, n, 0)
-  | {i:int | n > i}{c:int8 | c != 0} string_index_p_neqz (n, i, c)
+  | {i:int | n > i}
+    {c:int8 | c != 0}
+    string_index_p_neqz (n, i, c)
 // end of [string_index_p]
 
 (* ****** ****** *)
@@ -94,15 +96,15 @@ string_index_p
 exception StringSubscriptExn of ((*void*))
 
 (* ****** ****** *)
-
+//
 praxi
-lemma_string_param
-  {n:int} (x: string n): [n >= 0] void
-// end of [lemma_string_param]
-
+lemma_string_param{n:int}(string n): [n >= 0] void
+//
 (* ****** ****** *)
 
-castfn string2ptr (x: string):<> Ptr1
+castfn
+string2ptr (x: string):<> Ptr1
+overload ptrcast with string2ptr
 
 (* ****** ****** *)
 //

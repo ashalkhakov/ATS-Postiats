@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/reference.atxt
-** Time of generation: Sun Jun  1 09:54:53 2014
+** Time of generation: Sun Jun  8 02:12:55 2014
 *)
 
 (* ****** ****** *)
@@ -41,9 +41,12 @@
 
 (* ****** ****** *)
 
-implement{a} ref = ref_make_elt<a>
+implement
+{a}(*tmp*)
+ref = ref_make_elt<a>
 
-implement{a}
+implement
+{a}(*tmp*)
 ref_make_elt (x0) = let
   val (pfat, pfgc | p) = ptr_alloc<a> ()
   prval () = mfree_gc_v_elim (pfgc)
@@ -54,13 +57,15 @@ end // end of [ref_make_elt]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 ref_get_elt
   (r) = !p where {
   val (vbox _ | p) = ref_get_viewptr (r)
 } // end of [ref_get_elt]
 
-implement{a}
+implement
+{a}(*tmp*)
 ref_set_elt
   (r, x) = let
   val (vbox _ | p) = ref_get_viewptr (r)
@@ -68,7 +73,8 @@ in
   !p := x // assignment
 end // end of [ref_set_elt]
 
-implement{a}
+implement
+{a}(*tmp*)
 ref_exch_elt
   (r, x) = let
   val (vbox _ | p) = ref_get_viewptr (r)
@@ -78,12 +84,14 @@ end // end of [ref_exch_elt]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 ref_app_fun{a} (r, f) = let
   val (vbox _ | p) = ref_get_viewptr (r) in f (!p)
 end // end of [ref_app_fun]
 
-implement{}
+implement
+{}(*tmp*)
 ref_app_funenv{a}
   (pfv | r, f, env) = let
   val (vbox _ | p) = ref_get_viewptr (r) in f (pfv | !p, env)
@@ -91,7 +99,8 @@ end // end of [ref_app_funenv]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 ref_vtakeout{a} (r) = let
 //
 val (

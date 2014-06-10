@@ -645,7 +645,8 @@ if n > 0 then let
   val cont = array_rforeach$cont<a><env> (!p1, env)
 in
   if cont then let
-    val () = array_rforeach$fwork<a><env> (!p1, env)
+    val () =
+    array_rforeach$fwork<a><env> (!p1, env)
     val res = loop (pf1 | p1, pred(n), env)
     prval () = pf := array_v_extend (pf1, pf2)
   in

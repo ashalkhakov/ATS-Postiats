@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri May 30 23:34:35 2014
+** Time of generation: Mon Jun  9 13:43:12 2014
 *)
 
 (* ****** ****** *)
@@ -43,8 +43,6 @@
 
 #define
 ATS_PACKNAME "ATSLIB.prelude.unsafe"
-#define
-ATS_STALOADFLAG 0 // no static loading at run-time
 
 (* ****** ****** *)
 

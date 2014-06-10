@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Apr 11 23:02:19 2014
+** Time of generation: Mon Jun  9 22:39:57 2014
 *)
 
 (* ****** ****** *)
@@ -363,11 +363,6 @@ fun{
 
 (* ****** ****** *)
 
-symintr .ref
-overload .ref with arrszref_get_ref
-
-(* ****** ****** *)
-
 fun{}
 arrszref_get_refsize{a:vt0p}
   (A: arrszref (a), asz: &size_t? >> size_t n):<!wrt> #[n:nat] arrayref (a, n)
@@ -504,10 +499,6 @@ overload [] with arrszref_set_at_guint of 0
 
 (* ****** ****** *)
 
-overload ptrcast with arrayref2ptr
-
-(* ****** ****** *)
-
 overload .head with arrayref_head
 overload .tail with arrayref_tail
 
@@ -521,6 +512,10 @@ overload fprint with fprint_arrayref
 overload fprint with fprint_arrayref_sep
 overload fprint with fprint_arrszref
 overload fprint with fprint_arrszref_sep
+
+(* ****** ****** *)
+
+overload ptrcast with arrayref2ptr
 
 (* ****** ****** *)
 

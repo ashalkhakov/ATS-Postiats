@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Fri Apr 11 23:02:13 2014
+** Time of generation: Mon Jun  9 13:43:08 2014
 *)
 
 (* ****** ****** *)
@@ -366,8 +366,10 @@ overload iseqz with strnptr_is_null
 overload isneqz with strptr_isnot_null
 overload isneqz with strnptr_isnot_null
 //
-overload compare with compare_strptr_strptr
-overload compare with compare_strptr_string
+overload
+compare with compare_strptr_strptr
+overload
+compare with compare_strptr_string
 //
 overload length with strptr_length
 overload length with strnptr_length
@@ -385,6 +387,9 @@ overload fprint with fprint_strptr
 overload print with print_strbuf
 overload prerr with prerr_strbuf
 overload fprint with fprint_strbuf
+//
+overload ptrcast with strptr2ptr
+overload ptrcast with strnptr2ptr
 //
 (* ****** ****** *)
 

@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Fri Apr 11 23:02:09 2014
+** Time of generation: Mon Jun  9 13:43:07 2014
 *)
 
 (* ****** ****** *)
@@ -76,16 +76,21 @@ fun char2u2int0 (c: char):<> int = "mac#%"
 fun char2u2uint0 (c: char):<> uint = "mac#%"
 
 (* ****** ****** *)
+//
+fun char0_iseqz (c: char):<> bool = "mac#%"
+fun char0_isneqz (c: char):<> bool = "mac#%"
+//
+overload iseqz with char0_iseqz of 0
+overload isneqz with char0_isneqz of 0
+//
+(* ****** ****** *)
 
 fun add_char0_int0
   (c1: char, i2: int):<> char = "mac#%"
-overload + with add_char0_int0
 fun sub_char0_int0
   (c1: char, i2: int):<> char = "mac#%"
-overload - with sub_char0_int0
 fun sub_char0_char0
   (c1: char, c2: char):<> int = "mac#%"
-overload - with sub_char0_char0
 
 (* ****** ****** *)
 
@@ -142,6 +147,16 @@ castfn
 char2uchar1 {c:int} (c: char (c)):<> uchar (i2u8(c))
 castfn
 uchar2char1 {c:int} (c: uchar (c)):<> char (u2i8(c))
+//
+(* ****** ****** *)
+//
+fun char1_iseqz
+  {c:int}(c: char(c)):<> bool(c == 0) = "mac#%"
+fun char1_isneqz
+  {c:int}(c: char(c)):<> bool(c != 0) = "mac#%"
+//
+overload iseqz with char1_iseqz of 10
+overload isneqz with char1_isneqz of 10
 //
 (* ****** ****** *)
 

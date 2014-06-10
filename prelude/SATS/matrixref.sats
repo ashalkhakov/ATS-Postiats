@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Sun May 18 11:24:21 2014
+** Time of generation: Mon Jun  9 13:43:16 2014
 *)
 
 (* ****** ****** *)
@@ -366,14 +366,14 @@ overload .ncol with mtrxszref_get_ncol
 
 (* ****** ****** *)
 
-overload ptrcast with matrixref2ptr
-
-(* ****** ****** *)
-
 overload fprint with fprint_matrixref
 overload fprint with fprint_matrixref_sep
 overload fprint with fprint_mtrxszref
 overload fprint with fprint_mtrxszref_sep
+
+(* ****** ****** *)
+
+overload ptrcast with matrixref2ptr
 
 (* ****** ****** *)
 

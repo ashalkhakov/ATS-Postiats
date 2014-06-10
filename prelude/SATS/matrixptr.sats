@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixptr.atxt
-** Time of generation: Sun May 18 11:22:00 2014
+** Time of generation: Mon Jun  9 13:43:16 2014
 *)
 
 (* ****** ****** *)
@@ -294,13 +294,13 @@ overload [] with matrixptr_set_at_size
 
 (* ****** ****** *)
 
-overload ptrcast with matrixptr2ptr
-overload ptrcast with matrixptrout2ptr
+overload fprint with fprint_matrixptr
+overload fprint with fprint_matrixptr_sep
 
 (* ****** ****** *)
 
-overload fprint with fprint_matrixptr
-overload fprint with fprint_matrixptr_sep
+overload ptrcast with matrixptr2ptr
+overload ptrcast with matrixptrout2ptr
 
 (* ****** ****** *)
 

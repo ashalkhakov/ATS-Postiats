@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Sat Apr 26 21:19:09 2014
+** Time of generation: Mon Jun  9 13:43:06 2014
 *)
 
 (* ****** ****** *)
@@ -794,6 +794,7 @@ overload >> with g0uint_lsr
 fun{tk:tk}
 g0uint_lnot (x: g0uint (tk)):<> g0uint (tk)
 overload ~ with g0uint_lnot
+overload lnot with g0uint_lnot
 fun{tk:tk}
 g0uint_lor (x: g0uint (tk), y: g0uint (tk)):<> g0uint (tk)
 overload lor with g0uint_lor

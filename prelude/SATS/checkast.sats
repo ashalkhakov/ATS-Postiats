@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/checkast.atxt
-** Time of generation: Fri Apr 11 23:02:16 2014
+** Time of generation: Mon Jun  9 13:43:12 2014
 *)
 
 (* ****** ****** *)
@@ -43,8 +43,6 @@
 
 #define
 ATS_PACKNAME "ATSLIB.prelude.checkast"
-#define
-ATS_STALOADFLAG 0 // no static loading at run-time
 
 (* ****** ****** *)
 

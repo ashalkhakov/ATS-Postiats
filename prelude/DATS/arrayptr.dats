@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Sun Jun  1 09:55:06 2014
+** Time of generation: Mon Jun  9 03:35:01 2014
 *)
 
 (* ****** ****** *)
@@ -323,10 +323,13 @@ end // end of [arrayptr_foreach_fun]
 implement{a}
 arrayptr_foreach_funenv
   (pfv | A, asz, f, env) = let
-  val p = ptrcast (A)
-  prval pfarr = arrayptr_takeout (A)
-  val () = array_foreach_funenv<a> (pfv | !p, asz, f, env)
-  prval () = arrayptr_addback (pfarr | A)
+//
+val p = ptrcast (A)
+prval pfarr = arrayptr_takeout (A)
+val () =
+  array_foreach_funenv<a> (pfv | !p, asz, f, env)
+prval () = arrayptr_addback (pfarr | A)
+//
 in
   // nothing
 end // end of [arrayptr_foreach_funenv]
@@ -334,8 +337,10 @@ end // end of [arrayptr_foreach_funenv]
 (* ****** ****** *)
 
 implement{a}
-arrayptr_iforeach (A, asz) = let
-  var env: void = () in arrayptr_iforeach_env<a><void> (A, asz, env)
+arrayptr_iforeach
+  (A, asz) = let
+  var env: void = () in
+  arrayptr_iforeach_env<a><void> (A, asz, env)
 end // end of [arrayptr_iforeach]
 
 implement
@@ -351,8 +356,10 @@ arrayptr_iforeach_env
 (* ****** ****** *)
 
 implement{a}
-arrayptr_rforeach (A, asz) = let
-  var env: void = () in arrayptr_rforeach_env<a><void> (A, asz, env)
+arrayptr_rforeach
+  (A, asz) = let
+  var env: void = () in
+  arrayptr_rforeach_env<a><void> (A, asz, env)
 end // end of [arrayptr_rforeach]
 
 implement

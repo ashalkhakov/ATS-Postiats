@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Fri Apr 11 23:02:19 2014
+** Time of generation: Mon Jun  9 13:43:14 2014
 *)
 
 (* ****** ****** *)
@@ -488,17 +488,17 @@ overload [] with arrayptr_set_at_guint of 0
 
 (* ****** ****** *)
 
-overload ptrcast with arrayptr2ptr
-overload ptrcast with arrayptrout2ptr
-
-(* ****** ****** *)
-
 overload free with arrayptr_free
 
 (* ****** ****** *)
 
 overload fprint with fprint_arrayptr
 overload fprint with fprint_arrayptr_sep
+
+(* ****** ****** *)
+
+overload ptrcast with arrayptr2ptr
+overload ptrcast with arrayptrout2ptr
 
 (* ****** ****** *)
 

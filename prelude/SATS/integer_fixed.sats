@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Fri Apr 11 23:02:08 2014
+** Time of generation: Mon Jun  9 13:43:07 2014
 *)
 
 (* ****** ****** *)

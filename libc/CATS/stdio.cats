@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdio.atxt
-** Time of generation: Tue May 27 13:06:44 2014
+** Time of generation: Thu Jun  5 12:01:00 2014
 */
 
 /* ****** ****** */
@@ -141,6 +141,12 @@ atslib_ferror(p) ferror(((FILE*)p))
 
 #define atslib_fputc0_exn_int atslib_fputc_exn
 #define atslib_fputc0_exn_char atslib_fputc_exn
+
+/* ****** ****** */
+
+#define atslib_putchar putchar
+#define atslib_putchar0 atslib_putchar
+#define atslib_putchar1 atslib_putchar
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/tuple.atxt
-** Time of generation: Sun Jun  1 09:54:53 2014
+** Time of generation: Tue Jun 10 20:00:06 2014
 *)
 
 (* ****** ****** *)
@@ -44,7 +44,7 @@
 implement
 fprint_tup$beg<> (out) = fprint_string (out, "(")
 implement
-fprint_tup$end<> (out) = fprint_string (out, "(")
+fprint_tup$end<> (out) = fprint_string (out, ")")
 implement
 fprint_tup$sep<> (out) = fprint_string (out, ", ")
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Mon Jun  9 13:43:09 2014
+** Time of generation: Wed Jun 11 13:53:28 2014
 *)
 
 (* ****** ****** *)
@@ -262,6 +262,14 @@ fun{
 //
 fun{
 } fileref_get_file_string (inp: FILEref): Strptr1
+//
+(* ****** ****** *)
+//
+fun{}
+fileref_get_word$isalpha (charNZ): bool
+//
+fun{
+} fileref_get_word (inp: FILEref): Strptr0
 //
 (* ****** ****** *)
 //

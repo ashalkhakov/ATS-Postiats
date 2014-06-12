@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Wed Jun 11 13:53:28 2014
+** Time of generation: Wed Jun 11 20:35:30 2014
 *)
 
 (* ****** ****** *)
@@ -731,13 +731,6 @@ atspre_fileref_get_line_string_main2
 %}
 
 (* ****** ****** *)
-//
-implement
-{}(*tmp*)
-fileref_get_word$isalpha
-  (charNZ) = isalpha (charNZ)
-//
-(* ****** ****** *)
 
 implement
 {}(*tmp*)
@@ -802,32 +795,18 @@ end // end of [fileref_get_word]
 
 (* ****** ****** *)
 
-implement{}
-fileref_foreach$bufsize () = i2sz(4 * 1024)
+implement
+{}(*tmp*)
+fileref_get_word$isalpha (charNZ) = isalpha (charNZ)
 
 (* ****** ****** *)
 
-implement
-{env}(*tmp*)
-fileref_foreach$fworkv
-  (A, n, env) = let
-//
-implement
-{a}{env}
-array_foreach$cont (x, env) = true
-implement
-array_foreach$fwork<char><env>
-  (x, env) = fileref_foreach$fwork<env> (x, env)
-//
+implement{}
+fileref_foreach
+  (inp) = let
+  var env: void = ()
 in
-  ignoret (arrayref_foreach_env<char><env> (A, n, env))
-end // end of [fileref_foreach$fworkv]
-
-(* ****** ****** *)
-
-implement{}
-fileref_foreach (inp) = let
-   var env: void = () in fileref_foreach_env (inp, env)
+  fileref_foreach_env (inp, env)
 end // end of [fileref_foreach]
 
 (* ****** ****** *)
@@ -878,6 +857,29 @@ in
 end // end of [fileref_foreach_env]
 
 end // end of [local]
+
+(* ****** ****** *)
+
+implement{}
+fileref_foreach$bufsize () = i2sz(4 * 1024)
+
+(* ****** ****** *)
+
+implement
+{env}(*tmp*)
+fileref_foreach$fworkv
+  (A, n, env) = let
+//
+implement
+{a}{env}
+array_foreach$cont (x, env) = true
+implement
+array_foreach$fwork<char><env>
+  (x, env) = fileref_foreach$fwork<env> (x, env)
+//
+in
+  ignoret (arrayref_foreach_env<char><env> (A, n, env))
+end // end of [fileref_foreach$fworkv]
 
 (* ****** ****** *)
 

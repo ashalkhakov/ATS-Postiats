@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Mon Jun  9 13:43:13 2014
+** Time of generation: Wed Jun 11 17:53:42 2014
 *)
 
 (* ****** ****** *)
@@ -328,26 +328,28 @@ array_ptr_tabulate
 // end of [arrayptr_tabulate]
 
 (* ****** ****** *)
-
-fun{
-a:vt0p}{env:vt0p
-} array_foreach$cont (x: &a, env: &env): bool
-fun{
-a:vt0p}{env:vt0p
-} array_foreach$fwork (x: &a >> _, env: &(env) >> _): void
+//
 fun{
 a:vt0p
 } array_foreach{n:int}
 (
   A: &(@[INV(a)][n]) >> @[a][n], asz: size_t n
 ) : sizeLte (n) // end of [array_foreach]
+//
 fun{
 a:vt0p}{env:vt0p
 } array_foreach_env{n:int}
 (
   A: &(@[INV(a)][n]) >> @[a][n], asz: size_t n, env: &(env) >> _
 ) : sizeLte (n) // end of [array_foreach_env]
-
+//
+fun{
+a:vt0p}{env:vt0p
+} array_foreach$cont (x: &a, env: &env): bool
+fun{
+a:vt0p}{env:vt0p
+} array_foreach$fwork (x: &a >> _, env: &(env) >> _): void
+//
 (* ****** ****** *)
 //
 fun{a:vt0p}
@@ -434,14 +436,6 @@ array_foreach_vcloptr
 (* ****** ****** *)
 
 fun{
-a1,a2:vt0p}{env:vt0p
-} array_foreach2$cont
-  (x1: &a1, x2: &a2, env: &env): bool
-fun{
-a1,a2:vt0p}{env:vt0p
-} array_foreach2$fwork
-  (x1: &a1 >> _, x2: &a2 >> _, env: &(env) >> _): void
-fun{
 a1,a2:vt0p
 } array_foreach2
   {n:int}
@@ -450,6 +444,7 @@ a1,a2:vt0p
 , A2: &(@[INV(a2)][n]) >> @[a2][n]
 , asz: size_t (n)
 ) : sizeLte (n) // end of [array_foreach2]
+//
 fun{
 a1,a2:vt0p}{env:vt0p
 } array_foreach2_env
@@ -460,15 +455,17 @@ a1,a2:vt0p}{env:vt0p
 , asz:size_t (n)
 , env: &(env) >> env
 ) : sizeLte (n) // end of [array_foreach2_env]
-
+//
+fun{
+a1,a2:vt0p}{env:vt0p
+} array_foreach2$cont
+  (x1: &a1, x2: &a2, env: &env): bool
+fun{
+a1,a2:vt0p}{env:vt0p
+} array_foreach2$fwork
+  (x1: &a1 >> _, x2: &a2 >> _, env: &(env) >> _): void
+//
 (* ****** ****** *)
-
-fun{
-a:vt0p}{env:vt0p
-} array_iforeach$cont (i: size_t, x: &a, env: &env): bool
-fun{
-a:vt0p}{env:vt0p
-} array_iforeach$fwork (i: size_t, x: &a >> _, env: &(env) >> _): void
 
 fun{
 a:vt0p
@@ -476,21 +473,22 @@ a:vt0p
 (
   A: &(@[INV(a)][n]) >> @[a][n], asz: size_t n
 ) : sizeLte (n) // end of [array_iforeach]
+//
 fun{
 a:vt0p}{env:vt0p
 } array_iforeach_env{n:int}
 (
   A: &(@[INV(a)][n]) >> @[a][n], asz: size_t n, env: &(env) >> _
 ) : sizeLte (n) // end of [array_iforeach_env]
-
+//
+fun{
+a:vt0p}{env:vt0p
+} array_iforeach$cont (i: size_t, x: &a, env: &env): bool
+fun{
+a:vt0p}{env:vt0p
+} array_iforeach$fwork (i: size_t, x: &a >> _, env: &(env) >> _): void
+//
 (* ****** ****** *)
-
-fun{
-a:vt0p}{env:vt0p
-} array_rforeach$cont (x: &a, env: &env): bool
-fun{
-a:vt0p}{env:vt0p
-} array_rforeach$fwork (x: &a >> _, env: &(env) >> _): void
 
 fun{
 a:vt0p
@@ -498,25 +496,32 @@ a:vt0p
 (
   A: &(@[INV(a)][n]) >> @[a][n], asz: size_t n
 ) : sizeLte (n) // end of [array_rforeach]
+//
 fun{
 a:vt0p}{env:vt0p
 } array_rforeach_env{n:int}
 (
   A: &(@[INV(a)][n]) >> @[a][n], asz: size_t n, env: &(env) >> _
 ) : sizeLte (n) // end of [array_rforeach_env]
-
+//
+fun{
+a:vt0p}{env:vt0p
+} array_rforeach$cont (x: &a, env: &env): bool
+fun{
+a:vt0p}{env:vt0p
+} array_rforeach$fwork (x: &a >> _, env: &(env) >> _): void
+//
 (* ****** ****** *)
-
-fun{a:vt0p}
-array_initize$init (i: size_t, x: &a? >> a): void
-
+//
 fun{a:vt0p}
 array_initize{n:int}
-  (A: &(@[a?][n]) >> @[a][n], asz: size_t n) : void
-// end of [array_initize]
-
-macdef array_initialize = array_initize
-
+(
+  A: &(@[a?][n]) >> @[a][n], asz: size_t n
+) : void // end of [array_initize]
+//
+fun{a:vt0p}
+array_initize$init (i: size_t, x: &a? >> a): void
+//
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -552,32 +557,31 @@ array_initize_rlist_vt{n:int}
 ) :<!wrt> void // end of [array_initize_rlist_vt]
 
 (* ****** ****** *)
-
-fun{a:vt0p}
-array_uninitize$clear
-  (i: size_t, x: &a >> a?): void
+//
 fun{a:vt0p}
 array_uninitize{n:int}
 (
   A: &(@[INV(a)][n]) >> @[a?][n], asz: size_t n
 ) : void // end of [array_uninitize]
-macdef array_uninitialize = array_uninitize
-
-(* ****** ****** *)
-
+//
 fun{a:vt0p}
-array_bsearch$ford (x: &RD(a)):<> int
+array_uninitize$clear (i: size_t, x: &a >> a?): void
+//
+(* ****** ****** *)
+//
 fun{a:vt0p}
 array_bsearch
   {n:int} (A: &RD(@[a][n]), n: size_t (n)):<> sizeLte (n)
-// end of [array_bsearch]
-
+//
+fun{a:vt0p}
+array_bsearch$ford (x: &RD(a)):<> int
+//
 fun{a:vt0p}
 array_bsearch_fun{n:int}
 (
   A: &RD(@[a][n]), asz: size_t (n), key: &RD(a), cmp: cmpref (a)
 ) :<> sizeLte (n) // end of [array_bsearch_fun]
-
+//
 (* ****** ****** *)
 
 (*
@@ -590,14 +594,14 @@ array_bsearch_stdlib{n:int}
 ) :<> Ptr0 (* found/~found : ~null/null *)
 
 (* ****** ****** *)
-
-fun{a:vt0p}
-array_quicksort$cmp
-  (x1: &RD(a), x2: &RD(a)):<> int
+//
 fun{a:vt0p}
 array_quicksort{n:int}
   (A: &(@[INV(a)][n]) >> @[a][n], n: size_t n):<!wrt> void
-// end of [array_quicksort]
+fun{a:vt0p}
+array_quicksort$cmp (x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
+//
+(* ****** ****** *)
 
 (*
 ** HX: this one is based on [qsort] in [stdlib]
@@ -612,13 +616,6 @@ array_quicksort_stdlib{n:int}
 //
 fun{
 a:vt0p}{b:vt0p
-} array_mapto$fwork
-(
-  x: &a, y: &b? >> b
-) : void // [array_mapto$fwork]
-//
-fun{
-a:vt0p}{b:vt0p
 } array_mapto{n:int}
 (
   A: &array(INV(a), n)
@@ -626,14 +623,11 @@ a:vt0p}{b:vt0p
 , n: size_t (n)
 ) : void // end of [array_mapto]
 //
-(* ****** ****** *)
-//
 fun{
-a,b:vt0p}{c:vt0p
-} array_map2to$fwork
-(
-  x: &a, y: &b, z: &c? >> c
-) : void // [array_map2to$fwork]
+a:vt0p}{b:vt0p
+} array_mapto$fwork (x: &a, y: &b? >> b) : void
+//
+(* ****** ****** *)
 //
 fun{
 a,b:vt0p}{c:vt0p
@@ -645,16 +639,19 @@ a,b:vt0p}{c:vt0p
 , n: size_t (n)
 ) : void // end of [array_map2to]
 //
+fun{
+a,b:vt0p}{c:vt0p
+} array_map2to$fwork (x: &a, y: &b, z: &c? >> c) : void
+//
 (* ****** ****** *)
-
-fun{}
-array_permute$randint
-  {n:int | n > 0} (n: size_t n): sizeLt (n)
+//
 fun{a:vt0p}
 array_permute{n:int}
   (A: &(@[INV(a)][n]) >> @[a][n], n: size_t n): void
-// end of [array_permute]
-
+//
+fun{}
+array_permute$randint {n:int | n > 0} (size_t n): sizeLt (n)
+//
 (* ****** ****** *)
 
 (* end of [array.sats] *)

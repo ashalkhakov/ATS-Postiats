@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Jun  1 09:55:02 2014
+** Time of generation: Wed Jun 11 20:34:23 2014
 *)
 
 (* ****** ****** *)
@@ -1579,10 +1579,6 @@ end // end of [list_crosswith]
 
 (* ****** ****** *)
 
-implement
-{x}{env}
-list_foreach$cont (x, env) = true
-
 implement{x}
 list_foreach (xs) = let
   var env: void = () in list_foreach_env<x><void> (xs, env)
@@ -1620,6 +1616,12 @@ end // end of [loop]
 in
   loop (xs, env)
 end // end of [list_foreach_env]
+
+(* ****** ****** *)
+
+implement
+{x}{env}
+list_foreach$cont (x, env) = true
 
 (* ****** ****** *)
 
@@ -1679,10 +1681,7 @@ end // end of [list_foreach_funenv]
 (* ****** ****** *)
 
 implement
-{x,y}{env}
-list_foreach2$cont (x, y, env) = true
-
-implement{x,y}
+{x,y}(*tmp*)
 list_foreach2 (xs, ys) = let
   var env: void = () in list_foreach2_env<x,y><void> (xs, ys, env)
 end // end of [list_foreach2]
@@ -1729,10 +1728,13 @@ end // end of [list_foreach2_env]
 (* ****** ****** *)
 
 implement
-{x}{env}
-list_iforeach$cont (i, x, env) = true
+{x,y}{env}
+list_foreach2$cont (x, y, env) = true
 
-implement{x}
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
 list_iforeach (xs) = let
   var env: void = () in list_iforeach_env<x><void> (xs, env)
 end // end of [list_iforeach]
@@ -1771,6 +1773,11 @@ end // end of [list_iforeach_env]
 
 (* ****** ****** *)
 
+implement{x}{env}
+list_iforeach$cont (i, x, env) = true
+
+(* ****** ****** *)
+
 implement{x}
 list_iforeach_funenv
   {v}{vt}{n}{fe}
@@ -1798,13 +1805,12 @@ end // end of [list_iforeach_funenv]
 
 (* ****** ****** *)
 
-implement
-{x,y}{env}
-list_iforeach2$cont (i, x, y, env) = true
-
 implement{x,y}
-list_iforeach2 (xs, ys) = let
-  var env: void = () in list_iforeach2_env<x,y><void> (xs, ys, env)
+list_iforeach2
+  (xs, ys) = let
+  var env: void = ()
+in
+  list_iforeach2_env<x,y><void> (xs, ys, env)
 end // end of [list_iforeach2]
 
 implement
@@ -1844,6 +1850,12 @@ end // end of [loop]
 in
   loop (0, xs, ys, env)
 end // end of [list_iforeach2_env]
+
+(* ****** ****** *)
+
+implement
+{x,y}{env}
+list_iforeach2$cont (i, x, y, env) = true
 
 (* ****** ****** *)
 

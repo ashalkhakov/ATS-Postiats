@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Mon Jun  9 13:43:13 2014
+** Time of generation: Wed Jun 11 17:49:18 2014
 *)
 
 (* ****** ****** *)
@@ -123,11 +123,11 @@ print_list_vt (xs: !List_vt (INV(x))): void
 fun{x:vt0p}
 prerr_list_vt (xs: !List_vt (INV(x))): void
 //
-fun{}
-fprint_list_vt$sep (out: FILEref): void
 fun{x:vt0p}
 fprint_list_vt
   (out: FILEref, xs: !List_vt (INV(x))): void
+fun{} fprint_list_vt$sep (out: FILEref): void
+//
 fun{x:vt0p}
 fprint_list_vt_sep (
   out: FILEref, xs: !List_vt (INV(x)), sep: NSH(string)
@@ -217,40 +217,45 @@ list_vt_copy{n:int}
   (xs: !list_vt (INV(x), n)):<!wrt> list_vt (x, n)
 // end of [list_vt_copy]
 
+(* ****** ****** *)
+
 fun{x:vt0p}
-list_vt_copylin$copy (x: &RD(x)): x
+list_vt_copylin{n:int}
+  (xs: !list_vt (INV(x), n)):<!wrt> list_vt (x, n)
 fun{x:vt0p}
-list_vt_copylin{n:int} (xs: !list_vt (INV(x), n)): list_vt (x, n)
+list_vt_copylin$copy (x: &RD(x)): (x)
 
 (* ****** ****** *)
 
 fun{x:t0p}
 list_vt_free (xs: List_vt (INV(x))):<!wrt> void
 
-fun{x:vt0p}
-list_vt_freelin$clear
-  (x: &x >> x?):<!wrt> void
-fun{x:vt0p}
-list_vt_freelin (xs: List_vt (INV(x))):<!wrt> void
-
 (* ****** ****** *)
 
 fun{x:vt0p}
-list_vt_uninitize$clear
-  (x: &(x)>>x?):<!wrt> void
+list_vt_freelin (xs: List_vt (INV(x))):<!wrt> void
+fun{x:vt0p}
+list_vt_freelin$clear (x: &x >> x?):<!wrt> void
+
+(* ****** ****** *)
+//
 fun{
 x:vt0p
 } list_vt_uninitize
   {n:int} (
   xs: !list_vt (INV(x), n) >> list_vt (x?, n)
 ) :<!wrt> void // end of [list_vt_uninitize]
+//
+fun{x:vt0p}
+list_vt_uninitize$clear (x: &(x)>>x?):<!wrt> void
+//
 fun{
 x:vt0p
 } list_vt_uninitize_fun
   {n:int}{fe:eff} (
   xs: !list_vt (INV(x), n) >> list_vt (x?, n), f: (&x>>x?) -<fe> void
 ) :<fe> void // end of [list_vt_uninitize_fun]
-
+//
 (* ****** ****** *)
 
 fun{
@@ -308,53 +313,57 @@ list_vt_concat
 (* ****** ****** *)
 
 fun{x:vt0p}
-list_vt_separate$pred (x: &RD(x)): bool
-fun{x:vt0p}
 list_vt_separate{n:int}
 (
   xs: &list_vt (INV(x), n) >> list_vt (x, n1)
 ) : #[n1:nat|n1 <= n] list_vt (x, n-n1)
 
+fun{x:vt0p}
+list_vt_separate$pred (x: &RD(x)): bool
+
 (* ****** ****** *)
+
+fun{x:t0p}
+list_vt_filter{n:int}
+  (x: list_vt (INV(x), n)):<!wrt> listLte_vt (x, n)
+// end of [list_vt_filter]
 
 fun{x:t0p}
 list_vt_filter$pred (x: &RD(x)):<> bool
-fun{x:t0p}
-list_vt_filter
-  {n:int} (x: list_vt (INV(x), n)):<!wrt> listLte_vt (x, n)
-// end of [list_vt_filter]
 
 (* ****** ****** *)
-
+//
+fun{x:vt0p}
+list_vt_filterlin
+  {n:int} (list_vt (INV(x), n)):<!wrt> listLte_vt (x, n)
+//
 fun{x:vt0p}
 list_vt_filterlin$pred (x: &RD(x)):<> bool
 fun{x:vt0p}
 list_vt_filterlin$clear (x: &x>>x?):<!wrt> void
+//
+(* ****** ****** *)
+
 fun{x:vt0p}
-list_vt_filterlin
-  {n:int} (x: list_vt (INV(x), n)):<!wrt> listLte_vt (x, n)
-// end of [list_vt_filterlin]
+list_vt_app (xs: !List_vt (INV(x))): void
+fun{x:vt0p}
+list_vt_app$fwork (x: &x >> _): void
 
 (* ****** ****** *)
 
-fun{
-x:vt0p
-} list_vt_app$fwork (x: &x >> _): void
-fun{x:vt0p} list_vt_app (xs: !List_vt (INV(x))): void
-
-fun{
-x:vt0p
-} list_vt_appfree$fwork (x: &x >> x?): void
-fun{x:vt0p} list_vt_appfree (xs: List_vt (INV(x))): void
+fun{x:vt0p}
+list_vt_appfree (xs: List_vt (INV(x))): void
+fun{x:vt0p}
+list_vt_appfree$fwork (x: &x >> x?): void
 
 (* ****** ****** *)
 
-fun{
-x:vt0p}{y:vt0p
-} list_vt_map$fopr (&x >> _): y
 fun{
 x:vt0p}{y:vt0p
 } list_vt_map{n:int} (!list_vt (INV(x), n)): list_vt (y, n)
+fun{
+x:vt0p}{y:vt0p
+} list_vt_map$fopr (x: &x >> _): (y)
 
 (* ****** ****** *)
 
@@ -377,25 +386,30 @@ x:vt0p}{y:vt0p
 
 fun{
 x:vt0p}{y:vt0p
-} list_vt_mapfree$fopr (x: x): y
+} list_vt_mapfree{n:int}
+  (list_vt (INV(x), n)): list_vt (y, n)
 fun{
 x:vt0p}{y:vt0p
-} list_vt_mapfree{n:int} (xs: list_vt (INV(x), n)): list_vt (y, n)
+} list_vt_mapfree$fopr (x: x): (y)
 
 (* ****** ****** *)
-
+//
+fun{
+x:vt0p
+} list_vt_foreach (xs: !List_vt (INV(x))): void
+//
+fun{
+x:vt0p}{env:vt0p
+} list_vt_foreach_env (xs: !List_vt (INV(x)), env: &(env) >> _): void
+//
 fun{
 x:vt0p}{env:vt0p
 } list_vt_foreach$cont (x: &x, env: &env): bool
 fun{
 x:vt0p}{env:vt0p
 } list_vt_foreach$fwork (x: &x >> _, env: &(env) >> _): void
-fun{
-x:vt0p
-} list_vt_foreach (xs: !List_vt (INV(x))): void
-fun{
-x:vt0p}{env:vt0p
-} list_vt_foreach_env (xs: !List_vt (INV(x)), env: &(env) >> _): void
+//
+(* ****** ****** *)
 
 fun{
 x:vt0p
@@ -403,7 +417,6 @@ x:vt0p
   {fe:eff} (
   xs: !List_vt (INV(x)), f: (&x) -<fe> void
 ) :<fe> void // end of [list_vt_foreach_fun]
-
 fun{
 x:vt0p
 } list_vt_foreach_funenv
@@ -413,7 +426,17 @@ x:vt0p
 ) :<fe> void // end of [list_vt_foreach_funenv]
 
 (* ****** ****** *)
-
+//
+fun{
+x:vt0p
+} list_vt_iforeach
+  {n:int} (xs: !list_vt (INV(x), n)): natLte(n)
+//
+fun{
+x:vt0p}{env:vt0p
+} list_vt_iforeach_env
+  {n:int} (xs: !list_vt (INV(x), n), env: &(env) >> _): natLte(n)
+//
 fun{
 x:vt0p}{env:vt0p
 } list_vt_iforeach$cont
@@ -422,27 +445,16 @@ fun{
 x:vt0p}{env:vt0p
 } list_vt_iforeach$fwork
   (i: int, x: &x >> _, env: &(env) >> _): void
-fun{
-x:vt0p
-} list_vt_iforeach
-  {n:int} (xs: !list_vt (INV(x), n)): natLte(n)
-fun{
-x:vt0p}{env:vt0p
-} list_vt_iforeach_env
-  {n:int} (xs: !list_vt (INV(x), n), env: &(env) >> _): natLte(n)
-// end of [list_vt_iforeach_env]
-
-(* ****** ****** *)
 //
-fun{
-a:vt0p
-} list_vt_mergesort$cmp
-  (x1: &RD(a), x2: &RD(a)):<> int
+(* ****** ****** *)
 //
 fun{
 a:vt0p
 } list_vt_mergesort
   {n:int} (xs: list_vt (INV(a), n)):<!wrt> list_vt (a, n)
+fun{
+a:vt0p
+} list_vt_mergesort$cmp (x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
 //
 fun{
 a:vt0p
@@ -455,13 +467,11 @@ a:vt0p
 //
 fun{
 a:vt0p
-} list_vt_quicksort$cmp
-  (x1: &RD(a), x2: &RD(a)):<> int
-//
-fun{
-a:vt0p
 } list_vt_quicksort
   {n:int} (xs: list_vt (INV(a), n)):<!wrt> list_vt (a, n)
+fun{
+a:vt0p
+} list_vt_quicksort$cmp (x1: &RD(a), x2: &RD(a)):<> int(*sgn*)
 //
 fun{
 a:vt0p

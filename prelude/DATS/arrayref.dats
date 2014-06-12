@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Sun Jun  1 09:55:06 2014
+** Time of generation: Wed Jun 11 22:08:48 2014
 *)
 
 (* ****** ****** *)
@@ -484,6 +484,28 @@ end // end of [arrszref_exch_at_guint]
 (* ****** ****** *)
 
 implement{a}
+arrszref_interchange
+  (ASZ, i, j) = $effmask_wrt let
+//
+var n: size_t
+val A = arrszref_get_refsize (ASZ, n)
+val i = g1ofg0_uint (i)
+val j = g1ofg0_uint (j)
+//
+in
+//
+if n > i
+then (
+  if n > j
+  then arrayref_interchange (A, i, j)
+  else $raise ArraySubscriptExn((*void*))
+) else $raise ArraySubscriptExn((*void*))
+//
+end // end of [arrszref_interchange]
+
+(* ****** ****** *)
+
+implement{a}
 fprint_arrszref
   (out, ASZ) = let
 //
@@ -504,28 +526,6 @@ val A = arrszref_get_refsize (ASZ, asz)
 in
   fprint_arrayref_sep (out, A, asz, sep)
 end // end of [fprint_arrszref_sep]
-
-(* ****** ****** *)
-
-implement{a}
-arrszref_interchange
-  (ASZ, i, j) = $effmask_wrt let
-//
-var n: size_t
-val A = arrszref_get_refsize (ASZ, n)
-val i = g1ofg0_uint (i)
-val j = g1ofg0_uint (j)
-//
-in
-//
-if n > i
-then (
-  if n > j
-  then arrayref_interchange (A, i, j)
-  else $raise ArraySubscriptExn((*void*))
-) else $raise ArraySubscriptExn((*void*))
-//
-end // end of [arrszref_interchange]
 
 (* ****** ****** *)
 //

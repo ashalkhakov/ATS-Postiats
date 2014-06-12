@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Sun Jun  1 09:55:04 2014
+** Time of generation: Wed Jun 11 20:34:24 2014
 *)
 
 (* ****** ****** *)
@@ -390,16 +390,12 @@ val () = loop (view@(A) | addr@(A), n, res)
 
 (* ****** ****** *)
 
-implement{a}{env}
-array_foreach$cont (x, env) = true
-(*
-implement{a}{env}
-array_foreach$fwork (x, env) = ((*void*))
-*)
-
 implement{a}
-array_foreach (A, asz) = let
-  var env: void = () in array_foreach_env<a><void> (A, asz, env)
+array_foreach
+  (A, asz) = let
+  var env: void = ()
+in
+  array_foreach_env<a><void> (A, asz, env)
 end // end of [array_foreach]
 
 implement
@@ -447,6 +443,15 @@ end // end of [array_foreach_env]
 
 (* ****** ****** *)
 
+implement{a}{env}
+array_foreach$cont (x, env) = true
+(*
+implement{a}{env}
+array_foreach$fwork (x, env) = ((*void*))
+*)
+
+(* ****** ****** *)
+
 implement{a}
 array_foreach_fun
   {n}{fe} (A, asz, f) = let
@@ -490,20 +495,12 @@ array_foreach_funenv
 (* ****** ****** *)
 
 implement
-{a1,a2}{env}
-array_foreach2$cont (x1, x2, env) = true
-(*
-implement
-{a1,a2}{env}
-array_foreach2$fwork (x1, x2, env) = ((*void*))
-*)
-
-(* ****** ****** *)
-
-implement
 {a1,a2}(*tmp*)
-array_foreach2 (A1, A2, asz) = let
-  var env: void = () in array_foreach2_env<a1,a2><void> (A1, A2, asz, env)
+array_foreach2
+  (A1, A2, asz) = let
+  var env: void = ()
+in
+  array_foreach2_env<a1,a2><void> (A1, A2, asz, env)
 end // end of [array_foreach2]
 
 implement
@@ -552,16 +549,23 @@ end // end of [array_foreach2_env]
 
 (* ****** ****** *)
 
-implement{a}{env}
-array_iforeach$cont (i, x, env) = true
+implement
+{a1,a2}{env}
+array_foreach2$cont (x1, x2, env) = true
 (*
-implement{a}{env}
-array_iforeach$fwork (i, x, env) = ((*void*))
+implement
+{a1,a2}{env}
+array_foreach2$fwork (x1, x2, env) = ((*void*))
 *)
 
+(* ****** ****** *)
+
 implement{a}
-array_iforeach (A, asz) = let
-  var env: void = () in array_iforeach_env<a><void> (A, asz, env)
+array_iforeach
+  (A, asz) = let
+  var env: void = ()
+in
+  array_iforeach_env<a><void> (A, asz, env)
 end // end of [array_iforeach]
 
 implement
@@ -608,15 +612,20 @@ end // end of [array_iforeach_env]
 (* ****** ****** *)
 
 implement{a}{env}
-array_rforeach$cont (x, env) = true
+array_iforeach$cont (i, x, env) = true
 (*
 implement{a}{env}
-array_rforeach$fwork (x, env) = ((*void*))
+array_iforeach$fwork (i, x, env) = ((*void*))
 *)
 
+(* ****** ****** *)
+
 implement{a}
-array_rforeach (A, asz) = let
-  var env: void = () in array_rforeach_env<a><void> (A, asz, env)
+array_rforeach
+  (A, asz) = let
+  var env: void = ()
+in
+  array_rforeach_env<a><void> (A, asz, env)
 end // end of [array_rforeach]
 
 implement
@@ -645,8 +654,7 @@ if n > 0 then let
   val cont = array_rforeach$cont<a><env> (!p1, env)
 in
   if cont then let
-    val () =
-    array_rforeach$fwork<a><env> (!p1, env)
+    val () = array_rforeach$fwork<a><env> (!p1, env)
     val res = loop (pf1 | p1, pred(n), env)
     prval () = pf := array_v_extend (pf1, pf2)
   in
@@ -665,6 +673,15 @@ val n = loop (view@(A) | p_end, asz, env)
 in
   asz - n
 end // end of [array_rforeach_env]
+
+(* ****** ****** *)
+
+implement{a}{env}
+array_rforeach$cont (x, env) = true
+(*
+implement{a}{env}
+array_rforeach$fwork (x, env) = ((*void*))
+*)
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Sun Jun  1 09:55:02 2014
+** Time of generation: Wed Jun 11 20:37:53 2014
 *)
 
 (* ****** ****** *)
@@ -198,7 +198,8 @@ case+ xs of
 end // end of [loop]
 //
 var res: ptr
-val () = loop (xs, res)
+val () =
+  $effmask_all(loop (xs, res))
 //
 in
   res
@@ -906,13 +907,12 @@ end // end of [list_vt_mapfree]
 
 (* ****** ****** *)
 
-implement
-{x}{env}
-list_vt_foreach$cont (x, env) = true
-
 implement{x}
-list_vt_foreach (xs) = let
-  var env: void = () in list_vt_foreach_env<x><void> (xs, env)
+list_vt_foreach
+  (xs) = let
+  var env: void = ()
+in
+  list_vt_foreach_env<x><void> (xs, env)
 end // end of [list_vt_foreach]
 
 implement
@@ -948,6 +948,12 @@ end // end of [loop]
 in
   loop (xs, env)
 end // end of [list_vt_foreach_env]
+
+(* ****** ****** *)
+
+implement
+{x}{env}
+list_vt_foreach$cont (x, env) = true
 
 (* ****** ****** *)
 
@@ -1006,13 +1012,12 @@ end // end of [list_vt_foreach_funenv]
 
 (* ****** ****** *)
 
-implement
-{x}{env}
-list_vt_iforeach$cont (i, x, env) = true
-
 implement{x}
-list_vt_iforeach (xs) = let
-  var env: void = () in list_vt_iforeach_env<x><void> (xs, env)
+list_vt_iforeach
+  (xs) = let
+  var env: void = ()
+in
+  list_vt_iforeach_env<x><void> (xs, env)
 end // end of [list_vt_iforeach]
 
 implement
@@ -1053,6 +1058,12 @@ end // end of [loop]
 in
   loop (0, xs, env)
 end // end of [list_vt_iforeach_env]
+
+(* ****** ****** *)
+
+implement
+{x}{env}
+list_vt_iforeach$cont (i, x, env) = true
 
 (* ****** ****** *)
 

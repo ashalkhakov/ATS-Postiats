@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Mon Jun  9 13:43:07 2014
+** Time of generation: Thu Jun 12 12:53:33 2014
 *)
 
 (* ****** ****** *)
@@ -51,13 +51,13 @@ castfn char2uchar0 (c: char):<> uchar
 castfn uchar2char0 (c: uchar):<> char
 //
 (* ****** ****** *)
-
+//
 fun int2char0 (i: int):<> char = "mac#%"
 fun int2schar0 (i: int):<> schar = "mac#%"
 fun int2uchar0 (i: int):<> uchar = "mac#%"
-
+//
 fun uint2uchar0 (u: uint):<> uchar = "mac#%"
-
+//
 (* ****** ****** *)
 
 fun char2int0 (c: char):<> int = "mac#%"
@@ -84,14 +84,18 @@ overload iseqz with char0_iseqz of 0
 overload isneqz with char0_isneqz of 0
 //
 (* ****** ****** *)
-
+//
 fun add_char0_int0
-  (c1: char, i2: int):<> char = "mac#%"
+  (c: char, i: int):<> char = "mac#%"
 fun sub_char0_int0
-  (c1: char, i2: int):<> char = "mac#%"
+  (c: char, i: int):<> char = "mac#%"
 fun sub_char0_char0
   (c1: char, c2: char):<> int = "mac#%"
-
+//
+overload + with add_char0_int0 of 0
+overload - with sub_char0_int0 of 0
+overload - with sub_char0_char0 of 0
+//
 (* ****** ****** *)
 
 fun lt_char0_char0

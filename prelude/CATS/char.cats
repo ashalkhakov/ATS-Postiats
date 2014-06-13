@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Mon Jun  9 08:18:05 2014
+** Time of generation: Thu Jun 12 12:37:42 2014
 */
 
 /* ****** ****** */
@@ -167,6 +167,15 @@ atspre_add_char_int
   (atstype_char c1, atstype_int i2) { return (c1 + i2) ; }
 // end of [atspre_add_char_int]
 #define atspre_add_char0_int0 atspre_add_char_int
+
+/* ****** ****** */
+
+ATSinline()
+atstype_char
+atspre_sub_char_int
+  (atstype_char c1, atstype_int i2) { return (c1 - i2) ; }
+// end of [atspre_sub_char_int]
+#define atspre_sub_char0_int0 atspre_sub_char_int
 
 /* ****** ****** */
 

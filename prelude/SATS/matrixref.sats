@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Thu Jun 12 12:53:44 2014
+** Time of generation: Fri Jun 13 23:08:40 2014
 *)
 
 (* ****** ****** *)
@@ -71,32 +71,30 @@ stadef matrixref = matrixref_vt0ype_int_int_type
 praxi
 lemma_matrixref_param
   {a:vt0p}{m,n:int}
-  (A: matrixref (a, m, n)): [m >= 0; n >= 0] void
+  (M: matrixref (a, m, n)): [m >= 0; n >= 0] void
 // end of [lemma_matrixref_param]
 
 (* ****** ****** *)
 //
 castfn
 matrixref2ptr
-  {a:vt0p}{m,n:int} (M: matrixref(a, m, n)):<> Ptr0
+  {a:vt0p}{m,n:int} (M: matrixref (a, m, n)):<> Ptr0
 //
 (* ****** ****** *)
-
+//
 castfn
 matrixptr_refize
-  {a:vt0p}
-  {l:addr}
-  {m,n:int} (
-  A: matrixptr (INV(a), l, m, n)
-) :<!wrt> matrixref (a, m, n) // end of [matrixptr_refize]
-
+  {a:vt0p}{l:addr}{m,n:int}
+  (matrixptr (INV(a), l, m, n)):<!wrt> matrixref (a, m, n)
+//
 castfn
 matrixref_get_viewptr
   {a:vt0p}
-  {m,n:int} (
-  A: matrixref (a, m, n)
+  {m,n:int}
+(
+  M: matrixref (a, m, n)
 ) :<> [l:addr] (vbox (matrix_v (a, l, m, n)) | ptr l)
-
+//
 (* ****** ****** *)
 
 castfn
@@ -119,14 +117,14 @@ fun{a:t0p}
 matrixref_get_at_int
   {m,n:int}
 (
-  A: matrixref (a, m, n), i: natLt(m), n: int(n), j: natLt(n)
+  M: matrixref (a, m, n), i: natLt(m), n: int(n), j: natLt(n)
 ) :<!ref> (a) // end of [matrixref_get_at_int]
 
 fun{a:t0p}
 matrixref_get_at_size
   {m,n:int}
 (
-  A: matrixref (a, m, n), i: sizeLt(m), n: size_t(n), j: sizeLt(n)
+  M: matrixref (a, m, n), i: sizeLt(m), n: size_t(n), j: sizeLt(n)
 ) :<!ref> (a) // end of [matrixref_get_at_size]
 //
 symintr matrixref_get_at
@@ -139,14 +137,14 @@ fun{a:t0p}
 matrixref_set_at_int
   {m,n:int}
 (
-  A: matrixref (INV(a), m, n), i: natLt (m), n: int n, j: natLt (n), x: a
+  M: matrixref (a, m, n), i: natLt (m), n: int n, j: natLt (n), x: a
 ) :<!refwrt> void // end of [matrixref_set_at_int]
 
 fun{a:t0p}
 matrixref_set_at_size
   {m,n:int}
 (
-  A: matrixref (INV(a), m, n), i: sizeLt (m), n: size_t n, j: sizeLt (n), x: a
+  M: matrixref (a, m, n), i: sizeLt (m), n: size_t n, j: sizeLt (n), x: a
 ) :<!refwrt> void // end of [matrixref_set_at_size]
 
 symintr matrixref_set_at
@@ -159,7 +157,7 @@ fun{a:vt0p}
 matrixref_exch_at_int
   {m,n:int}
 (
-  A: matrixref (INV(a), m, n)
+  M: matrixref (a, m, n)
 , i: natLt (m), n: int n, j: natLt (n), x: &a >> _
 ) :<!refwrt> void // end of [matrixref_exch_at_int]
 
@@ -167,7 +165,7 @@ fun{a:vt0p}
 matrixref_exch_at_size
   {m,n:int}
 (
-  A: matrixref (INV(a), m, n)
+  M: matrixref (a, m, n)
 , i: sizeLt (m), n: size_t n, j: sizeLt (n), x: &a >> _
 ) :<!refwrt> void // end of [matrixref_exch_at_size]
 
@@ -185,18 +183,28 @@ fun{a:vt0p}
 fprint_matrixref{m,n:int}
 (
   out: FILEref
-, M: matrixref(a, m, n), m: size_t m, n: size_t n
+, M: matrixref (a, m, n), m: size_t m, n: size_t n
 ) : void // end of [fprint_matrixref]
 
 fun{a:vt0p}
 fprint_matrixref_sep{m,n:int}
 (
   out: FILEref
-, M: matrixref(a, m, n), m: size_t (m), n: size_t (n)
+, M: matrixref (a, m, n), m: size_t (m), n: size_t (n)
 , sep1: NSH(string), sep2: NSH(string)
 ) : void // end of [fprint_matrixref_sep]
 
 (* ****** ****** *)
+//
+fun{a:t0p}
+matrixref_copy
+  {m,n:int}
+(
+  M: matrixref (a, m, n), m: size_t(m), n: size_t(n)
+) : matrixptr (a, m, n) // end-of-fun
+//
+(* ****** ****** *)
+
 (*
 fun{a:vt0p}
 matrix_tabulate$fopr (i: size_t, j: size_t): (a)
@@ -224,13 +232,13 @@ fun{
 a:vt0p
 } matrixref_foreach{m,n:int}
 (
-  A: matrixref(a, m, n), m: size_t m, n: size_t n
+  A: matrixref (a, m, n), m: size_t m, n: size_t n
 ) : void // end of [matrixref_foreach]
 fun{
 a:vt0p}{env:vt0p
 } matrixref_foreach_env{m,n:int}
 (
-  A: matrixref(a, m, n), m: size_t m, n: size_t n, env: &(env) >> _
+  A: matrixref (a, m, n), m: size_t m, n: size_t n, env: &(env) >> _
 ) : void // end of [matrixref_foreach_env]
 
 (* ****** ****** *)

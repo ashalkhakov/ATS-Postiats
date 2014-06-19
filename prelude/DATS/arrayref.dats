@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Wed Jun 11 22:08:48 2014
+** Time of generation: Sat Jun 14 14:55:29 2014
 *)
 
 (* ****** ****** *)
@@ -148,6 +148,17 @@ val (vbox pf | p) =
   arrayref_get_viewptr (A) in array_interchange (!p, i, j)
 //
 end // end of [arrayref_interchange]
+
+(* ****** ****** *)
+
+implement{a}
+arrayref_subcirculate
+  (A, i, j) = let
+//
+val (vbox pf | p) =
+  arrayref_get_viewptr (A) in array_subcirculate (!p, i, j)
+//
+end // end of [arrayref_subcirculate]
 
 (* ****** ****** *)
 
@@ -485,7 +496,9 @@ end // end of [arrszref_exch_at_guint]
 
 implement{a}
 arrszref_interchange
-  (ASZ, i, j) = $effmask_wrt let
+(
+  ASZ, i, j
+) = $effmask_wrt let
 //
 var n: size_t
 val A = arrszref_get_refsize (ASZ, n)
@@ -502,6 +515,30 @@ then (
 ) else $raise ArraySubscriptExn((*void*))
 //
 end // end of [arrszref_interchange]
+
+(* ****** ****** *)
+
+implement{a}
+arrszref_subcirculate
+(
+  ASZ, i, j
+) = $effmask_wrt let
+//
+var n: size_t
+val A = arrszref_get_refsize (ASZ, n)
+val i = g1ofg0_uint (i)
+val j = g1ofg0_uint (j)
+//
+in
+//
+if n > i
+then (
+  if n > j
+  then arrayref_subcirculate (A, i, j)
+  else $raise ArraySubscriptExn((*void*))
+) else $raise ArraySubscriptExn((*void*))
+//
+end // end of [arrszref_subcirculate]
 
 (* ****** ****** *)
 

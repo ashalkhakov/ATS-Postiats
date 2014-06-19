@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Thu Jun 12 12:53:42 2014
+** Time of generation: Sat Jun 14 14:55:29 2014
 *)
 
 (* ****** ****** *)
@@ -220,6 +220,13 @@ fun{a:vt0p}
 arrayref_interchange
   {n:int} (A: arrayref (a, n), i: sizeLt n, j: sizeLt n):<!refwrt> void
 // end of [arrayref_interchange]
+
+(* ****** ****** *)
+
+fun{a:vt0p}
+arrayref_subcirculate
+  {n:int} (A: arrayref (a, n), i: sizeLt n, j: sizeLt n):<!refwrt> void
+// end of [arrayref_subcirculate]
 
 (* ****** ****** *)
 
@@ -468,6 +475,13 @@ fun{a:vt0p}
 arrszref_interchange
   (A: arrszref (a), i: size_t, j: size_t):<!exnrefwrt> void
 // end of [arrszref_interchange]
+
+(* ****** ****** *)
+
+fun{a:vt0p}
+arrszref_subcirculate
+  (A: arrszref (a), i: size_t, j: size_t):<!exnrefwrt> void
+// end of [arrszref_subcirculate]
 
 (* ****** ****** *)
 //

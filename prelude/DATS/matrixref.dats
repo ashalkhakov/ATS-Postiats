@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixref.atxt
-** Time of generation: Sun Jun  1 09:55:07 2014
+** Time of generation: Sat Jun 14 09:32:30 2014
 *)
 
 (* ****** ****** *)
@@ -105,10 +105,14 @@ fprint_matrixref
 (
   out, M, nrow, ncol
 ) = {
-  val M =
-  $UN.castvwtp1{matrixptr(a, m, n)}(M)
-  val () = fprint_matrixptr<a> (out, M, nrow, ncol)
-  prval () = $UN.cast2void (M)
+//
+val M =
+$UN.castvwtp1{matrixptr(a, m, n)}(M)
+//
+val () = fprint_matrixptr<a> (out, M, nrow, ncol)
+//
+prval ((*void*)) = $UN.cast2void (M)
+//
 } (* end of [fprint_matrixref] *)
 
 implement{a}
@@ -117,11 +121,43 @@ fprint_matrixref_sep
 (
   out, M, nrow, ncol, sep1, sep2
 ) = {
-  val M =
-  $UN.castvwtp1{matrixptr(a, m, n)}(M)
-  val () = fprint_matrixptr_sep<a> (out, M, nrow, ncol, sep1, sep2)
-  prval () = $UN.cast2void (M)
+//
+val M =
+$UN.castvwtp1{matrixptr(a, m, n)}(M)
+//
+val () =
+fprint_matrixptr_sep<a> (out, M, nrow, ncol, sep1, sep2)
+//
+prval ((*void*)) = $UN.cast2void (M)
+//
 } (* end of [fprint_matrixref_sep] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+matrixref_copy
+  {m,n} (M, m, n) = let
+//
+val A = $UN.cast{arrayref(a,m*n)}(M)
+//
+in
+  $UN.castvwtp0{matrixptr(a,m,n)}(arrayref_copy<a> (A, m*n))
+end // end of [matrixref_copy]
+
+(* ****** ****** *)
+
+implement{a}
+matrixref_tabulate
+  (nrow, ncol) =
+  matrixptr_refize (matrixptr_tabulate<a> (nrow, ncol))
+// end of [matrixref_tabulate]
+
+implement{a}
+matrixref_tabulate_cloref
+  (nrow, ncol, f) =
+  matrixptr_refize (matrixptr_tabulate_cloref<a> (nrow, ncol, f))
+// end of [matrixref_tabulate_cloref]
 
 (* ****** ****** *)
 
@@ -140,20 +176,6 @@ matrixref_foreach_env
 in
   $effmask_ref (matrix_foreach_env<a><env> (!p, m, n, env))
 end // end of [matrixref_foreach_env]
-
-(* ****** ****** *)
-
-implement{a}
-matrixref_tabulate
-  (nrow, ncol) =
-  matrixptr_refize (matrixptr_tabulate<a> (nrow, ncol))
-// end of [matrixref_tabulate]
-
-implement{a}
-matrixref_tabulate_cloref
-  (nrow, ncol, f) =
-  matrixptr_refize (matrixptr_tabulate_cloref<a> (nrow, ncol, f))
-// end of [matrixref_tabulate_cloref]
 
 (* ****** ****** *)
 

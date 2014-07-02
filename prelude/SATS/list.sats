@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Thu Jun 12 12:53:38 2014
+** Time of generation: Sun Jun 22 14:15:53 2014
 *)
 
 (* ****** ****** *)
@@ -576,7 +576,7 @@ x:t0p}{y:vt0p
 //
 fun{
 x:t0p}{y:vt0p
-} list_imap$fopr (i: int, x: x): (y)
+} list_imap$fopr (i: intGte(0), x: x): (y)
 //
 (* ****** ****** *)
 
@@ -629,11 +629,10 @@ x1,x2:t0p}{y:t0p
 //
 (* ****** ****** *)
 //
-fun{
-a:vt0p
-} list_tabulate{n:nat} (int n): list_vt (a, n)
-//
-fun{a:vt0p} list_tabulate$fopr (index: int): (a)
+fun{a:vt0p}
+list_tabulate$fopr (ind: intGte(0)): (a)
+fun{a:vt0p}
+list_tabulate{n:nat} (n: int (n)): list_vt (a, n)
 //
 (* ****** ****** *)
 
@@ -780,10 +779,10 @@ x:t0p}{env:vt0p
 //
 fun{
 x:t0p}{env:vt0p
-} list_iforeach$cont (i: int, x: x, env: &env): bool
+} list_iforeach$cont (i: intGte(0), x: x, env: &env): bool
 fun{
 x:t0p}{env:vt0p
-} list_iforeach$fwork (i: int, x: x, env: &(env) >> _): void
+} list_iforeach$fwork (i: intGte(0), x: x, env: &(env) >> _): void
 //
 (* ****** ****** *)
 
@@ -810,10 +809,10 @@ x,y:t0p}{env:vt0p
 //
 fun{
 x,y:t0p}{env:vt0p
-} list_iforeach2$cont (i: int, x: x, y: y, env: &env): bool
+} list_iforeach2$cont (i: intGte(0), x: x, y: y, env: &env): bool
 fun{
 x,y:t0p}{env:vt0p
-} list_iforeach2$fwork (i: int, x: x, y: y, env: &(env) >> _): void
+} list_iforeach2$fwork (i: intGte(0), x: x, y: y, env: &(env) >> _): void
 //
 (* ****** ****** *)
 

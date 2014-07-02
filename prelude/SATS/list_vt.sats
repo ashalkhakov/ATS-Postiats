@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Thu Jun 12 12:53:39 2014
+** Time of generation: Thu Jun 19 14:37:16 2014
 *)
 
 (* ****** ****** *)
@@ -440,11 +440,11 @@ x:vt0p}{env:vt0p
 fun{
 x:vt0p}{env:vt0p
 } list_vt_iforeach$cont
-  (i: int, x: &x, env: &env): bool
+  (i: intGte(0), x: &x, env: &env): bool
 fun{
 x:vt0p}{env:vt0p
 } list_vt_iforeach$fwork
-  (i: int, x: &x >> _, env: &(env) >> _): void
+  (i: intGte(0), x: &x >> _, env: &(env) >> _): void
 //
 (* ****** ****** *)
 //

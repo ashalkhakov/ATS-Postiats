@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Wed Jun 11 20:34:23 2014
+** Time of generation: Tue Jun 24 15:59:57 2014
 *)
 
 (* ****** ****** *)
@@ -46,14 +46,17 @@ staload _(*anon*) = "prelude/DATS/unsafe.dats"
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_make_sing (x) = list_vt_cons{x}(x, list_vt_nil)
-implement{x}
+implement
+{x}(*tmp*)
 list_make_pair (x1, x2) = list_vt_cons{x}(x1, list_vt_cons{x}(x2, list_vt_nil))
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_make_elt
   {n} (n, x) = let
   fun loop
@@ -71,7 +74,8 @@ end // end of [list_make_elt]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 list_make_intrange
   {l0,r} (l0, r) = let
 //
@@ -101,7 +105,8 @@ end // end of [list_make_intrange]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_make_array
   {n} (A, n) = let
 //
@@ -144,7 +149,8 @@ end // end of [list_make_array]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_make_arrpsz
   {n} (A0) = let
 //
@@ -162,19 +168,23 @@ end // end of [list_make_arrpsz]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 print_list (xs) = fprint_list<a> (stdout_ref, xs)
-implement{a}
+implement
+{a}(*tmp*)
 prerr_list (xs) = fprint_list<a> (stderr_ref, xs)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fprint_list$sep
   (out) = fprint_string (out, ", ")
 // end of [fprint_list$sep]
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_list (out, xs) = let
 //
 implement(env)
@@ -187,13 +197,14 @@ in
   fprint_val<a> (out, x)
 end // end of [list_iforeach$fwork]
 //
-val _(*n*) = list_iforeach<a> (xs)
+val _(*len*) = list_iforeach<a> (xs)
 //
 in
   // nothing
 end // end of [fprint_list]
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_list_sep
   (out, xs, sep) = let
 //
@@ -211,7 +222,8 @@ end // end of [fprint_list_sep]
 // Compiling this can be a great challenge!
 //
 *)
-implement{a}
+implement
+{a}(*tmp*)
 fprint_listlist_sep
   (out, xss, sep1, sep2) = let
 //
@@ -224,37 +236,44 @@ end // end of [fprint_listlist_sep]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 list_is_nil (xs) =
   case+ xs of list_nil () => true | _ =>> false
 // end of [list_is_nil]
 
-implement{}
+implement
+{}(*tmp*)
 list_is_cons (xs) =
   case+ xs of list_cons _ => true | _ =>> false
 // end of [list_is_cons]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_is_sing (xs) =
   case+ xs of list_sing (x) => true | _ =>> false
 // end of [list_is_sing]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_is_pair (xs) =
   case+ xs of list_pair (x1, x2) => true | _ =>> false
 // end of [list_is_pair]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_head (xs) =
   let val+list_cons (x, _) = xs in x end
 // end of [list_head]
-implement{x}
+implement
+{x}(*tmp*)
 list_tail (xs) =
   let val+list_cons (_, xs) = xs in xs end
 // end of [list_tail]
-implement{x}
+implement
+{x}(*tmp*)
 list_last (xs) = let
 //
 fun loop
@@ -271,21 +290,24 @@ end // end of [list_last]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_head_exn (xs) =
 (
 case+ xs of
 | list_cons (x, _) => x | _ => $raise ListSubscriptExn()
 ) (* end of [list_head_exn] *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_tail_exn (xs) =
 (
 case+ xs of
 | list_cons (_, xs) => xs | _ => $raise ListSubscriptExn()
 ) (* end of [list_tail_exn] *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_last_exn (xs) =
 (
 case+ xs of
@@ -294,7 +316,8 @@ case+ xs of
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_nth (xs, i) = let
 //
 fun loop
@@ -309,7 +332,8 @@ in
   loop (xs, i)
 end // end of [list_nth]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_nth_opt (xs, i) = let
 //
 fun loop
@@ -333,9 +357,11 @@ end // end of [list_nth_opt]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_get_at (xs, i) = list_nth<a> (xs, i)
-implement{a}
+implement
+{a}(*tmp*)
 list_get_at_opt (xs, i) = list_nth_opt<a> (xs, i)
 
 (* ****** ****** *)
@@ -368,7 +394,8 @@ end // ed of [list_exch_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_insert_at
   (xs, i, x) = let
 //
@@ -400,7 +427,8 @@ end // end of [list_insert_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_takeout_at
   (xs, i, x0) = let
 //
@@ -442,7 +470,8 @@ end // end of [list_takeout_at]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_length (xs) = let
 //
 prval () = lemma_list_param (xs)
@@ -513,7 +542,8 @@ $effmask_wrt
 ) // end of [$effmask_wrt]
 end // end of [list_append]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_append1_vt
   {m,n} (xs, ys) = let
   val ys = __cast (ys) where {
@@ -523,7 +553,8 @@ in
   list_of_list_vt (list_vt_append (xs, ys))
 end // end of [list_append1_vt]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_append2_vt
   {m,n} (xs, ys) = let
 //
@@ -559,7 +590,8 @@ end // end of [list_append2_vt]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_extend (xs, y) =
 (
   list_append2_vt<a> (xs, list_vt_sing (y))
@@ -567,14 +599,16 @@ list_extend (xs, y) =
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_reverse (xs) = (
   list_reverse_append2_vt<x> (xs, list_vt_nil)
 ) // end of [list_reverse]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_reverse_append
   {m,n} (xs, ys) = let
 //
@@ -592,7 +626,8 @@ $effmask_wrt
 //
 end // end of [list_reverse_append]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_reverse_append1_vt
   {m,n} (xs, ys) = let
 //
@@ -626,7 +661,8 @@ in
   loop (xs, ys)
 end // end of [list_reverse_append1_vt]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_reverse_append2_vt
   (xs, ys) = let
 //
@@ -715,7 +751,8 @@ in
   res
 end // end of [list_take]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_take_exn
   {n}{i} (xs, i) = let
 //
@@ -790,7 +827,8 @@ in
   loop (xs, i)
 end // end of [list_drop]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_drop_exn
   (xs, i) = let
 //
@@ -812,7 +850,8 @@ end // end of [list_drop_exn]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_split_at
   (xs, i) = let
 //
@@ -851,7 +890,8 @@ end // end of [list_split_at]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_exists (xs) = let
 in
 //
@@ -862,7 +902,8 @@ case+ xs of
 //
 end // end of [list_exists]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_forall (xs) = let
 in
 //
@@ -875,7 +916,8 @@ end // end of [list_forall]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_equal$eqfn = gequal_val<a>
 
 implement
@@ -905,7 +947,8 @@ end // end of [list_equal]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_find_exn (xs) = let
 in
 //
@@ -916,7 +959,8 @@ case+ xs of
 //
 end // end of [list_find_exn]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_find_opt (xs) = let
 in
 //
@@ -929,7 +973,8 @@ end // end of [list_find_opt]
 
 (* ****** ****** *)
 
-implement{key}
+implement
+{key}(*tmp*)
 list_assoc$eqfn = gequal_val<key>
 
 implement
@@ -1009,7 +1054,8 @@ end // end of [list_assoc_opt]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_filter {n} (xs) = let
 //
 prval () = lemma_list_param (xs)
@@ -1048,7 +1094,8 @@ end // end of [list_filter]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_labelize
   (xs) = res where {
 //
@@ -1161,7 +1208,8 @@ end // end of [list_map_clo]
 (* ****** ****** *)
 
 (*
-implement{x}{y}
+implement
+{x}{y}(*tmp*)
 list_map_funenv
   {v}{vt}{n}{fe}
   (pfv | xs, f, env) = let
@@ -1208,18 +1256,21 @@ end // end of [list_map_funenv]
 
 (* ****** ****** *)
 
-implement{x}{y}
-list_imap {n} (xs) = let
+implement
+{x}{y}
+list_imap{n}(xs) = let
 //
 prval () = lemma_list_param (xs)
 //
 fun loop
-  {n:nat} .<n>. (
-  xs: list (x, n), i: int
+  {n:nat}{i:nat} .<n>.
+(
+  xs: list (x, n), i: int(i)
 , res: &ptr? >> list_vt (y, n)
 ) : void = (
   case+ xs of
-  | list_cons (x, xs) => let
+  | list_cons
+      (x, xs) => let
       val y =
         list_imap$fopr<x><y> (i, x)
       val () = res :=
@@ -1227,7 +1278,7 @@ fun loop
       val+list_vt_cons
         (_, res1) = res // res1 = res.1
       val () = loop (xs, i+1, res1)
-      prval () = fold@ (res)
+      prval ((*void*)) = fold@ (res)
     in
       // nothing
     end // end of [list_cons]
@@ -1243,8 +1294,9 @@ end // end of [list_imap]
 
 (* ****** ****** *)
 
-implement{x}{y}
-list_mapopt {n} (xs) = let
+implement
+{x}{y}
+list_mapopt{n}(xs) = let
 //
 prval () = lemma_list_param (xs)
 //
@@ -1288,7 +1340,8 @@ end // end of [list_mapopt]
 (* ****** ****** *)
 
 (*
-implement{x}{y}
+implement
+{x}{y}(*tmp*)
 list_mapopt_funenv
   {v}{vt}{n}{fe}
   (pfv | xs, f, env) = let
@@ -1378,7 +1431,8 @@ end // end of [list_map2]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_tabulate
   (n) = res where {
 //
@@ -1579,7 +1633,8 @@ end // end of [list_crosswith]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_foreach (xs) = let
   var env: void = () in list_foreach_env<x><void> (xs, env)
 end // end of [list_foreach]
@@ -1625,7 +1680,8 @@ list_foreach$cont (x, env) = true
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_foreach_fun
   (xs, f) = let
 //
@@ -1639,7 +1695,8 @@ in
   $effmask_all (loop (xs))
 end // end of [list_foreach_fun]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_foreach_cloref
   (xs, f) = let
 //
@@ -1655,7 +1712,8 @@ end // end of [list_foreach_cloref]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_foreach_funenv
   {v}{vt}{fe}
   (pfv | xs, f, env) = let
@@ -1748,7 +1806,8 @@ prval () = lemma_list_param (xs)
 //
 fun loop
   {n:nat}
-  {i:int} .<n>. (
+  {i:nat} .<n>.
+(
   i: int i, xs: list (x, n), env: &env
 ) : intBtwe(i,n+i) =
   case+ xs of
@@ -1773,12 +1832,14 @@ end // end of [list_iforeach_env]
 
 (* ****** ****** *)
 
-implement{x}{env}
+implement
+{x}{env}(*tmp*)
 list_iforeach$cont (i, x, env) = true
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_iforeach_funenv
   {v}{vt}{n}{fe}
   (pfv | xs, f, env) = let
@@ -1805,7 +1866,8 @@ end // end of [list_iforeach_funenv]
 
 (* ****** ****** *)
 
-implement{x,y}
+implement
+{x,y}(*tmp*)
 list_iforeach2
   (xs, ys) = let
   var env: void = ()
@@ -1822,7 +1884,8 @@ prval () = lemma_list_param (xs)
 prval () = lemma_list_param (ys)
 //
 fun loop
-  {m,n:nat}{i:int} .<m>. (
+  {m,n:nat}{i:nat} .<m>.
+(
   i: int i, xs: list (x, m), ys: list (y, n), env: &env
 ) : intBtwe(i, min(m,n)+i) = let
 in
@@ -1885,12 +1948,14 @@ end // end of [list_foldleft]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_mergesort$cmp
   (x1, x2) = gcompare_val<a> (x1, x2)
 // end of [list_mergesort$cmp]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_mergesort
   (xs) = let
 //
@@ -1906,11 +1971,13 @@ end // end of [list_mergesort]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_mergesort_fun
   (xs, cmp) = let
 //
-implement{a2}
+implement
+{a2}(*tmp*)
 list_mergesort$cmp
   (x1, x2) = let
 //
@@ -1924,11 +1991,13 @@ in
   list_mergesort<a> (xs)
 end // end of [list_mergesort_fun]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_mergesort_cloref
   (xs, cmp) = let
 //
-implement{a2}
+implement
+{a2}(*tmp*)
 list_mergesort$cmp
   (x1, x2) = let
 //
@@ -1944,12 +2013,14 @@ end // end of [list_mergesort_cloref]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_quicksort$cmp
   (x1, x2) = gcompare_val<a> (x1, x2)
 // end of [list_quicksort$cmp]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_quicksort
   (xs) = let
 //
@@ -1965,11 +2036,13 @@ end // end of [list_quicksort]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_quicksort_fun
   (xs, cmp) = let
 //
-implement{a2}
+implement
+{a2}(*tmp*)
 list_quicksort$cmp
   (x1, x2) = let
 //

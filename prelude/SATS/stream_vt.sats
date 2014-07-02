@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Thu Jun 12 12:53:44 2014
+** Time of generation: Tue Jun 24 20:51:03 2014
 *)
 
 (* ****** ****** *)
@@ -185,14 +185,45 @@ a1,a2:t0p}{b:vt0p
 (* ****** ****** *)
 
 fun{a:vt0p}
-stream_vt_tabulate$fopr (i: int): (a)
+stream_vt_tabulate (): stream_vt (a)
 fun{a:vt0p}
-stream_vt_tabulate ((*void*)): stream_vt (a)
+stream_vt_tabulate$fopr (i: intGte(0)): (a)
 
+(* ****** ****** *)
+//
+absvtype
+streamer_vtype (a:vt@ype+) = ptr
+//
+vtypedef
+streamer_vt (a:vt0p) = streamer_vtype (a)
+//
+(* ****** ****** *)
+//
+fun{}
+streamer_vt_make
+  {a:vt0p} (stream_vt(INV(a))): streamer_vt(a)
+//
+fun{}
+streamer_vt_free{a:vt0p} (streamer_vt(INV(a))): void
+//
+fun{
+a:vt@ype
+} streamer_vt_eval_exn (xser: !streamer_vt(INV(a))): (a)
+//
 (* ****** ****** *)
 //
 // overloading for certain symbols
 //
+(* ****** ****** *)
+
+(* ****** ****** *)
+
+overload ~ with streamer_vt_free
+
+(* ****** ****** *)
+
+overload [] with streamer_vt_eval_exn
+
 (* ****** ****** *)
 
 overload .head with stream_vt_head

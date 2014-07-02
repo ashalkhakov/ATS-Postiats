@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed Jun 11 22:51:04 2014
+** Time of generation: Tue Jun 24 15:59:57 2014
 *)
 
 (* ****** ****** *)
@@ -45,25 +45,31 @@ staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 //
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_make_sing (x) = list_vt_cons{a}(x, list_vt_nil)
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_make_pair (x1, x2) =
   list_vt_cons{a}(x1, list_vt_cons{a}(x2, list_vt_nil))
 //
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 print_list_vt (xs) = fprint_list_vt<a> (stdout_ref, xs)
-implement{a}
+implement
+{a}(*tmp*)
 prerr_list_vt (xs) = fprint_list_vt<a> (stderr_ref, xs)
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 fprint_list_vt$sep (out) = fprint_list$sep<> (out)
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_list_vt
   (out, xs) = let
 //
@@ -83,7 +89,8 @@ in
   // nothing
 end // end of [fprint_list_vt]
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_list_vt_sep
   (out, xs, sep) = let
 //
@@ -96,43 +103,50 @@ end // end of [fprint_list_vt_sep]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_vt_is_nil (xs) =
   case+ xs of list_vt_nil () => true | _ =>> false
 // end of [list_vt_is_nil]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_vt_is_cons (xs) =
   case+ xs of list_vt_cons _ => true | _ =>> false
 // end of [list_vt_is_cons]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_vt_is_sing (xs) =
   case+ xs of list_vt_sing (x) => true | _ =>> false
 // end of [list_vt_is_sing]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_vt_is_pair (xs) =
   case+ xs of list_vt_pair (x1, x2) => true | _ =>> false
 // end of [list_vt_is_pair]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 list_vt_unnil (xs) = let
   val+~list_vt_nil () = xs in (*nothing*)
 end // end of [list_vt_unnil]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_uncons (xs) = let
   val+~list_vt_cons (x, xs1) = xs in xs := xs1; x
 end // end of [list_vt_uncons]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_length (xs) = let
 //
 fun loop
@@ -157,7 +171,8 @@ end // end of [list_vt_length]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_vt_copy (xs) = let
 //
 implement
@@ -167,7 +182,8 @@ in
   $effmask_all (list_vt_copylin<x> (xs))
 end // end of [list_vt_copy]
 
-implement{x}
+implement
+{x}(*tmp*)
 list_vt_copylin
   (xs) = let
 //
@@ -207,7 +223,8 @@ end // end of [list_vt_copylin]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_getref_at
   {n}{i} (xs, i) = let
 //
@@ -233,7 +250,8 @@ end // end of [list_vt_getref_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_get_at
   {n} (xs, i) = x where
 {
@@ -256,7 +274,8 @@ prval () = __unref (xs) where
 //
 } // end of [list_vt_get_at]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_set_at
   {n} (xs, i, x0) = let
 //
@@ -288,7 +307,8 @@ end // end of [list_vt_set_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_exch_at
   {n} (xs, i, x0) = let
 //
@@ -321,7 +341,8 @@ end // end of [list_vt_exch_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_insert_at
   {n} (xs, i, x) = let
 //
@@ -342,7 +363,8 @@ end // end of [list_vt_insert_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_takeout_at
 {n} (xs, i) = x1 where
 {
@@ -364,13 +386,15 @@ __assert (xs) where
 
 (* ****** ****** *)
 //
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_copy (xs) =
   list_copy<a> ($UN.list_vt2t(xs))
 //
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_free (xs) = let
 //
 implement
@@ -385,9 +409,11 @@ end // end of [list_vt_free]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_freelin$clear (x) = gclear_ref (x)
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_freelin (xs) = let
 //
 prval () = lemma_list_vt_param (xs)
@@ -415,10 +441,12 @@ end // end of [list_vt_freelin]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_uninitize$clear (x) = gclear_ref (x)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_uninitize
   {n} (xs) = let
 //
@@ -447,7 +475,8 @@ end // end of [list_vt_uninitize]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_append
   {m,n} (xs, ys) = let
 //
@@ -479,14 +508,16 @@ end // end of [list_vt_append]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_extend
   (xs, y) = list_vt_append<a> (xs, cons_vt{a}(y, nil_vt()))
 // end of [list_vt_extend]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_unextend
   (xs) = let
 //
@@ -523,12 +554,14 @@ end // end of [list_vt_unextend]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_reverse (xs) = list_vt_reverse_append<a> (xs, list_vt_nil)
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_reverse_append
   (xs, ys) = let
 //
@@ -594,7 +627,8 @@ end // end of [list_split_vt_at]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_concat
   (xss) = let
 //
@@ -634,7 +668,8 @@ end // end of [list_vt_concat]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_separate (xs) = let
 //
 prval () = lemma_list_vt_param (xs)
@@ -682,7 +717,8 @@ end // end of [list_vt_separate]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_filter (xs) = let
 //
 implement
@@ -700,9 +736,11 @@ end // end of [list_vt_filter]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_filterlin$clear (x) = gclear_ref (x)
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_filterlin (xs) = let
 //
 prval () = lemma_list_vt_param (xs)
@@ -742,7 +780,8 @@ end // end of [list_vt_filterlin]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_app
   (xs) = let
 in
@@ -761,7 +800,8 @@ case+ xs of
 //
 end // end of [list_vt_app]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_appfree
   (xs) = let
 in
@@ -907,7 +947,8 @@ end // end of [list_vt_mapfree]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_vt_foreach
   (xs) = let
   var env: void = ()
@@ -963,7 +1004,8 @@ list_vt_foreach$cont (x, env) = true
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_foreach_fun
   {fe} (xs, f) = let
 //
@@ -987,7 +1029,8 @@ in
   loop (xs, f)
 end // end of [list_vt_foreach_fun]
 
-implement{a}
+implement
+{a}(*tmp*)
 list_vt_foreach_funenv
   {v}{vt}{fe}
   (pf | xs, f, env) = let
@@ -1018,7 +1061,8 @@ end // end of [list_vt_foreach_funenv]
 
 (* ****** ****** *)
 
-implement{x}
+implement
+{x}(*tmp*)
 list_vt_iforeach
   (xs) = let
   var env: void = ()
@@ -1034,7 +1078,7 @@ list_vt_iforeach_env
 prval () = lemma_list_vt_param (xs)
 //
 fun loop
-  {n:nat}{i:int} .<n>. (
+  {n:nat}{i:nat} .<n>. (
   i: int i, xs: !list_vt (x, n), env: &env
 ) : intBtwe(i, n+i) = let
 in

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Thu Jun 12 12:53:44 2014
+** Time of generation: Tue Jun 24 00:51:33 2014
 *)
 
 (* ****** ****** *)
@@ -115,48 +115,73 @@ stream_filter_cloref
 
 fun{
 a:t0p}{b:t0p
-} stream_map$fopr (x: a):<> b
+} stream_map
+  (xs: stream(INV(a))):<!laz> stream(b)
 fun{
 a:t0p}{b:t0p
-} stream_map (xs: stream (INV(a))):<!laz> stream (b)
+} stream_map$fopr (x: a):<(*none*)> (b)
+//
 fun{
 a:t0p}{b:t0p
 } stream_map_fun
-  (xs: stream (INV(a)), f: (a) -<fun> b):<!laz> stream (b)
-// end of [stream_map_fun]
+  (xs: stream(INV(a)), f: (a) -<fun> b):<!laz> stream(b)
 fun{
 a:t0p}{b:t0p
 } stream_map_cloref
-  (xs: stream (INV(a)), f: (a) -<cloref> b):<!laz> stream (b)
-// end of [stream_map_cloref]
-
+  (xs: stream(INV(a)), f: (a) -<cloref> b):<!laz> stream(b)
+//
 (* ****** ****** *)
-
+//
 fun{
-a1,a2:t0p}{b:t0p
-} stream_map2$fopr (x1: a1, x2: a2):<> b
+a:t0p}{b:t0p
+} stream_imap{n:int}
+  (xs: stream(INV(a))):<!laz> stream(b)
+//
+fun{
+a:t0p}{b:t0p
+} stream_imap$fopr (i: intGte(0), x: a):<> (b)
+//
+fun{
+a:t0p}{b:t0p
+} stream_imap_fun
+(
+  xs: stream(INV(a)), f: (intGte(0), a) -<fun> b
+) :<!laz> stream (b) // end-of-fun
+fun{
+a:t0p}{b:t0p
+} stream_imap_cloref
+(
+  xs: stream(INV(a)), f: (intGte(0), a) -<cloref> b
+) :<!laz> stream (b) // end-of-fun
+//
+(* ****** ****** *)
+//
 fun{
 a1,a2:t0p}{b:t0p
 } stream_map2
 (
   xs1: stream (INV(a1))
 , xs2: stream (INV(a2))
-) :<!laz> stream (b) // endfun
+) :<!laz> stream (b) // end-of-fun
+fun{
+a1,a2:t0p}{b:t0p
+} stream_map2$fopr (x1: a1, x2: a2):<> b
+//
 fun{
 a1,a2:t0p}{b:t0p
 } stream_map2_fun
 (
   xs1: stream (INV(a1))
 , xs2: stream (INV(a2)), f: (a1, a2) -<fun> b
-) :<!laz> stream (b) // endfun
+) :<!laz> stream (b) // end-of-fun
 fun{
 a1,a2:t0p}{b:t0p
 } stream_map2_cloref
 (
   xs1: stream (INV(a1))
 , xs2: stream (INV(a2)), f: (a1, a2) -<cloref> b
-) :<!laz> stream (b) // endfun
-
+) :<!laz> stream (b) // end-of-fun
+//
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -194,6 +219,22 @@ stream_mergeq_cloref
 ) :<!laz> stream (a) // end of [stream_mergeq_cloref]
 
 (* ****** ****** *)
+
+fun{
+a:t0p
+} stream_tabulate (): stream(a)
+fun{
+a:t0p
+} stream_tabulate$fopr (i: intGte(0)): (a)
+
+fun{
+a:t0p
+} stream_tabulate_fun (f: intGte(0) -> a): stream(a)
+fun{
+a:t0p
+} stream_tabulate_cloref (f: intGte(0) -> a): stream(a)
+
+(* ****** ****** *)
 //
 fun{
 a:t0p}{env:vt0p
@@ -210,15 +251,15 @@ a:t0p}{env:vt0p
 //
 (* ****** ****** *)
 //
-// overloading for certain symbols
-//
-(* ****** ****** *)
-//
 fun{}
 fprint_stream$sep (out: FILEref): void
 fun{a:t0p}
 fprint_stream
   (out: FILEref, xs: stream(INV(a)), n: int): void
+//
+(* ****** ****** *)
+//
+// overloading for certain symbols
 //
 (* ****** ****** *)
 

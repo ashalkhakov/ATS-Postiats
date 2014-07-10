@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Tue Jun 24 15:59:48 2014
+** Time of generation: Wed Jul  2 20:22:26 2014
 *)
 
 (* ****** ****** *)
@@ -65,6 +65,18 @@ extern
 fun memcpy
   (d:ptr, s:ptr, n:size_t):<!wrt> ptr = "mac#atspre_string_memcpy"
 // end of [memcpy]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+string_sing (c) = let
+  val (pfat, pfgc | p) = malloc_gc (i2sz(2))
+  val ((*void*)) = $UN.ptr0_set<char> (p, c)
+  val ((*void*)) = $UN.ptr0_set_at<char> (p, 1, '\000')
+in
+  $UN.castvwtp0{strnptr(1)}((pfat, pfgc | p))
+end // end of [string_sing]
 
 (* ****** ****** *)
 
@@ -165,6 +177,8 @@ end // end of [loop]
 in
   $UN.cast{int(sgn(n1-n2))}(loop (string2ptr(x1), n2))
 end // end of [strintcmp]
+
+(* ****** ****** *)
 
 implement{
 } strlencmp

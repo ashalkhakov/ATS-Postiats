@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Thu Jun 12 12:53:34 2014
+** Time of generation: Wed Jul  2 11:15:43 2014
 *)
 
 (* ****** ****** *)
@@ -120,35 +120,6 @@ overload g1ofg0 with g1ofg0_string // index-inducing
 
 fun{}
 string_sing (c: charNZ):<!wrt> strnptr (1)
-
-(* ****** ****** *)
-
-fun{}
-string_make_list
-  {n:int} (cs: list(charNZ, n)):<!wrt> strnptr (n)
-fun{}
-string_make_listlen
-  {n:int} (cs: list(charNZ, n), n: int n):<!wrt> strnptr (n)
-
-(* ****** ****** *)
-
-fun{
-} string_make_rlist
-  {n:int} (cs: list(charNZ, n)):<!wrt> strnptr (n)
-// end of [string_make_rlist]
-
-fun{
-} string_make_rlistlen
-  {n:int} (cs: list(charNZ, n), n: int n):<!wrt> strnptr (n)
-// end of [string_make_rlistlen]
-
-(* ****** ****** *)
-
-fun{
-} string_make_substring
-  {n:int}{st,ln:nat | st+ln <= n}
-  (str: string (n), st: size_t st, ln: size_t ln):<!wrt> strnptr (ln)
-// end of [string_make_substring]
 
 (* ****** ****** *)
 //
@@ -277,6 +248,35 @@ fun{
   {n1,n2:int}
   (x1: string n1, x2: string n2):<> int(sgn(n1-n2))
 // end of [strlencmp]
+
+(* ****** ****** *)
+
+fun{}
+string_make_list
+  {n:int} (cs: list(charNZ, n)):<!wrt> strnptr (n)
+fun{}
+string_make_listlen
+  {n:int} (cs: list(charNZ, n), n: int n):<!wrt> strnptr (n)
+
+(* ****** ****** *)
+
+fun{
+} string_make_rlist
+  {n:int} (cs: list(charNZ, n)):<!wrt> strnptr (n)
+// end of [string_make_rlist]
+
+fun{
+} string_make_rlistlen
+  {n:int} (cs: list(charNZ, n), n: int n):<!wrt> strnptr (n)
+// end of [string_make_rlistlen]
+
+(* ****** ****** *)
+
+fun{
+} string_make_substring
+  {n:int}{st,ln:nat | st+ln <= n}
+  (str: string (n), st: size_t st, ln: size_t ln):<!wrt> strnptr (ln)
+// end of [string_make_substring]
 
 (* ****** ****** *)
 
@@ -478,9 +478,9 @@ fun{
 
 (* ****** ****** *)
 
-fun print_stropt (x: Stropt0): void = "mac#%"
-fun prerr_stropt (x: Stropt0): void = "mac#%"
-fun fprint_stropt (out: FILEref, x: Stropt0): void = "mac#%"
+fun print_stropt (opt: Stropt0): void = "mac#%"
+fun prerr_stropt (opt: Stropt0): void = "mac#%"
+fun fprint_stropt (out: FILEref, opt: Stropt0): void = "mac#%"
 
 (* ****** ****** *)
 //

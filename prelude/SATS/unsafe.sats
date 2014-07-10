@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Thu Jun 12 12:53:38 2014
+** Time of generation: Sun Jul  6 12:27:09 2014
 *)
 
 (* ****** ****** *)
@@ -185,11 +185,11 @@ fun{a:t0p} ptr1_subby (p: Ptr1, x: a):<!wrt> void // !p -= x
 fun{a:t0p} ptr0_mulby (p: ptr, x: a):<!wrt> void // !p *= x
 fun{a:t0p} ptr1_mulby (p: Ptr1, x: a):<!wrt> void // !p *= x
 //
-fun{a:t0p} ptr0_divby (p: ptr, x: a):<!wrt> void // !p /= x
-fun{a:t0p} ptr1_divby (p: Ptr1, x: a):<!wrt> void // !p /= x
+fun{a:t0p} ptr0_divby (p: ptr, x: a):<!exnwrt> void // !p /= x
+fun{a:t0p} ptr1_divby (p: Ptr1, x: a):<!exnwrt> void // !p /= x
 //
-fun{a:t0p} ptr0_modby (p: ptr, x: a):<!wrt> void // !p %= x
-fun{a:t0p} ptr1_modby (p: Ptr1, x: a):<!wrt> void // !p %= x
+fun{a:t0p} ptr0_modby (p: ptr, x: a):<!exnwrt> void // !p %= x
+fun{a:t0p} ptr1_modby (p: Ptr1, x: a):<!exnwrt> void // !p %= x
 //
 (* ****** ****** *)
 

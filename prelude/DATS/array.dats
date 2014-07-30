@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Tue Jun 24 15:59:59 2014
+** Time of generation: Thu Jul 24 16:54:29 2014
 *)
 
 (* ****** ****** *)
@@ -214,9 +214,6 @@ end // end of [array_ptr_tabulate]
 
 (* ****** ****** *)
 
-implement{}
-fprint_array$sep (out) = fprint (out, ", ")
-
 implement{a}
 fprint_array_int
   (out, A, asz) = let
@@ -248,6 +245,13 @@ val _(*n*) = array_foreach_env<a><tenv> (A, asz, env)
 in
   // nothing
 end // end of [fprint_array_size]
+
+(* ****** ****** *)
+
+implement{}
+fprint_array$sep (out) = fprint (out, ", ")
+
+(* ****** ****** *)
 
 implement{a}
 fprint_array_sep

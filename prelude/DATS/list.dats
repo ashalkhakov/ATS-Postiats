@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Tue Jun 24 15:59:57 2014
+** Time of generation: Wed Jul 16 23:21:25 2014
 *)
 
 (* ****** ****** *)
@@ -1930,8 +1930,11 @@ prval () = lemma_list_param (xs)
 //
 fun loop
   {n:nat} .<n>.
-  (xs: list (x, n), acc: res): res =
+(
+  xs: list (x, n), acc: res
+) : res =
   case+ xs of
+  | list_nil () => acc
   | list_cons (x, xs) => let
       val acc =
         list_foldleft$fopr<res><x> (acc, x)
@@ -1939,12 +1942,35 @@ fun loop
     in
       loop (xs, acc)
     end // end of [list_cons]
-  | list_nil () => acc // end of [list_nil]
 // end of [loop]
 //
 in
   loop (xs, ini)
 end // end of [list_foldleft]
+
+(* ****** ****** *)
+
+implement
+{x}{res}
+list_foldright (xs, snk) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun aux
+  {n:nat} .<n>.
+(
+  xs: list (x, n), acc: res
+) : res =
+  case+ xs of
+  | list_nil () => acc
+  | list_cons (x, xs) =>
+      list_foldright$fopr<x><res> (x, aux (xs, acc))
+    // end of [list_cons]
+// end of [aux]
+//
+in
+  aux (xs, snk)
+end // end of [list_foldright]
 
 (* ****** ****** *)
 

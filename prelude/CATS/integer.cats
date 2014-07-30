@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer.atxt
-** Time of generation: Sat Apr 26 21:19:10 2014
+** Time of generation: Wed Jul 23 13:46:27 2014
 */
 
 /* ****** ****** */
@@ -1891,6 +1891,29 @@ atspre_fprint_size
 #define atspre_g1uint_compare_ulint atspre_g0uint_compare_ulint
 #define atspre_g1uint_max_ulint atspre_g0uint_max_ulint
 #define atspre_g1uint_min_ulint atspre_g0uint_min_ulint
+
+/* ****** ****** */
+
+#define atspre_g1uint_succ_ullint atspre_g0uint_succ_ullint
+#define atspre_g1uint_pred_ullint atspre_g0uint_pred_ullint
+#define atspre_g1uint_half_ullint atspre_g0uint_half_ullint
+#define atspre_g1uint_add_ullint atspre_g0uint_add_ullint
+#define atspre_g1uint_sub_ullint atspre_g0uint_sub_ullint
+#define atspre_g1uint_mul_ullint atspre_g0uint_mul_ullint
+#define atspre_g1uint_div_ullint atspre_g0uint_div_ullint
+#define atspre_g1uint_mod_ullint atspre_g0uint_mod_ullint
+#define atspre_g1uint_isgtz_ullint atspre_g0uint_isgtz_ullint
+#define atspre_g1uint_iseqz_ullint atspre_g0uint_iseqz_ullint
+#define atspre_g1uint_isneqz_ullint atspre_g0uint_isneqz_ullint
+#define atspre_g1uint_lt_ullint atspre_g0uint_lt_ullint
+#define atspre_g1uint_lte_ullint atspre_g0uint_lte_ullint
+#define atspre_g1uint_gt_ullint atspre_g0uint_gt_ullint
+#define atspre_g1uint_gte_ullint atspre_g0uint_gte_ullint
+#define atspre_g1uint_eq_ullint atspre_g0uint_eq_ullint
+#define atspre_g1uint_neq_ullint atspre_g0uint_neq_ullint
+#define atspre_g1uint_compare_ullint atspre_g0uint_compare_ullint
+#define atspre_g1uint_max_ullint atspre_g0uint_max_ullint
+#define atspre_g1uint_min_ullint atspre_g0uint_min_ullint
 
 /* ****** ****** */
 

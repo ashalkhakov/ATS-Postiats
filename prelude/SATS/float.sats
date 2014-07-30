@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Thu Jun 12 12:53:33 2014
+** Time of generation: Wed Jul 23 12:27:56 2014
 *)
 
 (* ****** ****** *)
@@ -119,19 +119,19 @@ g0float_aop_type (tk:tk) =
 // end of [g0float_aop_type]
 
 fun{tk:tk}
-g0float_add : g0float_aop_type (tk)
+g0float_add : g0float_aop_type(tk)
 overload + with g0float_add of 0
 fun{tk:tk}
-g0float_sub : g0float_aop_type (tk)
+g0float_sub : g0float_aop_type(tk)
 overload - with g0float_sub of 0
 fun{tk:tk}
-g0float_mul : g0float_aop_type (tk)
+g0float_mul : g0float_aop_type(tk)
 overload * with g0float_mul of 0
 fun{tk:tk}
-g0float_div : g0float_aop_type (tk)
+g0float_div : g0float_aop_type(tk)
 overload / with g0float_div of 0
 fun{tk:tk}
-g0float_mod : g0float_aop_type (tk)
+g0float_mod : g0float_aop_type(tk)
 overload mod with g0float_mod of 0
 
 (* ****** ****** *)
@@ -163,22 +163,22 @@ g0float_cmp_type (tk:tk) =
 // end of [g0float_cmp_type]
 
 fun{tk:tk}
-g0float_lt : g0float_cmp_type (tk)
+g0float_lt : g0float_cmp_type(tk)
 overload < with g0float_lt of 0
 fun{tk:tk}
-g0float_lte : g0float_cmp_type (tk)
+g0float_lte : g0float_cmp_type(tk)
 overload <= with g0float_lte of 0
 fun{tk:tk}
-g0float_gt : g0float_cmp_type (tk)
+g0float_gt : g0float_cmp_type(tk)
 overload > with g0float_gt of 0
 fun{tk:tk}
-g0float_gte : g0float_cmp_type (tk)
+g0float_gte : g0float_cmp_type(tk)
 overload >= with g0float_gte of 0
 fun{tk:tk}
-g0float_eq : g0float_cmp_type (tk)
+g0float_eq : g0float_cmp_type(tk)
 overload = with g0float_eq of 0
 fun{tk:tk}
-g0float_neq : g0float_cmp_type (tk)
+g0float_neq : g0float_cmp_type(tk)
 overload != with g0float_neq of 0
 overload <> with g0float_neq of 0
 

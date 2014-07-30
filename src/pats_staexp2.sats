@@ -76,11 +76,12 @@ EFF = "./pats_effect.sats"
 typedef effset = $EFF.effset
 
 (* ****** ****** *)
-
+//
 staload
 JSON = "./pats_jsonize.sats"
+//
 typedef jsonval = $JSON.jsonval
-
+//
 (* ****** ****** *)
 
 staload "./pats_staexp1.sats"
@@ -1201,12 +1202,16 @@ fun s2eff_var (s2v: s2var): s2eff
 fun s2eff_exp (s2e: s2exp): s2eff
 fun s2eff_add (s2fe1: s2eff, s2fe2: s2eff): s2eff
 
+(* ****** ****** *)
+//
 fun print_s2eff (s2fe: s2eff): void
-overload print with print_s2eff
 fun prerr_s2eff (s2fe: s2eff): void
-overload prerr with prerr_s2eff
 fun fprint_s2eff : fprint_type (s2eff)
-
+//
+overload print with print_s2eff
+overload prerr with prerr_s2eff
+overload fprint with fprint_s2eff
+//
 (* ****** ****** *)
 
 fun fprint_s2rtext : fprint_type (s2rtext)
@@ -1432,9 +1437,13 @@ fun jsonize_s2varlst (s2vs: s2varlst): jsonval
 fun jsonize_d2con (d2c: d2con): jsonval
 fun jsonize_d2con_long (d2c: d2con): jsonval
 //
+fun jsonize_tyreckind : tyreckind -> jsonval
+//
 fun jsonize_s2exp (flag: int, s2e: s2exp): jsonval
 fun jsonize_s2explst (flag: int, s2es: s2explst): jsonval
-fun jsonize_s2expopt (flag: int, opt: s2expopt): jsonval
+fun jsonize_s2expopt (flag: int, s2eopt: s2expopt): jsonval
+//
+fun jsonize_labs2explst (flag: int, ls2es: labs2explst): jsonval  
 //
 fun jsonize_s2eff (s2fe: s2eff): jsonval
 //

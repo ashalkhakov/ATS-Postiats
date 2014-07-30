@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Tue Jun 24 15:59:46 2014
+** Time of generation: Wed Jul 23 13:47:08 2014
 *)
 
 (* ****** ****** *)
@@ -315,6 +315,10 @@ g1int_sgn (x) = compare_g1int_int<tk> (x, 0)
 implement{
 } add_size1_int1
   {i,j}(i, j) = $UN.cast{size_t(i+j)}(i+g0i2u(j))
+implement{
+} add_int1_size1
+  {i,j}(i, j) = $UN.cast{size_t(i+j)}(g0i2u(i)+j)
+//
 implement{
 } sub_size1_int1
   {i,j}(i, j) = $UN.cast{size_t(i-j)}(i-g0i2u(j))
@@ -726,6 +730,36 @@ implement g1uint_compare<sizeknd> = g1uint_compare_size
 implement g1uint_max<sizeknd> = g1uint_max_size
 implement g1uint_min<sizeknd> = g1uint_min_size
 //
+(* ****** ****** *)
+
+implement
+{tk}(*tmp*)
+g1uint_div2 {i,j} (x, y) = let
+//
+  prval () = lemma_g1uint_param (x)
+//
+  val [q:int] q = g1uint_div (x, y)
+  prval [q2:int,r:int] pf = divmod_istot{i,j}()
+  prval EQINT() = $UN.castview0{EQINT(q,q2)}(0)
+in
+  (pf | q)
+end // end of [let] // end of [g1uint_div2]
+
+(* ****** ****** *)
+
+implement
+{tk}(*tmp*)
+g1uint_mod2 {i,j} (x, y) = let
+//
+  prval () = lemma_g1uint_param (x)
+//
+  val [r:int] r = g1uint_mod (x, y)
+  prval [q:int,r2:int] pf = divmod_istot{i,j}()
+  prval EQINT() = $UN.castview0{EQINT(r,r2)}(0)
+in
+  (pf | r)
+end // end of [let] // end of [g1uint_mod2]
+
 (* ****** ****** *)
 //
 implement g0int2string<intknd> = g0int2string_int

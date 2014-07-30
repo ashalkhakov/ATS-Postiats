@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sun Jun 22 14:15:53 2014
+** Time of generation: Wed Jul 23 12:28:04 2014
 *)
 
 (* ****** ****** *)
@@ -629,10 +629,11 @@ x1,x2:t0p}{y:t0p
 //
 (* ****** ****** *)
 //
-fun{a:vt0p}
-list_tabulate$fopr (ind: intGte(0)): (a)
-fun{a:vt0p}
-list_tabulate{n:nat} (n: int (n)): list_vt (a, n)
+fun{
+a:vt0p
+} list_tabulate{n:nat} (int n): list_vt (a, n)
+//
+fun{a:vt0p} list_tabulate$fopr (index: intGte(0)): (a)
 //
 (* ****** ****** *)
 

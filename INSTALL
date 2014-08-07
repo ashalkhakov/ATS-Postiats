@@ -68,7 +68,7 @@ Then issue the next command-line:
 
 ./configure
 
-When that completes, then issue the next command-line:
+When that completes, please issue the next command-line:
 
 make all
 

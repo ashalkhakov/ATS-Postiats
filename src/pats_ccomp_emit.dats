@@ -915,7 +915,8 @@ if knd = 0
 // end of [if]
 ) : void // end of [val]
 //
-val () = if isvoid then emit_text (out, "_void")
+val () =
+if isvoid then emit_text (out, "_void")
 //
 val () = emit_text (out, "(")
 //
@@ -927,19 +928,27 @@ case+ hse.hisexp_node of
 | _ (*non-tyarr*) => ((*nothing*))
 ) (* end of [val] *)
 //
-val () = emit_text (out, ", ")
-//
-val () = (
+val () =
+if
+not(isvoid)
+then {
+val () =
+emit_text (out, ", ")
+val () =
+(
 case+ hse.hisexp_node of
 | HSEtyarr (hse_elt, _(*dim*)) => emit_hisexp (out, hse_elt)
 | _ (*non-tyarr*) => emit_hisexp (out, hse)
 ) (* end of [val] *)
+} (* end of [then] *)
 //
 val () = emit_text (out, ") ;\n")
 //
 in
   // nothing
 end // end of [emit_tmpdec]
+
+(* ****** ****** *)
 
 implement
 emit_tmpdeclst
@@ -1634,31 +1643,33 @@ val () = (
 //
 in
 //
-case+ ins.instr_node of
+case+
+ins.instr_node of
 //
 | INSfunlab (flab) =>
   {
     val () =
-      emit_text (out, "ATSINSlab(")
-    val () =
-      emit_text (out, "__patsflab_")
+    emit_text (out, "ATSINSflab(")
+    val () = emit_text (out, "__patsflab_")
     val () = (
       emit2_funlab (out, flab); emit_text (out, "):")
     ) (* end of [val] *)
-  } // end of [INSfunlab]
-| INStmplab (tlab) =>
+  } (* end of [INSfunlab] *)
+//
+| INStmplab (tmplab) =>
   {
+    val () = emit_text (out, "ATSINSlab(")
     val () = (
-      emit_tmplab (out, tlab); emit_text (out, ":")
+      emit_tmplab (out, tmplab); emit_text (out, "):")
     ) (* end of [val] *)
-  } // end of [INStmplab]
+  } (* end of [INStmplab] *)
 //
 | INScomment (string) =>
   {
     val () = emit_text (out, "/*\n")
     val () = emit_text (out, string)
     val () = emit_text (out, "\n*/")
-  }
+  } (* end of [INScomment] *)
 //
 | INSmove_val
     (tmp, pmv) => emit_move_val (out, tmp, pmv)
@@ -1710,7 +1721,7 @@ case+ ins.instr_node of
     val () = emit_text (out, "** loop-init(end)\n")
     val () = emit_text (out, "*/\n")
     val () = (
-      emit_text (out, "ATSLOOPopen(");
+      emit_text (out, "ATSloop_open(");
       emit_tmplab (out, tlab_init); emit_text (out, ", ");
       emit_tmplab (out, tlab_fini); emit_text (out, ", ");
       emit_tmplab (out, tlab_cont); emit_text (out, ")\n")
@@ -1746,7 +1757,7 @@ case+ ins.instr_node of
     } // end of [if] // end of [val]
 //
     val () = (
-      emit_text (out, "ATSLOOPclose(");
+      emit_text (out, "ATSloop_close(");
       emit_tmplab (out, tlab_init); emit_text (out, ", ");
       emit_tmplab (out, tlab_fini); emit_text (out, ", ");
       emit_tmplab (out, tlab_cont); emit_text (out, ") ;")
@@ -1782,15 +1793,13 @@ case+ ins.instr_node of
     tmp_exn, inss_try, ibrs_with
   ) => let
 //
-    val () =
-    emit_text (out, "ATStrywith_try(")
+    val () = emit_text (out, "ATStrywith_try(")
     val () = emit_tmpvar (out, tmp_exn)
     val () = emit_text (out, ")\n")
 //
     val () = emit_instrlst_ln (out, inss_try)
 //
-    val () =
-    emit_text (out, "ATStrywith_with(")
+    val () = emit_text (out, "ATStrywith_with(")
     val () = emit_tmpvar (out, tmp_exn)
     val () = emit_text (out, ")\n")
 //

@@ -153,8 +153,7 @@ case+ fc of
 val () =
 (
 if isclo
-  then emit_text (out, "_clo")
-  else emit_text (out, "_fun")
+  then emit_text (out, "_clo") else emit_text (out, "_fun")
 // end of [if]
 ) : void // end of [val]
 //
@@ -454,10 +453,9 @@ fun auxgoto
   out: FILEref, flab: funlab
 ) : void = let
 //
-val (
-) = emit_text (out, "ATSgoto(")
-val (
-) = emit_text (out, "__patsflab_")
+val () =
+emit_text (out, "ATSINSfgoto(")
+val () = emit_text (out, "__patsflab_")
 val () = emit2_funlab (out, flab)
 val () = emit_text (out, ") ;\n")
 //

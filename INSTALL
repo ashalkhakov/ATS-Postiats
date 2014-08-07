@@ -20,8 +20,9 @@ Last recorded update: 2013-09-02
 ######
 
 Step 1: Get the package 
-Step 2: Build the package
-Step 3: Install the built package (optional)
+Step 2: Get pre-requisites
+Step 3: Build the package
+Step 4: Install the built package (optional)
 
 ######
 

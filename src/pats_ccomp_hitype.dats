@@ -848,11 +848,10 @@ case+ hit0 of
   }
 //
 | HITtyvar (s2v) => {
-    val () = emit_text (out, "atstyvar_type")
-    val (
-    ) = (
-      emit_lparen (out); emit_s2var (out, s2v); emit_rparen (out)
-    ) (* end of [val] *)
+    val () =
+      emit_text (out, "atstyvar_type(")
+    val () = emit_s2var (out, s2v)
+    val ((*closing*)) = emit_RPAREN (out)
   } (* end of [HITtyvar] *)
 //
 | HITrefarg (knd, hit) => let
@@ -863,7 +862,7 @@ case+ hit0 of
       // end of [if]
     ) : void // end of [val]
     val () = emit_hitype (out, hit)
-    val () = emit_rparen (out)
+    val ((*closing*)) = emit_RPAREN (out)
   in
     // nothing
   end // end of [HITrefarg]
@@ -1406,25 +1405,38 @@ in
 //
 case+ hit of
 | HITtyrec (lhits) => {
-    val () = emit_text (out, "ATSstruct {")
+    val () =
+    emit_text (out, "ATSstruct {")
     val () = auxfldlst (out, lhits, 1)
-    val () = emit_text (out, "\n}")
-  } // end of [HITtyrec]
+    val ((*closing*)) = emit_text (out, "\n}")
+  } (* end of [HITtyrec] *)
+//
 | HITtysum (tgd, lhits) => {
-    val () = emit_text (out, "ATSstruct {\n")
-    val () = fprintf (out, "#if(%i)\n", @(tgd))
+    val () =
+    emit_text (out, "ATSstruct {\n")
+    val () =
+    if tgd > 0 then emit_text (out, "// ")
+    val () =
+    fprintf (out, "#if(%i)\n", @(tgd))
     val () = emit_text (out, "int contag ;\n")
+    val () =
+    if tgd > 0 then emit_text (out, "// ")
     val () = emit_text (out, "#endif")
     val () = auxfldlst (out, lhits, 1)
-    val () = emit_text (out, "\n}")
-  } // end of [HITtysum]
+    val ((*closing*)) = emit_text (out, "\n}")
+  } (* end of [HITtysum] *)
+//
 | HITtyexn (lhits) => {
-    val () = emit_text (out, "ATSstruct {\n")
-    val () = emit_text (out, "int exntag ;\n")
-    val () = emit_text (out, "char *exnmsg ;")
+    val () =
+    emit_text (out, "ATSstruct {\n")
+    val () =
+    emit_text (out, "int exntag ;\n")
+    val () =
+    emit_text (out, "char *exnmsg ;")
     val () = auxfldlst (out, lhits, 1)
-    val () = emit_text (out, "\n}")
-  } // end of [HITtyexn]
+    val ((*closing*)) = emit_text (out, "\n}")
+  } (* end of [HITtyexn] *)
+//
 | _ (*non-struct*) => emit_text (out, "(**ERROR**)")
 //
 end // end of [auxkey]

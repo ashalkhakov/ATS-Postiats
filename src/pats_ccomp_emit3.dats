@@ -218,7 +218,9 @@ val-HIDextcode (knd, pos, code) = hid.hidecl_node
 val () = emit_text (out, "/*\n")
 val () = emit_location (out, loc0)
 val () = emit_text (out, "\n*/")
-val () = emit_text (out, code)  
+val () = emit_text (out, "\nATSextcode_beg()")
+val () = emit_text (out, code)
+val () = emit_text (out, "ATSextcode_end()\n")
 //
 in
   // nothing
@@ -710,9 +712,9 @@ fun aux
 //
 val inss = ibr.ibranch_inslst
 //
-val () = emit_text (out, "ATSbranchbeg()\n")
+val () = emit_text (out, "ATSbranch_beg()\n")
 val () = emit_instrlst_ln (out, inss)
-val () = emit_text (out, "ATSbranchend()\n")
+val () = emit_text (out, "ATSbranch_end()\n")
 //
 in
   // nothing
@@ -1172,12 +1174,14 @@ in
 end // end of [emit_funlab_funarg]
 
 (* ****** ****** *)
-
+//
 extern fun
-emit_funlab_funargx
+emit_funlab_funapy
   (out: FILEref, flab: funlab): void
+//
 implement
-emit_funlab_funargx (out, flab) = let
+emit_funlab_funapy
+  (out, flab) = let
 //
 fun auxlst
 (
@@ -1191,7 +1195,7 @@ case+ hses of
     val (
     ) = emit_text (out, "ATStmpdec(")
     val () = (
-      emit_funargx (out, i); emit_text (out, ", "); emit_hisexp (out, hse)
+      emit_funapy (out, i); emit_text (out, ", "); emit_hisexp (out, hse)
     ) (* end of [val] *)
     val () = emit_text (out, ") ;\n")
   in
@@ -1205,7 +1209,7 @@ val hses = funlab_get_type_arg (flab)
 //
 in
   auxlst (out, hses, 0(*i*))
-end // end of [emit_funlab_funargx]
+end // end of [emit_funlab_funapy]
 
 (* ****** ****** *)
 
@@ -1222,8 +1226,12 @@ val tmpret = funent_get_tmpret (fent)
 val ntlcal = tmpvar_get_tailcal (tmpret)
 //
 val () = emit_text (out, "/* tmpvardeclst(beg) */\n")
-val () = if ntlcal >= 2 then emit_funlab_funargx (out, flab)
+//
+val () =
+  if ntlcal >= 2 then emit_funlab_funapy (out, flab)
+//
 val () = emit_tmpdeclst (out, funent_get_tmpvarlst (fent))
+//
 val () = emit_text (out, "/* tmpvardeclst(end) */\n")
 //
 in
@@ -1231,18 +1239,22 @@ in
 end // end of [emit_funent_fundec]
 
 (* ****** ****** *)
-
-extern
-fun emit_funent_funbody
-  (out: FILEref, fent: funent): void
-implement
-emit_funent_funbody (out, fent) = let
 //
-val () = emit_text (out, "/* funbodyinstrlst(beg) */\n")
+extern
+fun
+emit_funent_funbody
+  (out: FILEref, fent: funent): void
+//
+implement
+emit_funent_funbody
+  (out, fent) = let
+//
+val () = emit_text (out, "ATSfunbody_beg()\n")
 val () = emit_instrlst_ln (out, funent_get_instrlst (fent))
-val () = emit_text (out, "/* funbodyinstrlst(end) */\n")
+val () = emit_text (out, "ATSfunbody_end()\n")
 //
 val tmpret = funent_get_tmpret (fent)
+//
 val () = let
   val isvoid = tmpvar_is_void (tmpret)
 in
@@ -1251,9 +1263,9 @@ in
   // end of [if]
 end : void // end of [let] // end of [val]
 //
-val (
-) = emit_tmpvar (out, tmpret)
-val () = emit_text (out, ") ;\n")
+val () = emit_tmpvar (out, tmpret)
+//
+val ((*closing*)) = emit_text (out, ") ;\n")
 //
 in
   // nothing

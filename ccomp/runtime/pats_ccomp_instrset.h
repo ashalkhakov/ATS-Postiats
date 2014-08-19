@@ -107,16 +107,22 @@ ATSloop_close(init, fini, cont) \
 #define ATSFCreturn_void(x) (x); return
 
 /* ****** ****** */
+//
+#define ATSbranch_beg()
+#define ATSbranch_end() break ;
+//
+#define ATScaseof_beg() do {
+#define ATScaseof_end() } while(0) ;
+//
+/* ****** ****** */
 
-#define ATScaseofbeg() do {
-#define ATScaseofend() } while(0) ;
-#define ATSbranchbeg()
-#define ATSbranchend() break ;
+#define ATSextcode_beg()
+#define ATSextcode_end()
 
 /* ****** ****** */
 
-#define ATStailcalbeg() do {
-#define ATStailcalend() } while(0) ;
+#define ATSfunbody_beg()
+#define ATSfunbody_end()
 
 /* ****** ****** */
 
@@ -129,8 +135,8 @@ ATSloop_close(init, fini, cont) \
 #define ATSPMVfloat(rep) (rep)
 #define ATSPMVstring(str) (str)
 
-#define ATSPMVi0nt(x) (x)
-#define ATSPMVf0loat(x) (x)
+#define ATSPMVi0nt(tok) (tok)
+#define ATSPMVf0loat(tok) (tok)
 
 /* ****** ****** */
 
@@ -263,31 +269,48 @@ ATSloop_close(init, fini, cont) \
 #define ATSINSmove_ptralloc(tmp, hit) (tmp = ATS_MALLOC(sizeof(hit)))
 
 /* ****** ****** */
-
-#define ATSINSmove_con0(tmp, tag) (tmp = ((void*)tag))
-#define ATSINSmove_con1(tmp, tysum) (tmp = ATS_MALLOC(sizeof(tysum)))
-#define ATSINSstore_con_tag(tmp, val) (((ATStysum()*)(tmp))->contag = val)
-#define ATSINSstore_con_ofs(tmp, tysum, lab, val) (((tysum*)(tmp))->lab = val)
-
+//
+#define \
+ATSINSmove_nil(tmp) (tmp = ((void*)0))
+//
+#define \
+ATSINSmove_con0(tmp, tag) (tmp = ((void*)tag))
+//
+#define ATSINSmove_con1_beg()
+#define ATSINSmove_con1_end()
+#define ATSINSmove_con1_new(tmp, tysum) (tmp = ATS_MALLOC(sizeof(tysum)))
+#define ATSINSstore_con1_tag(tmp, val) (((ATStysum()*)(tmp))->contag = val)
+#define ATSINSstore_con1_ofs(tmp, tysum, lab, val) (((tysum*)(tmp))->lab = val)
+//
 /* ****** ****** */
-
+//
 #define ATSINSmove_exn0(tmp, d2c) (tmp = &(d2c))
-#define ATSINSmove_exn1(tmp, tyexn) (tmp = ATS_MALLOC(sizeof(tyexn)))
-#define ATSINSstore_exntag(tmp, d2c) (((ATStyexn()*)tmp)->exntag = (&(d2c))->exntag)
-#define ATSINSstore_exnmsg(tmp, d2c) (((ATStyexn()*)tmp)->exnmsg = (&(d2c))->exnmsg)
-
+//
+#define ATSINSmove_exn1_beg()
+#define ATSINSmove_exn1_end()
+#define ATSINSmove_exn1_new(tmp, tyexn) (tmp = ATS_MALLOC(sizeof(tyexn)))
+#define ATSINSstore_exn1_tag(tmp, d2c) (((ATStyexn()*)tmp)->exntag = (&(d2c))->exntag)
+#define ATSINSstore_exn1_msg(tmp, d2c) (((ATStyexn()*)tmp)->exnmsg = (&(d2c))->exnmsg)
+//
+/* ****** ****** */
+//
+#define ATStailcal_beg() do {
+#define ATStailcal_end() } while(0) ;
+//
+#define ATSINSmove_tlcal(apy, tmp) (apy = tmp)
+#define ATSINSargmove_tlcal(arg, apy) (arg = apy)
+//
 /* ****** ****** */
 
-#define ATSINSmove_tlcal(argx, tmp) (argx = tmp)
-#define ATSINSargmove_tlcal(arg, argx) (arg = argx)
-
-/* ****** ****** */
-
+#define ATSINSmove_fltrec_beg()
+#define ATSINSmove_fltrec_end()
 #define ATSINSstore_fltrec_ofs(tmp, tyrec, lab, val) ((tmp).lab = val)
 
 /* ****** ****** */
 
-#define ATSINSmove_boxrec(tmp, tyrec) (tmp = ATS_MALLOC(sizeof(tyrec)))
+#define ATSINSmove_boxrec_beg()
+#define ATSINSmove_boxrec_end()
+#define ATSINSmove_boxrec_new(tmp, tyrec) (tmp = ATS_MALLOC(sizeof(tyrec)))
 #define ATSINSstore_boxrec_ofs(tmp, tyrec, lab, val) (((tyrec*)(tmp))->lab = val)
 
 /* ****** ****** */

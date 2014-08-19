@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Tue Jun 24 15:59:53 2014
+** Time of generation: Wed Aug 13 13:14:53 2014
 *)
 
 (* ****** ****** *)
@@ -67,6 +67,11 @@ primplmnt prop_verify_and_add () = ()
 
 (* ****** ****** *)
 
+primplmnt pridentity_v (x) = ()
+primplmnt pridentity_vt (x) = ()
+
+(* ****** ****** *)
+
 implement
 {a}(*tmp*)
 lazy_force (lazyval) = !lazyval
@@ -82,12 +87,15 @@ unit_v_elim (pf) = let
 end // end of [unit_v_elim]
 
 (* ****** ****** *)
-
-implement{a}
+//
+// HX:
+// See prelude/basics_dyn.sats
+//
+implement
+{a}(*tmp*)
 opt_unsome_get (x) =
   let prval () = opt_unsome (x) in x end
-// end of [opt_unsome_get]
-
+//
 (* ****** ****** *)
 
 (*
@@ -113,25 +121,33 @@ assertexn_bool1 (b) = if not(b) then $raise AssertExn()
 
 (* ****** ****** *)
 
-implement(a:t0p)
-gequal_ref<a> (x, y) = gequal_val<a> (x, y)
+implement{a} gidentity (x) = x
+implement{a} gidentity_vt (x) = x
 
+(* ****** ****** *)
+//
+implement
+(a:t@ype)
+gequal_ref<a> (x, y) = gequal_val<a> (x, y)
+//
 implement gequal_val<int> (x, y) = (x = y)
 implement gequal_val<bool> (x, y) = (x = y)
 implement gequal_val<char> (x, y) = (x = y)
 implement gequal_val<double> (x, y) = (x = y)
 implement gequal_val<string> (x, y) = (x = y)
-
+//
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 tostring_val (x) =
   strptr2string (tostrptr_val<a> (x))
 // end of [tostring_val]
 
 (* ****** ****** *)
 
-implement{a}
+implement
+{a}(*tmp*)
 fprint_val (out, x) = let
   val str = tostrptr_val<a> (x)
   val ((*void*)) = fprint_strptr (out, str)
@@ -142,7 +158,8 @@ end // end of [fprint_val]
 
 (* ****** ****** *)
 
-implement(a:t0p)
+implement
+(a:t@ype)
 fprint_ref<a> (out, x) = fprint_val<a> (out, x)
 
 (* ****** ****** *)

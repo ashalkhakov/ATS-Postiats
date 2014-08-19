@@ -204,7 +204,8 @@ end // end of [local]
 (* ****** ****** *)
 //
 extern
-fun emit_funlablst_ptype
+fun
+emit_funlablst_ptype
   (out: FILEref, fls: funlablst): void
 //
 implement
@@ -237,7 +238,8 @@ end // end of [emit_funlablst_ptype]
 (* ****** ****** *)
 //
 extern
-fun emit_funlablst_closure
+fun
+emit_funlablst_closure
   (out: FILEref, fls: funlablst): void
 //
 implement
@@ -282,7 +284,8 @@ end // end of [emit_funlablst_closure]
 (* ****** ****** *)
 //
 extern
-fun emit_funlablst_implmnt
+fun
+emit_funlablst_implmnt
   (out: FILEref, fls: funlablst): void
 //
 implement
@@ -296,6 +299,7 @@ fun loop
 in
 //
 case+ fls of
+//
 | list_cons
     (fl, fls) => let
     val tmpknd = funlab_get_tmpknd (fl)
@@ -311,6 +315,7 @@ case+ fls of
   in
     loop (out, fls, i+1)
   end // end of [list_cons]
+//
 | list_nil ((*void*)) => ()
 //
 end // end of [loop]
@@ -871,6 +876,9 @@ val () = emit_text (out, "atsvoid_t0ype\n")
 //
 val () = emit_dynload (out, infil)
 val () = emit_text (out, "()\n{\n")
+//
+val () = emit_text (out, "ATSfunbody_beg()\n")
+//
 val () = if flag <= 0 then emit_text (out, "ATSdynload0(\n")
 val () = if flag >= 1 then emit_text (out, "ATSdynload1(\n")
 val () = emit_dynloadflag (out, infil)
@@ -898,7 +906,10 @@ end // end of [val]
 //
 val () = emit_text (out, fbody)
 val () = emit_text (out, "} /* ATSendif */\n")
-val () = emit_text (out, "ATSreturn_void() ;\n")
+//
+val () = emit_text (out, "ATSfunbody_end()\n")
+//
+val () = emit_text (out, "ATSreturn_void(tmpret_void) ;\n")
 val () = emit_text (out, "} /* end of [*_dynload] */\n")
 //
 val () = if flag = 0 then emit_text (out, "#endif // end of [#if(0)]\n")
@@ -953,9 +964,9 @@ end : int // end of [val]
 //
 val () = emit_text (out, "ATS")
 val () = emit_d2cst (out, d2cmain)
-val () = emit_lparen (out)
+val () = emit_LPAREN (out)
 val () = emit_main_arglst_err (out, arty)
-val () = emit_rparen (out)
+val () = emit_RPAREN (out)
 val () = emit_text (out, " ;\n")
 //
 val () = emit_text (out, "return (err) ;\n")

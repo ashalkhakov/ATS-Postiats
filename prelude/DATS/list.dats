@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Wed Jul 16 23:21:25 2014
+** Time of generation: Thu Aug 14 12:08:33 2014
 *)
 
 (* ****** ****** *)
@@ -1125,6 +1125,25 @@ end // end of [loop]
 var res: ptr ; val () = loop (xs, 0, res)
 //
 } // end of [list_labelize]
+
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_app (xs) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun loop{n:nat} .<n>. (xs: list (x, n)): void =
+(
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => (list_app$fwork(x); loop (xs))
+)
+//
+in
+  loop (xs)
+end // end of [list_app]
 
 (* ****** ****** *)
 

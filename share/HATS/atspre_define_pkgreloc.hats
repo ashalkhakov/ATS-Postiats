@@ -1,10 +1,22 @@
 (*
-** Some ATS2-package relocation information
+** For ATS2-package relocation
 *)
 (* ****** ****** *)
 //
+// HX-2014-08:
+// PATSHOME is pre-defined
+// PATSHOMERELOC is pre-defined
+//
 #define
-PATSLIB_URL "http://www.ats-lang.org/LIBRARY"
+PATSHOME_targetloc "$PATSHOME"
+#define
+PATSHOMERELOC_targetloc "$PATSHOMERELOC"
+//
+(* ****** ****** *)
+//
+#define
+PATSLIB_URL
+  "http://www.ats-lang.org/LIBRARY"
 //
 (* ****** ****** *)
 //

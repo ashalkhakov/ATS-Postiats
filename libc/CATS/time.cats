@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/time.atxt
-** Time of generation: Mon Mar  3 01:47:36 2014
+** Time of generation: Wed Aug 27 12:57:10 2014
 */
 
 /* ****** ****** */
@@ -84,6 +84,71 @@ atslib_time_getset
 
 #define atslib_ctime ctime
 #define atslib_ctime_r ctime_r
+
+/* ****** ****** */
+
+ATSinline()
+atstype_int
+atslib_tm_get_sec
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_sec ;
+} // end of [atslib_tm_get_sec]
+
+ATSinline()
+atstype_int
+atslib_tm_get_min
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_min ;
+} // end of [atslib_tm_get_min]
+
+ATSinline()
+atstype_int
+atslib_tm_get_hour
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_hour ;
+} // end of [atslib_tm_get_hour]
+
+ATSinline()
+atstype_int
+atslib_tm_get_mday
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_mday ;
+} // end of [atslib_tm_get_mday]
+
+ATSinline()
+atstype_int
+atslib_tm_get_mon
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_mon ;
+} // end of [atslib_tm_get_mon]
+
+ATSinline()
+atstype_int
+atslib_tm_get_year
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_year ;
+} // end of [atslib_tm_get_year]
+
+ATSinline()
+atstype_int
+atslib_tm_get_wday
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_wday ;
+} // end of [atslib_tm_get_wday]
+
+ATSinline()
+atstype_int
+atslib_tm_get_yday
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_yday ;
+} // end of [atslib_tm_get_yday]
+
+ATSinline()
+atstype_int
+atslib_tm_get_isdst
+  (atstype_ptr tm) {
+  return ((struct tm*)tm)->tm_isdst ;
+} // end of [atslib_tm_get_isdst]
 
 /* ****** ****** */
 

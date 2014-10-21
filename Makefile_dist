@@ -151,10 +151,13 @@ uninstall_home:: ; $(RMRF) $(PATSLIBHOME2)
 ######
 
 clean::
+cleanall:: clean
 
 ######
 
-cleanall:: clean
+clean:: ; make -C src/CBOOT -f Makefile clean
+
+######
 
 cleanall:: ; $(RMF) config.h
 cleanall:: ; $(RMF) config.mk

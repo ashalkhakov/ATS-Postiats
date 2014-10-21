@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/reference.atxt
-** Time of generation: Wed Jul 23 12:28:01 2014
+** Time of generation: Fri Sep 26 22:20:46 2014
 *)
 
 (* ****** ****** *)
@@ -67,18 +67,20 @@ castfn ref_make_viewptr
 // end of [ref_make_viewptr]
 
 (* ****** ****** *)
-
+//
 fun{a:t0p} ref_get_elt (r: ref a):<!ref> a
 fun{a:t0p} ref_set_elt (r: ref a, x: a):<!refwrt> void
-
+//
+(* ****** ****** *)
+//
 fun{a:vt0p} ref_exch_elt (r: ref a, x: &a>>a):<!refwrt> void
-
+//
 (* ****** ****** *)
 
 (*
 ** HX-2012-05:
-** this is not particularly useful except for the purpose of
-** avoiding using the [vbox] pattern
+** this is not particularly useful except for the purpose
+** of avoiding using the [vbox] pattern
 *)
 
 fun{}
@@ -91,7 +93,8 @@ fun{}
 ref_app_funenv{a:vt0p}
   {v:view}{vt:viewtype}
 (
-  pfv: !v | r: ref a, f: (!v | &(a)>>_, !vt) -<0,!wrt> void, env: !vt
+  pfv: !v
+| r: ref a, f: (!v | &(a)>>_, !vt) -<0,!wrt> void, env: !vt
 ) :<!refwrt> void // end of [ref_app_funenv]
 
 (* ****** ****** *)
@@ -99,9 +102,21 @@ ref_app_funenv{a:vt0p}
 // HX-2013-10: unsafe but convenient
 //
 fun{}
-ref_vtakeout{a:vt0p} (r: ref a)
-  :<!ref> [l:addr] (a @ l, (a @ l) -<lin,prf> void | ptr(l))
+ref_vtakeout
+  {a:vt0p}
+(
+  ref: ref (a)
+) :<!ref> [l:addr] (a @ l, (a @ l) -<lin,prf> void | ptr(l))
 //
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+
+overload [] with ref_get_elt // ref[]
+overload [] with ref_set_elt // ref[] := (val)
+
 (* ****** ****** *)
 
 (* end of [reference.sats] *)

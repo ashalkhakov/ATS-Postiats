@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Wed Jul 23 12:41:26 2014
+** Time of generation: Fri Sep 26 22:20:43 2014
 *)
 
 (* ****** ****** *)
@@ -66,8 +66,9 @@ stadef sizeknd = size_kind
 //
 (* ****** ****** *)
 //
-fun{k1,k2:tk}
-g0int2int (x: g0int (k1)):<> g0int (k2)
+fun{
+k1,k2:tk
+} g0int2int (x: g0int (k1)):<> g0int (k2)
 //
 fun g0int2int_int_int (x: int):<> int = "mac#%"
 fun g0int2int_int_lint (x: int):<> lint = "mac#%"
@@ -117,33 +118,39 @@ g0int_uop_type
 
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_neg : g0int_uop_type(tk)
 overload ~ with g0int_neg of 0 // ~ for uminus
 overload neg with g0int_neg of 0
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_abs : g0int_uop_type(tk)
 overload abs with g0int_abs of 0
 
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_succ : g0int_uop_type(tk)
 overload succ with g0int_succ of 0
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_pred : g0int_uop_type(tk)
 overload pred with g0int_pred of 0
 
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_half : g0int_uop_type(tk)
 overload half with g0int_half of 0
 
 (*
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_double : g0int_uop_type(tk)
 overload double with g0int_double of 0
 *)
@@ -155,20 +162,26 @@ g0int_aop_type (tk: tkind) =
    (g0int (tk), g0int (tk)) -<fun0> g0int (tk)
 // end of [g0int_aop_type]
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_add : g0int_aop_type(tk)
 overload + with g0int_add of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_sub : g0int_aop_type(tk)
 overload - with g0int_sub of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_mul : g0int_aop_type(tk)
 overload * with g0int_mul of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_div : g0int_aop_type(tk)
 overload / with g0int_div of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_mod : g0int_aop_type(tk)
+overload % with g0int_mod of 0
 overload mod with g0int_mod of 0
 
 (* ****** ****** *)
@@ -185,10 +198,12 @@ overload * with mul_size0_int1 of 11
 
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_asl (x: g0int (tk), n: intGte(0)):<> g0int (tk)
 overload << with g0int_asl
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_asr (x: g0int (tk), n: intGte(0)):<> g0int (tk)
 overload >> with g0int_asr
 
@@ -220,24 +235,30 @@ g0int_cmp_type (tk:tk) =
   (g0int (tk), g0int (tk)) -<fun0> bool
 // end of [g0int_cmp_type]
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_lt : g0int_cmp_type(tk)
 overload < with g0int_lt of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_lte : g0int_cmp_type(tk)
 overload <= with g0int_lte of 0
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_gt : g0int_cmp_type(tk)
 overload > with g0int_gt of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_gte : g0int_cmp_type(tk)
 overload >= with g0int_gte of 0
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_eq : g0int_cmp_type(tk)
 overload = with g0int_eq of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_neq : g0int_cmp_type(tk)
 overload != with g0int_neq of 0
 overload <> with g0int_neq of 0
@@ -251,10 +272,12 @@ overload compare with g0int_compare of 0
 
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_max : g0int_aop_type(tk)
 overload max with g0int_max of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0int_min : g0int_aop_type(tk)
 overload min with g0int_min of 0
 
@@ -299,8 +322,9 @@ overload g1ofg0 with g1ofg0_int // index-inducing
 //
 (* ****** ****** *)
 //
-fun{k1,k2:tk}
-g1int2int // i2i
+fun{
+k1,k2:tk
+} g1int2int // i2i
   {i:int} (x: g1int (k1, i)):<> g1int (k2, i)
 //
 fun g1int2int_int_int {i:int} (x: int i):<> int (i) = "mac#%"
@@ -326,7 +350,8 @@ g1int_get_index
 typedef
 g1int_neg_type (tk:tk) =
   {i:int} g1int (tk, i) -<fun0> g1int (tk, ~i)
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_neg : g1int_neg_type(tk)
 overload ~ with g1int_neg of 10 // ~ for uminus
 overload neg with g1int_neg of 10
@@ -334,7 +359,8 @@ overload neg with g1int_neg of 10
 typedef
 g1int_abs_type (tk:tk) =
   {i:int} g1int (tk, i) -<fun0> g1int (tk, abs(i))
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_abs : g1int_abs_type(tk)
 overload abs with g1int_abs of 10
 
@@ -378,7 +404,8 @@ g1int_add_type
   {i,j:int}
   (g1int (tk,i), g1int (tk,j)) -<fun0> g1int (tk, i+j)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_add : g1int_add_type(tk)
 //
 fun{}
@@ -402,7 +429,8 @@ g1int_sub_type
   {i,j:int}
   (g1int (tk,i), g1int (tk,j)) -<fun0> g1int (tk, i-j)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_sub : g1int_sub_type(tk)
 //
 fun{}
@@ -422,10 +450,12 @@ g1int_mul_type
   {i,j:int}
   (g1int (tk,i), g1int (tk,j)) -<fun0> g1int (tk, i*j)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_mul : g1int_mul_type(tk)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_mul2
   {i,j:int}
 (
@@ -456,7 +486,8 @@ g1int_div_type
   {i,j:int | j != 0}
   (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_div : g1int_div_type(tk)
 //
 (* ****** ****** *)
@@ -616,10 +647,12 @@ g1int_gte_type
   {i,j:int}
   (g1int (tk, i), g1int (tk, j)) -<fun0> bool (i >= j)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_gt : g1int_gt_type(tk)
 overload > with g1int_gt of 20
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_gte : g1int_gte_type(tk)
 overload >= with g1int_gte of 20
 //
@@ -636,10 +669,12 @@ g1int_neq_type
   {i,j:int}
   (g1int (tk, i), g1int (tk, j)) -<fun0> bool (i != j)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_eq : g1int_eq_type(tk)
 overload = with g1int_eq of 20
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_neq : g1int_neq_type(tk)
 overload != with g1int_neq of 20
 overload <> with g1int_neq of 20
@@ -664,7 +699,8 @@ g1int_max_type
   {i,j:int}
   (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, max(i, j))
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_max : g1int_max_type(tk)
 overload max with g1int_max of 20
 //
@@ -674,7 +710,8 @@ g1int_min_type
   {i,j:int}
   (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, min(i, j))
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_min : g1int_min_type(tk)
 overload min with g1int_min of 20
 //
@@ -715,7 +752,8 @@ overload compare with compare_g1int_int of 21
 //
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g1int_sgn {i:int} (x: g1int (tk, i)):<> int(sgn(i))
 
 (* ****** ****** *)
@@ -724,8 +762,9 @@ g1int_sgn {i:int} (x: g1int (tk, i)):<> int(sgn(i))
 //
 (* ****** ****** *)
 
-fun{k1,k2:tk}
-g0int2uint (x: g0int (k1)):<> g0uint (k2)
+fun{
+k1,k2:tk
+} g0int2uint (x: g0int (k1)):<> g0uint (k2)
 //
 fun g0int2uint_int_uint (x: int):<> uint = "mac#%"
 fun g0int2uint_int_ulint (x: int):<> ulint = "mac#%"
@@ -742,8 +781,9 @@ fun g0int2uint_ssize_size (x: ssize_t):<> size_t = "mac#%"
 //
 (* ****** ****** *)
 
-fun{k1,k2:tk}
-g0uint2int (x: g0uint (k1)):<> g0int (k2)
+fun{
+k1,k2:tk
+} g0uint2int (x: g0uint (k1)):<> g0int (k2)
 //
 fun g0uint2int_uint_int (x: uint):<> int = "mac#%"
 fun g0uint2int_uint_lint (x: uint):<> lint = "mac#%"
@@ -757,8 +797,9 @@ fun g0uint2int_size_ssize (x: size_t):<> ssize_t = "mac#%"
 //
 (* ****** ****** *)
 
-fun{k1,k2:tk}
-g0uint2uint (x: g0uint (k1)):<> g0uint (k2)
+fun{
+k1,k2:tk
+} g0uint2uint (x: g0uint (k1)):<> g0uint (k2)
 //
 fun g0uint2uint_uint_uint (x: uint):<> uint = "mac#%"
 fun g0uint2uint_uint_ulint (x: uint):<> ulint = "mac#%"
@@ -832,30 +873,37 @@ fun{
 tk:tk
 } g0uint_mod
   (x: g0uint (tk), y: g0uint (tk)):<> g0uint (tk)
+overload % with g0uint_mod of 0
 overload mod with g0uint_mod of 0
 
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0uint_lsl (x: g0uint (tk), n: intGte(0)):<> g0uint (tk)
 overload << with g0uint_lsl
-fun{tk:tk}
+fun
+{tk:tk}
 g0uint_lsr (x: g0uint (tk), n: intGte(0)):<> g0uint (tk)
 overload >> with g0uint_lsr
 
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0uint_lnot (x: g0uint (tk)):<> g0uint (tk)
 overload ~ with g0uint_lnot
 overload lnot with g0uint_lnot
-fun{tk:tk}
+fun
+{tk:tk}
 g0uint_lor (x: g0uint (tk), y: g0uint (tk)):<> g0uint (tk)
 overload lor with g0uint_lor
-fun{tk:tk}
+fun
+{tk:tk}
 g0uint_lxor (x: g0uint (tk), y: g0uint (tk)):<> g0uint (tk)
 overload lxor with g0uint_lxor
-fun{tk:tk}
+fun
+{tk:tk}
 g0uint_land (x: g0uint (tk), y: g0uint (tk)):<> g0uint (tk)
 overload land with g0uint_land
 
@@ -913,12 +961,14 @@ overload compare with g0uint_compare of 0
 
 (* ****** ****** *)
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0uint_max
   (x: g0uint (tk), y: g0uint (tk)):<> g0uint (tk)
 overload max with g0uint_max of 0
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0uint_min
   (x: g0uint (tk), y: g0uint (tk)):<> g0uint (tk)
 overload min with g0uint_min of 0
@@ -975,8 +1025,9 @@ overload g1ofg0 with g1ofg0_uint // index-inducing
 //
 (* ****** ****** *)
 //
-fun{k1,k2:tk}
-g1int2uint // i2u
+fun{
+k1,k2:tk
+} g1int2uint // i2u
   {i:nat} (x: g1int (k1, i)):<> g1uint (k2, i)
 //
 fun g1int2uint_int_uint{i:nat} (x: int i):<> uint (i) = "mac#%"
@@ -993,7 +1044,9 @@ g1uint2int_type
   (k1:tk, k2:tk) = 
   {u:int} (g1uint (k1, u)) -<fun0> [u>=0] g1int (k2, u)
 //
-fun{k1,k2:tk} g1uint2int : g1uint2int_type (k1, k2)
+fun{
+k1,k2:tk
+} g1uint2int : g1uint2int_type (k1, k2)
 //
 fun g1uint2int_uint_int : g1uint2int_type (uintknd, intknd) = "mac#%"
 fun g1uint2int_uint_lint : g1uint2int_type (uintknd, lintknd) = "mac#%"
@@ -1012,7 +1065,9 @@ g1uint2uint_type
   (k1:tk, k2:tk) =
   {u:int} (g1uint (k1, u)) -<fun0> g1uint (k2, u)
 //
-fun{k1,k2:tk} g1uint2uint : g1uint2uint_type (k1, k2)
+fun{
+k1,k2:tk
+} g1uint2uint : g1uint2uint_type (k1, k2)
 //
 fun g1uint2uint_uint_uint : g1uint2uint_type (uintknd, uintknd) = "mac#%"
 fun g1uint2uint_uint_ulint : g1uint2uint_type (uintknd, ulintknd) = "mac#%"
@@ -1087,7 +1142,8 @@ g1uint_add_type
   (tk:tk) =
   {i,j:int}
   (g1uint (tk, i), g1uint (tk, j)) -<fun0> g1uint (tk, i+j)
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_add : g1uint_add_type(tk)
 overload + with g1uint_add of 20
 
@@ -1096,7 +1152,8 @@ g1uint_sub_type
   (tk:tk) =
   {i,j:int | i >= j}
   (g1uint (tk, i), g1uint (tk, j)) -<fun0> g1uint (tk, i-j)
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_sub : g1uint_sub_type(tk)
 overload - with g1uint_sub of 20
 
@@ -1107,11 +1164,13 @@ g1uint_mul_type
   (tk:tk) =
   {i,j:int}
   (g1uint (tk, i), g1uint (tk, j)) -<fun0> g1uint (tk, i*j)
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_mul : g1uint_mul_type(tk)
 overload * with g1uint_mul of 20
 
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_mul2 {i,j:int}
 (
   x: g1uint (tk, i), y: g1uint (tk, j)
@@ -1126,11 +1185,13 @@ g1uint_div_type
   (g1uint (tk, i), g1uint (tk, j)) -<fun0> g1uint (tk)
 // end of [g1uint_div_type]
 
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_div : g1uint_div_type(tk)
 overload / with g1uint_div of 20
 
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_div2 {i,j:int | j > 0}
 (
   x: g1uint (tk, i), y: g1uint (tk, j)
@@ -1145,11 +1206,13 @@ g1uint_mod_type
   (g1uint (tk, i), g1uint (tk, j)) -<fun0> [r:nat | r < j] g1uint (tk, r)
 // end of [g1uint_mod_type]
 
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_mod : g1uint_mod_type(tk)
 overload mod with g1uint_mod of 20
 
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_mod2
   {i,j:int | j > 0}
 (
@@ -1205,13 +1268,15 @@ overload <= with g1uint_lte of 20
 typedef
 g1uint_gt_type (tk:tk) =
   {i,j:int} (g1uint (tk, i), g1uint (tk, j)) -<fun0> bool (i > j)
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_gt : g1uint_gt_type(tk)
 overload > with g1uint_gt of 20
 typedef
 g1uint_gte_type (tk:tk) =
   {i,j:int} (g1uint (tk, i), g1uint (tk, j)) -<fun0> bool (i >= j)
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_gte : g1uint_gte_type(tk)
 overload >= with g1uint_gte of 20
 
@@ -1228,10 +1293,12 @@ g1uint_neq_type
   {i,j:int}
   (g1uint (tk, i), g1uint (tk, j)) -<fun0> bool (i != j)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_eq : g1uint_eq_type(tk)
 overload = with g1uint_eq of 20
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_neq : g1uint_neq_type(tk)
 overload != with g1uint_neq of 20
 overload <> with g1uint_neq of 20
@@ -1254,7 +1321,8 @@ g1uint_max_type
   (tk:tk) =
   {i,j:int}
   (g1uint (tk, i), g1uint (tk, j)) -<fun0> g1uint (tk, max(i, j))
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_max : g1uint_max_type(tk)
 overload max with g1uint_max of 20
 
@@ -1263,7 +1331,8 @@ g1uint_min_type
   (tk:tk) =
   {i,j:int}
   (g1uint (tk, i), g1uint (tk, j)) -<fun0> g1uint (tk, min(i, j))
-fun{tk:tk}
+fun
+{tk:tk}
 g1uint_min : g1uint_min_type(tk)
 overload min with g1uint_min of 20
 

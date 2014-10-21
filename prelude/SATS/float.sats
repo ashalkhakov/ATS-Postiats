@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Wed Jul 23 12:27:56 2014
+** Time of generation: Fri Sep 26 22:20:45 2014
 *)
 
 (* ****** ****** *)
@@ -118,20 +118,26 @@ g0float_aop_type (tk:tk) =
   (g0float (tk), g0float (tk)) -<fun0> g0float (tk)
 // end of [g0float_aop_type]
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_add : g0float_aop_type(tk)
 overload + with g0float_add of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_sub : g0float_aop_type(tk)
 overload - with g0float_sub of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_mul : g0float_aop_type(tk)
 overload * with g0float_mul of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_div : g0float_aop_type(tk)
 overload / with g0float_div of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_mod : g0float_aop_type(tk)
+overload % with g0float_mod of 0
 overload mod with g0float_mod of 0
 
 (* ****** ****** *)
@@ -162,22 +168,28 @@ g0float_cmp_type (tk:tk) =
   (g0float (tk), g0float (tk)) -<fun0> bool
 // end of [g0float_cmp_type]
 
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_lt : g0float_cmp_type(tk)
 overload < with g0float_lt of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_lte : g0float_cmp_type(tk)
 overload <= with g0float_lte of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_gt : g0float_cmp_type(tk)
 overload > with g0float_gt of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_gte : g0float_cmp_type(tk)
 overload >= with g0float_gte of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_eq : g0float_cmp_type(tk)
 overload = with g0float_eq of 0
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_neq : g0float_cmp_type(tk)
 overload != with g0float_neq of 0
 overload <> with g0float_neq of 0
@@ -361,49 +373,85 @@ overload print with print_ldouble
 overload prerr with prerr_ldouble
 //
 (* ****** ****** *)
-
-fun add_int_float (x: int, y: float): float = "mac#%"
-fun add_float_int (x: float, y: int): float = "mac#%"
-overload + with add_int_float of 20
-overload + with add_float_int of 20
-fun add_int_double (x: int, y: double): double = "mac#%"
-fun add_double_int (x: double, y: int): double = "mac#%"
-overload + with add_int_double of 20
-overload + with add_double_int of 20
-
+//
+fun
+add_int_float
+  (x: int, y: float): float = "mac#%"
+fun
+add_float_int
+  (x: float, y: int): float = "mac#%"
+overload + with add_int_float of 0
+overload + with add_float_int of 0
+//
+fun
+add_int_double
+  (x: int, y: double): double = "mac#%"
+fun
+add_double_int
+  (x: double, y: int): double = "mac#%"
+overload + with add_int_double of 0
+overload + with add_double_int of 0
+//
 (* ****** ****** *)
-
-fun sub_int_float (x: int, y: float): float = "mac#%"
-fun sub_float_int (x: float, y: int): float = "mac#%"
-overload - with sub_int_float of 20
-overload - with sub_float_int of 20
-fun sub_int_double (x: int, y: double): double = "mac#%"
-fun sub_double_int (x: double, y: int): double = "mac#%"
-overload - with sub_int_double of 20
-overload - with sub_double_int of 20
-
+//
+fun
+sub_int_float
+  (x: int, y: float): float = "mac#%"
+fun
+sub_float_int
+  (x: float, y: int): float = "mac#%"
+overload - with sub_int_float of 0
+overload - with sub_float_int of 0
+//
+fun
+sub_int_double
+  (x: int, y: double): double = "mac#%"
+fun
+sub_double_int
+  (x: double, y: int): double = "mac#%"
+overload - with sub_int_double of 0
+overload - with sub_double_int of 0
+//
 (* ****** ****** *)
-
-fun mul_int_float (x: int, y: float): float = "mac#%"
-fun mul_float_int (x: float, y: int): float = "mac#%"
-overload * with mul_int_float of 20
-overload * with mul_float_int of 20
-fun mul_int_double (x: int, y: double): double = "mac#%"
-fun mul_double_int (x: double, y: int): double = "mac#%"
-overload * with mul_int_double of 20
-overload * with mul_double_int of 20
-
+//
+fun
+mul_int_float
+  (x: int, y: float): float = "mac#%"
+fun
+mul_float_int
+  (x: float, y: int): float = "mac#%"
+overload * with mul_int_float of 0
+overload * with mul_float_int of 0
+//
+fun
+mul_int_double
+  (x: int, y: double): double = "mac#%"
+fun
+mul_double_int
+  (x: double, y: int): double = "mac#%"
+overload * with mul_int_double of 0
+overload * with mul_double_int of 0
+//
 (* ****** ****** *)
-
-fun div_int_float (x: int, y: float): float = "mac#%"
-overload / with div_int_float of 20
-fun div_int_double (x: int, y: double): double = "mac#%"
-overload / with div_int_double of 20
-fun div_float_int (x: float, y: int): float = "mac#%"
-overload / with div_float_int of 20
-fun div_double_int (x: double, y: int): double = "mac#%"
-overload / with div_double_int of 20
-
+//
+fun
+div_int_float
+  (x: int, y: float): float = "mac#%"
+fun
+div_float_int
+  (x: float, y: int): float = "mac#%"
+overload / with div_int_float of 0
+overload / with div_float_int of 0
+//
+fun
+div_int_double
+  (x: int, y: double): double = "mac#%"
+fun
+div_double_int
+  (x: double, y: int): double = "mac#%"
+overload / with div_int_double of 0
+overload / with div_double_int of 0
+//
 (* ****** ****** *)
 
 macdef g0i2f (x) = g0int2float (,(x))

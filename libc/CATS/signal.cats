@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/signal.atxt
-** Time of generation: Thu Apr 10 00:26:17 2014
+** Time of generation: Fri Sep 26 22:21:15 2014
 */
 
 /* ****** ****** */

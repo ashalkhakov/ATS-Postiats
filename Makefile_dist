@@ -155,6 +155,7 @@ cleanall:: clean
 
 ######
 
+clean:: ; $(RMF) ccomp/atslib/output/*.o
 clean:: ; make -C src/CBOOT -f Makefile clean
 
 ######
@@ -171,13 +172,13 @@ cleanall:: ; $(RMF) bin/patsopt
 cleanall:: ; $(RMF) bin/patscc_env.sh
 cleanall:: ; $(RMF) bin/patsopt_env.sh
 
-cleanall:: ; make -C src -f Makefile cleanall
-cleanall:: ; make -C src/CBOOT -f Makefile cleanall
-cleanall:: ; make -C utils/atscc -f Makefile cleanall
-
 cleanall:: ; $(RMF) ccomp/atslib/lib/*
 cleanall:: ; $(RMF) ccomp/atslib/lib64/*
 cleanall:: ; $(RMF) ccomp/atslib/output/*
+
+cleanall:: ; make -C src -f Makefile cleanall
+cleanall:: ; make -C src/CBOOT -f Makefile cleanall
+cleanall:: ; make -C utils/atscc -f Makefile cleanall
 
 ######
 

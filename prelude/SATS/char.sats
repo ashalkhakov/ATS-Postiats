@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Fri Sep 26 22:20:44 2014
+** Time of generation: Thu Jun 12 12:45:50 2014
 *)
 
 (* ****** ****** *)

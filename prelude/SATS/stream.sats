@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Fri Sep 26 22:20:51 2014
+** Time of generation: Tue Jul  1 22:46:53 2014
 *)
 
 (* ****** ****** *)

@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-20?? Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/signal.atxt
-** Time of generation: Thu Apr 10 14:30:13 2014
+** Time of generation: Fri Sep 26 22:21:15 2014
 */
 
 /* ****** ****** */

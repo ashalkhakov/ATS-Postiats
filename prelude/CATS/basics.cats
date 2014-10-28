@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/basics.atxt
-** Time of generation: Fri Sep 26 22:21:07 2014
+** Time of generation: Tue Oct 28 01:40:29 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_BASICS_CATS
-#define ATSLIB_PRELUDE_BASICS_CATS
+#ifndef ATSLIB_PRELUDE_CATS_BASICS
+#define ATSLIB_PRELUDE_CATS_BASICS
 
 /* ****** ****** */
 
@@ -208,7 +208,7 @@ atspre_fprint_newline
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_BASICS_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_BASICS
 
 /* ****** ****** */
 

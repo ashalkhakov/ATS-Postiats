@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/fnmatch.atxt
-** Time of generation: Fri Sep 26 22:21:14 2014
+** Time of generation: Mon Oct 27 19:32:46 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_FNMATCH_CATS
-#define ATSLIB_LIBC_FNMATCH_CATS
+#ifndef ATSLIB_LIBC_CATS_FNMATCH
+#define ATSLIB_LIBC_CATS_FNMATCH
 
 /* ****** ****** */
 
@@ -57,7 +57,7 @@
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_FNMATCH_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_FNMATCH
 
 /* ****** ****** */
 

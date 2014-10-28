@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/bool.atxt
-** Time of generation: Fri Sep 26 22:21:08 2014
+** Time of generation: Tue Oct 28 01:40:32 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_PRELUDE_BOOL_CATS
-#define ATSLIB_PRELUDE_BOOL_CATS
+#ifndef ATSLIB_PRELUDE_CATS_BOOL
+#define ATSLIB_PRELUDE_CATS_BOOL
 
 /* ****** ****** */
 
@@ -214,7 +214,7 @@ atspre_fprint_bool (
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_PRELUDE_BOOL_CATS
+#endif // ifndef ATSLIB_PRELUDE_CATS_BOOL
 
 /* ****** ****** */
 

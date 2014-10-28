@@ -91,6 +91,8 @@ mfree_gc
 , pfgc: mfree_gc_v (l) | ptr l
 ) :<!wrt> void = "mac#%"
 
+(* ****** ****** *)
+
 fun
 malloc_gc
   {n:int}

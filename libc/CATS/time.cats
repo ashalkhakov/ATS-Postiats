@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/time.atxt
-** Time of generation: Fri Sep 26 22:21:17 2014
+** Time of generation: Mon Oct 27 19:32:48 2014
 */
 
 /* ****** ****** */
@@ -43,8 +43,8 @@
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_TIME_CATS
-#define ATSLIB_LIBC_TIME_CATS
+#ifndef ATSLIB_LIBC_CATS_TIME
+#define ATSLIB_LIBC_CATS_TIME
 
 /* ****** ****** */
 
@@ -185,7 +185,7 @@ atslib_tm_get_isdst
 
 /* ****** ****** */
 
-#endif // ifndef ATSLIB_LIBC_TIME_CATS
+#endif // ifndef ATSLIB_LIBC_CATS_TIME
 
 /* ****** ****** */
 

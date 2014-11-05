@@ -29,8 +29,8 @@
 
 /*
 ** Source:
-** $PATSHOME/libc/CATS/CODEGEN/alloca.atxt
-** Time of generation: Tue Oct 28 16:39:52 2014
+** $PATSHOME/libc/CATS/CODEGEN/float.atxt
+** Time of generation: Tue Oct 28 16:39:53 2014
 */
 
 /* ****** ****** */
@@ -38,32 +38,22 @@
 /*
 (* Author: Hongwei Xi *)
 (* Authoremail: gmhwxiATgmailDOTcom *)
-(* Start time: February, 2014 *)
+(* Start time: October, 2014 *)
 */
 
 /* ****** ****** */
 
-#ifndef ATSLIB_LIBC_CATS_ALLOCA
-#define ATSLIB_LIBC_CATS_ALLOCA
+#ifndef ATSLIB_LIBC_CATS_FLOAT
+#define ATSLIB_LIBC_CATS_FLOAT
 
 /* ****** ****** */
 
-#include <alloca.h>
-
-/* ****** ****** */
-//
-#define atslib_alloca(bsz) alloca(bsz)
-//
-/* ****** ****** */
-//
-#define atslib_ptr_alloca_tsz(tsz) alloca(tsz)
-//
-#define atslib_array_ptr_alloca_tsz(asz, tsz) alloca((asz)*(tsz))
-//
-/* ****** ****** */
-
-#endif // ifndef ATSLIB_LIBC_CATS_ALLOCA
+#include <float.h>
 
 /* ****** ****** */
 
-/* end of [alloca.cats] */
+#endif // ifndef ATSLIB_LIBC_CATS_FLOAT
+
+/* ****** ****** */
+
+/* end of [float.cats] */

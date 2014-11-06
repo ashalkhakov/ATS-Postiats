@@ -1553,7 +1553,7 @@ __ats_lab_5_1:
 tmp12 = _2home_2hwxi_2research_2Postiats_2git_2src_2pats_staexp2_2esats__s2rt_err () ;
 /* tmp13 = */ prerr_error2_loc_02142_ (tmp5) ;
 /* tmp16 = */ patsopt_prerrf_ifdebug (ATSstrcst(": [%s]: %s"), ATSstrcst("/home/hwxi/research/Postiats/git/src/pats_trans2_staexp.dats"), ATSstrcst("effvar_tr")) ;
-/* tmp17 = */ atspre_prerr_string (ATSstrcst(": the static identifer [")) ;
+/* tmp17 = */ atspre_prerr_string (ATSstrcst(": the static identifier [")) ;
 /* tmp18 = */ _2home_2hwxi_2research_2Postiats_2git_2src_2pats_symbol_2esats__prerr_symbol (tmp6) ;
 /* tmp19 = */ atspre_prerr_string (ATSstrcst("] should refer to a variable or constant.")) ;
 /* tmp20 = */ atspre_prerr_newline () ;
@@ -1573,7 +1573,7 @@ __ats_lab_6_1:
 tmp23 = _2home_2hwxi_2research_2Postiats_2git_2src_2pats_staexp2_2esats__s2rt_err () ;
 /* tmp24 = */ prerr_error2_loc_02142_ (tmp5) ;
 /* tmp25 = */ patsopt_prerrf_ifdebug (ATSstrcst(": [%s]: %s"), ATSstrcst("/home/hwxi/research/Postiats/git/src/pats_trans2_staexp.dats"), ATSstrcst("effvar_tr")) ;
-/* tmp26 = */ atspre_prerr_string (ATSstrcst(": unrecognized static identifer [")) ;
+/* tmp26 = */ atspre_prerr_string (ATSstrcst(": unrecognized static identifier [")) ;
 /* tmp27 = */ _2home_2hwxi_2research_2Postiats_2git_2src_2pats_symbol_2esats__prerr_symbol (tmp6) ;
 /* tmp28 = */ atspre_prerr_string (ATSstrcst("].")) ;
 /* tmp29 = */ atspre_prerr_newline () ;

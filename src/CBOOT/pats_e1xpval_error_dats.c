@@ -473,7 +473,7 @@ __ats_lab_8_1:
 tmp41 = ats_caselptrlab_mac(anairiats_sum_1, arg1, atslab_0) ;
 tmp43 = ats_selbox_mac(ats_castptr_mac(anairiats_rec_2, tmp41), atslab_e1xp_loc) ;
 /* tmp42 = */ _2home_2hwxi_2research_2Postiats_2git_2src_2pats_location_2esats__fprint_location (arg0, tmp43) ;
-/* tmp44 = */ atspre_fprint_string (arg0, ATSstrcst(": error(1): the applied expression is required to be an identifer.")) ;
+/* tmp44 = */ atspre_fprint_string (arg0, ATSstrcst(": error(1): the applied expression is required to be an identifier.")) ;
 /* tmp0 = */ atspre_fprint_newline (arg0) ;
 break ;
 

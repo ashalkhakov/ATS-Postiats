@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_mergesort.atxt
-** Time of generation: Fri Sep 26 22:21:02 2014
+** Time of generation: Sat Nov 15 15:35:14 2014
 *)
 
 (* ****** ****** *)
@@ -150,8 +150,10 @@ implement
 list_vt_mergesort
   {n} (xs) = let
 //
-fun split
-  {n,n1:nat | n >= n1} .<n1>.
+fun
+split
+{n,n1:int |
+ n >= n1; n1 >= 0} .<n1>.
 (
   xs: &list_vt (a, n) >> list_vt (a, n1)
 , n1: int n1, res: &List_vt a? >> list_vt (a, n-n1)
@@ -172,7 +174,9 @@ end // end of [if]
 //
 end // end of [split]
 //
-fun merge {n1,n2:nat} .<n1+n2>.
+fun
+merge
+{n1,n2:nat} .<n1+n2>.
 (
   xs1: list_vt (a, n1)
 , xs2: list_vt (a, n2)
@@ -210,25 +214,33 @@ case+ xs1 of
 //
 end // end of [merge]
 //
-val n = list_vt_length<a> (xs)
-//
-in
-//
+fun
+msort{n:nat} .<n>.
+(
+  xs: list_vt(a, n), n: int(n)
+) :<!wrt> list_vt(a, n) =
+(
 if
 n >= CUTOFF
 then let
+  val n1 = half(n+1)
   val+@list_vt_cons (_, xs1) = xs
   var res: List_vt a? // uninitialized
-  val () = split (xs1, half(n-1), res)
+  val () = split (xs1, n1-1, res)
   prval () = fold@ (xs)
-  val xs1 = list_vt_mergesort<a> (xs)
-  val xs2 = list_vt_mergesort<a> (res)
+  val xs1 = msort (xs, n1)
+  and xs2 = msort (res, n-n1)
   val () = merge (xs1, xs2, res)
 in
   res
 end // end of [then]
 else list_vt_insort<a> (xs)
+) (* end of [msort] *)
 //
+prval () = lemma_list_vt_param (xs)
+//
+in
+  msort (xs, list_vt_length<a> (xs))
 end // end of [list_vt_mergesort]
 
 (* ****** ****** *)

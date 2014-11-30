@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Sat Nov 29 21:56:46 2014
+** Time of generation: Sun Nov 30 04:26:32 2014
 *)
 
 (* ****** ****** *)
@@ -294,41 +294,52 @@ val A = arrpsz_get_ptrsize (psz, asz)
 val A = arrayptr_refize (A)
 //
 in
-  ARRSZREF (A, asz)
+  ARRSZREF(A, asz)
 end // end of [arrszref_make_arrpsz]
 
-implement{}
-arrszref_make_arrayref (A, asz) = ARRSZREF (A, asz)
-
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+arrszref_make_arrayref
+  (A, asz) = ARRSZREF(A, asz)
+//
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 arrszref_get_ref
   (ASZ) = let
 //
-val+ARRSZREF
-  (A, asz) = ASZ in $UN.cast2Ptr1(A)
+val+
+ARRSZREF(A, _) = ASZ in $UN.cast2Ptr1(A)
 //
 end // end of [arrszref_get_size]
 
 (* ****** ****** *)
 
-implement{}
-arrszref_get_size (ASZ) =
-  let val+ARRSZREF (A, asz) = ASZ in asz end 
-// end of [arrszref_get_size]
+implement
+{}(*tmp*)
+arrszref_get_size
+  (ASZ) = let
+//
+val+ARRSZREF(_, n) = ASZ in (n)
+//
+end // end of [arrszref_get_size]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 arrszref_get_refsize
-  (ASZ, asz_r) = let
+  (ASZ, nref) = let
 //
-val+ARRSZREF (A, asz) = ASZ
+val+ARRSZREF(A, n) = ASZ
+//
 prval () = lemma_arrayref_param (A)
 //
 in
-  asz_r := asz; A(*arrayref*)
+  nref := n; A(*arrayref*)
 end // end of [arrszref_get_refsize]
 
 end // end of [local]
@@ -337,11 +348,13 @@ end // end of [local]
 
 implement{a}
 arrszref_make_elt
-  (asz, x) = let
-  val asz = g1ofg0_uint (asz)
-  val A = arrayref_make_elt<a> (asz, x)
+  (n, x) = let
+//
+val n = g1ofg0_uint (n)
+val A = arrayref_make_elt<a> (n, x)
+//
 in
-  arrszref_make_arrayref (A, asz)
+  arrszref_make_arrayref (A, n)
 end // end of [arrszref_make_elt]
 
 (* ****** ****** *)
@@ -350,14 +363,13 @@ implement{a}
 arrszref_make_list
   (xs) = let
 //
-prval () = lemma_list_param (xs)
-//
 val n = list_length<a> (xs)
 val A = arrayref_make_list (n, xs)
-val asz = (i2sz)n
+//
+prval () = lemma_list_param (xs)
 //
 in
-  arrszref_make_arrayref (A, asz)
+  arrszref_make_arrayref (A, i2sz(n))
 end // end of [arrszref_make_list]
 
 implement{a}
@@ -368,10 +380,9 @@ prval () = lemma_list_param (xs)
 //
 val n = list_length<a> (xs)
 val A = arrayref_make_rlist (n, xs)
-val asz = (i2sz)n
 //
 in
-  arrszref_make_arrayref (A, asz)
+  arrszref_make_arrayref (A, i2sz(n))
 end // end of [arrszref_make_rlist]
 
 (* ****** ****** *)

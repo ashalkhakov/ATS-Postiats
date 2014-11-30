@@ -6,19 +6,19 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
 ** the terms of  the GNU GENERAL PUBLIC LICENSE (GPL) as published by the
 ** Free Software Foundation; either version 3, or (at  your  option)  any
 ** later version.
-**
+** 
 ** ATS is distributed in the hope that it will be useful, but WITHOUT ANY
 ** WARRANTY; without  even  the  implied  warranty  of MERCHANTABILITY or
 ** FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License
 ** for more details.
-**
+** 
 ** You  should  have  received  a  copy of the GNU General Public License
 ** along  with  ATS;  see the  file COPYING.  If not, please write to the
 ** Free Software Foundation,  51 Franklin Street, Fifth Floor, Boston, MA
@@ -26,34 +26,71 @@
 *)
 
 (* ****** ****** *)
+//
+// Author: Hongwei Xi
+// Authoremail: gmhwxiATgmailDOTcom
+// Start Time: November, 2014
+//
+(* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/gnumber.atxt
-** Time of generation: Sun Nov 30 04:26:29 2014
-*)
+%{#
+#include "libc/sys/CATS/socket_in.cats"
+%} // end of [%{#]
 
 (* ****** ****** *)
 
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: March, 2013 *)
+#define ATS_PACKNAME "ATSLIB.libc"
+#define ATS_DYNLOADFLAG 0 // no need for staloading at run-time
+#define ATS_EXTERN_PREFIX "atslib_" // prefix for external names
 
 (* ****** ****** *)
 
-(* Author: Brandon Barker *)
-(* Authoremail: brandon.barker AT gmail DOT com *)
-(* Start time: July, 2013 *)
+staload "libc/sys/SATS/socket_in.sats"
 
 (* ****** ****** *)
 
-#include "./SHARE/gnumber_int.dats"
-#include "./SHARE/gnumber_uint.dats"
+staload UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-#include "./SHARE/gnumber_float.dats"
+%{
+ATSextern()
+atsvoid_t0ype
+atslib_bind_in_exn
+(
+  atstype_int fd, atstype_ptr addr
+) {
+  int
+  err;
+  err =
+  bind(
+    fd, (const struct sockaddr*)addr, sizeof(struct sockaddr_in)
+  ); // end of [connent]
+  if(0 > err) ATSLIBfailexit("bind");
+  return;
+} // end of [atslib_bind_in_exn]
+%} // end of [%{]
 
 (* ****** ****** *)
 
-(* end of [gnumber.dats] *)
+%{
+ATSextern()
+atsvoid_t0ype
+atslib_connect_in_exn
+(
+  atstype_int fd, atstype_ptr addr
+) {
+  int
+  err;
+  err =
+  connect(
+    fd, (const struct sockaddr*)addr, sizeof(struct sockaddr_in)
+  ); // end of [connent]
+  if(0 > err) ATSLIBfailexit("connect");
+  return;
+} // end of [atslib_connect_in_exn]
+%} // end of [%{]
+
+(* ****** ****** *)
+
+(* end of [socket_in.dats] *)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrixptr.atxt
-** Time of generation: Fri Sep 26 22:21:05 2014
+** Time of generation: Sat Nov 29 21:56:47 2014
 *)
 
 (* ****** ****** *)
@@ -178,8 +178,10 @@ matrixptr_foreach_env
 
 implement{a}
 matrixptr_tabulate
-  (nrow, ncol) = matrixptr_encode2(matrix_ptr_tabulate<a> (nrow, ncol))
-// end of [matrixptr_tabulate]
+  (nrow, ncol) =
+(
+  matrixptr_encode2(matrix_ptr_tabulate<a> (nrow, ncol))
+) (* end of [matrixptr_tabulate] *)
 
 (* ****** ****** *)
 

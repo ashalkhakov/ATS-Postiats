@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/memory.atxt
-** Time of generation: Fri Sep 26 22:20:45 2014
+** Time of generation: Mon Nov 24 01:03:02 2014
 *)
 
 (* ****** ****** *)
@@ -45,6 +45,10 @@ viewdef b0ytes_v (l:addr, n:int) = b0ytes (n) @ l
 
 (* ****** ****** *)
 
+praxi
+b0ytes2bytes
+  {l:addr}{n:int} (&b0ytes(n) >> bytes(n)): void
+// end of [b0ytes2bytes]
 praxi
 b0ytes2bytes_v
   {l:addr}{n:int} (pf: b0ytes_v (l, n)): bytes_v (l, n)
@@ -90,8 +94,6 @@ mfree_gc
   pfat: b0ytes n @ l
 , pfgc: mfree_gc_v (l) | ptr l
 ) :<!wrt> void = "mac#%"
-
-(* ****** ****** *)
 
 fun
 malloc_gc

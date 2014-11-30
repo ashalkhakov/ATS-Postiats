@@ -29,8 +29,8 @@
 
 (*
 ** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/gorder_string.atxt
-** Time of generation: Fri Sep 26 22:21:00 2014
+** $PATSHOME/prelude/DATS/CODEGEN/gorder_bool.atxt
+** Time of generation: Sat Nov 29 21:44:02 2014
 *)
 
 (* ****** ****** *)
@@ -42,8 +42,6 @@
 (* ****** ****** *)
 
 implement
-gcompare_val<string> = compare_string_string
+gcompare_val<bool> = compare_bool0_bool0
 
-(* ****** ****** *)
-
-(* end of [gorder_string.dats] *)
+(* end of [gorder_bool.dats] *)

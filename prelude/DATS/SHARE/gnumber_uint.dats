@@ -29,8 +29,8 @@
 
 (*
 ** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/gnumber_int.atxt
-** Time of generation: Fri Sep 26 22:21:00 2014
+** $PATSHOME/prelude/DATS/CODEGEN/gnumber_uint.atxt
+** Time of generation: Sat Nov 29 21:44:04 2014
 *)
 
 (* ****** ****** *)
@@ -42,109 +42,102 @@
 (* ****** ****** *)
 
 implement
-gnumber_int<int> (x) = g0int2int_int_int (x)
+gnumber_int<uint> (x) = g0int2uint_int_uint (x)
 implement
-gnumber_int<lint> (x) = g0int2int_int_lint (x)
+gnumber_int<ulint> (x) = g0int2uint_int_ulint (x)
 implement
-gnumber_int<llint> (x) = g0int2int_int_llint (x)
-implement
-gnumber_int<ssize_t> (x) = g0int2int_int_ssize (x)
+gnumber_int<ullint> (x) = g0int2uint_int_ullint (x)
 
 (* ****** ****** *)
 
 implement
-gneg_val<int> (x) = ~x
+gsucc_val<uint> (x) = succ (x)
 implement
-gneg_val<lint> (x) = ~x
+gsucc_val<ulint> (x) = succ (x)
 implement
-gneg_val<llint> (x) = ~x
+gsucc_val<ullint> (x) = succ (x)
+implement
+gsucc_val<size_t> (x) = succ (x)
 
 (* ****** ****** *)
 
 implement
-gsucc_val<int> (x) = succ (x)
+gpred_val<uint> (x) = pred (x)
 implement
-gsucc_val<lint> (x) = succ (x)
+gpred_val<ulint> (x) = pred (x)
 implement
-gsucc_val<llint> (x) = succ (x)
+gpred_val<ullint> (x) = pred (x)
 implement
-gsucc_val<ssize_t> (x) = succ (x)
+gpred_val<size_t> (x) = pred (x)
 
 (* ****** ****** *)
 
 implement
-gpred_val<int> (x) = pred (x)
+gadd_val<uint> (x, y) = x + y
 implement
-gpred_val<lint> (x) = pred (x)
+gadd_val<ulint> (x, y) = x + y
 implement
-gpred_val<llint> (x) = pred (x)
+gadd_val<ullint> (x, y) = x + y
+implement
+gadd_val<size_t> (x, y) = x + y
 
 (* ****** ****** *)
 
 implement
-gadd_val<int> (x, y) = x + y
+gsub_val<uint> (x, y) = x - y
 implement
-gadd_val<lint> (x, y) = x + y
+gsub_val<ulint> (x, y) = x - y
 implement
-gadd_val<llint> (x, y) = x + y
+gsub_val<ullint> (x, y) = x - y
 implement
-gadd_val<ssize_t> (x, y) = x + y
+gsub_val<size_t> (x, y) = x - y
 
 (* ****** ****** *)
 
 implement
-gsub_val<int> (x, y) = x - y
+gmul_val<uint> (x, y) = x * y
 implement
-gsub_val<lint> (x, y) = x - y
+gmul_val<ulint> (x, y) = x * y
 implement
-gsub_val<llint> (x, y) = x - y
+gmul_val<ullint> (x, y) = x * y
+implement
+gmul_val<size_t> (x, y) = x * y
 
 (* ****** ****** *)
 
 implement
-gmul_val<int> (x, y) = x * y
+gdiv_val<uint> (x, y) = x / y
 implement
-gmul_val<lint> (x, y) = x * y
+gdiv_val<ulint> (x, y) = x / y
 implement
-gmul_val<llint> (x, y) = x * y
+gdiv_val<ullint> (x, y) = x / y
 implement
-gmul_val<ssize_t> (x, y) = x * y
+gdiv_val<size_t> (x, y) = x / y
 
 (* ****** ****** *)
 
 implement
-gdiv_val<int> (x, y) = x / y
+gmod_val<uint> (x, y) = x mod y
 implement
-gdiv_val<lint> (x, y) = x / y
+gmod_val<ulint> (x, y) = x mod y
 implement
-gdiv_val<llint> (x, y) = x / y
+gmod_val<ullint> (x, y) = x mod y
 implement
-gdiv_val<ssize_t> (x, y) = x / y
-
-(* ****** ****** *)
-
-implement
-gmod_val<int> (x, y) = x mod y
-implement
-gmod_val<lint> (x, y) = x mod y
-implement
-gmod_val<llint> (x, y) = x mod y
-implement
-gmod_val<ssize_t> (x, y) = x mod y
+gmod_val<size_t> (x, y) = x mod y
 
 (* ****** ****** *)
 
 (*
 implement
-gconjugate_val<int> (x) = x
+gconjugate_val<uint> (x) = x
 implement
-gconjugate_val<lint> (x) = x
+gconjugate_val<ulint> (x) = x
 implement
-gconjugate_val<llint> (x) = x
+gconjugate_val<ullint> (x) = x
 implement
-gconjugate_val<ssize_t> (x) = x
+gconjugate_val<size_t> (x) = x
 *)
 
 (* ****** ****** *)
 
-(* end of [gnumber_int.dats] *)
+(* end of [gnumber_uint.dats] *)

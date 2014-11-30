@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Sep 26 22:21:04 2014
+** Time of generation: Sat Nov 29 21:56:46 2014
 *)
 
 (* ****** ****** *)
@@ -145,7 +145,7 @@ arrayref_interchange
   (A, i, j) = let
 //
 val (vbox pf | p) =
-  arrayref_get_viewptr (A) in array_interchange (!p, i, j)
+  arrayref_get_viewptr (A) in array_interchange<a> (!p, i, j)
 //
 end // end of [arrayref_interchange]
 
@@ -156,7 +156,7 @@ arrayref_subcirculate
   (A, i, j) = let
 //
 val (vbox pf | p) =
-  arrayref_get_viewptr (A) in array_subcirculate (!p, i, j)
+  arrayref_get_viewptr (A) in array_subcirculate<a> (!p, i, j)
 //
 end // end of [arrayref_subcirculate]
 
@@ -165,21 +165,21 @@ end // end of [arrayref_subcirculate]
 implement{a}
 fprint_arrayref
   (out, A, n) = let
-  val (
-    vbox pf | p
-  ) = arrayref_get_viewptr (A)
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
+//
 in
-  $effmask_ref (fprint_array (out, !p, n))
+  $effmask_ref (fprint_array<a> (out, !p, n))
 end // end of [fprint_arrayref]
 
 implement{a}
 fprint_arrayref_sep
   (out, A, n, sep) = let
-  val (
-    vbox pf | p
-  ) = arrayref_get_viewptr (A)
+//
+val (vbox pf | p) = arrayref_get_viewptr (A)
+//
 in
-  $effmask_ref (fprint_array_sep (out, !p, n, sep))
+  $effmask_ref (fprint_array_sep<a> (out, !p, n, sep))
 end // end of [fprint_arrayref_sep]
 
 (* ****** ****** *)
@@ -188,11 +188,15 @@ implement
 {a}(*tmp*)
 arrayref_copy
   {n} (A, n) = let
-  val (pf, fpf | p) =
-    $UN.ptr0_vtake{array(a,n)}(ptrcast(A))
-  val (pf2, pf2gc | p2) = array_ptr_alloc<a> (n)
-  val ((*void*)) = array_copy<a> (!p2, !p, n)
-  prval () = fpf (pf)
+//
+val (pf, fpf | p) =
+  $UN.ptr0_vtake{array(a,n)}(ptrcast(A))
+//
+val (pf2, pf2gc | p2) = array_ptr_alloc<a> (n)
+val ((*void*)) = array_copy<a> (!p2, !p, n)
+//
+prval ((*void*)) = fpf (pf)
+//
 in
   $UN.castvwtp0{arrayptr(a,n)}((pf2, pf2gc | p2))
 end // end of [arrayref_copy]

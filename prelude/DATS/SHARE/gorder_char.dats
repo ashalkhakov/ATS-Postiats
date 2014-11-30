@@ -29,8 +29,8 @@
 
 (*
 ** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/gorder_int.atxt
-** Time of generation: Fri Sep 26 22:20:58 2014
+** $PATSHOME/prelude/DATS/CODEGEN/gorder_char.atxt
+** Time of generation: Sat Nov 29 21:44:03 2014
 *)
 
 (* ****** ****** *)
@@ -40,16 +40,10 @@
 (* Start time: March, 2013 *)
 
 (* ****** ****** *)
-//
+
 implement
-gcompare_val<int> = g0int_compare_int
-implement
-gcompare_val<lint> = g0int_compare_lint
-implement
-gcompare_val<llint> = g0int_compare_llint
-implement
-gcompare_val<ssize_t> = g0int_compare_ssize
-//
+gcompare_val<char> = compare_char0_char0
+
 (* ****** ****** *)
 
-(* end of [gorder_int.dats] *)
+(* end of [gorder_char.dats] *)

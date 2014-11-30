@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Wed Nov 12 17:19:39 2014
+** Time of generation: Sat Nov 29 21:56:45 2014
 *)
 
 (* ****** ****** *)
@@ -262,6 +262,7 @@ fprint_array_size
   (out, A, asz) = let
 //
 typedef tenv = int
+//
 implement
 array_foreach$fwork<a><tenv>
   (x, env) = let
@@ -1112,6 +1113,11 @@ end // end of [loop]
 in
   loop (view@ (A) | addr@ (A), asz)
 end // end of [array_permute]
+
+(* ****** ****** *)
+
+#include "./SHARE/array_bsearch.dats"
+#include "./SHARE/array_quicksort.dats"
 
 (* ****** ****** *)
 

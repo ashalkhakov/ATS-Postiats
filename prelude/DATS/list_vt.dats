@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed Oct 22 14:11:22 2014
+** Time of generation: Sat Nov 29 21:56:44 2014
 *)
 
 (* ****** ****** *)
@@ -47,7 +47,8 @@ staload UN = "prelude/SATS/unsafe.sats"
 //
 implement
 {a}(*tmp*)
-list_vt_make_sing (x) = list_vt_cons{a}(x, list_vt_nil)
+list_vt_make_sing (x) =
+  list_vt_cons{a}(x, list_vt_nil)
 implement
 {a}(*tmp*)
 list_vt_make_pair (x1, x2) =
@@ -1121,6 +1122,11 @@ end // end of [list_vt_iforeach_env]
 implement
 {x}{env}
 list_vt_iforeach$cont (i, x, env) = true
+
+(* ****** ****** *)
+
+#include "./SHARE/list_vt_mergesort.dats"
+#include "./SHARE/list_vt_quicksort.dats"
 
 (* ****** ****** *)
 

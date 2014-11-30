@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gnumber.atxt
-** Time of generation: Fri Sep 26 22:21:00 2014
+** Time of generation: Sat Nov 29 21:56:43 2014
 *)
 
 (* ****** ****** *)
@@ -47,9 +47,12 @@
 
 (* ****** ****** *)
 
-#include "prelude/DATS/gnumber_int.dats"
-#include "prelude/DATS/gnumber_uint.dats"
-#include "prelude/DATS/gnumber_float.dats"
+#include "./SHARE/gnumber_int.dats"
+#include "./SHARE/gnumber_uint.dats"
+
+(* ****** ****** *)
+
+#include "./SHARE/gnumber_float.dats"
 
 (* ****** ****** *)
 

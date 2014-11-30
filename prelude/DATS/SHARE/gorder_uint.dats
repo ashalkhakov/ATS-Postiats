@@ -29,8 +29,8 @@
 
 (*
 ** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/gorder_bool.atxt
-** Time of generation: Fri Sep 26 22:20:59 2014
+** $PATSHOME/prelude/DATS/CODEGEN/gorder_uint.atxt
+** Time of generation: Sat Nov 29 21:44:02 2014
 *)
 
 (* ****** ****** *)
@@ -40,8 +40,16 @@
 (* Start time: March, 2013 *)
 
 (* ****** ****** *)
-
+//
 implement
-gcompare_val<bool> = compare_bool0_bool0
+gcompare_val<uint> = g0uint_compare_uint
+implement
+gcompare_val<ulint> = g0uint_compare_ulint
+implement
+gcompare_val<ullint> = g0uint_compare_ullint
+implement
+gcompare_val<size_t> = g0uint_compare_size
+//
+(* ****** ****** *)
 
-(* end of [gorder_bool.dats] *)
+(* end of [gorder_uint.dats] *)

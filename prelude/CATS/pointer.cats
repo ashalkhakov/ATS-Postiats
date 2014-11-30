@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Tue Oct 28 01:40:30 2014
+** Time of generation: Thu Nov 20 21:50:11 2014
 */
 
 /* ****** ****** */
@@ -238,7 +238,8 @@ atspre_ptr_nullize_tsz
 
 /* ****** ****** */
 
-#define atspre_ptr_alloc_tsz atspre_malloc_gc
+#define \
+atspre_ptr_alloc_tsz atspre_malloc_gc
 
 /* ****** ****** */
 

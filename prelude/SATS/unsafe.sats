@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Sep 26 22:20:48 2014
+** Time of generation: Wed Nov 26 02:30:08 2014
 *)
 
 (* ****** ****** *)
@@ -167,10 +167,24 @@ fun{a:vt0p} ptr0_intch (p1: ptr, p2: ptr):<!wrt> void
 fun{a:vt0p} ptr1_intch (p1: Ptr1, p2: Ptr1):<!wrt> void
 //
 (* ****** ****** *)
-
-fun{a:vt0p} ptr0_get_at (p: ptr, i: int):<> a
-fun{a:vt0p} ptr0_set_at (p: ptr, i: int, x: a):<!wrt> void
-
+//
+fun{a:vt0p}
+ptr0_get_at_int (p: ptr, i: int):<> a
+fun{a:vt0p}
+ptr0_set_at_int (p: ptr, i: int, x: a):<!wrt> void
+fun{a:vt0p}
+ptr0_get_at_size (p: ptr, i: size_t):<> a
+fun{a:vt0p}
+ptr0_set_at_size (p: ptr, i: size_t, x: a):<!wrt> void
+//
+symintr ptr0_get_at
+symintr ptr0_set_at
+//
+overload ptr0_get_at with ptr0_get_at_int
+overload ptr0_get_at with ptr0_get_at_size
+overload ptr0_set_at with ptr0_set_at_int
+overload ptr0_set_at with ptr0_set_at_size
+//
 (* ****** ****** *)
 //
 // HX-2012-06:

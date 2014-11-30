@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdio.atxt
-** Time of generation: Mon Oct 27 19:32:47 2014
+** Time of generation: Mon Nov 24 22:48:50 2014
 */
 
 /* ****** ****** */
@@ -57,12 +57,7 @@ extern void exit (int status) ; // in [stdlib.h]
 
 /* ****** ****** */
 
-#define \
-ATSLIBfailexit(cmd) \
-do { \
-  perror(cmd) ; \
-  fprintf(stderr, "exit(ATSLIB): [%s] failed\n", cmd) ; exit(1) ; \
-} while (0) \
+#include "share/H/pats_atslib.h"
 
 /* ****** ****** */
 

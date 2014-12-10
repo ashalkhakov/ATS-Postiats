@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array_prf.atxt
-** Time of generation: Sun Nov 30 04:26:31 2014
+** Time of generation: Thu Dec  4 13:37:55 2014
 *)
 
 (* ****** ****** *)
@@ -109,7 +109,7 @@ else let
   prval EQINT () =
     eqint_make{i,0}() in (array_v_nil{a}{l}((*void*)), pf_arr)
   // end of [prval]
-end // end of [sif]
+end // end of [else]
 //
 ) (* end of [split] *)
 //
@@ -119,8 +119,7 @@ end // end of [sif]
 
 primplmnt
 array_v_split_at
-  {a}{l}{n}{i}
-  (pf | i) = array_v_split{a}{l}{n}{i} (pf)
+  {a}{tk}{l}{n}{i}(pf | i) = array_v_split{a}{l}{n}{i}(pf)
 // end of [array_v_split_at]
 
 (* ****** ****** *)

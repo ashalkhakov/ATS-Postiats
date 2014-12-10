@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/memory.atxt
-** Time of generation: Mon Nov 24 01:03:02 2014
+** Time of generation: Fri Dec  5 01:21:14 2014
 *)
 
 (* ****** ****** *)
@@ -67,7 +67,7 @@ prfun
 bytes_v_split_at
   {l:addr}
   {n:int}{i:nat | i <= n}
-  (pf: bytes_v (l, n) | i: size_t i): (bytes_v (l, i), bytes_v (l+i, n-i))
+  (pf: bytes_v (l, n) | i: size_t (i)): (bytes_v (l, i), bytes_v (l+i, n-i))
 // end of [bytes_v_split_at]
 
 (* ****** ****** *)

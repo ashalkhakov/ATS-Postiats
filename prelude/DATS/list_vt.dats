@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Sun Nov 30 04:26:30 2014
+** Time of generation: Thu Dec  4 13:37:55 2014
 *)
 
 (* ****** ****** *)
@@ -574,7 +574,7 @@ fun loop
 (
   xs: list_vt (a, m), ys: list_vt (a, n)
 ) :<!wrt> list_vt (a, m+n) =
-  case xs of
+  case+ xs of
   | @list_vt_cons
       (_, xs1) => let
       val xs1_ = xs1

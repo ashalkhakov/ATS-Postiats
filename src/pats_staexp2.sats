@@ -158,6 +158,9 @@ vtypedef d2conlst_vt = List_vt (d2con)
 abstype d2conset_type
 typedef d2conset = d2conset_type
 //
+absvtype d2conset_vtype
+vtypedef d2conset_vt = d2conset_vtype
+//
 (* ****** ****** *)
 
 abstype s2rtdat_type
@@ -548,15 +551,15 @@ s2qua = @{
 } // end of [s2qua]
 typedef s2qualst = List (s2qua)
 vtypedef s2qualst_vt = List_vt (s2qua)
-
+//
 fun s2qua_make (s2vs: s2varlst, s2ps: s2explst): s2qua
-
+//
 fun fprint_s2qua : fprint_type (s2qua)
-
+//
 fun print_s2qualst (xs: s2qualst): void
 fun prerr_s2qualst (xs: s2qualst): void
 fun fprint_s2qualst : fprint_type (s2qualst)
-
+//
 (* ****** ****** *)
 
 fun s2cst_make (
@@ -995,9 +998,15 @@ fun d2con_is_nonlinear (d2c: d2con): bool // nonlinear constructor
 (* ****** ****** *)
 
 fun d2conset_nil ():<> d2conset
-fun d2conset_ismem (xs: d2conset, x: d2con):<> bool
 fun d2conset_add (xs: d2conset, x: d2con):<> d2conset
+fun d2conset_ismem (xs: d2conset, x: d2con):<> bool
 
+(* ****** ****** *)
+  
+fun d2conset_vt_nil ():<> d2conset_vt
+fun d2conset_vt_add (xs: d2conset_vt, x: d2con):<> d2conset_vt
+fun d2conset_vt_listize_free (xs: d2conset_vt):<> d2conlst_vt
+  
 (* ****** ****** *)
 //
 // HX: static expressions
@@ -1441,6 +1450,10 @@ absvtype appenv_type = ptr
 vtypedef appenv = appenv_type
 //
 typedef synent_app (a:type) = (a, !appenv) -> void
+//
+fun
+synentlst_app{a:type}
+  (xs: List(a), env: !appenv, app: synent_app(a)): void
 //
 (* ****** ****** *)
   

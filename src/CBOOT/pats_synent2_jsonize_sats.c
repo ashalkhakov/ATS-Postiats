@@ -22,6 +22,32 @@
 
 #include "pats_location.cats"
 
+#include "pats_location.cats"
+
+#include "pats_lexbuf.cats"
+
+#include "pats_location.cats"
+
+#include "pats_location.cats"
+
+#include "pats_location.cats"
+
+#include "pats_location.cats"
+
+#include "pats_location.cats"
+
+#include "pats_lexbuf.cats"
+
+#include "pats_location.cats"
+
+#include "pats_location.cats"
+
+#include "pats_location.cats"
+
+#include "pats_location.cats"
+
+#include "pats_location.cats"
+
 #include "pats_lexbuf.cats"
 
 #include "pats_location.cats"
@@ -93,14 +119,18 @@
 /* exn constructor declarations */
 /* static load function */
 
+extern ats_void_type _2home_2hwxi_2research_2Postiats_2git_2src_2pats_jsonize_2esats__staload (void) ;
+extern ats_void_type _2home_2hwxi_2research_2Postiats_2git_2src_2pats_staexp2_2esats__staload (void) ;
 extern ats_void_type _2home_2hwxi_2research_2Postiats_2git_2src_2pats_dynexp2_2esats__staload (void) ;
 
 ats_void_type
-_2home_2hwxi_2research_2Postiats_2git_2src_2pats_dyncst2_2esats__staload () {
-static int _2home_2hwxi_2research_2Postiats_2git_2src_2pats_dyncst2_2esats__staload_flag = 0 ;
-if (_2home_2hwxi_2research_2Postiats_2git_2src_2pats_dyncst2_2esats__staload_flag) return ;
-_2home_2hwxi_2research_2Postiats_2git_2src_2pats_dyncst2_2esats__staload_flag = 1 ;
+_2home_2hwxi_2research_2Postiats_2git_2src_2pats_synent2_jsonize_2esats__staload () {
+static int _2home_2hwxi_2research_2Postiats_2git_2src_2pats_synent2_jsonize_2esats__staload_flag = 0 ;
+if (_2home_2hwxi_2research_2Postiats_2git_2src_2pats_synent2_jsonize_2esats__staload_flag) return ;
+_2home_2hwxi_2research_2Postiats_2git_2src_2pats_synent2_jsonize_2esats__staload_flag = 1 ;
 
+_2home_2hwxi_2research_2Postiats_2git_2src_2pats_jsonize_2esats__staload () ;
+_2home_2hwxi_2research_2Postiats_2git_2src_2pats_staexp2_2esats__staload () ;
 _2home_2hwxi_2research_2Postiats_2git_2src_2pats_dynexp2_2esats__staload () ;
 
 return ;
@@ -111,4 +141,4 @@ return ;
 
 /* ****** ****** */
 
-/* end of [pats_dyncst2_sats.c] */
+/* end of [pats_synent2_jsonize_sats.c] */

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/mman.atxt
-** Time of generation: Thu Nov 27 03:07:47 2014
+** Time of generation: Fri Dec 19 13:34:39 2014
 */
 
 /* ****** ****** */

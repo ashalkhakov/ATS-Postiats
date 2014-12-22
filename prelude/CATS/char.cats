@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Fri Dec 12 00:57:39 2014
+** Time of generation: Fri Dec 19 17:13:58 2014
 */
 
 /* ****** ****** */
@@ -52,7 +52,8 @@
 
 /* ****** ****** */
 
-#if(1)
+#ifdef __CYGWIN__
+//
 #ifndef isascii
 extern int isascii (int c) ; // _XOPEN_SOURCE
 #endif // end of [isascii]
@@ -64,7 +65,8 @@ extern int isblank (int c) ; // _XOPEN_SOURCE >= 600
 #ifndef toascii
 extern int toascii (int c) ; // _XOPEN_SOURCE
 #endif // end of [toascii]
-#endif // end of [ #if(1) ]
+//
+#endif // end of [#ifdef(__CYGWIN__)]
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/wait.atxt
-** Time of generation: Thu Nov 27 03:07:49 2014
+** Time of generation: Fri Dec 19 13:34:40 2014
 */
 
 /* ****** ****** */

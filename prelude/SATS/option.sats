@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/option.atxt
-** Time of generation: Fri Sep 26 22:20:49 2014
+** Time of generation: Thu Dec 18 23:56:50 2014
 *)
 
 (* ****** ****** *)
@@ -120,11 +120,13 @@ fun{a:t0p}
 option_unsome_exn (opt: Option (INV(a))):<!exn> a
 
 (* ****** ****** *)
-
+//
 fun{a:t0p}
-fprint_option (out: FILEref, opt: Option (INV(a))): void
+fprint_option
+  (out: FILEref, opt: Option (INV(a))): void
+//
 overload fprint with fprint_option
-
+//
 (* ****** ****** *)
 
 (* end of [option.sats] *)

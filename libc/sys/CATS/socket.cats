@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/sys/CATS/CODEGEN/socket.atxt
-** Time of generation: Thu Nov 27 04:31:23 2014
+** Time of generation: Fri Dec 19 13:34:40 2014
 */
 
 /* ****** ****** */

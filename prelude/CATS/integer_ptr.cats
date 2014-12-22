@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_ptr.atxt
-** Time of generation: Tue Oct 28 01:40:31 2014
+** Time of generation: Sun Dec 21 17:30:51 2014
 */
 
 /* ****** ****** */
@@ -115,6 +115,11 @@ atstype_intptr
 atspre_g0int_div_intptr
   (atstype_intptr x1, atstype_intptr x2) { return (x1 / x2) ; }
 // end of [atspre_g0int_div_intptr]
+ATSinline()
+atstype_intptr
+atspre_g0int_mod_intptr
+  (atstype_intptr x1, atstype_intptr x2) { return (x1 % x2) ; }
+// end of [atspre_g0int_mod_intptr]
 ATSinline()
 atstype_bool
 atspre_g0int_isltz_intptr (atstype_intptr x)
@@ -253,6 +258,41 @@ atstype_uintptr
 atspre_g0uint_div_uintptr
   (atstype_uintptr x1, atstype_uintptr x2) { return (x1 / x2) ; }
 // end of [atspre_g0uint_div_uintptr]
+ATSinline()
+atstype_uintptr
+atspre_g0uint_mod_uintptr
+  (atstype_uintptr x1, atstype_uintptr x2) { return (x1 % x2) ; }
+// end of [atspre_g0uint_mod_uintptr]
+ATSinline()
+atstype_uintptr
+atspre_g0uint_lsl_uintptr
+  (atstype_uintptr x, atstype_int n) { return (x << n) ; }
+// end of [atspre_g0uint_lsl_uintptr]
+ATSinline()
+atstype_uintptr
+atspre_g0uint_lsr_uintptr
+  (atstype_uintptr x, atstype_int n) { return (x >> n) ; }
+// end of [atspre_g0uint_lsr_uintptr]
+ATSinline()
+atstype_uintptr
+atspre_g0uint_lnot_uintptr
+  (atstype_uintptr x) { return ~(x) ; }
+// end of [atspre_g0uint_lnot_uintptr]
+ATSinline()
+atstype_uintptr
+atspre_g0uint_lor_uintptr
+  (atstype_uintptr x, atstype_uintptr y) { return (x | y) ; }
+// end of [atspre_g0uint_uintptr_uintptr]
+ATSinline()
+atstype_uintptr
+atspre_g0uint_land_uintptr
+  (atstype_uintptr x, atstype_uintptr y) { return (x & y) ; }
+// end of [atspre_g0uint_uintptr_uintptr]
+ATSinline()
+atstype_uintptr
+atspre_g0uint_lxor_uintptr
+  (atstype_uintptr x, atstype_uintptr y) { return (x ^ y) ; }
+// end of [atspre_g0uint_uintptr_uintptr]
 ATSinline()
 atstype_bool
 atspre_g0uint_isgtz_uintptr (atstype_uintptr x)

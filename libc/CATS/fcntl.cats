@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/fcntl.atxt
-** Time of generation: Fri Dec 19 17:14:04 2014
+** Time of generation: Wed Dec 31 03:06:22 2014
 */
 
 /* ****** ****** */

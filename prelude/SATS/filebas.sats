@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Thu Dec 18 23:56:48 2014
+** Time of generation: Sun Jan  4 00:57:30 2015
 *)
 
 (* ****** ****** *)
@@ -92,12 +92,13 @@ val file_mode_aa
   : file_mode (rw()) = "mac#%" // = "a+"
 //
 (* ****** ****** *)
-
+//
 (*
 ** HX: [stat] is called
 *)
-fun test_file_exists (path: NSH(string)): bool = "mac#%"
-
+fun
+test_file_exists (path: NSH(string)): bool = "mac#%"
+//
 (* ****** ****** *)
 //
 // HX-2011-02-16:

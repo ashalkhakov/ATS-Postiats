@@ -70,7 +70,7 @@ vtypedef bitvecptr (n:int) = [l:addr] bitvecptr(l, n)
 castfn
 bitvecptr2ptr
   {l:addr}{n:int}
-  (vec: !bitvecptr(l, n)):<> ptr(l)
+  (bvp: !bitvecptr(l, n)):<> ptr(l)
 //
 overload ptrcast with bitvecptr2ptr
 //
@@ -97,17 +97,37 @@ bitvecptr_free{n:int}(bitvecptr(n)):<!wrt> void
 
 (* ****** ****** *)
 //
-fun
+fun{}
 bitvec_get_at{n:int}
-  (x: &bitvec(n), i: natLt(n)): bit
-fun
+  (vec: &bitvec(n), i: natLt(n)): bit
+fun{}
 bitvec_set_at{n:int}
-  (x: &bitvec(n) >> _, i: natLt(n), bit): void
+  (vec: &bitvec(n) >> _, i: natLt(n), b: bit): void
+fun{}
+bitvec_flip_at{n:int}
+  (vec: &bitvec(n) >> _, i: natLt(n)): void
+//
+(* ****** ****** *)
+//
+fun{}
+bitvecptr_get_at
+  {l:addr}{n:int}
+  (bvp: !bitvecptr(l, n), i: natLt(n)): bit
+fun{}
+bitvecptr_set_at
+  {l:addr}{n:int}
+  (bvp: !bitvecptr(l, n) >> _, i: natLt(n), b: bit): void
+fun{}
+bitvecptr_flip_at
+  {l:addr}{n:int}
+  (bvp: !bitvecptr(l, n) >> _, i: natLt(n)): void
 //
 (* ****** ****** *)
 
 overload [] with bitvec_get_at
 overload [] with bitvec_set_at
+overload [] with bitvecptr_get_at
+overload [] with bitvecptr_set_at
 
 (* ****** ****** *)
 //
@@ -115,8 +135,15 @@ fun{}
 bitvec_is_none
   {n:int}(&bitvec(n), int(n)):<> bool
 fun{}
+bitvecptr_is_none
+  {l:addr}{n:int}(!bitvecptr(n), int(n)):<> bool
+//
+fun{}
 bitvec_is_full
   {n:int}(&bitvec(n), int(n)):<> bool
+fun{}
+bitvecptr_is_full
+  {l:addr}{n:int}(!bitvecptr(l,n), int(n)):<> bool
 //  
 (* ****** ****** *)
 //
@@ -184,9 +211,11 @@ bitvecptr_land{l1,l2:addr}{n:int}
 fun{}
 fprint_bitvec$word(out: FILEref, w: uintptr): void
 fun{}
-fprint_bitvec{n:int}(out: FILEref, vec: &bitvec(n), n: int(n)): void
+fprint_bitvec{n:int}
+  (out: FILEref, vec: &bitvec(n), n: int(n)): void
 fun{}
-fprint_bitvecptr{n:int}(out: FILEref, vec: !bitvecptr(n), n: int(n)): void
+fprint_bitvecptr{l:addr}{n:int}
+  (out: FILEref, bvp: !bitvecptr(l, n), n: int(n)): void
 //
 (* ****** ****** *)
 //
@@ -194,6 +223,36 @@ fun{}
 bitvec_tabulate$fopr(i: intGte(0)): bit
 fun{}
 bitvecptr_tabulate{n:nat}(nbit: int(n)): bitvecptr(n)
+//
+(* ****** ****** *)
+//
+fun{}
+bitvec_foreach{n:int}
+  (vec: &bitvec(n), n: int(n)): void
+fun{
+env:vt0p
+} bitvec_foreach_env{n:int}
+  (vec: &bitvec(n), n: int(n), env: &env >> _): void
+//
+fun{
+env:vt0p
+} bitvec_foreach$fwork{n:nat}
+  (w: &uintptr >> _, n: int(n), env: &(env) >> _): void
+fun{
+env:vt0p
+} bitvec_foreach$fworkbit (b: bit, env: &(env) >> _): void
+//
+(* ****** ****** *)
+//
+fun{}
+bitvecptr_foreach
+  {l:addr}{n:int}
+  (bvp: !bitvecptr(l, n) >> _, n: int(n)): void
+fun{
+env:vt0p
+} bitvecptr_foreach_env
+  {l:addr}{n:int}
+  (bvp: !bitvecptr(l, n) >> _, n: int(n), env: &env >> _): void
 //
 (* ****** ****** *)
 

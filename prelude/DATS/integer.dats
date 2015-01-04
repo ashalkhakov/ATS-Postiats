@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Sun Dec 21 17:06:01 2014
+** Time of generation: Wed Dec 31 03:06:01 2014
 *)
 
 (* ****** ****** *)

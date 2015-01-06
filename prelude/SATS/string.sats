@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Wed Dec 31 03:05:50 2014
+** Time of generation: Sun Jan  4 02:41:01 2015
 *)
 
 (* ****** ****** *)
@@ -167,17 +167,14 @@ fun{}
 string_get_at_size
   {n:int}{i:nat | i < n}
   (s: string (n), i: size_t (i)):<> charNZ
-overload [] with string_get_at_size of 1
 fun{tk:tk}
 string_get_at_gint
   {n:int}{i:nat | i < n}
   (s: string (n), i: g1int (tk, i)):<> charNZ
-overload [] with string_get_at_gint of 0
 fun{tk:tk}
 string_get_at_guint
   {n:int}{i:nat | i < n}
   (s: string (n), i: g1uint (tk, i)):<> charNZ
-overload [] with string_get_at_guint of 0
 //
 symintr string_get_at
 overload string_get_at with string_get_at_size of 1
@@ -500,6 +497,13 @@ fun fprint_stropt (out: FILEref, opt: Stropt0): void = "mac#%"
 (* ****** ****** *)
 //
 // overloading for certain symbols
+//
+overload
+[] with string_get_at_size of 1
+overload
+[] with string_get_at_gint of 0
+overload
+[] with string_get_at_guint of 0
 //
 overload iseqz with string_is_empty
 overload isneqz with string_isnot_empty

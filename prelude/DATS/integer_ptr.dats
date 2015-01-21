@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer_ptr.atxt
-** Time of generation: Wed Dec 31 03:06:05 2014
+** Time of generation: Tue Jan 13 00:14:04 2015
 *)
 
 (* ****** ****** *)
@@ -50,6 +50,13 @@
 //
 staload UN = "prelude/SATS/unsafe.sats"
 //
+(* ****** ****** *)
+
+implement
+g0int2int<intknd,intptrknd> = g0int2int_int_intptr
+implement
+g0int2int<lintknd,intptrknd> = g0int2int_lint_intptr
+
 (* ****** ****** *)
 
 implement g0int_neg<intptrknd> = g0int_neg_intptr
@@ -82,6 +89,13 @@ implement g0int_min<intptrknd> = g0int_min_intptr
 //
 implement fprint_val<intptr> (out, x) = fprint_intptr (out, x)
 //
+(* ****** ****** *)
+
+implement
+g0uint2uint<uintknd,uintptrknd> = g0uint2uint_uint_uintptr
+implement
+g0uint2uint<ulintknd,uintptrknd> = g0uint2uint_ulint_uintptr
+
 (* ****** ****** *)
 
 implement g0uint_succ<uintptrknd> = g0uint_succ_uintptr

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array_prf.atxt
-** Time of generation: Wed Dec 31 03:06:10 2014
+** Time of generation: Tue Jan 13 00:14:10 2015
 *)
 
 (* ****** ****** *)
@@ -119,7 +119,7 @@ end // end of [else]
 
 primplmnt
 array_v_split_at
-  {a}{tk}{l}{n}{i}(pf | i) = array_v_split{a}{l}{n}{i}(pf)
+  {a}{l}{n}{i}(pf | i) = array_v_split{a}{l}{n}{i}(pf)
 // end of [array_v_split_at]
 
 (* ****** ****** *)

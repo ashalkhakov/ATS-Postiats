@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_ptr.atxt
-** Time of generation: Wed Dec 31 03:06:13 2014
+** Time of generation: Sun Jan 11 03:07:48 2015
 */
 
 /* ****** ****** */
@@ -65,13 +65,22 @@ int fprintf (FILE *stream, const char *format, ...) ;
 /* ****** ****** */
 //
 #define atspre_g0int2int_int_intptr(x) ((atstype_intptr)(x))
-#define atspre_g1int2int_int_intptr atspre_g0int2int_int_intptr
+#define atspre_g0int2int_lint_intptr(x) ((atstype_intptr)(x))
 //
 #define atspre_g0int2uint_int_uintptr(x) ((atstype_uintptr)(x))
-#define atspre_g1int2uint_int_uintptr atspre_g0int2uint_int_uintptr
 //
 #define atspre_g0uint2uint_uint_uintptr(x) ((atstype_uintptr)(x))
+#define atspre_g0uint2uint_ulint_uintptr(x) ((atstype_uintptr)(x))
+//
+/* ****** ****** */
+//
+#define atspre_g1int2int_int_intptr atspre_g0int2int_int_intptr
+#define atspre_g1int2int_lint_intptr atspre_g0int2int_lint_intptr
+//
+#define atspre_g1int2uint_int_uintptr atspre_g0int2uint_int_uintptr
+//
 #define atspre_g1uint2uint_uint_uintptr atspre_g0uint2uint_uint_uintptr
+#define atspre_g1uint2uint_ulint_uintptr atspre_g0uint2uint_ulint_uintptr
 //
 /* ****** ****** */
 

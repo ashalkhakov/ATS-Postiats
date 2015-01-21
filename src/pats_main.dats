@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2011-2014 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -470,11 +470,12 @@ HX: VERSION-0.1.2 released on Friday, August 29, 2014
 HX: VERSION-0.1.3 released on Monday, September 29, 2014
 HX: VERSION-0.1.4 released on Thursday, October 23, 2014
 HX: VERSION-0.1.5 released on Thursday, November 20, 2014
+HX: VERSION-0.1.6 released on Tuesday, January 6, 2015
 //
 *)
 #define PATS_MAJOR_VERSION 0
 #define PATS_MINOR_VERSION 1
-#define PATS_MICRO_VERSION 6
+#define PATS_MICRO_VERSION 7
 (*
 //
 // HX-2011-04-27: this is supported in Postiats:
@@ -494,7 +495,7 @@ implement
 patsopt_version (out) =
 {
   val () = fprintf (out
-, "ATS/Postiats version %i.%i.%i with Copyright (c) 2011-2014 Hongwei Xi\n"
+, "ATS/Postiats version %i.%i.%i with Copyright (c) 2011-2015 Hongwei Xi\n"
 , @(PATS_MAJOR_VERSION, PATS_MINOR_VERSION, PATS_MICRO_VERSION)
   ) // end of [fprintf]
 } (* end of [patsopt_version] *)
@@ -569,6 +570,8 @@ cmdstate = @{
 , typecheckflag= int // 0 by default
 //
 , cnstrsolveflag= int // 0 by default
+//
+, olevel= int // level for output
 //
 , nerror= int // number of accumulated errors
 } // end of [cmdstate]
@@ -1053,7 +1056,15 @@ do_trans12
   state, given, d0cs
 ) = d2cs where {
 //
-val d1cs = do_trans1 (state, given, d0cs)
+val d1cs =
+  do_trans1 (state, given, d0cs)
+//
+val () =
+if
+state.ninpfile >= 2
+then
+  $TRENV2.the_trans2_env_initialize ()
+// end of [if]
 //
 val d2cs = $TRANS2.d1eclist_tr_errck (d1cs)
 //
@@ -1075,10 +1086,13 @@ do_trans123
   state, given, d0cs
 ) = d3cs where {
 //
-val d2cs = do_trans12 (state, given, d0cs)
+val d2cs =
+  do_trans12 (state, given, d0cs)
 //
-val () = $TRENV3.trans3_env_initialize ()
-val d3cs = $TRANS3.d2eclist_tr_errck (d2cs)
+val () =
+  $TRENV3.the_trans3_env_initialize ()
+val d3cs =
+  $TRANS3.d2eclist_tr_errck (d2cs)
 //
 (*
 val () = {
@@ -1090,25 +1104,29 @@ val () = {
 //
 val () = 
 {
-  val flag = state.cnstrsolveflag
-  val c3t0 = $TRENV3.trans3_finget_constraint ()
+val flag = state.cnstrsolveflag
+val c3t0 =
+  $TRENV3.the_trans3_finget_constraint ()
+// end of [val]
 //
-  val () =
-  if flag = 0 then $CNSTR3.c3nstr_solve (c3t0)
+val () =
+if flag = 0 then $CNSTR3.c3nstr_solve (c3t0)
 //
-  val () =
-  if flag > 0 then
-  {
-    val filr =
-      outchan_get_filr (state.outchan)
-    val () = $CNSTR3.c3nstr_export (filr, c3t0)
-  } (* end of [if] *)
+val () =
+if
+flag > 0
+then {
+  val filr =
+    outchan_get_filr (state.outchan)
+  val () = $CNSTR3.c3nstr_export (filr, c3t0)
+} (* end of [if] *)
 //
 } (* end of [val] *)
 //
 val () =
-if isdebug() then
-{
+if
+isdebug()
+then {
   val () = prerrln! (
     "The 3rd translation (type-checking) of [", given, "] is successfully completed!"
   ) (* end of [val] *)
@@ -1127,6 +1145,7 @@ do_trans1234
 val d3cs =
   do_trans123 (state, given, d0cs)
 // end of [d3cs]
+//
 val hids = $TYER.d3eclist_tyer_errck (d3cs)
 //
 (*
@@ -1152,25 +1171,23 @@ do_transfinal
 case+ 0 of
 | _ when
     state.pkgreloc > 0 => let
-    val d1cs =
-      do_trans1 (state, given, d0cs)
-    // end of [val]
+    val d1cs = do_trans1 (state, given, d0cs)
   in
     do_pkgreloc (state, given, d1cs)
   end // end of [when ...]
 | _ when
     state.jsonizeflag = 2 => let
-    val d2cs =
-      do_trans12 (state, given, d0cs)
-    // end of [val]
+    val d2cs = do_trans12 (state, given, d0cs)
   in
     do_jsonize_2 (state, given, d2cs)
   end // end of [when ...]
 | _ when
-    state.typecheckflag > 0 => let
-    val d3cs = do_trans123 (state, given, d0cs) in (*none*)
-  end // end of [when ...]
+    state.typecheckflag > 0 =>
+  {
+    val d3cs = do_trans123 (state, given, d0cs)
+  } (* end of [when ...] *)
 | _ => let
+    val () = state.olevel := 1 // there is output
     val hids = do_trans1234 (state, given, d0cs)
     val outfil = outchan_get_filr (state.outchan)
     val flag = waitkind_get_stadyn (state.waitkind)
@@ -1195,7 +1212,7 @@ auxexn
 fun
 auxerr
 (
-  outfil: FILEref, given: string, msg: string
+  n: int, outfil: FILEref, given: string, msg: string
 ) : void = let
 val
 cmtl =
@@ -1203,19 +1220,26 @@ cmtl =
 //
 in
 //
+if
+(n > 0)
+then
 fprintf
 (
   outfil
-, "%s//\n#error(patsopt(%s): %s)\n//\n%s", @(cmtl, given, msg, cmtl)
+, "%s//\n#error(PATSOPT_ERROR_(patsopt(%s): %s))\n//\n%s", @(cmtl, given, msg, cmtl)
 ) // end of [fprintf]
 //
-end (* end of [aux] *)
+end (* end of [auxerr] *)
 //
 val
 (pf, fpf | p) =
 $UN.ptr0_vtake{cmdstate}(p0)
 //
+val olevel = p->olevel
 val outfil = outchan_get_filr (p->outchan)
+//
+val nerror = p->nerror
+val ((*void*)) = p->nerror := nerror + 1
 //
 prval ((*addback*)) = fpf (pf)
 //
@@ -1223,39 +1247,29 @@ in
 //
 case+ exn of
 //
-| $ERR.PATSOPT_FIXITY_EXN() =>
+| ~($ERR.PATSOPT_FIXITY_EXN()) =>
   (
-    fold@(exn);
-    auxerr (outfil, given, "fixity-errors");
-    $raise(exn);
+    auxerr (olevel, outfil, given, "fixity-errors")
   )
 //
-| $ERR.PATSOPT_TRANS1_EXN() =>
+| ~($ERR.PATSOPT_TRANS1_EXN()) =>
   (
-    fold@(exn);
-    auxerr (outfil, given, "trans1-errors");
-    $raise(exn);
+    auxerr (olevel, outfil, given, "trans1-errors")
   )
 //
-| $ERR.PATSOPT_TRANS2_EXN() =>
+| ~($ERR.PATSOPT_TRANS2_EXN()) =>
   (
-    fold@(exn);
-    auxerr (outfil, given, "trans2-errors");
-    $raise(exn);
+    auxerr (olevel, outfil, given, "trans2-errors")
   )
 //
-| $ERR.PATSOPT_TRANS3_EXN() =>
+| ~($ERR.PATSOPT_TRANS3_EXN()) =>
   (
-    fold@(exn);
-    auxerr (outfil, given, "trans3-errors");
-    $raise(exn);
+    auxerr (olevel, outfil, given, "trans3-errors")
   )
 //
-| $ERR.PATSOPT_TRANS4_EXN() =>
+| ~($ERR.PATSOPT_TRANS4_EXN()) =>
   (
-    fold@(exn);
-    auxerr (outfil, given, "trans4-errors");
-    $raise(exn);
+    auxerr (olevel, outfil, given, "trans4-errors")
   )
 //
 (*
@@ -1327,7 +1341,7 @@ case+ arglst of
     | _ when stadyn >= 0 => {
         val PATSHOME = state.PATSHOME
         val () =
-          prelude_load_if (
+        prelude_load_if (
           PATSHOME, state.preludeflag // loading once
         ) // end of [val]
 //
@@ -1642,7 +1656,8 @@ patsopt_main
 
 implement
 patsopt_main
-  (argc, argv) = {
+  (argc, argv) = () where
+{
 //
 val () =
 set () where
@@ -1669,24 +1684,23 @@ PATSHOME = let
   val opt = get () where
   {
     extern fun get (): Stropt = "mac#patsopt_PATSHOME_get"
-  } // end of [where] // end of [val]
+  } (* end of [where] *)
   val issome = stropt_is_some (opt)
 in
   if issome
-    then
-      stropt_unsome opt
-    // end of [then]
+    then stropt_unsome(opt)
     else let
       val () = prerrln! ("The environment variable PATSHOME is undefined!")
     in
       $ERR.abort ()
-    end // end of [else]
+    end (* end of [else] *)
   // end of [if]
 end : string // end of [val]
 //
 // for the run-time and atslib
 //
-val () = $FIL.the_prepathlst_push (PATSHOME)
+val () =
+  $FIL.the_prepathlst_push (PATSHOME)
 //
 val () = $TRENV1.the_trans1_env_initialize ()
 val () = $TRENV2.the_trans2_env_initialize ()
@@ -1724,14 +1738,21 @@ state = @{
 //
 , cnstrsolveflag= 0 // cnstr-solving by default
 //
+, olevel= 0 // level of output
+//
 , nerror= 0 // number of accumulated errors
 } : cmdstate // end of [var]
 //
 val () = process_ATSPKGRELOCROOT ()
 //
-val ((*void*)) = process_cmdline (state, arglst)
+val () = process_cmdline (state, arglst)
 //
-} (* end of [patsopt_main] *)
+// HX-2015-01-09:
+// A tool like patscc should receive an error:
+//
+val () = if state.nerror > 0 then $ERR.abort{void}()
+//
+} (* end of [where] *) // end of [patsopt_main]
 //
 (* ****** ****** *)
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/giterator.atxt
-** Time of generation: Wed Dec 31 03:06:00 2014
+** Time of generation: Sun Jan 11 02:59:11 2015
 *)
 
 (* ****** ****** *)

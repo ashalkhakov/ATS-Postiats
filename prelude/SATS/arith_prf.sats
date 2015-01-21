@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arith_prf.atxt
-** Time of generation: Wed Dec 31 03:05:51 2014
+** Time of generation: Sun Jan 18 17:11:34 2015
 *)
 
 (* ****** ****** *)
@@ -212,9 +212,11 @@ divmod_mul_elim
 
 (* ****** ****** *)
 //
-dataprop EXP2 (int, int) =
-  | {n:nat}{p:nat} EXP2ind (n+1, 2*p) of EXP2 (n, p)
+dataprop
+EXP2 (int, int) =
   | EXP2bas (0, 1)
+  | {n:nat}{p:nat}
+    EXP2ind (n+1, 2*p) of EXP2 (n, p)
 // end of [EXP2]
 //
 prfun lemma_exp2_param :

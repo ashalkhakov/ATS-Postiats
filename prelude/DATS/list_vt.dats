@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed Dec 31 03:06:08 2014
+** Time of generation: Tue Jan 13 00:14:08 2015
 *)
 
 (* ****** ****** *)
@@ -209,7 +209,7 @@ case+ xs of
     prval () = fold@ (res)
   in
     // nothing
-  end
+  end // end of [list_vt_cons]
 | list_vt_nil () => res := list_vt_nil ()
 //
 end // end of [loop]
@@ -423,6 +423,7 @@ fun loop
   {n:nat} .<n>. (
   xs: list_vt (a, n)
 ) :<!wrt> void =
+(
   case+ xs of
   | @list_vt_cons
       (x, xs1) => let
@@ -434,7 +435,7 @@ fun loop
       loop (xs1)
     end // end of [list_vt_cons]
   | ~list_vt_nil () => ()
-// end of [loop]
+) (* end of [loop] *)
 //
 in
   loop (xs)
@@ -457,6 +458,7 @@ fun loop
   {n:nat} .<n>. (
   xs: !list_vt (a, n) >> list_vt (a?, n)
 ) :<!wrt> void =
+(
   case+ xs of
   | @list_vt_cons
       (x, xs1) => let
@@ -468,7 +470,7 @@ fun loop
       // nothing
     end // end of [list_vt_cons]
   | @list_vt_nil () => fold@ {a?} (xs)
-// end of [loop]
+) (* end of [loop] *)
 //
 in
   loop (xs)
@@ -803,8 +805,8 @@ case+ xs of
     prval () = fold@ (xs)
   in
     // nothing
-  end
-| list_vt_nil () => ()
+  end // end of [cons]
+| list_vt_nil ((*void*)) => ()
 //
 end // end of [list_vt_app]
 
@@ -822,8 +824,8 @@ case+ xs of
     val () = free@ {a}{0} (xs)
   in
     list_vt_appfree<a> (xs1)
-  end
-| ~list_vt_nil () => ()
+  end // end of [cons]
+| ~list_vt_nil ((*void*)) => ()
 //
 end // end of [list_vt_appfree]
 
@@ -995,8 +997,8 @@ case+ xs of
     end else let
       prval ((*void*)) = fold@ (xs) in (*nothing*)
     end // end of [if]
-  end // end of [list_vt_cons]
-| list_vt_nil () => ((*void*))
+  end // end of [cons]
+| list_vt_nil ((*void*)) => ()
 //
 end // end of [loop]
 //
@@ -1019,8 +1021,10 @@ list_vt_foreach_fun
 //
 prval () = lemma_list_vt_param (xs)
 //
-fun loop
-  {n:nat} .<n>. (
+fun
+loop
+{n:nat} .<n>.
+(
   xs: !list_vt (a, n), f: (&a) -<fe> void
 ) :<fe> void =
   case+ xs of
@@ -1030,8 +1034,8 @@ fun loop
       val () = loop (xs1, f)
     in
       fold@ (xs)
-    end // end of [list_vt_cons]
-  | list_vt_nil () => ()
+    end // end of [cons]
+  | list_vt_nil ((*void*)) => ()
 // end of [loop]
 in
   loop (xs, f)
@@ -1059,8 +1063,8 @@ fun loop
       val () = loop (pf | xs1, f, env)
     in
       fold@ (xs)
-    end // end of [list_vt_cons]
-  | list_vt_nil () => ()
+    end // end of [cons]
+  | list_vt_nil ((*void*)) => ()
 // end of [loop]
 //
 in
@@ -1091,7 +1095,8 @@ fun loop
 ) : intBtwe(i, n+i) = let
 in
   case+ xs of
-  | @list_vt_cons (x, xs1) => let
+  | @list_vt_cons
+      (x, xs1) => let
       val test =
         list_vt_iforeach$cont<x><env> (i, x, env)
       // end of [val]
@@ -1109,8 +1114,8 @@ in
       in
         i // the number of processed elements
       end // end of [if]
-    end // end of [list_vt_cons]
-  | list_vt_nil () => i // the number of processed elements
+    end // end of [cons]
+  | list_vt_nil ((*void*)) => (i) // |processed-elements|
 end // end of [loop]
 //
 in

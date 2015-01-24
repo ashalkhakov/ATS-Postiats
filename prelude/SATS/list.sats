@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sun Jan 11 02:59:06 2015
+** Time of generation: Wed Jan 21 11:57:42 2015
 *)
 
 (* ****** ****** *)
@@ -446,9 +446,9 @@ fun{x:t0p} list_forall$pred (x):<> bool
 (* ****** ****** *)
 
 fun{x:t0p}
-list_equal (xs1: List (INV(x)), xs2: List(x)):<> bool
-fun{x:t0p}
 list_equal$eqfn (x, x):<> bool
+fun{x:t0p}
+list_equal (xs1: List (INV(x)), xs2: List(x)):<> bool
 
 (* ****** ****** *)
 //

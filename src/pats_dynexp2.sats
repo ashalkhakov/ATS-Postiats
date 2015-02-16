@@ -705,18 +705,30 @@ fun p2at_ann (loc: location, p2t: p2at, ann: s2exp): p2at
 fun p2at_errpat (loc: location): p2at
 
 (* ****** ****** *)
-
+//
+fun p2atlst_tupize (p2ts: p2atlst): labp2atlst
+//
+(* ****** ****** *)
+//
 fun print_p2at (x: p2at): void
-overload print with print_p2at
 fun prerr_p2at (x: p2at): void
-overload prerr with prerr_p2at
 fun fprint_p2at : fprint_type (p2at)
+//
+overload print with print_p2at
+overload prerr with prerr_p2at
 overload fprint with fprint_p2at
-
+//
+(* ****** ****** *)
+//
 fun print_p2atlst (xs: p2atlst): void
 fun prerr_p2atlst (xs: p2atlst): void
 fun fprint_p2atlst : fprint_type (p2atlst)
+//
+overload print with print_p2atlst
+overload prerr with prerr_p2atlst
 overload fprint with fprint_p2atlst
+//
+(* ****** ****** *)
 
 fun fprint_labp2at : fprint_type (labp2at)
 fun fprint_labp2atlst : fprint_type (labp2atlst)
@@ -750,7 +762,8 @@ d2ecl_node =
   | D2Cextvar of (string(*name*), d2exp(*def*))
   | D2Cextcode of (int(*knd*), int(*pos*), string(*code*))
 //
-  | D2Cdatdecs of (int(*knd*), s2cstlst) // datatype declarations
+  | D2Cdatdecs of
+      (int(*knd*), s2cstlst) // datatype declarations
   | D2Cexndecs of (d2conlst) // exception constructor declarations
 //
   | D2Cdcstdecs of (int(*0/1:sta/ext*), dcstkind, d2cstlst) // dyncst

@@ -478,7 +478,7 @@ castfn ptrlin2ptr{l:addr} (p: ptrlin l):<> ptr (l)
 // HX-2014-05-16:
 // A hack to stop buggy compilation
 //
-fun ptr_volatile (p: ptr): void
+fun ptr_as_volatile (p: ptr): void
 //
 (* ****** ****** *)
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Sun Jan 11 02:59:04 2015
+** Time of generation: Sat Feb 14 12:12:53 2015
 *)
 
 (* ****** ****** *)
@@ -50,12 +50,19 @@ sortdef t0p = t@ype and vt0p = viewt@ype
 
 (* ****** ****** *)
 //
-castfn cast {to:t0p}{from:t0p} (x: INV(from)):<> to
+praxi
+prop_assert{b:bool}((*void*)): [b] void
 //
 (* ****** ****** *)
 //
 castfn
-castvwtp0 {to:vt0p}{from:vt0p} (x: INV(from)):<> to
+cast{to:t0p}{from:t0p} (x: INV(from)):<> to
+//
+(* ****** ****** *)
+//
+castfn
+castvwtp0
+  {to:vt0p}{from:vt0p} (x: INV(from)):<> to
 //
 // HX:
 // [castvwtp1] is mostly used in a situation
@@ -65,7 +72,8 @@ castvwtp0 {to:vt0p}{from:vt0p} (x: INV(from)):<> to
 // temporarily.
 //
 castfn
-castvwtp1{to:vt0p}{from:vt0p} (x: !INV(from)>>from):<> to
+castvwtp1
+  {to:vt0p}{from:vt0p} (x: !INV(from)>>from):<> to
 //
 (* ****** ****** *)
 //

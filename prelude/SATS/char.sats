@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Sun Jan 11 02:59:00 2015
+** Time of generation: Fri Feb 13 11:36:39 2015
 *)
 
 (* ****** ****** *)
@@ -467,6 +467,24 @@ overload char2u2i with char2u2int0 of 0
 symintr char2u2ui
 overload char2u2ui with char2u2uint0 of 0
 
+(* ****** ****** *)
+//
+fun int2byte0 (i: int): byte = "mac#%"
+fun byte2int0 (b: byte):<> int = "mac#%"
+//
+fun uint2byte0 (u: uint): byte = "mac#%"
+fun byte2uint0 (b: byte):<> uint = "mac#%"
+//
+symintr byte2i
+overload byte2i with byte2int0 of 0
+symintr i2byte
+overload i2byte with int2byte0 of 0
+//
+symintr byte2ui
+overload byte2i with byte2uint0 of 0
+symintr ui2byte
+overload i2byte with uint2byte0 of 0
+//
 (* ****** ****** *)
 
 (* end of [char.sats] *)

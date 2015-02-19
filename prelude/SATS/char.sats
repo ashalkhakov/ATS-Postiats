@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Fri Feb 13 11:36:39 2015
+** Time of generation: Mon Feb 16 10:41:02 2015
 *)
 
 (* ****** ****** *)
@@ -39,9 +39,23 @@
 (* Start time: September, 2011 *)
 
 (* ****** ****** *)
-
-sortdef t0p = t@ype
-
+//
+praxi
+lemma_char_size
+(
+// argumentless
+) : [sizeof(char)==sizeof(byte)] void
+praxi
+lemma_schar_size
+(
+// argumentless
+) : [sizeof(schar)==sizeof(byte)] void
+praxi
+lemma_uchar_size
+(
+// argumentless
+) : [sizeof(uchar)==sizeof(byte)] void
+//
 (* ****** ****** *)
 //
 castfn char2schar0 (c: char):<> schar

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Tue Jan 13 00:14:08 2015
+** Time of generation: Wed Feb 18 10:15:22 2015
 *)
 
 (* ****** ****** *)
@@ -933,15 +933,16 @@ fun loop
 ) : void = let
 in
   case+ xs of
-  | ~list_vt_cons
+  | @list_vt_cons
       (x, xs1) => let
       val y =
-        list_vt_mapfree$fopr<a><b> (x)
-      val () =
-        res := list_vt_cons{b}{0}(y, _)
+      list_vt_mapfree$fopr<a><b> (x)
+      val xs1_val = xs1
+      val ((*freed*)) = free@{a}{0}(xs)
+      val () = res := list_vt_cons{b}{0}(y, _)
       val+list_vt_cons (_, res1) = res
-      val () = loop (xs1, res1)
-      prval () = fold@ (res)
+      val () = loop (xs1_val, res1)
+      prval ((*folded*)) = fold@(res)
     in
       // nothing
     end // end of [list_vt_cons]

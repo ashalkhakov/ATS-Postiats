@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Wed Jan 21 11:57:42 2015
+** Time of generation: Thu Feb 19 14:00:13 2015
 *)
 
 (* ****** ****** *)
@@ -546,13 +546,13 @@ x:t0p}{y:vt0p
 
 fun{
 x:t0p}{y:vt0p
-} list_map_cloref{n:int}
-  (xs: list (INV(x), n), f: (x) -<cloref1> y): list_vt(y, n)
+} list_map_clo{n:int}
+  (xs: list (INV(x), n), f: &(x) -<clo1> y): list_vt(y, n)
 
 fun{
 x:t0p}{y:vt0p
-} list_map_clo{n:int}
-  (xs: list (INV(x), n), f: &(x) -<clo1> y): list_vt(y, n)
+} list_map_cloref{n:int}
+  (xs: list (INV(x), n), f: (x) -<cloref1> y): list_vt(y, n)
 
 (* ****** ****** *)
 
@@ -643,12 +643,12 @@ a:vt0p
   (n: int n, f: natLt(n) -<fun1> a): list_vt (a, n)
 fun{
 a:vt0p
-} list_tabulate_cloref{n:nat}
-  (n: int n, f: natLt(n) -<cloref1> a): list_vt (a, n)
-fun{
-a:vt0p
 } list_tabulate_clo{n:nat}
   (n: int n, f: &(natLt(n)) -<clo1> a): list_vt (a, n)
+fun{
+a:vt0p
+} list_tabulate_cloref{n:nat}
+  (n: int n, f: natLt(n) -<cloref1> a): list_vt (a, n)
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed Feb 18 10:15:22 2015
+** Time of generation: Thu Feb 19 14:13:59 2015
 *)
 
 (* ****** ****** *)
@@ -887,21 +887,6 @@ end // end of [list_vt_map_fun]
 
 implement
 {x}{y}(*tmp*)
-list_vt_map_cloref
-  (xs, f) = let
-//
-implement
-{x2}{y2}
-list_vt_map$fopr (x2) = let
-  val f = $UN.cast{(&x2)-<cloref1>y}(f) in $UN.castvwtp0{y2}(f(x2))
-end // end of [list_vt_map$fopr]
-//
-in
-  list_vt_map<x><y> (xs)
-end // end of [list_vt_map_cloref]
-
-implement
-{x}{y}(*tmp*)
 list_vt_map_clo
   (xs, f) = let
 //
@@ -916,6 +901,21 @@ end // end of [list_vt_map$fopr]
 in
   list_vt_map<x><y> (xs)
 end // end of [list_vt_map_clo]
+
+implement
+{x}{y}(*tmp*)
+list_vt_map_cloref
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_vt_map$fopr (x2) = let
+  val f = $UN.cast{(&x2)-<cloref1>y}(f) in $UN.castvwtp0{y2}(f(x2))
+end // end of [list_vt_map$fopr]
+//
+in
+  list_vt_map<x><y> (xs)
+end // end of [list_vt_map_cloref]
 
 (* ****** ****** *)
 
@@ -955,6 +955,56 @@ val () = loop (xs, res)
 in
   res
 end // end of [list_vt_mapfree]
+
+(* ****** ****** *)
+
+implement
+{x}{y}(*tmp*)
+list_vt_mapfree_fun
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_vt_mapfree$fopr (x2) = let
+  val f = $UN.cast{(&x2>>_?)->y}(f) in $UN.castvwtp0{y2}(f(x2))
+end // end of [list_vt_mapfree$fopr]
+//
+in
+  list_vt_mapfree<x><y> (xs)
+end // end of [list_vt_mapfree_fun]
+
+implement
+{x}{y}(*tmp*)
+list_vt_mapfree_clo
+  (xs, f) = let
+//
+val f =
+$UN.cast{(&x>>_?) -<cloref1> y}(addr@f)
+//
+implement
+{x2}{y2}
+list_vt_mapfree$fopr (x2) = let
+  val f = $UN.cast{(&x2>>_?)-<cloref1>y}(f) in $UN.castvwtp0{y2}(f(x2))
+end // end of [list_vt_mapfree$fopr]
+//
+in
+  list_vt_mapfree<x><y> (xs)
+end // end of [list_vt_mapfree_clo]
+
+implement
+{x}{y}(*tmp*)
+list_vt_mapfree_cloref
+  (xs, f) = let
+//
+implement
+{x2}{y2}
+list_vt_mapfree$fopr (x2) = let
+  val f = $UN.cast{(&x2>>_?)-<cloref1>y}(f) in $UN.castvwtp0{y2}(f(x2))
+end // end of [list_vt_mapfree$fopr]
+//
+in
+  list_vt_mapfree<x><y> (xs)
+end // end of [list_vt_mapfree_cloref]
 
 (* ****** ****** *)
 

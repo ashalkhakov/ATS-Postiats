@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Sat Feb 14 12:12:53 2015
+** Time of generation: Sun Feb 22 16:35:43 2015
 *)
 
 (* ****** ****** *)
@@ -52,6 +52,13 @@ sortdef t0p = t@ype and vt0p = viewt@ype
 //
 praxi
 prop_assert{b:bool}((*void*)): [b] void
+//
+praxi
+eqint_assert{i1,i2:int}((*void*)): EQINT(i1,i2)
+praxi
+eqaddr_assert{l1,l2:addr}((*void*)): EQADDR(l1,l2)
+praxi
+eqbool_assert{b1,b2:bool}((*void*)): EQBOOL(b1,b2)
 //
 (* ****** ****** *)
 //

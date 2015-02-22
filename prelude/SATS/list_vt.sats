@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed Feb 18 10:18:58 2015
+** Time of generation: Thu Feb 19 14:13:22 2015
 *)
 
 (* ****** ****** *)
@@ -357,39 +357,60 @@ fun{x:vt0p}
 list_vt_appfree$fwork (x: &x >> x?): void
 
 (* ****** ****** *)
-
+//
 fun{
 x:vt0p}{y:vt0p
-} list_vt_map{n:int} (!list_vt (INV(x), n)): list_vt (y, n)
+} list_vt_map{n:int}
+(
+  xs: !list_vt (INV(x), n)
+) : list_vt (y, n)
+//
 fun{
 x:vt0p}{y:vt0p
 } list_vt_map$fopr (x: &x >> _): (y)
-
+//
 (* ****** ****** *)
 
 fun{
 x:vt0p}{y:vt0p
 } list_vt_map_fun{n:int}
   (xs: !list_vt (INV(x), n), f: (&x) -<fun1> y): list_vt(y, n)
-
+fun{
+x:vt0p}{y:vt0p
+} list_vt_map_clo{n:int}
+  (xs: !list_vt (INV(x), n), f: &(&x) -<clo1> y): list_vt(y, n)
 fun{
 x:vt0p}{y:vt0p
 } list_vt_map_cloref{n:int}
   (xs: !list_vt (INV(x), n), f: (&x) -<cloref1> y): list_vt(y, n)
 
+(* ****** ****** *)
+//
 fun{
 x:vt0p}{y:vt0p
-} list_vt_map_clo{n:int}
-  (xs: !list_vt (INV(x), n), f: &(&x) -<clo1> y): list_vt(y, n)
-
+} list_vt_mapfree{n:int}
+(
+  xs: list_vt (INV(x), n)
+) : list_vt (y, n)
+//
+fun{
+x:vt0p}{y:vt0p
+} list_vt_mapfree$fopr (x: &(x) >> x?): (y)
+//
 (* ****** ****** *)
 
 fun{
 x:vt0p}{y:vt0p
-} list_vt_mapfree{n:int} (list_vt (INV(x), n)): list_vt (y, n)
+} list_vt_mapfree_fun{n:int}
+  (xs: list_vt (INV(x), n), f: (&x>>_?) -<fun1> y): list_vt(y, n)
 fun{
 x:vt0p}{y:vt0p
-} list_vt_mapfree$fopr (x: &(x) >> x?): (y)
+} list_vt_mapfree_clo{n:int}
+  (xs: list_vt (INV(x), n), f: &(&x>>_?) -<clo1> y): list_vt(y, n)
+fun{
+x:vt0p}{y:vt0p
+} list_vt_mapfree_cloref{n:int}
+  (xs: list_vt (INV(x), n), f: (&x>>_?) -<cloref1> y): list_vt(y, n)
 
 (* ****** ****** *)
 //

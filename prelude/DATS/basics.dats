@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Tue Jan 13 00:14:07 2015
+** Time of generation: Tue Mar 10 11:09:40 2015
 *)
 
 (* ****** ****** *)
@@ -127,14 +127,22 @@ implement{a} gidentity_vt (x) = x
 (* ****** ****** *)
 //
 implement
-(a:t@ype)
-gequal_ref<a> (x, y) = gequal_val<a> (x, y)
+gequal_val_val<int> (x, y) = (x = y)
+implement
+gequal_val_val<bool> (x, y) = (x = y)
+implement
+gequal_val_val<char> (x, y) = (x = y)
+implement
+gequal_val_val<double> (x, y) = (x = y)
+implement
+gequal_val_val<string> (x, y) = (x = y)
 //
-implement gequal_val<int> (x, y) = (x = y)
-implement gequal_val<bool> (x, y) = (x = y)
-implement gequal_val<char> (x, y) = (x = y)
-implement gequal_val<double> (x, y) = (x = y)
-implement gequal_val<string> (x, y) = (x = y)
+(* ****** ****** *)
+//
+implement
+(a:t@ype)
+gequal_ref_ref<a>
+  (x, y) = gequal_val_val<a> (x, y)
 //
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arith_prf.atxt
-** Time of generation: Tue Feb 10 21:19:53 2015
+** Time of generation: Fri Mar  6 11:05:45 2015
 *)
 
 (* ****** ****** *)
@@ -182,17 +182,17 @@ propdef
 MOD (x:int, y:int, r:int) = [q:int] DIVMOD (x, y, q, r)
 
 (* ****** ****** *)
-
+//
 praxi
 div_istot
   {x,y:int | x >= 0; y > 0} (): DIV (x, y, x/y)
-
+//
 praxi
 divmod_istot
   {x,y:int |
    x >= 0; y > 0}
   ((*void*)): [q,r:nat | r < y] DIVMOD (x, y, q, r)
-
+//
 (* ****** ****** *)
 
 praxi

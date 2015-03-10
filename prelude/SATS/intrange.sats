@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/intrange.atxt
-** Time of generation: Sun Jan 11 02:59:05 2015
+** Time of generation: Tue Mar  3 13:39:34 2015
 *)
 
 (* ****** ****** *)
@@ -44,29 +44,42 @@
 // intrange (l, r) is for integers i satisfying l <= i < r
 //
 (* ****** ****** *)
-
-fun{env:vt0p}
-intrange_foreach$cont (i: int, env: &env): bool
-fun{env:vt0p}
-intrange_foreach$fwork (i: int, env: &(env) >> _): void
-
+//
 fun{}
 intrange_foreach (l: int, r: int): int
 fun{env:vt0p}
 intrange_foreach_env (l: int, r: int, env: &(env) >> _): int
-
+//
+fun{env:vt0p}
+intrange_foreach$cont (i: int, env: &env): bool
+fun{env:vt0p}
+intrange_foreach$fwork (i: int, env: &(env) >> _): void
+//
 (* ****** ****** *)
-
-fun{env:vt0p}
-intrange_rforeach$cont (i: int, env: &env): bool
-fun{env:vt0p}
-intrange_rforeach$fwork (i: int, env: &(env) >> _): void
-
+//
 fun{}
 intrange_rforeach (l: int, r: int): int
 fun{env:vt0p}
 intrange_rforeach_env (l: int, r: int, env: &(env) >> _): int
-
+//
+fun{env:vt0p}
+intrange_rforeach$cont (i: int, env: &env): bool
+fun{env:vt0p}
+intrange_rforeach$fwork (i: int, env: &(env) >> _): void
+//
+(* ****** ****** *)
+//
+fun{}
+intrange_foreach2
+  (l1: int, r1: int, l2: int, r2: int): void
+//
+fun{env:vt0p}
+intrange_foreach2_env
+  (l1: int, r1: int, l2: int, r2: int, env: &(env) >> _): void
+//
+fun{env:vt0p}
+intrange_foreach2$fwork (i: int, j: int, env: &env >> _): void
+//
 (* ****** ****** *)
 
 (* end of [intrange.sats] *)

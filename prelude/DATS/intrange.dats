@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/intrange.atxt
-** Time of generation: Tue Jan 13 00:14:07 2015
+** Time of generation: Tue Mar 10 11:09:40 2015
 *)
 
 (* ****** ****** *)
@@ -62,13 +62,22 @@ fun loop
   l: int, r: int, env: &tenv
 ) : int =
 (
-  if l < r then let
-    val cont = intrange_foreach$cont<tenv> (l, env)
-  in
-    if cont then let
-      val () = intrange_foreach$fwork<tenv> (l, env) in loop (succ(l), r, env)
-    end else l // end of [if]
-  end else l // end of [if]
+//
+if
+l < r
+then let
+  val cont = intrange_foreach$cont<tenv> (l, env)
+in
+//
+if
+cont
+then (
+  intrange_foreach$fwork<tenv> (l, env); loop (succ(l), r, env)
+) else l // end of [if]
+//
+end // end of [then]
+else l // end of [else]
+//
 ) // end of [loop]
 //
 in
@@ -98,19 +107,66 @@ fun loop
   l: int, r: int, env: &tenv
 ) : int =
 (
-  if l < r then let
-    val r1 = pred (r)
-    val cont = intrange_rforeach$cont<tenv> (r1, env)
-  in
-    if cont then let
-      val () = intrange_rforeach$fwork<tenv> (r1, env) in loop (l, r1, env)
-    end else r // end of [if]
-  end else r // end of [if]
+//
+if
+l < r
+then let
+  val r1 = pred (r)
+  val cont = intrange_rforeach$cont<tenv> (r1, env)
+in
+//
+if
+cont
+then (
+  intrange_rforeach$fwork<tenv> (r1, env); loop (l, r1, env)
+) else r // end of [if]
+//
+end // end of [then]
+else r // end of [else]
+//
 ) // end of [loop]
 //
 in
   loop (l, r, env)
 end // end of [intrange_rforeach_env]
+
+(* ****** ****** *)
+
+implement{}
+intrange_foreach2
+  (l1, r1, l2, r2) = let
+  var env: void = () in intrange_foreach2_env<void> (l1, r1, l2, r2, env)
+end // end of [intrange_foreach2]
+
+(* ****** ****** *)
+
+implement{tenv}
+intrange_foreach2_env
+  (l1, r1, l2, r2, env) = let
+//
+fnx
+loop1
+(
+  i: int, env: &(tenv) >> _
+) : void =
+(
+if i < r1 then loop2 (i, l2, env) else ()
+)
+//
+and
+loop2
+(
+  i: int, j: int, env: &(tenv) >> _
+) : void =
+(
+if j < r2
+  then (intrange_foreach2$fwork(i, j, env); loop2 (i, j+1, env))
+  else loop1 (i+1, env)
+)
+//
+in
+  loop1 (l1, env)
+end // end of [intrange_foreach2]
 
 (* ****** ****** *)
 

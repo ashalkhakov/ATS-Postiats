@@ -516,6 +516,10 @@ val () = ins ("$extval", T_DLREXTVAL)
 val () = ins ("$extfcall", T_DLREXTFCALL)
 val () = ins ("$extmcall", T_DLREXTMCALL)
 //
+val () = ins ("$myfilename", T_DLRMYFILENAME)
+val () = ins ("$mylocation", T_DLRMYLOCATION)
+val () = ins ("$myfunction", T_DLRMYFUNCTION)
+//
 val () = ins ("$lst", DLRLST)
 val () = ins ("$lst_t", DLRLST_T)
 val () = ins ("$lst_vt", DLRLST_VT)
@@ -539,11 +543,8 @@ val () = ins ("$tuple_vt", DLRTUP_VT)
 //
 val () = ins ("$break", T_DLRBREAK)
 val () = ins ("$continue", T_DLRCONTINUE)
-val () = ins ("$raise", T_DLRRAISE)
 //
-val () = ins ("$myfilename", T_DLRMYFILENAME)
-val () = ins ("$mylocation", T_DLRMYLOCATION)
-val () = ins ("$myfunction", T_DLRMYFUNCTION)
+val () = ins ("$raise", T_DLRRAISE)
 //
 val () = ins ("$showtype", T_DLRSHOWTYPE)
 //

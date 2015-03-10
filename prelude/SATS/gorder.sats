@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gorder.atxt
-** Time of generation: Sun Jan 11 02:59:05 2015
+** Time of generation: Tue Mar 10 10:19:25 2015
 *)
 
 (* ****** ****** *)
@@ -66,55 +66,78 @@ gisneqz_val (x: a):<> bool
 (* ****** ****** *)
 
 fun{a:t0p}
-glt_val (x: a, y: a):<> bool
+glt_val_val (x: a, y: a):<> bool
 fun{a:t0p}
-glte_val (x: a, y: a):<> bool
+glte_val_val (x: a, y: a):<> bool
 fun{a:t0p}
-ggt_val (x: a, y: a):<> bool
+ggt_val_val (x: a, y: a):<> bool
 fun{a:t0p}
-ggte_val (x: a, y: a):<> bool
-fun{a:t0p}
-geq_val (x: a, y: a):<> bool
-fun{a:t0p}
-gneq_val (x: a, y: a):<> bool
+ggte_val_val (x: a, y: a):<> bool
 
 (* ****** ****** *)
 
 fun{a:t0p}
-gcompare_val (x: a, y: a):<> int
+glt_val_int (x: a, y: int):<> bool
+fun{a:t0p}
+glte_val_int (x: a, y: int):<> bool
+fun{a:t0p}
+ggt_val_int (x: a, y: int):<> bool
+fun{a:t0p}
+ggte_val_int (x: a, y: int):<> bool
 
 (* ****** ****** *)
 
 fun{a:t0p}
-gmax_val (x: a, y: a):<> (a)
+geq_val_val (x: a, y: a):<> bool
 fun{a:t0p}
-gmin_val (x: a, y: a):<> (a)
+gneq_val_val (x: a, y: a):<> bool
+
+(* ****** ****** *)
+
+fun{a:t0p}
+geq_val_int (x: a, y: int):<> bool
+fun{a:t0p}
+gneq_val_int (x: a, y: int):<> bool
+
+(* ****** ****** *)
+
+fun{a:t0p}
+gcompare_val_val (x: a, y: a):<> int
+
+(* ****** ****** *)
+
+fun{a:t0p}
+gmax_val_val (x: a, y: a):<> (a)
+fun{a:t0p}
+gmin_val_val (x: a, y: a):<> (a)
 
 (* ****** ****** *)
 
 fun{a:vt0p}
-glt_ref (x: &INV(a), y: &a):<> bool
+glt_ref_ref (x: &INV(a), y: &a):<> bool
 fun{a:vt0p}
-glte_ref (x: &INV(a), y: &a):<> bool
+glte_ref_ref (x: &INV(a), y: &a):<> bool
 fun{a:vt0p}
-ggt_ref (x: &INV(a), y: &a):<> bool
+ggt_ref_ref (x: &INV(a), y: &a):<> bool
 fun{a:vt0p}
-ggte_ref (x: &INV(a), y: &a):<> bool
-fun{a:vt0p}
-geq_ref (x: &INV(a), y: &a):<> bool
-fun{a:vt0p}
-gneq_ref (x: &INV(a), y: &a):<> bool
+ggte_ref_ref (x: &INV(a), y: &a):<> bool
 
 (* ****** ****** *)
 
 fun{a:vt0p}
-gcompare_ref (x: &INV(a), y: &a):<> int
+geq_ref_ref (x: &INV(a), y: &a):<> bool
+fun{a:vt0p}
+gneq_ref_ref (x: &INV(a), y: &a):<> bool
 
 (* ****** ****** *)
 
-fun{a:t0p} gabs_val (x: a):<> a
-fun{a:t0p} gmax_val (x: a, y: a):<> a
-fun{a:t0p} gmin_val (x: a, y: a):<> a
+fun{a:vt0p}
+gcompare_ref_ref (x: &INV(a), y: &a):<> int
+
+(* ****** ****** *)
+
+fun{a:t0p} gmax_val_val (x: a, y: a):<> a
+fun{a:t0p} gmin_val_val (x: a, y: a):<> a
 
 (* ****** ****** *)
 

@@ -800,7 +800,9 @@ d3exp_effmask
 (
   loc, s2fe, d3e
 ) = let
-  val s2f = d3exp_get_type (d3e)
+//
+val s2f = d3exp_get_type (d3e)
+//
 in '{
   d3exp_loc= loc
 , d3exp_type= s2f

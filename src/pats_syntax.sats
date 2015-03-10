@@ -1402,19 +1402,10 @@ and d0exp_node =
 //
   | D0Earrsub of // array subscripting
       (dqi0de, location(*ind*), d0explstlst(*ind*))
-  | D0Earrpsz of (s0expopt (*elt*), d0exp (*int*)) // arraysize expression
+  | D0Earrpsz of
+      (s0expopt (*elt*), d0exp (*int*)) // arraysize expr
   | D0Earrinit of (* array initilization *)
       (s0exp (*elt*), d0expopt (*asz*), d0explst (*ini*))
-//
-  | D0Eraise of (d0exp) // $raise
-  | D0Eeffmask of (e0fftaglst, d0exp)
-  | D0Eeffmask_arg of (int(*knd*), d0exp)
-//
-  | D0Eshowtype of (d0exp) // $showtype
-//
-  | D0Evcopyenv of (int(*knd*), d0exp) // $vcopyenv_v/$vcopyenv_vt
-//
-  | D0Etempenver of (d0exp) // $tempenver for adding environvar
 //
   | D0Eptrof of () // taking the addr of a left-value
   | D0Eviewat of () // taking the view at the addr of a left-value
@@ -1422,9 +1413,19 @@ and d0exp_node =
   | D0Esel_lab of (int(*knd*), label)
   | D0Esel_ind of (int(*knd*), d0explstlst(*ind*))
 //
+  | D0Eraise of (d0exp) // $raise
+  | D0Eeffmask of (e0fftaglst, d0exp)
+  | D0Eeffmask_arg of (int(*knd*), d0exp)
+//
+  | D0Eshowtype of (d0exp) // $showtype for static debugging
+//
+  | D0Evcopyenv of (int(*knd*), d0exp) // $vcopyenv_v/$vcopyenv_vt
+//
+  | D0Etempenver of (d0exp) // $tempenver for adding environvar
+//
   | D0Esexparg of s0exparg // static multi-argument
 //
-  | D0Eexist of (location (*qua*), s0exparg, d0exp) // existential sum
+  | D0Eexist of (location(*qua*), s0exparg, d0exp) // existential sum
 //
   | D0Elam of (int(*knd*), f0arglst, s0expopt, e0fftaglstopt, d0exp)
   | D0Efix of (int(*knd*), i0de, f0arglst, s0expopt, e0fftaglstopt, d0exp)
@@ -1442,9 +1443,10 @@ and d0exp_node =
 //
   | D0Etrywith of (tryhead, d0exp, c0laulst) (* try-expression *)
 //
-  | D0Emacsyn of (macsynkind, d0exp) // macro syntax
+  | D0Eann of (d0exp, s0exp) // type-ascribed dynamic expressions
 //
-  | D0Eann of (d0exp, s0exp) // ascribed dynamic expressions
+  | D0Emacsyn of (macsynkind, d0exp) // macro syntax // HX: not yet in use
+//
 // end of [d0exp_node]
 
 (* ****** ****** *)
@@ -1765,31 +1767,6 @@ fun d0exp_arrpsz (
 
 (* ****** ****** *)
 
-fun d0exp_raise (tok: token, d0e: d0exp): d0exp
-
-fun d0exp_effmask (
-  tok: token, eff: e0fftaglst, d0e: d0exp
-) : d0exp // end of [d0exp_effmask]
-
-fun d0exp_effmask_arg
-  (knd: int, tok: token, d0e: d0exp): d0exp
-// end of [d0exp_effmask_arg]
-
-(* ****** ****** *)
-
-fun d0exp_showtype (tok: token, d0e: d0exp): d0exp
-
-(* ****** ****** *)
-
-fun d0exp_vcopyenv
-  (knd: int(*0/1*), tok: token, d0e: d0exp): d0exp
-
-(* ****** ****** *)
-
-fun d0exp_tempenver (tok: token, d0e: d0exp): d0exp
-
-(* ****** ****** *)
-
 fun d0exp_ptrof (t_addrat: token): d0exp // addr@
 fun d0exp_viewat (t_viewat: token): d0exp // view@
 
@@ -1801,8 +1778,34 @@ fun d0exp_sel_ind (sel: s0elop, ind: d0arrind): d0exp
 fun d0exp_sel_int (tok: token): d0exp // tok=T_DOTINT(...)
 //
 (* ****** ****** *)
+//
+fun d0exp_raise (tok: token, d0e: d0exp): d0exp
+//
+fun
+d0exp_effmask
+  (tok: token, eff: e0fftaglst, d0e: d0exp): d0exp
+//
+fun
+d0exp_effmask_arg(knd: int, tok: token, d0e: d0exp): d0exp
+//
+(* ****** ****** *)
 
-fun d0exp_sexparg
+fun d0exp_showtype (tok: token, d0e: d0exp): d0exp
+
+(* ****** ****** *)
+//
+fun
+d0exp_vcopyenv
+  (knd: int(*0/1*), tok: token, d0e: d0exp): d0exp
+//
+(* ****** ****** *)
+
+fun d0exp_tempenver (tok: token, d0e: d0exp): d0exp
+
+(* ****** ****** *)
+
+fun
+d0exp_sexparg
   (t_beg: token, s0a: s0exparg, t_end: token): d0exp
 // end of [d0exp_sexparg]
 

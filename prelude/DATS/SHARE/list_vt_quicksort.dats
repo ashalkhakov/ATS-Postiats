@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_quicksort.atxt
-** Time of generation: Fri Dec 19 04:20:21 2014
+** Time of generation: Tue Mar 10 10:28:41 2015
 *)
 
 (* ****** ****** *)
@@ -46,7 +46,11 @@ staload UN = "prelude/SATS/unsafe.sats"
 (* ****** ****** *)
 
 implement{a}
-list_vt_quicksort$cmp (x1, x2) = gcompare_ref<a> (x1, x2)
+list_vt_quicksort$cmp
+  (x1, x2) =
+(
+  gcompare_ref_ref<a> (x1, x2)
+) (* end of [list_vt_quicksort$cmp] *)
 
 (* ****** ****** *)
 (*

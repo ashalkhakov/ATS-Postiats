@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gorder.atxt
-** Time of generation: Tue Mar 10 10:19:25 2015
+** Time of generation: Wed Mar 11 21:48:19 2015
 *)
 
 (* ****** ****** *)
@@ -49,96 +49,124 @@ typedef NSH(a:type) = a // for commenting purpose
 // HX: generic ordering ops
 //
 (* ****** ****** *)
-
-fun{a:t0p}
+//
+fun
+{a:t0p}
 gisltz_val (x: a):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 gisltez_val (x: a):<> bool
-fun{a:t0p}
+//
+fun
+{a:t0p}
 gisgtz_val (x: a):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 gisgtez_val (x: a):<> bool
-fun{a:t0p}
+//
+fun
+{a:t0p}
 giseqz_val (x: a):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 gisneqz_val (x: a):<> bool
-
+//
 (* ****** ****** *)
-
-fun{a:t0p}
+//
+fun
+{a:t0p}
 glt_val_val (x: a, y: a):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 glte_val_val (x: a, y: a):<> bool
-fun{a:t0p}
+//
+fun
+{a:t0p}
 ggt_val_val (x: a, y: a):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 ggte_val_val (x: a, y: a):<> bool
-
+//
 (* ****** ****** *)
-
-fun{a:t0p}
+//
+fun
+{a:t0p}
 glt_val_int (x: a, y: int):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 glte_val_int (x: a, y: int):<> bool
-fun{a:t0p}
+//
+fun
+{a:t0p}
 ggt_val_int (x: a, y: int):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 ggte_val_int (x: a, y: int):<> bool
-
+//
 (* ****** ****** *)
-
-fun{a:t0p}
+//
+fun
+{a:t0p}
 geq_val_val (x: a, y: a):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 gneq_val_val (x: a, y: a):<> bool
-
+//
 (* ****** ****** *)
-
-fun{a:t0p}
+//
+fun
+{a:t0p}
 geq_val_int (x: a, y: int):<> bool
-fun{a:t0p}
+fun
+{a:t0p}
 gneq_val_int (x: a, y: int):<> bool
-
+//
 (* ****** ****** *)
-
-fun{a:t0p}
+//
+fun
+{a:t0p}
 gcompare_val_val (x: a, y: a):<> int
-
+//
 (* ****** ****** *)
-
-fun{a:t0p}
+//
+fun
+{a:t0p}
 gmax_val_val (x: a, y: a):<> (a)
-fun{a:t0p}
+fun
+{a:t0p}
 gmin_val_val (x: a, y: a):<> (a)
-
+//
 (* ****** ****** *)
-
-fun{a:vt0p}
+//
+fun
+{a:vt0p}
 glt_ref_ref (x: &INV(a), y: &a):<> bool
-fun{a:vt0p}
+fun
+{a:vt0p}
 glte_ref_ref (x: &INV(a), y: &a):<> bool
-fun{a:vt0p}
+//
+fun
+{a:vt0p}
 ggt_ref_ref (x: &INV(a), y: &a):<> bool
-fun{a:vt0p}
+fun
+{a:vt0p}
 ggte_ref_ref (x: &INV(a), y: &a):<> bool
-
+//
 (* ****** ****** *)
-
-fun{a:vt0p}
+//
+fun
+{a:vt0p}
 geq_ref_ref (x: &INV(a), y: &a):<> bool
-fun{a:vt0p}
+fun
+{a:vt0p}
 gneq_ref_ref (x: &INV(a), y: &a):<> bool
-
+//
 (* ****** ****** *)
-
-fun{a:vt0p}
+//
+fun
+{a:vt0p}
 gcompare_ref_ref (x: &INV(a), y: &a):<> int
-
-(* ****** ****** *)
-
-fun{a:t0p} gmax_val_val (x: a, y: a):<> a
-fun{a:t0p} gmin_val_val (x: a, y: a):<> a
-
+//
 (* ****** ****** *)
 
 (* end of [gorder.sats] *)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gnumber.atxt
-** Time of generation: Tue Mar 10 10:19:25 2015
+** Time of generation: Wed Mar 11 21:48:20 2015
 *)
 
 (* ****** ****** *)
@@ -120,8 +120,7 @@ fun{a:t0p} gconjugate_val (x: a):<> a
 
 (* ****** ****** *)
 
-fun{a:t0p}
-gpow_int_val (n: intGte(0), x: a):<> a
+fun{a:t0p} gpow_int_val (n: intGte(0), x: a):<> a
 
 (* ****** ****** *)
 

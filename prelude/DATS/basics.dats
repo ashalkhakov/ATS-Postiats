@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Tue Mar 10 11:09:40 2015
+** Time of generation: Fri Mar 13 15:24:32 2015
 *)
 
 (* ****** ****** *)
@@ -123,6 +123,15 @@ assertexn_bool1 (b) = if not(b) then $raise AssertExn()
 
 implement{a} gidentity (x) = x
 implement{a} gidentity_vt (x) = x
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+gcopy_val (x) = (x)
+implement
+(a:t@ype)
+gcopy_ref<a> (x) = (x)
 
 (* ****** ****** *)
 //

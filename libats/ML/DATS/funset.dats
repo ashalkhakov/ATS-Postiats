@@ -214,15 +214,15 @@ end // end of [funset_intersect]
 
 implement
 {a}(*tmp*)
-funset_diff
+funset_differ
   (xs1, xs2) = let
 //
 implement
 $FS.compare_elt_elt<a> = compare_elt_elt<a>
 //
 in
-  $FS.funset_diff (xs1, xs2)
-end // end of [funset_diff]
+  $FS.funset_differ (xs1, xs2)
+end // end of [funset_differ]
 
 (* ****** ****** *)
 
@@ -322,6 +322,20 @@ $FS.funset_foreach$fwork<a><env> (x, env) = fwork (x)
 in
   $FS.funset_foreach_env<a><void> (xs, env)
 end // end of [funset_foreach_cloref]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+funset_tabulate_cloref
+  (n, fopr) = let
+//
+implement
+$FS.funset_tabulate$fopr<a> (i) = fopr(i)
+//
+in
+  $FS.funset_tabulate<a> (n)
+end // end of [funset_tabulate]
 
 (* ****** ****** *)
 

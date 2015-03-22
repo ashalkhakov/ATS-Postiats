@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/intrange.atxt
-** Time of generation: Tue Mar 10 11:09:40 2015
+** Time of generation: Sun Mar 15 19:20:55 2015
 *)
 
 (* ****** ****** *)
@@ -41,16 +41,12 @@
 
 (* ****** ****** *)
 
-implement{env}
-intrange_foreach$cont (i, env) = true
-(*
-implement{env}
-intrange_foreach$fwork (i, env) = ((*void*))
-*)
-
 implement{}
-intrange_foreach (l, r) = let
-  var env: void = () in intrange_foreach_env<void> (l, r, env)
+intrange_foreach
+  (l, r) = let
+  var env: void = ()
+in
+  intrange_foreach_env<void> (l, r, env)
 end // end of [intrange_foreach]
 
 implement{tenv}
@@ -87,15 +83,51 @@ end // end of [intrange_foreach_env]
 (* ****** ****** *)
 
 implement{env}
-intrange_rforeach$cont (i, env) = true
+intrange_foreach$cont (i, env) = true
 (*
 implement{env}
-intrange_rforeach$fwork (i, env) = ((*void*))
+intrange_foreach$fwork (i, env) = ((*void*))
 *)
 
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+int_foreach_cloref
+  (n, fwork) = (
+//
+intrange_foreach_cloref<> (0, n, fwork)
+//
+) (* end of [int_foreach_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intrange_foreach_cloref
+  (l, r, fwork) = let
+//
+implement
+(env)(*tmp*)
+intrange_foreach$cont<env> (i, env) = true
+implement
+(env)(*tmp*)
+intrange_foreach$fwork<env>(i, env) = fwork(i)
+//
+var env: void = ()
+//
+in
+  intrange_foreach_env<void> (l, r, env)
+end // end of [intrange_foreach_cloref]
+
+(* ****** ****** *)
+
 implement{}
-intrange_rforeach (l, r) = let
-  var env: void = () in intrange_rforeach_env<void> (l, r, env)
+intrange_rforeach
+  (l, r) = let
+  var env: void = ()
+in
+  intrange_rforeach_env<void> (l, r, env)
 end // end of [intrange_rforeach]
 
 implement{tenv}
@@ -129,6 +161,46 @@ else r // end of [else]
 in
   loop (l, r, env)
 end // end of [intrange_rforeach_env]
+
+(* ****** ****** *)
+
+implement{env}
+intrange_rforeach$cont (i, env) = true
+(*
+implement{env}
+intrange_rforeach$fwork (i, env) = ((*void*))
+*)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+int_rforeach_cloref
+  (n, fwork) = (
+//
+intrange_rforeach_cloref<> (0, n, fwork)
+//
+) (* end of [int_rforeach_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+intrange_rforeach_cloref
+  (l, r, fwork) = let
+//
+implement
+(env)(*tmp*)
+intrange_rforeach$cont<env> (i, env) = true
+implement
+(env)(*tmp*)
+intrange_rforeach$fwork<env>(i, env) = fwork(i)
+//
+var env: void = ()
+//
+in
+  intrange_rforeach_env<void> (l, r, env)
+end // end of [intrange_rforeach_cloref]
 
 (* ****** ****** *)
 

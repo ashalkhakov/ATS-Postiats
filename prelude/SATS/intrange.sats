@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/intrange.atxt
-** Time of generation: Tue Mar  3 13:39:34 2015
+** Time of generation: Mon Mar 16 00:20:08 2015
 *)
 
 (* ****** ****** *)
@@ -56,6 +56,19 @@ fun{env:vt0p}
 intrange_foreach$fwork (i: int, env: &(env) >> _): void
 //
 (* ****** ****** *)
+
+fun{}
+int_foreach_cloref
+(
+  n: int, fwork: (int) -<cloref1> void
+) : int // end of [int_foreach_cloref]
+fun{}
+intrange_foreach_cloref
+(
+  l: int, r: int, fwork: (int) -<cloref1> void
+) : int // end of [intrange_foreach_cloref]
+
+(* ****** ****** *)
 //
 fun{}
 intrange_rforeach (l: int, r: int): int
@@ -67,6 +80,19 @@ intrange_rforeach$cont (i: int, env: &env): bool
 fun{env:vt0p}
 intrange_rforeach$fwork (i: int, env: &(env) >> _): void
 //
+(* ****** ****** *)
+
+fun{}
+int_rforeach_cloref
+(
+  n: int, fwork: (int) -<cloref1> void
+) : int // end of [int_rforeach_cloref]
+fun{}
+intrange_rforeach_cloref
+(
+  l: int, r: int, fwork: (int) -<cloref1> void
+) : int // end of [intrange_rforeach_cloref]
+
 (* ****** ****** *)
 //
 fun{}
@@ -80,6 +106,11 @@ intrange_foreach2_env
 fun{env:vt0p}
 intrange_foreach2$fwork (i: int, j: int, env: &env >> _): void
 //
+(* ****** ****** *)
+
+overload .foreach_cloref with int_foreach_cloref
+overload .rforeach_cloref with int_rforeach_cloref
+
 (* ****** ****** *)
 
 (* end of [intrange.sats] *)

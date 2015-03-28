@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/intrange.atxt
-** Time of generation: Mon Mar 16 00:20:08 2015
+** Time of generation: Sun Mar 22 16:19:13 2015
 *)
 
 (* ****** ****** *)
@@ -106,11 +106,6 @@ intrange_foreach2_env
 fun{env:vt0p}
 intrange_foreach2$fwork (i: int, j: int, env: &env >> _): void
 //
-(* ****** ****** *)
-
-overload .foreach_cloref with int_foreach_cloref
-overload .rforeach_cloref with int_rforeach_cloref
-
 (* ****** ****** *)
 
 (* end of [intrange.sats] *)

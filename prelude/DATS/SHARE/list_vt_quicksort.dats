@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_quicksort.atxt
-** Time of generation: Tue Mar 10 10:28:41 2015
+** Time of generation: Sun Mar 22 22:18:47 2015
 *)
 
 (* ****** ****** *)
@@ -114,7 +114,7 @@ prval () = lemma_list_vt_param (xs)
 val n = list_vt_length (xs)
 //
 val [l:addr]
-  (pfat, pfgc | p0) = array_ptr_alloc<a> ((i2sz)n)
+  (pfat, pfgc | p0) = array_ptr_alloc<a> (i2sz(n))
 //
 extern praxi
 __out (pf: !array_v (a?, l, n) >> array_v (a, l, n)): void
@@ -123,7 +123,7 @@ __into (pf: !array_v (a, l, n) >> array_v (a?, l, n)): void
 //
 val () = copyout (xs, p0)
 prval () = __out (pfat)
-val () = array_quicksort<a> (!p0, (i2sz)n)
+val () = array_quicksort<a> (!p0, i2sz(n))
 prval () = __into (pfat)
 val () = copyinto (xs, p0)
 //

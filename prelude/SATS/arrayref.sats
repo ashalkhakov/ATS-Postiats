@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Sun Jan 11 02:59:09 2015
+** Time of generation: Sat Apr  4 21:28:51 2015
 *)
 
 (* ****** ****** *)
@@ -350,15 +350,16 @@ symintr arrszref
 fun{}
 arrszref_make_arrpsz
   {a:vt0p}{n:int}
-  (psz: arrpsz (INV(a), n)):<!wrt> arrszref(a)
+  (arrpsz (INV(a), n)):<!wrt> arrszref(a)
+//
 overload arrszref with arrszref_make_arrpsz
-
+//
 (* ****** ****** *)
 
 fun{}
 arrszref_make_arrayref
   {a:vt0p}{n:int}
-  (A: arrayref (a, n), n: size_t n):<!wrt> arrszref (a)
+  (A: SHR(arrayref(a, n)), n: size_t n):<!wrt> arrszref (a)
 // end of [arrszref_make_arrayref]
 
 (* ****** ****** *)

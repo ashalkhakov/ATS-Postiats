@@ -29,101 +29,99 @@
 
 (*
 ** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/gnumber.atxt
-** Time of generation: Sat Apr  4 14:36:54 2015
+** $PATSHOME/prelude/SATS/CODEGEN/tostring.atxt
+** Time of generation: Tue Apr  7 15:43:28 2015
 *)
 
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
 (* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: March, 2013 *)
+(* Start time: August, 2012 *)
 
 (* ****** ****** *)
 
-(* Author: Brandon Barker *)
-(* Authoremail: brandon.barker AT gmail DOT com *)
-(* Start time: July, 2013 *)
+vtypedef
+RD(a:vt0p) = a // for commenting: read-only
+#define NSH (x) x // for commenting: no sharing
+#define SHR (x) x // for commenting: it is shared
 
 (* ****** ****** *)
 
-implement
-{a}(*tmp*)
-gadd_val_int(x, y) = gadd_val_val<a> (x, gnumber_int<a> (y))
-implement
-{a}(*tmp*)
-gsub_val_int(x, y) = gsub_val_val<a> (x, gnumber_int<a> (y))
-  
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-gmul_int_val(x, y) = gmul_val_val<a> (gnumber_int<a> (x), y)
-implement
-{a}(*tmp*)
-gmul_val_int(x, y) = gmul_val_val<a> (x, gnumber_int<a> (y))
+sortdef t0p = t@ype
+sortdef vt0p = vt@ype
 
 (* ****** ****** *)
 
-implement
-{a}(*tmp*)
-gdiv_int_val(x, y) = gdiv_val_val<a> (gnumber_int<a> (x), y)
-implement
-{a}(*tmp*)
-gdiv_val_int(x, y) = gdiv_val_val<a> (x, gnumber_int<a> (y))
-implement
-{a}(*tmp*)
-gmod_val_int(x, y) = gmod_val_val<a> (x, gnumber_int<a> (y))
+fun{}
+tostring_int(int):<> string
+fun{}
+tostrptr_int(int):<!wrt> Strptr1
 
 (* ****** ****** *)
 
-implement
-{a}(*tmp*)
-gpow_int_val
-  (n, x) = let
+fun{}
+tostring_uint(uint):<> string
+fun{}
+tostrptr_uint(uint):<!wrt> Strptr1
+
+(* ****** ****** *)
+
+fun{}
+tostring_bool(bool):<> string
+fun{}
+tostrptr_bool(bool):<!wrt> Strptr1
+
+(* ****** ****** *)
+
+fun{}
+tostring_char(char):<> string
+fun{}
+tostrptr_char(char):<!wrt> Strptr1
+
+(* ****** ****** *)
 //
 fun
-loop
-{n:pos} .<n>.
+{a:t0p}
+tostrptr_list
+  (xs0: List(INV(a))): Strptr1
+//
+fun{}
+tostrptr_list$beg((*void*)): String
+fun{}
+tostrptr_list$end((*void*)): String
+fun{}
+tostrptr_list$sep((*void*)): String
+//
+(* ****** ****** *)
+//
+fun
+{a:vt0p}
+tostrptr_array
+  {n:int}
 (
-  n: int(n), x: a, res: a
-) :<> (a) =
-(
+  &array(INV(a), n), size_t(n)
+) : Strptr1 // end-of-function
 //
-if
-n >= 2
-then let
-  val n2 = half(n)
-  val r2 = n - (n2 + n2)
-in
-  if r2 = 0
-    then loop (n2, gmul_val_val<a> (x, x), res)
-    else loop (n2, gmul_val_val<a> (x, x), gmul_val_val<a> (x, res))
-  // end of [if]
-end else gmul_val_val<a> (x, res)
+fun{}
+tostrptr_array$beg((*void*)): String
+fun{}
+tostrptr_array$end((*void*)): String
+fun{}
+tostrptr_array$sep((*void*)): String
 //
-) (* end of [loop] *)
+(* ****** ****** *)
 //
-in
+fun
+{a:vt0p}
+tostrptr_arrayref
+  {n:int}
+  (arrayref(a,n), size_t(n)): Strptr1
 //
-if
-n >= 2
-then loop (n-1, x, x)
-else (
-  if n >= 1 then x else gnumber_int<a> (1)
-) (* end of [else] *)
+fun
+{a:vt0p}
+tostrptr_arrszref(arrszref(a)): Strptr1
 //
-end // end of [gpow_int_val]
-
 (* ****** ****** *)
 
-#include "./SHARE/gnumber_int.dats"
-#include "./SHARE/gnumber_uint.dats"
-
-(* ****** ****** *)
-
-#include "./SHARE/gnumber_float.dats"
-
-(* ****** ****** *)
-
-(* end of [gnumber.dats] *)
+(* end of [tostring.sats] *)

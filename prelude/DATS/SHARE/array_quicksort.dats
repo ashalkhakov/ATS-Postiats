@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Tue Mar 10 10:28:41 2015
+** Time of generation: Fri Apr  3 17:36:22 2015
 *)
 
 (* ****** ****** *)
@@ -330,7 +330,8 @@ void qsort
   int(*compar)(const void *, const void *)
 ) ; // end of [qsort]
 *)
-implement{a}
+implement
+{a}(*tmp*)
 array_quicksort_stdlib
   (A, asz, cmp) = let
 in

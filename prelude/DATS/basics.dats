@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Fri Mar 13 15:24:32 2015
+** Time of generation: Sat Apr  4 14:36:54 2015
 *)
 
 (* ****** ****** *)
@@ -154,12 +154,32 @@ gequal_ref_ref<a>
   (x, y) = gequal_val_val<a> (x, y)
 //
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
-tostring_val (x) =
-  strptr2string (tostrptr_val<a> (x))
-// end of [tostring_val]
+tostring_val(x) = let
+//
+val str =
+  $effmask_wrt(tostrptr_val<a>(x))
+in
+  strptr2string(str)
+end // end of [tostring_val]
+//
+implement
+{a}(*tmp*)
+tostring_ref(x) = let
+//
+val str =
+  $effmask_wrt(tostrptr_ref<a>(x))
+in
+  strptr2string(str)
+end // end of [tostring_ref]
+//
+(* ****** ****** *)
+
+implement
+(a:t@ype)
+tostrptr_ref<a> (x) = tostrptr_val<a> (x)
 
 (* ****** ****** *)
 

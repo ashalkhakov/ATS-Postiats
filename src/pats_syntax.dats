@@ -830,6 +830,20 @@ in '{
 (* ****** ****** *)
 
 implement
+s0exp_f0loat (x) = let
+in '{
+  s0exp_loc= x.token_loc, s0exp_node= S0Efloat (x)
+} end // end of [s0exp_f0loat]
+
+implement
+s0exp_s0tring (x) = let
+in '{
+  s0exp_loc= x.token_loc, s0exp_node= S0Estring (x)
+} end // end of [s0exp_string]
+
+(* ****** ****** *)
+
+implement
 s0exp_app (x1, x2) = let
   val loc = x1.s0exp_loc + x2.s0exp_loc
 in '{

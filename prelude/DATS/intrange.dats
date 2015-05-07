@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/intrange.atxt
-** Time of generation: Sat Apr  4 14:36:53 2015
+** Time of generation: Fri May  1 18:54:58 2015
 *)
 
 (* ****** ****** *)
@@ -205,15 +205,16 @@ end // end of [intrange_rforeach_cloref]
 (* ****** ****** *)
 
 implement{}
-intrange_foreach2
+intrange2_foreach
   (l1, r1, l2, r2) = let
-  var env: void = () in intrange_foreach2_env<void> (l1, r1, l2, r2, env)
-end // end of [intrange_foreach2]
+  var env: void = () in
+  intrange2_foreach_env<void> (l1, r1, l2, r2, env)
+end // end of [intrange2_foreach]
 
 (* ****** ****** *)
 
 implement{tenv}
-intrange_foreach2_env
+intrange2_foreach_env
   (l1, r1, l2, r2, env) = let
 //
 fnx
@@ -231,14 +232,16 @@ loop2
   i: int, j: int, env: &(tenv) >> _
 ) : void =
 (
-if j < r2
-  then (intrange_foreach2$fwork(i, j, env); loop2 (i, j+1, env))
-  else loop1 (i+1, env)
+if
+j < r2
+then (
+  intrange2_foreach$fwork(i, j, env); loop2 (i, j+1, env)
+) else loop1 (i+1, env)
 )
 //
 in
   loop1 (l1, env)
-end // end of [intrange_foreach2]
+end // end of [intrange2_foreach]
 
 (* ****** ****** *)
 

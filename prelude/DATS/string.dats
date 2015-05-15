@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Sat Apr  4 14:36:49 2015
+** Time of generation: Thu May 14 17:42:42 2015
 *)
 
 (* ****** ****** *)
@@ -359,7 +359,7 @@ in
 //
 if
 isneqz(str1)
-  then loop (str1.tail, pred(n2), succ(r)) else (r)
+  then loop (str1.tail(), pred(n2), succ(r)) else (r)
 //
 end // end of [then]
 else (r) // end of [else]

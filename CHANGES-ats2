@@ -1,3 +1,35 @@
+0.1.13
+
+This is the 22nd release of ATS2, the successor of the ATS
+programming language. The compiler for ATS2 is given the name
+ATS/Positats, ATS2/Postiats or simply Postiats.
+
+The official website for ATS is:
+
+http://www.ats-lang.org
+
+ATS-Postiats is hosted at github:
+
+https://github.com/githwxi/ATS-Postiats
+
+Major releases of ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang/
+
+Major releases of external packages for ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang-contrib/
+
+Here is a list of major additions and changes since the last release:
+
+1. Fixing a bug that associates static constants with
+   incorrect filenames
+2. Starting to put markers around error/warning messages
+3. Fixing a bug causing mishandling of valimp in included code
+4. Fixing a bug causing incorrect erasure of proof patterns
+
+######
+
 0.1.12
 
 This is the 21st release of ATS2, the successor of the ATS
@@ -40,7 +72,9 @@ Here is a list of major additions and changes since the last release:
 10. Fixing bug-2015-05-13:
     Handling of staloaded template implementations was incorrect
 11. Dot-symbol overloading is required to be of functional style.
-    This is a pervasive change!!!
+    For instance,
+    point.x changes to point.x()
+    point.y changes to point.y()
 
 ######
 

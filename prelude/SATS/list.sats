@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sat Apr  4 21:28:49 2015
+** Time of generation: Sun May 17 13:56:57 2015
 *)
 
 (* ****** ****** *)
@@ -496,26 +496,42 @@ fun{x:t0p} list_filter$pred (x): bool
 fun{
 x:t0p
 } list_filter_funenv
-  {v:view}{vt:viewtype}{n:int}{fe:eff} (
+  {v:view}{vt:viewtype}{n:int}{fe:eff}
+(
   pfv: !v |
   xs: list (INV(x), n)
 , f: (!v | x, !vt) -<fun,fe> bool, env: !vt
-) :<fe,!wrt> listLte_vt (x, n) // end of [list_filter_funenv]
+) :<fe,!wrt> listLte_vt (x, n) // end-of-function
 *)
 //
 (* ****** ****** *)
 
 fun{
 x:t0p
-} list_labelize
-  {n:int} (xs: list (INV(x), n)):<!wrt> list_vt (@(int, x), n)
+} list_labelize{n:int}
+  (xs: list (INV(x), n)):<!wrt> list_vt (@(int, x), n)
 // end of [list_labelize]
 
 (* ****** ****** *)
 //
 fun{x:t0p}
 list_app (xs: List (INV(x))): void
+//
 fun{x:t0p} list_app$fwork (x): void
+//
+(* ****** ****** *)
+//
+fun{x:t0p}
+list_app_fun
+  (xs: List (INV(x)), fwork: (x) -<fun1> void): void
+fun{x:t0p}
+list_app_clo
+  (xs: List (INV(x)), fwork: (x) -<clo1> void): void
+fun{x:t0p}
+list_app_cloref
+  (xs: List (INV(x)), fwork: (x) -<cloref1> void): void
+//
+(* ****** ****** *)
 //
 (*
 fun{
@@ -535,6 +551,7 @@ x:t0p}{y:vt0p
 } list_map{n:int}
   (xs: list (INV(x), n)): list_vt (y, n)
 // end of [list_map]
+//
 fun{x:t0p}{y:vt0p} list_map$fopr (x: x): (y)
 //
 (* ****** ****** *)

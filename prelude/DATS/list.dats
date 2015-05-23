@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sat Apr  4 14:36:54 2015
+** Time of generation: Sun May 17 13:56:58 2015
 *)
 
 (* ****** ****** *)
@@ -1143,16 +1143,63 @@ list_app (xs) = let
 //
 prval () = lemma_list_param (xs)
 //
-fun loop{n:nat} .<n>. (xs: list (x, n)): void =
+fun
+loop{n:nat} .<n>. (xs: list (x, n)): void =
 (
 case+ xs of
 | list_nil () => ()
 | list_cons (x, xs) => (list_app$fwork(x); loop (xs))
-)
+) (* end of [loop] *)
 //
 in
   loop (xs)
 end // end of [list_app]
+
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_app_fun(xs, f) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun
+loop{n:nat} .<n>.
+(
+  xs: list (x, n), f: (x) -<fun1> void
+) : void = (
+//
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => (f(x); loop (xs, f))
+//
+) (* end of [loop] *)
+//
+in
+  loop (xs, f)
+end // end of [list_app_fun]
+
+implement
+{x}(*tmp*)
+list_app_cloref(xs, f) = let
+//
+prval () = lemma_list_param (xs)
+//
+fun
+loop{n:nat} .<n>.
+(
+  xs: list (x, n), f: (x) -<cloref1> void
+) : void = (
+//
+case+ xs of
+| list_nil () => ()
+| list_cons (x, xs) => (f(x); loop (xs, f))
+//
+) (* end of [loop] *)
+//
+in
+  loop (xs, f)
+end // end of [list_app_cloref]
 
 (* ****** ****** *)
 

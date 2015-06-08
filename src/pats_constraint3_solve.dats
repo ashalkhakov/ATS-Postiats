@@ -297,7 +297,7 @@ end // end of [local]
 //
 extern
 fun
-c3nstr_solve_errmsg (c3t: c3nstr, unsolved: uint): int
+c3nstr_solve_errmsg(c3t: c3nstr, unsolved: uint): int
 //
 (* ****** ****** *)
 
@@ -403,9 +403,11 @@ c3nstr_solve_errmsg
   (c3t, unsolved) = let
 //
 val loc0 = c3t.c3nstr_loc
-val c3tknd = c3t.c3nstr_kind
+val c3tk = c3t.c3nstr_kind
 //
-fn prerr_c3nstr_if (
+fun
+prerr_c3nstr_if
+(
   unsolved: uint, c3t: c3nstr
 ) : void =
   if (unsolved = 0u) then (prerr ": "; prerr_c3nstr c3t)
@@ -413,21 +415,25 @@ fn prerr_c3nstr_if (
 //
 in
 //
-case+ c3tknd of
-| C3NSTRKmain () => (
-    if unsolved > 0u then (
-      0 // errmsg reporting has already be done
-    ) else (
-      prerr_error3_loc (loc0);
-      prerr ": unsolved constraint: ";
-      prerr_c3nstr (c3t);
-      prerr_newline ();
-      0 // it is treated as an error
-    ) (* end of [if] *)
-  ) // end of [C3STRKmain]
+case+ c3tk of
+| C3NSTRKmain() =>
+  (
+    if unsolved = 0u
+      then let
+        val () =
+        prerr_error3_loc (loc0)
+        val () =
+        prerrln! (": unsolved constraint: ", c3t)
+      in
+        0 // this one is treated as an error
+      end // end of [then]
+      else 0 // this errmsg has already been reported
+    // end of [if]
+  ) (* end of [C3STRKmain] *)
 | C3NSTRKcase_exhaustiveness
     (casknd, p2tcs) => let
-    val () = prerr_case_exhaustiveness_errmsg (loc0, casknd, p2tcs)
+    val () =
+    prerr_case_exhaustiveness_errmsg (loc0, casknd, p2tcs)
   in
     case+ casknd of
     | CK_case () => 1 (*warning*)
@@ -437,56 +443,72 @@ case+ c3tknd of
 //
 | C3NSTRKtermet_isnat
     () => 0 where {
-    val () = prerr_error3_loc (loc0)
-    val () = prerr ": unsolved constraint for termination metric being welfounded"
-    val () = prerr_c3nstr_if (unsolved, c3t)
-    val () = prerr_newline ()
+    val () =
+    prerr_error3_loc (loc0)
+    val () = prerr
+    (
+      ": unsolved constraint for termetric being well-founded"
+    ) (* end of [val] *)
+    val () =
+    prerr_c3nstr_if (unsolved, c3t)
+    val () = prerr_newline ((*void*))
   } // end of [C3NSTRKtermet_isnat]
 | C3NSTRKtermet_isdec
     () => 0 where {
     val () = prerr_error3_loc (loc0)
-    val () = prerr ": unsolved constraint for termination metric being decreasing"
-    val () = prerr_c3nstr_if (unsolved, c3t)
-    val () = prerr_newline ()
+    val () = prerr
+    (
+      ": unsolved constraint for termetric being strictly decreasing"
+    ) (* end of [val] *)
+    val () =
+    prerr_c3nstr_if (unsolved, c3t)
+    val () = prerr_newline ((*void*))
   } // end of [C3STRKmetric_dec]
 //
-| C3NSTRKsome_fin _ => 0 where {
+| C3NSTRKsome_fin _ =>
+    (0) where {
     val () = prerr_error3_loc (loc0)
-    val () = prerr ": unsolved constraint for var preservation"
-    val () = prerr_newline ()
-  } // end of [C3NSTRKsome_fin]
-| C3NSTRKsome_lvar _ => 0 where {
+    val ((*void*)) =
+      prerrln! ": unsolved constraint for var preservation"
+  } (* end of [C3NSTRKsome_fin] *)
+| C3NSTRKsome_lvar _ =>
+    (0) where {
     val () = prerr_error3_loc (loc0)
-    val () = prerr ": unsolved constraint for lvar preservation"
-    val () = prerr_newline ()
-  } // end of [C3NSTRKsome_lvar]
-| C3NSTRKsome_vbox _ => 0 where {
+    val ((*void*)) =
+      prerrln! ": unsolved constraint for lvar preservation"
+  } (* end of [C3NSTRKsome_lvar] *)
+| C3NSTRKsome_vbox _ =>
+    (0) where {
     val () = prerr_error3_loc (loc0)
-    val () = prerr ": unsolved constraint for vbox preservation"
-    val () = prerr_newline ()
-  } // end of [C3NSTRKsome_vbox]
+    val ((*void*)) = 
+      prerrln! ": unsolved constraint for vbox preservation"
+  } (* end of [C3NSTRKsome_vbox] *)
 //
-| C3NSTRKlstate () => 0 where {
-    val () = prerr_error3_loc (loc0)
-    val () = prerr ": unsolved constraint for lstate merging"
-    val () = prerr_newline ()
+| C3NSTRKlstate
+    () => 0 where {
+    val () =
+    prerr_error3_loc (loc0)
+    val () = prerrln! ": unsolved constraint for lstate merging"
   } // end of [C3NSTRKlstate]
 | C3NSTRKlstate_var
     (d2v) => 0 where {
-    val () = prerr_error3_loc (loc0)
-    val () = prerr ": unsolved constraint for merging the lstate of ["
-    val () = prerr_d2var (d2v)
-    val () = prerr "]"
-    val () = prerr_newline ()
+    val () =
+    prerr_error3_loc (loc0)
+    val () =
+    prerrln! (": unsolved constraint for merging the lstate of [", d2v, "]")
   } // end of [C3NSTRKlstate_var]
 //
 | C3NSTRKloop
     (knd) => 0 where {
-    val () = prerr_error3_loc (loc0)
-    val () = if knd < 0 then prerr ": unsolved constraint for loop(enter)"
-    val () = if knd = 0 then prerr ": unsolved constraint for loop(exit)"
-    val () = if knd > 0 then prerr ": unsolved constraint for loop(continue)"
-    val () = prerr_newline ()
+    val () =
+    prerr_error3_loc (loc0)
+    val () =
+    if knd < 0 then prerr ": unsolved constraint for loop(enter)"
+    val () =
+    if knd = 0 then prerr ": unsolved constraint for loop(exit)"
+    val () =
+    if knd > 0 then prerr ": unsolved constraint for loop(continue)"
+    val () = prerr_newline ((*void*))
   } // end of [C3STRKloop]
 //
 end // end of [c3nstr_solve_errmsg]
@@ -495,24 +517,33 @@ end // end of [c3nstr_solve_errmsg]
 
 implement
 c3nstr_solve_main
-  (env, c3t, unsolved, err) = let
+(
+  env, c3t, unsolved, err
+) = let
 //
 val loc0 = c3t.c3nstr_loc
+//
 (*
-val () = begin
-  print "c3nstr_solve_main: c3t = "; print_c3nstr (c3t); print_newline ();
-end // end of [val]
+//
+val () =
+println! ("c3nstr_solve_main: c3t = ", c3t)
+//
 *)
 //
 var status: int = (
 //
 // ~1: solved; 0: unsolved
 //
-  case+ c3t.c3nstr_node of
-  | C3NSTRprop s2p =>
-      c3nstr_solve_prop (loc0, env, s2p, err)
-  | C3NSTRitmlst s3is =>
-      c3nstr_solve_itmlst (loc0, env, s3is, unsolved, err)
+case+
+c3t.c3nstr_node
+of // case+
+| C3NSTRprop s2p =>
+    c3nstr_solve_prop (loc0, env, s2p, err)
+  // end of [C3NSTRprop]
+| C3NSTRitmlst s3is =>
+    c3nstr_solve_itmlst (loc0, env, s3is, unsolved, err)
+  // end of [C3NSTRitmlst]
+//
 ) : int // end of [val]
 //
 val () =
@@ -521,18 +552,21 @@ status >= 0
 then
 {
   val iswarn =
-    c3nstr_solve_errmsg (c3t, unsolved)
+    c3nstr_solve_errmsg(c3t, unsolved)
   // end of [val]
   val () = if iswarn > 0 then (status := ~1)
 } (* end of [if] *)
 //
 (*
-val () = begin
-  print "c3nstr_solve_main: status = "; print status; print_newline ()
-end // end of [val]
+//
+val () =
+println!
+  ("c3nstr_solve_main: status = ", status)
+//
 *)
 //
-val () = if status >= 0 then (unsolved := unsolved + 1u)
+val () =
+  if status >= 0 then (unsolved := unsolved + 1u)
 //
 in
   status (* 0: unsolved; ~1: solved *)
@@ -561,10 +595,12 @@ c3nstr_solve_itmlst
   loc0, env, s3is, unsolved, err
 ) = let
 (*
+//
 val () = begin
   print "c3str_solve_itmlst: s3is = ";
   fprint_s3itmlst (stdout_ref, s3is); print_newline ();
 end // end of [val]
+//
 *)
 in
 //
@@ -643,39 +679,49 @@ end // end of [c3nstr_solve_itmlst_cnstr]
 (* ****** ****** *)
 
 implement
-c3nstr_solve_itmlst_disj (
+c3nstr_solve_itmlst_disj
+(
   loc0, env, s3is0, s3iss(*disj*), unsolved, err
 ) = let
 (*
-val () = (
-  print "c3nstr_solve_itmlst_disj: s3iss = ..."; print_newline ()
-) // end of [val]
+//
+val () =
+(
+  println! ("c3nstr_solve_itmlst_disj: s3iss = ...")
+) (* end of [val] *)
+//
 *)
 in
 //
 case+ s3iss of
-| list_cons (s3is, s3iss) => let
+| list_nil
+    ((*void*)) => ~1(*solved*)
+  // end of [list_nil]
+| list_cons
+    (s3is, s3iss) => let
     val (pf1 | ()) = s2vbcfenv_push (env)
     val (pf2 | ()) = the_s2varbindmap_push ()
     val s3is1 = list_append (s3is, s3is0)
-    val ans = c3nstr_solve_itmlst (loc0, env, s3is1, unsolved, err)
-    val () = the_s2varbindmap_pop (pf2 | (*none*))
-    val () = s2vbcfenv_pop (pf1 |env)
+    val _(*ans*) = c3nstr_solve_itmlst (loc0, env, s3is1, unsolved, err)
+    val ((*void*)) = the_s2varbindmap_pop (pf2 | (*none*))
+    val ((*void*)) = s2vbcfenv_pop (pf1 |env)
   in
     c3nstr_solve_itmlst_disj (loc0, env, s3is0, s3iss, unsolved, err)
   end // end of [list_cons]
-| list_nil () => ~1(*solved*)
 //
 end // end of [c3nstr_solve_itmlst_disj]
 
 (* ****** ****** *)
 
 implement
-c3nstr_solve (c3t) = let
+c3nstr_ats2_solve (c3t) = let
 (*
-val () = (
-  print "c3nstr_solve: c3t = "; print c3t; print_newline ()
+//
+val () =
+(
+  println! ("c3nstr_ats2_solve: c3t = ", c3t)
 ) (* end of [val] *)
+//
 *)
 var env: s2vbcfenv = s2vbcfenv_nil ()
 //
@@ -704,17 +750,20 @@ case+ 0 of
   {
     val () = prerr "typechecking has failed"
     val () =
-    if unsolved <= 1u then prerr ": there is one unsolved constraint"
+    if unsolved <= 1u
+      then prerr ": there is one unsolved constraint"
+    // end of [if]
     val () =
-    if unsolved >= 2u then prerr ": there are some unsolved constraints"
+    if unsolved >= 2u
+      then prerr ": there are some unsolved constraints"
+    // end of [if]
     val () = (
-      prerr ": please inspect the above reported error message(s) for information."
+      prerrln! ": please inspect the above reported error message(s) for information."
     ) (* end of [val] *)
-    val () = prerr_newline ()
-    val () = $ERR.abort {void} ()
-  } (* end of [_] *)
+    val () = $ERR.abort{void}()
+  } (* end of [_ when unsolved > 0] *)
 //
-end // end of [c3nstr_solve]
+end // end of [c3nstr_ats2_solve]
 
 (* ****** ****** *)
 

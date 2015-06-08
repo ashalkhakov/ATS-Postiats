@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/pointer.atxt
-** Time of generation: Sat Apr  4 14:36:47 2015
+** Time of generation: Mon Jun  8 12:28:28 2015
 *)
 
 (* ****** ****** *)
@@ -122,14 +122,14 @@ implement
 ptr_nullize
   (pf | x) =
 (
-  ptr_nullize_tsz (pf | x, sizeof<a>)
+  ptr_nullize_tsz{a}(pf | x, sizeof<a>)
 ) (* ptr_nullize *)
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-ptr_alloc () = ptr_alloc_tsz (sizeof<a>)
+ptr_alloc () = ptr_alloc_tsz{a}(sizeof<a>)
 
 (* ****** ****** *)
 

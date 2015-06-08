@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Sat Apr  4 21:28:53 2015
+** Time of generation: Sun May 24 21:06:41 2015
 *)
 
 (* ****** ****** *)
@@ -225,7 +225,8 @@ matrixref_tabulate_cloref
 (*
 fun{
 a:vt0p}{env:vt0p
-} matrix_foreach$fwork (x: &a >> _, env: &(env) >> _): void
+} matrix_foreach$fwork
+  (x: &a >> _, env: &(env) >> _): void
 *)
 //
 fun{
@@ -336,6 +337,27 @@ fprint_mtrxszref_sep
 , M: mtrxszref(a), sep1: NSH(string), sep2: NSH(string)
 ) : void // end of [fprint_mtrxszref_sep]
 
+(* ****** ****** *)
+//
+(*
+fun{
+a:vt0p}{env:vt0p
+} matrix_foreach$fwork
+  (x: &a >> _, env: &(env) >> _): void
+*)
+//
+fun{
+a:vt0p
+} mtrxszref_foreach(mtrxszref (a)): void
+fun{
+a:vt0p}{env:vt0p
+} mtrxszref_foreach_env(mtrxszref(a), &(env) >> _) : void
+//
+fun{
+a:vt0p
+} mtrxszref_foreach_cloref
+  (A: mtrxszref(a), fwork: (&(a) >> _) -<cloref1> void ): void
+//
 (* ****** ****** *)
 //
 (*

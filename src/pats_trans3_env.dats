@@ -826,45 +826,210 @@ end // end of [local]
 
 (* ****** ****** *)
 //
-// HX: it is declared in [pats_staexp2_util.sats]
+// HX:
+// it is declared in [pats_staexp2_util.sats]
 //
 implement
 s2exp_hnfize_flag_svar
   (s2e0, s2v, flag) = let
+//
 (*
-val () = (
-  print "s2exp_hnfize_flag_svar: s2v = "; print_s2var (s2v); print_newline ()
-) // end of [val]
+val () =
+(
+  print ("s2exp_hnfize_flag_svar: s2v = ", s2v)
+) (* end of [val] *)
 *)
+//
 val ans = the_s2varbindmap_search (s2v)
 //
 in
-  case+ ans of
-  | ~Some_vt s2e => let
-      val () = flag := flag + 1 in s2exp_hnfize (s2e)
-    end // end of [Some_vt]
-  | ~None_vt () => s2e0 // end of [None_vt]
+//
+case+ ans of
+| ~None_vt () => s2e0
+| ~Some_vt s2e => let
+    val () = flag := flag + 1 in s2exp_hnfize (s2e)
+  end // end of [Some_vt]
+//
 end // end of [s2exp_hnfize_flag_svar]
 
 (* ****** ****** *)
 
+local
+//
+typedef
+aux1_type
+(
+  a:type
+) = (s2var, a) -> bool
+//
 extern
-fun the_s3itmlst_env_push (): void
+fun aux1_s2exp: aux1_type(s2exp)
+and aux1_s2explst: aux1_type(s2explst)
+and aux1_s2explstlst: aux1_type(s2explstlst)
+//
+extern
+fun aux1_s2var: aux1_type(s2var)
+//
+in (* in-of-local *)
+
+implement
+aux1_s2exp
+  (s2v0, s2e0) = let
+//
+(*
+val () =
+println!
+  ("aux1_s2exp: s2v0 = ", s2v0)
+val () =
+println!
+  ("aux1_s2exp: s2e0 = ", s2e0)
+*)
+//
+in
+//
+case+
+s2e0.s2exp_node
+of // case+
+(*
+//
+| S2Eint _ => false
+| S2Eintinf _ => false
+//
+| S2Efloat _ => false
+| S2Estring _ => false
+//
+| S2Ecst(s2c) => false
+//
+*)
+| S2Evar(s2v) =>
+  if (s2v0 = s2v)
+    then true else aux1_s2var(s2v0, s2v)
+  // end of [if]  
+//
+| S2Eapp(s2e, s2es) =>
+  if aux1_s2exp(s2v0, s2e)
+    then true else aux1_s2explst(s2v0, s2es)
+  // end of [if] // end of [S2Eapp]
+//
+| S2Eextype
+    (_(*name*), s2ess) =>
+    aux1_s2explstlst (s2v0, s2ess)
+| S2Eextkind
+    (_(*name*), s2ess) =>
+    aux1_s2explstlst (s2v0, s2ess)
+//
+| S2Esizeof(s2e) => aux1_s2exp(s2v0, s2e)
+//
+| S2Eeqeq(s2e1, s2e2) =>
+  if aux1_s2exp(s2v0, s2e1)
+    then true else aux1_s2exp(s2v0, s2e2)
+  // end of [if] // end of [S2Eeqeq]
+//
+| S2Einvar(s2e) => aux1_s2exp(s2v0, s2e)
+| S2Erefarg (_, s2e) => aux1_s2exp(s2v0, s2e)
+//
+| S2Elam(s2vs, s2e) => aux1_s2exp(s2v0, s2e)
+//
+| S2Efun(
+    fc,  lin, s2fe
+  , npf, s2es_arg, s2e_res
+  ) =>
+  if aux1_s2explst(s2v0, s2es_arg)
+    then true else aux1_s2exp(s2v0, s2e_res)
+  // end of [if] // end of [S2Efun]
+//
+| _ (* rest-of-S2E *) => false
+//
+end // end of [aux1_s2exp]
+
+implement
+aux1_s2explst
+  (s2v0, s2es) =
+(
+case+ s2es of
+| list_nil() => false
+| list_cons(s2e, s2es) =>
+  if aux1_s2exp(s2v0, s2e)
+    then true else aux1_s2explst(s2v0, s2es)
+  // end of [if] // end of [list_cons]
+)
+
+implement
+aux1_s2explstlst
+  (s2v0, s2ess) =
+(
+case+ s2ess of
+| list_nil() => false
+| list_cons(s2es, s2ess) =>
+  if aux1_s2explst(s2v0, s2es)
+    then true else aux1_s2explstlst(s2v0, s2ess)
+  // end of [if] // end of [list_cons]
+)
+
+implement
+aux1_s2var
+  (s2v0, s2v) = let
+//
+val ans =
+  the_s2varbindmap_search (s2v)
+//
+in
+//
+case+ ans of
+| ~None_vt() => false
+| ~Some_vt(s2e) => aux1_s2exp(s2v0, s2e)
+//
+end // end of [aux1_s2var]
+
+(* ****** ****** *)
+
+implement
+s2var_occurcheck_s2exp
+  (s2v0, s2e0) = let
+//
+(*
+val () =
+println!
+  ("s2var_occurcheck_s2exp: s2v0 = ", s2v0)
+val () =
+println!
+  ("s2var_occurcheck_s2exp: s2e0 = ", s2e0)
+*)
+//
+in
+//
+  aux1_s2exp (s2v0, s2e0)
+//
+end // end of [s2var_occurcheck_s2exp]
+
+end // end of [local]
+
+(* ****** ****** *)
+//
+extern
+fun
+the_s3itmlst_env_push(): void
+//
 extern
 fun the_s3itmlst_env_pop (): s3itmlst_vt
 extern
 fun the_s3itmlst_env_add (s3i: s3itm): void
+//
+(* ****** ****** *)
 
 local
-
-viewtypedef s3itmlstlst_vt = List_vt (s3itmlst_vt)
+//
+vtypedef
+s3itmlstlst_vt = List_vt (s3itmlst_vt)
+//
 val the_s3itmlst = ref_make_elt<s3itmlst_vt> (list_vt_nil ())
 val the_s3itmlstlst = ref_make_elt<s3itmlstlst_vt> (list_vt_nil ())
-
+//
 in (* in of [local] *)
 
 implement
-the_s3itmlst_env_push () = let
+the_s3itmlst_env_push
+  ((*void*)) = let
   val s3is = s3is where {
     val (vbox pf | p) = ref_get_view_ptr (the_s3itmlst)
     val s3is = !p
@@ -907,23 +1072,29 @@ end // end of [the_s3itmlst_env_add]
 (* ****** ****** *)
 
 implement
-fprint_the_s3itmlst (out) = let
-  val s3is = let
-    val (vbox pf | p) = ref_get_view_ptr (the_s3itmlst)
-  in
-    $UN.castvwtp1 {s3itmlst} (!p)
-  end // end of [val]
+fprint_the_s3itmlst
+  (out) = let
+//
+val s3is = let
+  val (vbox pf | p) = ref_get_view_ptr (the_s3itmlst)
+in
+  $UN.castvwtp1{s3itmlst}(!p)
+end // end of [val]
+//
 in
   fprint_s3itmlst (out, s3is)
 end // end of [fprint_the_s3itmlst]
 
 implement
-fprint_the_s3itmlstlst (out) = let
-  val s3iss = let
-    val (vbox pf | pp) = ref_get_view_ptr (the_s3itmlstlst)
-  in
-    $UN.castvwtp1 {s3itmlstlst} (!pp)
-  end // end of [val]
+fprint_the_s3itmlstlst
+  (out) = let
+//
+val s3iss = let
+  val (vbox pf | pp) = ref_get_view_ptr (the_s3itmlstlst)
+in
+  $UN.castvwtp1{s3itmlstlst}(!pp)
+end // end of [val]
+//
 in
   fprint_s3itmlstlst (out, s3iss)
 end // end of [fprint_the_s3itmlstlst]
@@ -1110,16 +1281,20 @@ trans3_env_hypadd_bind
 // HX: [s2v1] cannot be bound at this point
 //
 (*
-  val () = begin
-    print "trans3_env_hypadd_bind: s2v1 = "; print_s2var s2v1; print_newline ();
-    print "trans3_env_hypadd_bind: s2f2 = "; pprint_s2hnf s2f2; print_newline ();
-  end // end of [val]
+val () =
+(
+  print "trans3_env_hypadd_bind: s2v1 = "; print_s2var s2v1; print_newline ();
+  print "trans3_env_hypadd_bind: s2f2 = "; pprint_s2hnf s2f2; print_newline ();
+) (* end of [val] *)
 *)
-  val () =
-    the_s2varbindmap_insert (s2v1, s2f2)
-  // end of [val]
-  val h3p = h3ypo_bind (loc, s2v1, s2f2)
-  val s3i = S3ITMhypo (h3p)
+//
+val () =
+the_s2varbindmap_insert (s2v1, s2f2)
+//
+val h3p = h3ypo_bind (loc, s2v1, s2f2)
+//
+val s3i = S3ITMhypo (h3p)
+//
 in
   the_s3itmlst_env_add (s3i)
 end // end of [trans3_env_hypadd_bind]

@@ -80,22 +80,24 @@ filenv_get_d3eclistopt (fenv: filenv): d3eclistopt
 datatype
 c3nstrkind =
 //
-  | C3NSTRKmain of () // generic
+  | C3TKmain of () // generic
 //
-  | C3NSTRKcase_exhaustiveness of
+  | C3TKcase_exhaustiveness of
       (caskind (*case/case+*), p2atcstlst) // no [case-]
 //
-  | C3NSTRKtermet_isnat of () // term. metric welfounded
-  | C3NSTRKtermet_isdec of () // term. metric decreasing
+  | C3TKtermet_isnat of () // term. metric welfounded
+  | C3TKtermet_isdec of () // term. metric decreasing
 //
-  | C3NSTRKsome_fin of (d2var, s2exp(*fin*), s2exp)
-  | C3NSTRKsome_lvar of (d2var, s2exp(*lvar*), s2exp)
-  | C3NSTRKsome_vbox of (d2var, s2exp(*vbox*), s2exp)
+  | C3TKsome_fin of (d2var, s2exp(*fin*), s2exp)
+  | C3TKsome_lvar of (d2var, s2exp(*lvar*), s2exp)
+  | C3TKsome_vbox of (d2var, s2exp(*vbox*), s2exp)
 //
-  | C3NSTRKlstate of () // lstate merge
-  | C3NSTRKlstate_var of (d2var) // lstate merge for d2var
+  | C3TKlstate of () // lstate merge
+  | C3TKlstate_var of (d2var) // lstate merge for d2var
 //
-  | C3NSTRKloop of (int) // HX: ~1/0/1: enter/break/continue
+  | C3TKloop of (int) // HX: ~1/0/1: enter/break/continue
+//
+  | C3TKsolverify of () // HX-2015-06-12: $solver_verify
 // end of [c3nstrkind]
 
 datatype s3itm =
@@ -105,11 +107,13 @@ datatype s3itm =
   | S3ITMcnstr of c3nstr
   | S3ITMcnstr_ref of c3nstroptref // HX: for handling state types
   | S3ITMdisj of s3itmlstlst
+  | S3ITMsolassert of (s2exp) // $solver_assert
 // end of [s3item]
 
 and c3nstr_node =
   | C3NSTRprop of s2exp
   | C3NSTRitmlst of s3itmlst
+  | C3NSTRsolverify of (s2exp) // $solve_verify
 // end of [c3nstr_node]
 
 and h3ypo_node =
@@ -162,14 +166,19 @@ c3nstr_case_exhaustiveness
   loc: loc_t, casknd: caskind, p2tcs: !p2atcstlst_vt
 ) : c3nstr // end of [c3nstr_case_exhaustiveness]
 
-fun c3nstr_termet_isnat
+fun
+c3nstr_termet_isnat
   (loc: loc_t, s2e: s2exp): c3nstr
 // end of [c3nstr_termet_isnat]
-fun c3nstr_termet_isdec
-  (loc: loc_t, met: s2explst, metbd: s2explst): c3nstr
+fun
+c3nstr_termet_isdec
+  (loc: loc_t, met: s2explst, mbd: s2explst): c3nstr
 // end of [c3nstr_termet_isdec]
 //
-fun c3nstroptref_make_none (loc: loc_t): c3nstroptref
+fun
+c3nstr_solverify(loc: loc_t, s2e_prop: s2exp): c3nstr
+//
+fun c3nstroptref_make_none (loc0: loc_t): c3nstroptref
 //
 (* ****** ****** *)
 
@@ -340,6 +349,11 @@ fun trans3_env_hypadd_labpatcstlst
   (loc: loc_t, lp2tcs: labp2atcstlst_vt, ls2es: labs2explst): void
 fun trans3_env_hypadd_patcstlstlst
   (loc: loc_t, p2tcs: p2atcstlstlst_vt, s2es: s2explst): void
+//
+(* ****** ****** *)
+//
+fun trans3_env_solver_assert(loc: loc_t, s2e: s2exp): void
+fun trans3_env_solver_verify(loc: loc_t, s2e: s2exp): void
 //
 (* ****** ****** *)
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Sat Apr  4 14:36:54 2015
+** Time of generation: Tue Jun 16 14:47:08 2015
 *)
 
 (* ****** ****** *)
@@ -40,9 +40,24 @@
 (* Start time: March, 2012 *)
 
 (* ****** ****** *)
-
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
 primplmnt
-false_elim () = case+ 0 of _ =/=> ()
+false_elim() = case+ 0 of _ =/=> ()
+//
+(* ****** ****** *)
+
+primplmnt prop_verify () = ()
+primplmnt prop_verify_and_add () = ()
+
+(* ****** ****** *)
+
+primplmnt pridentity_v (x) = ()
+primplmnt pridentity_vt (x) = ()
 
 (* ****** ****** *)
 
@@ -62,16 +77,6 @@ primplmnt eqbool_make_bool (x) = EQBOOL ()
 
 (* ****** ****** *)
 
-primplmnt prop_verify () = ()
-primplmnt prop_verify_and_add () = ()
-
-(* ****** ****** *)
-
-primplmnt pridentity_v (x) = ()
-primplmnt pridentity_vt (x) = ()
-
-(* ****** ****** *)
-
 implement
 {a}(*tmp*)
 lazy_force (lazyval) = !lazyval
@@ -79,6 +84,13 @@ implement
 {a}(*tmp*)
 lazy_vt_force (lazyval) = !lazyval
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stamped_vt2t_ref{x}(x) =
+  $UN.ptr0_get<stamped_t(a,x)>(addr@x)
+//
 (* ****** ****** *)
 
 primplmnt

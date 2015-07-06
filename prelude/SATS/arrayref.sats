@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Sat Apr  4 21:28:51 2015
+** Time of generation: Sat Jun 27 21:39:13 2015
 *)
 
 (* ****** ****** *)
@@ -324,6 +324,13 @@ a:vt0p}{env:vt0p
   A: arrayref (a, n), asz: size_t (n), env: &(env)>>env
 ) : sizeLte(n) // end of [arrayref_rforeach_env]
 
+(* ****** ****** *)
+//
+fun
+{a:vt0p}
+arrayref_quicksort
+  {n:int}(A: arrayref(a, n), asz: size_t(n)): void
+//
 (* ****** ****** *)
 //
 // arrszref: a reference to an array with size information attached

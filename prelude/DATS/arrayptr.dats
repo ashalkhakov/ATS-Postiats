@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Sun Apr  5 21:18:39 2015
+** Time of generation: Sat Jun 27 21:39:38 2015
 *)
 
 (* ****** ****** *)
@@ -451,6 +451,19 @@ array_tabulate$fopr<a2> (i) = $UN.castvwtp0{a2}(f($UN.cast{sizeLt(n)}(i)))
 in
   arrayptr_tabulate<a> (asz)
 end // end of [arrayptr_tabulate_cloref]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+arrayptr_quicksort
+  (A, asz) = () where
+{
+  val p = ptrcast (A)
+  prval pfarr = arrayptr_takeout (A)
+  val () = array_quicksort<a> (!p, asz)
+  prval () = arrayptr_addback (pfarr | A)
+} (* end of [arrayptr_quicksort] *)
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun May 17 13:56:58 2015
+** Time of generation: Sat Jun 27 21:39:32 2015
 *)
 
 (* ****** ****** *)
@@ -2062,7 +2062,7 @@ list_mergesort
 //
 val xs = list_copy<a> (xs)
 //
-implement(a:t0p)
+implement
 list_vt_mergesort$cmp<a>
   (x1, x2) = list_mergesort$cmp<a> (x1, x2)
 //
@@ -2127,7 +2127,7 @@ list_quicksort
 //
 val xs = list_copy<a> (xs)
 //
-implement(a:t0p)
+implement
 list_vt_quicksort$cmp<a>
   (x1, x2) = list_quicksort$cmp<a> (x1, x2)
 //

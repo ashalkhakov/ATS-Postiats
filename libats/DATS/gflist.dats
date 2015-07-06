@@ -61,6 +61,53 @@ in
 end // end of [gflist_length]
 
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+gflist_snoc
+  {xs}{x0}(xs, x0) = let
+//
+fun
+loop
+{xs:ilist}
+(
+  xs: gflist (a, xs)
+, x0: stamped_t (a, x0)
+, res: &ptr? >> gflist_vt(a, xsx)
+) : #[xsx:ilist] (SNOC(xs, x0, xsx) | void) =
+(
+//
+case+ xs of
+| gflist_nil() => let
+    val x0 = stamped_t2vt(x0)
+    val () =
+      res := gflist_vt_sing(x0)
+    // end of [val]
+  in
+    (SNOCnil() | ())
+  end // end of [gflist_nil]
+| gflist_cons(x, xs) => let
+    val x = stamped_t2vt(x)
+    val () =
+      res := gflist_vt_cons(x, _)
+    // end of [val]
+    val+gflist_vt_cons(_, res1) = res
+    val (pf1 | ()) = loop (xs, x0, res1)
+    prval () = fold@(res)
+  in
+    (SNOCcons(pf1) | ())
+  end // end of [gflist_cons]
+//
+) (* end of [loop] *)
+//
+var res: ptr? // uninitialized
+val (pfsnoc | ()) = loop (xs, x0, res)
+//
+in
+  (pfsnoc | res)
+end (* end of [gflist_snoc] *)
+
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Sun May 24 21:06:41 2015
+** Time of generation: Sat Jun 27 21:39:14 2015
 *)
 
 (* ****** ****** *)
@@ -384,6 +384,9 @@ overload [] with matrixref_get_at_int of 0
 overload [] with matrixref_get_at_size of 0
 overload [] with matrixref_set_at_int of 0
 overload [] with matrixref_set_at_size of 0
+
+(* ****** ****** *)
+
 overload [] with mtrxszref_get_at_int of 0
 overload [] with mtrxszref_get_at_size of 0
 overload [] with mtrxszref_set_at_int of 0

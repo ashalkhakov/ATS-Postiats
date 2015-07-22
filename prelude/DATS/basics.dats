@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Sat Jun 27 21:39:31 2015
+** Time of generation: Tue Jul 21 21:16:36 2015
 *)
 
 (* ****** ****** *)
@@ -98,6 +98,14 @@ unit_v_elim (pf) = let
   prval unit_v () = pf in (*nothing*)
 end // end of [unit_v_elim]
 
+(* ****** ****** *)
+//
+implement{a} box(x) = $UN.cast(x)
+implement{a} unbox(x) = $UN.cast(x)
+//
+implement{a} box_vt(x) = $UN.castvwtp0(x)
+implement{a} unbox_vt(x) = $UN.castvwtp0(x)
+//
 (* ****** ****** *)
 //
 // HX:

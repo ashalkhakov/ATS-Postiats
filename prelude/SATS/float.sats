@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Sat Jun 27 21:39:01 2015
+** Time of generation: Tue Aug  4 21:33:29 2015
 *)
 
 (* ****** ****** *)
@@ -451,6 +451,15 @@ div_double_int
   (x: double, y: int): double = "mac#%"
 overload / with div_int_double of 0
 overload / with div_double_int of 0
+//
+(* ****** ****** *)
+//
+fun
+{tk:tk}
+g0float_npow
+  (x: g0float(tk), n: intGte(0)): g0float(tk)
+//
+overload ** with g0float_npow of 0
 //
 (* ****** ****** *)
 

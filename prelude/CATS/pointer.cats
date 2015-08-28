@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Sat Jun 27 21:39:44 2015
+** Time of generation: Tue Aug 18 17:46:21 2015
 */
 
 /* ****** ****** */
@@ -109,7 +109,7 @@ atspre_sub_ptr_bsz
 ATSinline()
 atstype_ssize
 atspre_sub_ptr_ptr
-  (atstype_ptr p1, atstype_ptr p2) { return (p1 - p2) ; }
+  (atstype_ptr p1, atstype_ptr p2) { return ((char*)p1 - (char*)p2) ; }
 // end of [atspre_sub_ptr_ptr]
 #define atspre_sub_ptr0_ptr0 atspre_sub_ptr_ptr
 #define atspre_sub_ptr1_ptr1 atspre_sub_ptr_ptr

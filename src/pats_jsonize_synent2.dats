@@ -78,7 +78,7 @@ staload "./pats_staexp2_util.sats"
 
 (* ****** ****** *)
 
-staload "./pats_synent2_jsonize.sats"
+staload "./pats_jsonize_synent2.sats"
 
 (* ****** ****** *)
 
@@ -232,6 +232,30 @@ jsonize_s2cstlst
 (
   jsonize_list_fun (s2cs, jsonize_s2cst)
 ) (* end of [jsonize_s2cstlst] *)
+
+(* ****** ****** *)
+
+implement
+jsonize_s2rtdat_long
+  (s2td) = let
+//
+val sym =
+  jsonize_symbol(s2rtdat_get_sym(s2td))
+val stamp =
+  jsonize_stamp(s2rtdat_get_stamp(s2td))
+val sconlst=
+  jsonize_s2cstlst(s2rtdat_get_sconlst(s2td))
+//
+in
+//
+jsonval_labval3
+(
+  "s2rtdat_sym", sym
+, "s2rtdat_stamp", stamp
+, "s2rtdat_sconlst", sconlst
+)
+//
+end // end of [jsonize_s2rtdat_long]
 
 (* ****** ****** *)
 //
@@ -1729,7 +1753,7 @@ jsonize_v2aldeclst
 (* ****** ****** *)
 
 implement
-d2eclist_export
+d2eclist_jsonize_out
   (out, d2cls) = let
 //
 val
@@ -1819,8 +1843,8 @@ val ((*void*)) = fprint_newline (out)
 //
 in
   // nothing
-end // end of [d2eclist_export]
+end // end of [d2eclist_jsonize_out]
 
 (* ****** ****** *)
 
-(* end of [pats_synent2_jsonize.dats] *)
+(* end of [pats_jsonize_synent2.dats] *)

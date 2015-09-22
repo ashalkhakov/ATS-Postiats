@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Sat Jun 27 21:39:24 2015
+** Time of generation: Thu Sep 17 21:02:37 2015
 *)
 
 (* ****** ****** *)
@@ -668,6 +668,54 @@ val () = loop (p0, n, g1int2uint (0))
 in
   castvwtp_trans{strnptr(n)}((pf, fpf | p0))
 end // end of [string_tabulate]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+string_forall
+  (str) = let
+//
+fun
+loop
+(
+  p: ptr
+) : bool = let
+  val c0 = $UN.ptr0_get<char>(p)
+in
+//
+if c0 = CNUL then true else
+  (if string_forall$pred(c0) then loop(ptr0_succ<char>(p)) else false)
+//
+end // end of [loop]
+//
+in
+  loop(string2ptr(str))
+end // end of [string_forall]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+string_iforall
+  (str) = let
+//
+fun
+loop
+(
+  i: int, p: ptr
+) : bool = let
+  val c0 = $UN.ptr0_get<char>(p)
+in
+//
+if c0 = CNUL then true else
+  (if string_iforall$pred(i, c0) then loop(i+1, ptr0_succ<char>(p)) else false)
+//
+end // end of [loop]
+//
+in
+  loop(0, string2ptr(str))
+end // end of [string_iforall]
 
 (* ****** ****** *)
 

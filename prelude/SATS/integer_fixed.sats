@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Sat Jun 27 21:39:05 2015
+** Time of generation: Tue Sep 22 17:57:10 2015
 *)
 
 (* ****** ****** *)
@@ -49,8 +49,8 @@ sortdef tk = tkind
 
 (* ****** ****** *)
 
-typedef SHR(a:type) = a // for commenting purpose
-typedef NSH(a:type) = a // for commenting purpose
+typedef SHR(a:t@ype) = a // for commenting purpose
+typedef NSH(a:t@ype) = a // for commenting purpose
 
 (* ****** ****** *)
 //

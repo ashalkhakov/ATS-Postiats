@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Sat Jun 27 21:39:45 2015
+** Time of generation: Mon Sep 21 01:33:16 2015
 */
 
 /* ****** ****** */
@@ -61,13 +61,6 @@ typedef uint8_t atstype_uint8 ;
 typedef uint16_t atstype_uint16 ;
 typedef uint32_t atstype_uint32 ;
 typedef uint64_t atstype_uint64 ;
-
-/* ****** ****** */
-
-#ifndef fprintf
-extern
-int fprintf (FILE *stream, const char *format, ...) ;
-#endif // end of [ifndef]
 
 /* ****** ****** */
 
@@ -588,64 +581,6 @@ atspre_g0int_neq_int64
   return (x1 != x2 ? atsbool_true : atsbool_false) ;
 } // end of [atspre_g0int_neq_int64]
 //
-/* ****** ****** */
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_int8
-(
-  atstype_ref r, atstype_int8 x
-) {
-  int err ;
-  err = fprintf((FILE*)r, "%i", (atstype_int)x) ;
-  return ;
-} // end [atspre_fprint_int8]
-
-#define atspre_print_int8(x) atspre_fprint_int8(stdout, (x))
-#define atspre_prerr_int8(x) atspre_fprint_int8(stderr, (x))
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_int16
-(
-  atstype_ref r, atstype_int16 x
-) {
-  int err ;
-  err = fprintf((FILE*)r, "%i", (atstype_int)x) ;
-  return ;
-} // end [atspre_fprint_int16]
-
-#define atspre_print_int16(x) atspre_fprint_int16(stdout, (x))
-#define atspre_prerr_int16(x) atspre_fprint_int16(stderr, (x))
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_int32
-(
-  atstype_ref r, atstype_int32 x
-) {
-  int err ;
-  err = fprintf((FILE*)r, "%li", (atstype_lint)x) ;
-  return ;
-} // end [atspre_fprint_int32]
-
-#define atspre_print_int32(x) atspre_fprint_int32(stdout, (x))
-#define atspre_prerr_int32(x) atspre_fprint_int32(stderr, (x))
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_int64
-(
-  atstype_ref r, atstype_int64 x
-) {
-  int err ;
-  err = fprintf((FILE*)r, "%lli", (atstype_llint)x) ;
-  return ;
-} // end [atspre_fprint_int64]
-
-#define atspre_print_int64(x) atspre_fprint_int64(stdout, (x))
-#define atspre_prerr_int64(x) atspre_fprint_int64(stderr, (x))
-
 /* ****** ****** */
 
 ATSinline()
@@ -1193,64 +1128,6 @@ atspre_g0uint_neq_uint64
   return (x1 != x2 ? atsbool_true : atsbool_false) ;
 } // end of [atspre_g0uint_neq_uint64]
 //
-/* ****** ****** */
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_uint8
-(
-  atstype_ref r, atstype_uint8 x
-) {
-  int err ;
-  err = fprintf((FILE*)r, "%u", (atstype_uint)x) ;
-  return ;
-} // end [atspre_fprint_uint8]
-
-#define atspre_print_uint8(x) atspre_fprint_uint8(stdout, (x))
-#define atspre_prerr_uint8(x) atspre_fprint_uint8(stderr, (x))
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_uint16
-(
-  atstype_ref r, atstype_uint16 x
-) {
-  int err ;
-  err = fprintf((FILE*)r, "%u", (atstype_uint)x) ;
-  return ;
-} // end [atspre_fprint_uint16]
-
-#define atspre_print_uint16(x) atspre_fprint_uint16(stdout, (x))
-#define atspre_prerr_uint16(x) atspre_fprint_uint16(stderr, (x))
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_uint32
-(
-  atstype_ref r, atstype_uint32 x
-) {
-  int err ;
-  err = fprintf((FILE*)r, "%lu", (atstype_ulint)x) ;
-  return ;
-} // end [atspre_fprint_uint32]
-
-#define atspre_print_uint32(x) atspre_fprint_uint32(stdout, (x))
-#define atspre_prerr_uint32(x) atspre_fprint_uint32(stderr, (x))
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_uint64
-(
-  atstype_ref r, atstype_uint64 x
-) {
-  int err ;
-  err = fprintf((FILE*)r, "%llu", (atstype_ullint)x) ;
-  return ;
-} // end [atspre_fprint_uint64]
-
-#define atspre_print_uint64(x) atspre_fprint_uint64(stdout, (x))
-#define atspre_prerr_uint64(x) atspre_fprint_uint64(stderr, (x))
-
 /* ****** ****** */
 
 #endif // ifndef ATSLIB_PRELUDE_CATS_INTEGER_FIXED

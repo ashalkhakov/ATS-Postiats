@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Tue Aug  4 11:25:37 2015
+** Time of generation: Tue Sep 22 17:57:09 2015
 *)
 
 (* ****** ****** *)
@@ -49,8 +49,8 @@ sortdef tk = tkind
 
 (* ****** ****** *)
 
-typedef SHR(a:type) = a // for commenting purpose
-typedef NSH(a:type) = a // for commenting purpose
+typedef SHR(a:t@ype) = a // for commenting purpose
+typedef NSH(a:t@ype) = a // for commenting purpose
 
 (* ****** ****** *)
 //
@@ -88,6 +88,9 @@ fun g0int2int_ssize_ssize (x: int):<> ssize_t = "mac#%"
 fun g0int2int_sint_int (x: sint):<> int = "mac#%"
 //
 (* ****** ****** *)
+//
+// HX-2015-09-20:
+// These functions are implemented in prelude/string.cats:
 //
 fun{tk:tk}
 g0int2string (x: g0int (tk)):<!wrt> Strptr1

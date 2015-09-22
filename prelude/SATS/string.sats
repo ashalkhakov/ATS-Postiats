@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Sat Jun 27 21:39:01 2015
+** Time of generation: Thu Sep 17 21:02:37 2015
 *)
 
 (* ****** ****** *)
@@ -424,6 +424,20 @@ fun{
 fun{
 } string_tabulate{n:int} (n: size_t(n)): strnptr(n)
 
+(* ****** ****** *)
+//
+fun{}
+string_forall (str: string): bool
+fun{}
+string_forall$pred (c: char): bool
+//
+(* ****** ****** *)
+//
+fun{}
+string_iforall (str: string): bool
+fun{}
+string_iforall$pred (i: int, c: char): bool
+//
 (* ****** ****** *)
 //
 fun{env:vt0p}

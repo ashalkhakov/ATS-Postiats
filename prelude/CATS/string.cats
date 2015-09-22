@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
-** Time of generation: Sat Jun 27 21:39:50 2015
+** Time of generation: Mon Sep 21 01:48:12 2015
 */
 
 /* ****** ****** */
@@ -73,14 +73,6 @@ extern
 void *memcpy(void *dest, const void *src, size_t n) ;
 #endif // #ifndef
 //
-/* ****** ****** */
-//
-// [stdio.h]
-//
-extern
-int // (errcode)
-fprintf (FILE *stream, const char *format, ...) ;
-
 /* ****** ****** */
 
 #define atspre_stropt_none() atsptr_null
@@ -150,46 +142,6 @@ atspre_compare_string_string
 
 /* ****** ****** */
 
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_string
-(
-  atstype_ref out, atstype_string x
-) {
-  int err = 0 ;
-  err += fprintf((FILE*)out, "%s", (char*)x) ;
-/*
-  if (err < 0) {
-    fprintf(stderr, "exit(ATS): [fprint_string] failed.") ; exit(1) ;
-  } // end of [if]
-*/
-  return ;
-} // end of [atspre_fprint_string]
-#define atspre_print_string(x) atspre_fprint_string(stdout, (x))
-#define atspre_prerr_string(x) atspre_fprint_string(stderr, (x))
-
-/* ****** ****** */
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_substring
-(
-  atstype_ref out
-, atstype_string x
-, atstype_size st, atstype_size ln  
-) {
-  int err = 0 ;
-  err += fwrite(((char*)x)+st, 1, ln, out) ;
-/*
-  if (err < 0) {
-    fprintf(stderr, "exit(ATS): [fprint_substring] failed.") ; exit(1) ;
-  } // end of [if]
-*/
-  return ;
-} // end of [atspre_fprint_substring]
-
-/* ****** ****** */
-
 #define atspre_strlen strlen
 #define atspre_strchr strchr
 #define atspre_strrchr strrchr
@@ -200,30 +152,76 @@ atspre_fprint_substring
 #define atspre_string_memcpy memcpy
 
 /* ****** ****** */
-
+//
+// HX-2013-09: declared in [stdio.h]
+//
+#ifndef snprintf
+extern
+int snprintf (char *str, size_t size, const char *format, ...) ;
+#endif // end of [ifndef]
+//
+/* ****** ****** */
+//
 ATSinline()
-atsvoid_t0ype
-atspre_fprint_stropt
-(
-  atstype_ref out, atstype_stropt x
-) {
-  int err = 0 ;
-  if (!x)
+atstype_string
+atspre_g0int2string_int
+  (atstype_int x)
+{
+  size_t n0 ;
+  char *res ;
+  size_t ntot ;
+  n0 = 4 ;
+  res = ATS_MALLOC(n0) ;
+  ntot = snprintf(res, n0, "%i", x) ;
+  if (ntot >= n0)
   {
-    err += fprintf((FILE*)out, "strnone()") ;
-  } else {
-    err += fprintf((FILE*)out, "strsome(%s)", (char*)x) ;
+    ATS_MFREE(res) ;
+    res = (char*)ATS_MALLOC(ntot+1) ;
+    ntot = snprintf(res, ntot+1, "%i", x) ;
   }
-/*
-  if (err < 0) {
-    fprintf(stderr, "exit(ATS): [fprint_stropt] failed.") ; exit(1) ;
-  } // end of [if]
-*/
-  return ;
-} // end of [atspre_fprint_stropt]
-#define atspre_print_stropt(x) atspre_fprint_stropt(stdout, (x))
-#define atspre_prerr_stropt(x) atspre_fprint_stropt(stderr, (x))
-
+  return res ;
+}
+//
+ATSinline()
+atstype_string
+atspre_g0int2string_lint
+  (atstype_lint x)
+{
+  size_t n0 ;
+  char *res ;
+  size_t ntot ;
+  n0 = 4 ;
+  res = ATS_MALLOC(n0) ;
+  ntot = snprintf(res, n0, "%li", x) ;
+  if (ntot >= n0)
+  {
+    ATS_MFREE(res) ;
+    res = (char*)ATS_MALLOC(ntot+1) ;
+    ntot = snprintf(res, ntot+1, "%li", x) ;
+  }
+  return res ;
+}
+//
+ATSinline()
+atstype_string
+atspre_g0int2string_llint
+  (atstype_llint x)
+{
+  size_t n0 ;
+  char *res ;
+  size_t ntot ;
+  n0 = 8 ;
+  res = ATS_MALLOC(n0) ;
+  ntot = snprintf(res, n0, "%lli", x) ;
+  if (ntot >= n0)
+  {
+    ATS_MFREE(res) ;
+    res = (char*)ATS_MALLOC(ntot+1) ;
+    ntot = snprintf(res, ntot+1, "%lli", x) ;
+  }
+  return res ;
+}
+//
 /* ****** ****** */
 //
 #include <stdarg.h>

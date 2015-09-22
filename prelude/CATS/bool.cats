@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/bool.atxt
-** Time of generation: Sat Jun 27 21:39:45 2015
+** Time of generation: Mon Sep 21 01:33:16 2015
 */
 
 /* ****** ****** */
@@ -45,13 +45,6 @@
 
 #ifndef ATSLIB_PRELUDE_CATS_BOOL
 #define ATSLIB_PRELUDE_CATS_BOOL
-
-/* ****** ****** */
-
-#ifndef fprintf
-extern
-int fprintf (FILE *stream, const char *format, ...) ;
-#endif // end of [ifndef]
 
 /* ****** ****** */
 
@@ -192,25 +185,6 @@ atspre_bool2string (
 ) {
   return (x) ? "true" : "false" ;
 } // end of [atspre_bool2string]
-
-/* ****** ****** */
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_bool (
-  atstype_ref out, atstype_bool x
-) {
-  int err = 0 ;
-  err += fprintf((FILE*)out, "%s", atspre_bool2string(x)) ;
-/*
-  if (err < 0) {
-    fprintf(stderr, "exit(ATS): [fprint_bool] failed.") ; exit(1) ;
-  } // end of [if]
-*/
-  return ;
-} // end [atspre_fprint_bool]
-#define atspre_print_bool(x) atspre_fprint_bool(stdout, (x))
-#define atspre_prerr_bool(x) atspre_fprint_bool(stderr, (x))
 
 /* ****** ****** */
 

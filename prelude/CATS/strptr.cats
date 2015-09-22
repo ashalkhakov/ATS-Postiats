@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/strptr.atxt
-** Time of generation: Sat Jun 27 21:39:50 2015
+** Time of generation: Mon Sep 21 01:33:17 2015
 */
 
 /* ****** ****** */
@@ -83,36 +83,6 @@ atspre_compare_strptr_strptr
 #define atspre_eq_strptr_string atspre_eq_string_string 
 #define atspre_neq_strptr_string atspre_neq_string_string 
 #define atspre_compare_strptr_string atspre_compare_string_string 
-
-/* ****** ****** */
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_strptr
-(
-  atstype_ref out, atstype_strptr x
-) {
-  int err = 0 ;
-  if (x != 0) {
-    err += fprintf((FILE*)out, "%s", (char*)x) ;
-  } else {
-    err += fprintf((FILE*)out, "%s", "(strnull)") ;
-  } // end of [if]
-/*
-  if (err < 0) {
-    fprintf(stderr, "exit(ATS): [fprint_strptr] failed.") ; exit(1) ;
-  } // end of [if]
-*/
-  return ;
-} // end of [atspre_fprint_strptr]
-#define atspre_print_strptr(x) atspre_fprint_strptr(stdout, (x))
-#define atspre_prerr_strptr(x) atspre_fprint_strptr(stderr, (x))
-
-/* ****** ****** */
-
-#define atspre_fprint_strbuf atspre_fprint_strptr
-#define atspre_print_strbuf(x) atspre_fprint_strbuf(stdout, (x))
-#define atspre_prerr_strbuf(x) atspre_fprint_strbuf(stderr, (x))
 
 /* ****** ****** */
 

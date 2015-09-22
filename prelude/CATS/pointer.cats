@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Tue Aug 18 17:46:21 2015
+** Time of generation: Mon Sep 21 02:19:29 2015
 */
 
 /* ****** ****** */
@@ -52,13 +52,6 @@
 extern
 void *memset(void *bufp, int c, size_t n) ;
 #endif // #ifndef
-
-/* ****** ****** */
-
-#ifndef fprintf
-extern
-int fprintf (FILE *stream, const char *format, ...) ;
-#endif // end of [ifndef]
 
 /* ****** ****** */
 
@@ -238,21 +231,6 @@ atspre_ptr_nullize_tsz
 ) {
   memset (p, 0, tsz) ; return /*void*/ ;
 } // end of [atspre_ptr_nullize_tsz]
-
-/* ****** ****** */
-
-ATSinline()
-atsvoid_t0ype
-atspre_fprint_ptr (
-  atstype_ref out, atstype_ptr x
-) {
-  int err ;
-  err = fprintf((FILE*)out, "%p", x) ;
-  return ;
-} // end [atspre_fprint_ptr]
-
-#define atspre_print_ptr(x) atspre_fprint_ptr(stdout, (x))
-#define atspre_prerr_ptr(x) atspre_fprint_ptr(stderr, (x))
 
 /* ****** ****** */
 

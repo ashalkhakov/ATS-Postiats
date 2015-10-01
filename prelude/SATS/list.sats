@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Tue Sep  1 22:05:46 2015
+** Time of generation: Wed Sep 23 13:11:51 2015
 *)
 
 (* ****** ****** *)
@@ -376,12 +376,12 @@ list_reverse
 // end of [list_reverse]
 
 (* ****** ****** *)
-
+//
 fun{a:t0p}
 list_reverse_append{m,n:int}
   (xs: NSH(list (INV(a), m)), ys: SHR(list (a, n))):<> list (a, m+n)
 // end of [list_reverse_append]
-
+//
 fun{a:t0p}
 list_reverse_append1_vt{m,n:int}
   (xs: list_vt (INV(a), m), ys: SHR(list (a, n))):<!wrt> list (a, m+n)
@@ -390,7 +390,11 @@ fun{a:t0p}
 list_reverse_append2_vt{m,n:int}
   (xs: NSH(list (INV(a), m)), ys: list_vt (a, n)):<!wrt> list_vt (a, m+n)
 // end of [list_reverse_append2_vt]
-
+//
+macdef list_revapp = list_reverse_append
+macdef list_revapp1_vt = list_reverse_append1_vt
+macdef list_revapp2_vt = list_reverse_append2_vt
+//
 (* ****** ****** *)
 
 fun{x:t0p}

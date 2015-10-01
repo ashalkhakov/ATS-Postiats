@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Thu Sep 17 21:02:37 2015
+** Time of generation: Fri Sep 25 07:42:24 2015
 *)
 
 (* ****** ****** *)
@@ -523,6 +523,45 @@ stringarr_concat<>
   ($UN.cast{arrayref(string,3)}(addr@xs), i2sz(3))
 //
 end // end of [string0_append3]
+
+implement{}
+string0_append4
+  (x1, x2, x3, x4) = let
+//
+var xs = @[string](x1, x2, x3, x4)
+//
+in
+//
+stringarr_concat<>
+  ($UN.cast{arrayref(string,4)}(addr@xs), i2sz(4))
+//
+end // end of [string0_append4]
+
+implement{}
+string0_append5
+  (x1, x2, x3, x4, x5) = let
+//
+var xs = @[string](x1, x2, x3, x4, x5)
+//
+in
+//
+stringarr_concat<>
+  ($UN.cast{arrayref(string,5)}(addr@xs), i2sz(5))
+//
+end // end of [string0_append5]
+
+implement{}
+string0_append6
+  (x1, x2, x3, x4, x5, x6) = let
+//
+var xs = @[string](x1, x2, x3, x4, x5, x6)
+//
+in
+//
+stringarr_concat<>
+  ($UN.cast{arrayref(string,6)}(addr@xs), i2sz(6))
+//
+end // end of [string0_append6]
 
 (* ****** ****** *)
 

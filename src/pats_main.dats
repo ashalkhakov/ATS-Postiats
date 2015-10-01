@@ -498,6 +498,7 @@ HX: VERSION-0.1.13 released on Friday, May 22, 2015
 HX: VERSION-0.2.0 released on Tuesday, June 9, 2015
 HX: VERSION-0.2.1 released on Sunday, July 12, 2015
 HX: VERSION-0.2.2 released on Saturday, August 29, 2015
+HX: VERSION-0.2.3 released on Tuesday, September 22, 2015
 //
 *)
 #define PATS_MAJOR_VERSION 0
@@ -725,7 +726,8 @@ end // end of [local]
 
 (* ****** ****** *)
 
-fn fixity_load
+fun
+fixity_load
   (PATSHOME: string): void = let
 //
   val given = "prelude/fixity.ats"
@@ -843,12 +845,12 @@ val () =
 val () = pervasive_load (PATSHOME, "prelude/SATS/integer.sats")
 val () = pervasive_load (PATSHOME, "prelude/SATS/pointer.sats")
 //
-val () = pervasive_load (PATSHOME, "prelude/SATS/integer_ptr.sats")
-val () = pervasive_load (PATSHOME, "prelude/SATS/integer_fixed.sats")
-//
 val () = pervasive_load (PATSHOME, "prelude/SATS/bool.sats")
 val () = pervasive_load (PATSHOME, "prelude/SATS/char.sats")
 val () = pervasive_load (PATSHOME, "prelude/SATS/float.sats")
+//
+val () = pervasive_load (PATSHOME, "prelude/SATS/integer_ptr.sats")
+val () = pervasive_load (PATSHOME, "prelude/SATS/integer_fixed.sats")
 //
 val () = pervasive_load (PATSHOME, "prelude/SATS/memory.sats")
 //
@@ -911,7 +913,7 @@ val () = pervasive_load (PATSHOME, "prelude/SATS/giterator.sats")
 val () = pervasive_load (PATSHOME, "prelude/SATS/fcontainer.sats")
 *)
 //
-} // end of [prelude_load]
+} (* end of [prelude_load] *)
 
 (* ****** ****** *)
 
@@ -928,11 +930,19 @@ prelude_load_if
 (* ****** ****** *)
 //
 extern
-fun do_depgen
-  (state: &cmdstate, given: string, d0cs: d0eclist): void
+fun
+do_depgen
+(
+  state: &cmdstate
+, given: string, d0cs: d0eclist
+) : void // end of [do_depgen]
 extern
-fun do_taggen
-  (state: &cmdstate, given: string, d0cs: d0eclist): void
+fun
+do_taggen
+(
+  state: &cmdstate
+, given: string, d0cs: d0eclist
+) : void // end of [do_taggen]
 //
 implement
 do_depgen

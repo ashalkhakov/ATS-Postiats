@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Thu Sep 17 21:02:37 2015
+** Time of generation: Fri Sep 25 07:40:23 2015
 *)
 
 (* ****** ****** *)
@@ -130,8 +130,6 @@ fun{
 //
 (* ****** ****** *)
 //
-symintr string_is_atend
-//
 fun{}
 string_is_atend_size
   {n:int}{i:nat | i <= n}
@@ -140,13 +138,15 @@ fun{tk:tk}
 string_is_atend_gint
   {n:int}{i:nat | i <= n}
   (s: string (n), i: g1int (tk, i)):<> bool (i==n)
-overload string_is_atend with string_is_atend_gint
 fun{tk:tk}
 string_is_atend_guint
   {n:int}{i:nat | i <= n}
   (s: string (n), i: g1uint (tk, i)):<> bool (i==n)
+//
+symintr string_is_atend
+overload string_is_atend with string_is_atend_gint
 overload string_is_atend with string_is_atend_guint
-
+//
 (* ****** ****** *)
 
 macdef
@@ -331,9 +331,6 @@ fun{
 
 (* ****** ****** *)
 //
-symintr strlen
-symintr string_length
-//
 fun{
 } string0_length
   (x: NSH(string)):<> size_t
@@ -341,14 +338,14 @@ fun{
 } string1_length
   {n:int} (x: NSH(string(n))):<> size_t(n)
 //
+symintr strlen
+symintr string_length
 overload strlen with string0_length of 0
 overload strlen with string1_length of 10
 overload string_length with string0_length of 0
 overload string_length with string1_length of 10
 //
 (* ****** ****** *)
-//
-symintr string_nlength
 //
 fun{
 } string0_nlength
@@ -358,6 +355,7 @@ fun{
   {n1,n2:int}
   (NSH(string(n1)), size_t(n2)):<> size_t(min(n1,n2))
 //
+symintr string_nlength
 overload string_nlength with string0_nlength of 0
 overload string_nlength with string1_nlength of 10
 //
@@ -372,8 +370,6 @@ fun{
 //
 (* ****** ****** *)
 //
-symintr string_append
-//
 fun{
 } string0_append
 (
@@ -385,6 +381,7 @@ fun{
   x1: NSH(string(n1)), x2: NSH(string(n2))
 ) :<!wrt> strnptr (n1+n2) // end of [string1_append]
 //
+symintr string_append
 overload string_append with string0_append of 0
 (*
 overload string_append with string1_append of 20
@@ -392,15 +389,31 @@ overload string_append with string1_append of 20
 //
 (* ****** ****** *)
 //
-symintr string_append3
-//
 fun{
 } string0_append3
 (
   x1: NSH(string), x2: NSH(string), x3: NSH(string)
 ) :<!wrt> Strptr1 // end-of-fun
+fun{
+} string0_append4
+(
+  x1: NSH(string), x2: NSH(string), x3: NSH(string), x4: NSH(string)
+) :<!wrt> Strptr1 // end-of-fun
+fun{
+} string0_append5
+(
+  x1: NSH(string), x2: NSH(string), x3: NSH(string), x4: NSH(string), x5: NSH(string)
+) :<!wrt> Strptr1 // end-of-fun
+fun{
+} string0_append6
+(
+  x1: NSH(string), x2: NSH(string), x3: NSH(string), x4: NSH(string), x5: NSH(string), x6: NSH(string)
+) :<!wrt> Strptr1 // end-of-fun
 //
-overload string_append3 with string0_append3 of 0
+overload string_append with string0_append3 of 0
+overload string_append with string0_append4 of 0
+overload string_append with string0_append5 of 0
+overload string_append with string0_append6 of 0
 //
 (* ****** ****** *)
 
@@ -476,13 +489,14 @@ env:vt0p
 fun stropt_none (): stropt (~1) = "mac#%"
 
 (* ****** ****** *)
-
-symintr stropt_some
+//
 castfn stropt0_some (x: SHR(string)): Stropt1
-overload stropt_some with stropt0_some of 0
 castfn stropt1_some {n:int} (x: SHR(string n)): stropt (n)
+//
+symintr stropt_some
+overload stropt_some with stropt0_some of 0
 overload stropt_some with stropt1_some of 10
-
+//
 (* ****** ****** *)
 
 fun{

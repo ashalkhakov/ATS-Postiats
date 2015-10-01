@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdio.atxt
-** Time of generation: Tue Sep  1 22:06:04 2015
+** Time of generation: Wed Sep 23 16:09:12 2015
 */
 
 /* ****** ****** */

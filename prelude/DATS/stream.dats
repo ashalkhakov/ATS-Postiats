@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Wed Sep 23 13:11:59 2015
+** Time of generation: Sat Oct 10 11:04:36 2015
 *)
 
 (* ****** ****** *)
@@ -428,6 +428,64 @@ stream_map2$fopr (x1, x2) =
 in
   stream_map2<a1,a2><b> (xs1, xs2)
 end // end of [stream_map2_cloref]
+
+(* ****** ****** *)
+
+implement
+{res}{x}
+stream_scan
+  (xs, ini) = let
+//
+fun aux
+(
+  xs: stream(x), ini: res
+) :<!laz> stream (res) = $delay
+(
+case+ !xs of
+| stream_nil
+    () => stream_nil ()
+  // end of [stream_nil]
+| stream_cons(x, xs) =>
+  stream_cons{res}
+    (stream_scan$fopr<res><x> (ini, x), aux (xs, ini))
+  // end of [stream_cons]
+) : stream_con(res) // end of [$delay]
+//
+in
+  aux (xs, ini)
+end // end of [stream_scan]
+
+(* ****** ****** *)
+
+implement
+{res}{x}
+stream_scan_fun
+  (xs, ini, f) = let
+//
+implement
+{res2}{x2}
+stream_scan$fopr
+  (ini, x) =
+  $UN.cast{res2}(f($UN.cast{res}(ini), $UN.cast{x}(x)))
+//
+in
+  stream_scan<res><x> (xs, ini)
+end // end of [stream_scan_fun]
+
+implement
+{res}{x}
+stream_scan_cloref
+  (xs, ini, f) = let
+//
+implement
+{res2}{x2}
+stream_scan$fopr
+  (ini, x) =
+  $UN.cast{res2}(f($UN.cast{res}(ini), $UN.cast{x}(x)))
+//
+in
+  stream_scan<res><x> (xs, ini)
+end // end of [stream_scan_cloref]
 
 (* ****** ****** *)
 

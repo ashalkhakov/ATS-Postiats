@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gorder_char.atxt
-** Time of generation: Tue Sep  1 22:05:56 2015
+** Time of generation: Tue Mar 10 10:28:39 2015
 *)
 
 (* ****** ****** *)

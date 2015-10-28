@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Sat Jun 27 21:39:07 2015
+** Time of generation: Sun Oct 18 14:27:08 2015
 *)
 
 (* ****** ****** *)
@@ -132,8 +132,8 @@ fileref_open_exn
   (path: NSH(string), fm: file_mode): FILEref = "mac#%"
 // end of [fileref_open_exn]
 
-fun{
-} fileref_open_opt
+fun{}
+fileref_open_opt
   (path: NSH(string), fm: file_mode): Option_vt (FILEref)
 // end of [fileref_open_opt]
 
@@ -172,12 +172,12 @@ fun fileref_puts
   (out: FILEref, s: NSH(string)): void = "mac#%"
 //
 (* ****** ****** *)
-
+//
 fun fileref_is_eof (fil: FILEref): bool = "mac#%"
-
+//
 macdef
 fileref_isnot_eof (inp) = ~fileref_is_eof (,(inp))
-
+//
 (* ****** ****** *)
 
 typedef
@@ -220,28 +220,33 @@ typedef charlst = List0 (char)
 vtypedef charlst_vt = List0_vt (char)
 
 (* ****** ****** *)
-
-fun fileref_get_line_charlst (inp: FILEref): charlst_vt
-
+//
+fun
+fileref_get_line_charlst (inp: FILEref): charlst_vt
+//
 (* ****** ****** *)
-
+//
 (*
 ** HX: only for files of "tiny" size
 *)
-fun fileref_get_lines_charlstlst (inp: FILEref): List0_vt (charlst_vt)
-
+fun
+fileref_get_lines_charlstlst (inp: FILEref): List0_vt (charlst_vt)
+//
 (* ****** ****** *)
-
+//
 (*
 ** HX: for handling files of "tiny" size
 *)
-fun fileref_get_file_charlst (inp: FILEref): List0_vt (char)
-fun fileref_get2_file_charlst (inp: FILEref, n: int): List0_vt (char)
-
+fun
+fileref_get_file_charlst (inp: FILEref): List0_vt (char)
+fun
+fileref_get2_file_charlst (inp: FILEref, n: int): List0_vt (char)
+//
 (* ****** ****** *)
-
-fun fileref_put_charlst (inp: FILEref, cs: NSH(List(char))): void
-
+//
+fun
+fileref_put_charlst (inp: FILEref, cs: NSH(List(char))): void
+//
 (* ****** ****** *)
 //
 //
@@ -250,22 +255,22 @@ fun fileref_put_charlst (inp: FILEref, cs: NSH(List(char))): void
 // they should only be applied to files containing
 // no occurrences of the NUL character ('\000').
 //
-fun{
-} fileref_get_line_string (inp: FILEref): Strptr1
+fun{}
+fileref_get_line_string (inp: FILEref): Strptr1
 //
-fun{
-} fileref_get_line_string_main
+fun{}
+fileref_get_line_string_main
   (inp: FILEref, n: &int? >> int n): #[n:nat] strnptr (n)
 fun{}
 fileref_get_line_string$bufsize ((*void*)): intGte(1)
 //
-fun{
-} fileref_get_lines_stringlst (inp: FILEref): List0_vt (Strptr1)
+fun{}
+fileref_get_lines_stringlst (inp: FILEref): List0_vt (Strptr1)
 //
 (* ****** ****** *)
 //
-fun{
-} fileref_get_file_string (inp: FILEref): Strptr1
+fun{}
+fileref_get_file_string (inp: FILEref): Strptr1
 fun{}
 fileref_get_file_string$bufsize ((*void*)): intGte(1)
 //

@@ -16,6 +16,10 @@ CCOMP=$(CC)
 # LDFLAGS=
 #
 ######
+
+CFLAGS += -I. -I./ccomp/runtime
+
+######
 #
 # This is fixed:
 #
@@ -342,8 +346,8 @@ $(AR) -r libatsopt.a $^ $(gcats_o) && $(MV) -f libatsopt.a $(PATSHOME)/utils/lib
 #
 ######
 #
-%_sats.o: %_sats.c ; $(CCOMP) -O2 -I. -I./ccomp/runtime $(CFLAGS) -c -o $@ $<
-%_dats.o: %_dats.c ; $(CCOMP) -O2 -I. -I./ccomp/runtime $(CFLAGS) -c -o $@ $<
+%_sats.o: %_sats.c ; $(CCOMP) -O2 $(CFLAGS) -c -o $@ $<
+%_dats.o: %_dats.c ; $(CCOMP) -O2 $(CFLAGS) -c -o $@ $<
 #
 ######
 
@@ -377,10 +381,13 @@ PRELUDE_OBJECTS := \
   prelude_DATS_ptrarr_dats.o \
   prelude_DATS_unsafe_dats.o \
 
+######
+#
+prelude_%.o: \
+prelude/%.c ; $(CCOMP) $(CFLAGS) -c -o $@ $<
+#
 prelude_libats.o: $(PRELUDE_OBJECTS) ; ld -r -o $@ $^
-
-prelude_%.o: prelude/%.c ; $(CCOMP) -I. -I./ccomp/runtime -c -o $@ $<
-
+#
 ######
 
 LIBC_OBJECTS := \
@@ -404,10 +411,10 @@ endif
 
 ######
 #
-libc_libats.o: $(LIBC_OBJECTS) ; ld -r -o $@ $^
+libc_%.o: \
+libc/%.c ; $(CCOMP) $(CFLAGS) -c -o $@ $<
 #
-libc_%.o : libc/%.c ; \
-  $(CCOMP) -I. -I./ccomp/runtime $(CFLAGS) -c -o $@ $<
+libc_libats.o: $(LIBC_OBJECTS) ; ld -r -o $@ $^
 #
 ######
 
@@ -433,10 +440,10 @@ LIBATS_OBJECTS := \
 
 ######
 #
-libats_libats.o: $(LIBATS_OBJECTS) ; ld -r -o $@ $^
+libats_%.o: \
+libats/%.c ; $(CCOMP) $(CFLAGS) -c -o $@ $<
 #
-libats_%.o : libats/%.c ; \
-  $(CCOMP) -I. -I./ccomp/runtime $(CFLAGS) -c -o $@ $<
+libats_libats.o: $(LIBATS_OBJECTS) ; ld -r -o $@ $^
 #
 ######
 #

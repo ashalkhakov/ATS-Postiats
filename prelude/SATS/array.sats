@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Sat Jun 27 21:39:12 2015
+** Time of generation: Sat Oct 17 15:19:48 2015
 *)
 
 (* ****** ****** *)
@@ -118,36 +118,43 @@ lemma_array_v_param{a:vt0p}
 
 (* ****** ****** *)
 
-praxi array_v_nil :
+praxi
+array_v_nil :
   {a:vt0p}{l:addr} () -<prf> array_v (a, l, 0)
-praxi array_v_unnil :
+praxi
+array_v_unnil :
   {a:vt0p}{l:addr} array_v (a, l, 0) -<prf> void
 
-prfun array_v_unnil_nil :
+prfun
+array_v_unnil_nil :
   {a1,a2:vt0p}{l:addr} array_v (a1, l, 0) -<prf> array_v (a2, l, 0)
 // end of [array_v_unnil_nil]
 
 (* ****** ****** *)
 
-praxi array_v_cons :
+praxi
+array_v_cons :
   {a:vt0p}{l:addr}{n:int}
   (a @ l, array_v (INV(a), l+sizeof(a), n)) -<prf> array_v (a, l, n+1)
-praxi array_v_uncons :
+praxi
+array_v_uncons :
   {a:vt0p}{l:addr}{n:int | n > 0}
   array_v (INV(a), l, n) -<prf> (a @ l, array_v (a, l+sizeof(a), n-1))
 
 (* ****** ****** *)
 
-prfun array_v_sing
+prfun
+array_v_sing
   {a:vt0p}{l:addr} (pf: INV(a) @ l): array_v (a, l, 1)
-prfun array_v_unsing
+prfun
+array_v_unsing
   {a:vt0p}{l:addr} (pf: array_v (INV(a), l, 1)): a @ l
 
 (* ****** ****** *)
 //
 fun{a:vt0p}
 array_getref_at
-  {n:int} (A: &RD(@[INV(a)][n]), i: sizeLt n):<> cPtr1 (a)
+  {n:int} (A: &RD(@[INV(a)][n]), i: sizeLt n):<> cPtr1(a)
 //
 (* ****** ****** *)
 

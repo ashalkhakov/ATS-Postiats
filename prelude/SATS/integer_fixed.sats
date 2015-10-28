@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Fri Sep 25 23:06:22 2015
+** Time of generation: Sat Oct 17 15:19:46 2015
 *)
 
 (* ****** ****** *)
@@ -63,6 +63,13 @@ stadef uint8knd = uint8_kind
 stadef uint16knd = uint16_kind
 stadef uint32knd = uint32_kind
 stadef uint64knd = uint64_kind
+//
+(* ****** ****** *)
+//
+fun g0int2int_int8_int (x: int8):<> int = "mac#%"
+fun g0int2int_int16_int (x: int16):<> int = "mac#%"
+fun g0int2int_int32_int (x: int32):<> int = "mac#%"
+fun g0int2int_int64_int (x: int64):<> int = "mac#%"
 //
 (* ****** ****** *)
 //
@@ -213,6 +220,23 @@ overload print with print_int64
 overload prerr with prerr_int64
 
 
+(* ****** ****** *)
+//
+fun g0int2uint_int8_uint (x: int8):<> uint = "mac#%"
+fun g0int2uint_int16_uint (x: int16):<> uint = "mac#%"
+fun g0int2uint_int32_uint (x: int32):<> uint = "mac#%"
+fun g0int2uint_int64_uint (x: int64):<> uint = "mac#%"
+//
+fun g0uint2int_uint8_int (x: uint8):<> int = "mac#%"
+fun g0uint2int_uint16_int (x: uint16):<> int = "mac#%"
+fun g0uint2int_uint32_int (x: uint32):<> int = "mac#%"
+fun g0uint2int_uint64_int (x: uint64):<> int = "mac#%"
+//
+fun g0uint2uint_uint8_uint (x: uint8):<> uint = "mac#%"
+fun g0uint2uint_uint16_uint (x: uint16):<> uint = "mac#%"
+fun g0uint2uint_uint32_uint (x: uint32):<> uint = "mac#%"
+fun g0uint2uint_uint64_uint (x: uint64):<> uint = "mac#%"
+//
 (* ****** ****** *)
 //
 fun g0uint_succ_uint8 (x: uint8):<> uint8 = "mac#%"

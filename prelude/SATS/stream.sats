@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Sat Oct 10 15:18:02 2015
+** Time of generation: Sun Oct 18 14:27:08 2015
 *)
 
 (* ****** ****** *)
@@ -54,6 +54,11 @@ exception StreamSubscriptExn of ((*void*))
 fun StreamSubscriptExn ():<> exn = "mac#StreamSubscriptExn_make"
 fun isStreamSubscriptExn (x: !exn):<> bool = "mac#isStreamSubscriptExn"
 *)
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+stream_sing(x: a):<> stream_con(a)
 //
 (* ****** ****** *)
 

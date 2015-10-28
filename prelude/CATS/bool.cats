@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/bool.atxt
-** Time of generation: Fri Sep 25 23:06:24 2015
+** Time of generation: Wed Oct 28 09:22:00 2015
 */
 
 /* ****** ****** */
@@ -81,6 +81,8 @@ atspre_add_bool_bool (
   return (b1) ? atsbool_true : (b2) ;
 } // end of [atspre_add_bool_bool]
 #define atspre_add_bool0_bool0 atspre_add_bool_bool
+#define atspre_add_bool0_bool1 atspre_add_bool_bool
+#define atspre_add_bool1_bool0 atspre_add_bool_bool
 #define atspre_add_bool1_bool1 atspre_add_bool_bool
 
 ATSinline()
@@ -91,6 +93,8 @@ atspre_mul_bool_bool (
   return (b1) ? (b2) : atsbool_false ;
 } // end of [atspre_mul_bool_bool]
 #define atspre_mul_bool0_bool0 atspre_mul_bool_bool
+#define atspre_mul_bool0_bool1 atspre_mul_bool_bool
+#define atspre_mul_bool1_bool0 atspre_mul_bool_bool
 #define atspre_mul_bool1_bool1 atspre_mul_bool_bool
 
 /* ****** ****** */

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/bool.atxt
-** Time of generation: Sat Jun 27 21:39:00 2015
+** Time of generation: Wed Oct 28 09:36:52 2015
 *)
 
 (* ****** ****** *)
@@ -161,46 +161,70 @@ overload prerr with prerr_bool
 overload fprint with fprint_bool
 //
 (* ****** ****** *)
-
-fun neg_bool1 {b:bool}
+//
+fun
+neg_bool1
+  {b:bool}
   (b: bool b):<> bool (~b) = "mac#%"
+//
 overload ~ with neg_bool1 of 10
 overload not with neg_bool1 of 10
-
+//
 (* ****** ****** *)
 
 fun
-add_bool1_bool0 {b1:bool}
-  (b1: bool b1, b2: bool):<> boolGte (b1) = "mac#%"
-overload + with add_bool1_bool0 of 10
-
-fun
-add_bool0_bool1 {b2:bool}
-  (b1: bool, b2: bool b2):<> boolGte (b2) = "mac#%"
+add_bool0_bool1
+  {b2:bool}
+(
+  b1: bool, b2: bool b2
+) :<> [b1:bool] bool(b1 || b2) = "mac#%"
 overload + with add_bool0_bool1 of 10
 
 fun
-add_bool1_bool1 {b1,b2:bool}
-  (b1: bool b1, b2: bool b2):<> bool (b1 || b2) = "mac#%"
+add_bool1_bool0
+  {b1:bool}
+(
+  b1: bool b1, b2: bool
+) :<> [b2:bool] bool(b1 || b2) = "mac#%"
+overload + with add_bool1_bool0 of 10
+
+fun
+add_bool1_bool1
+  {b1,b2:bool}
+  (b1: bool b1, b2: bool b2):<> bool(b1 || b2) = "mac#%"
 overload + with add_bool1_bool1 of 20
 
 (* ****** ****** *)
 
 fun
-mul_bool1_bool0 {b1:bool}
-  (b1: bool b1, b2: bool):<> boolLte (b1) = "mac#%"
-overload * with mul_bool1_bool0 of 10
-
-fun
-mul_bool0_bool1 {b2:bool}
-  (b1: bool, b2: bool b2):<> boolLte (b2) = "mac#%"
+mul_bool0_bool1
+  {b2:bool}
+(
+  b1: bool, b2: bool b2
+) :<> [b1:bool] bool(b1 && b2) = "mac#%"
 overload * with mul_bool0_bool1 of 10
 
 fun
-mul_bool1_bool1 {b1,b2:bool}
-  (b1: bool b1, b2: bool b2):<> bool (b1 && b2) = "mac#%"
+mul_bool1_bool0
+  {b1:bool}
+(
+  b1: bool b1, b2: bool
+) :<> [b2:bool] bool(b1 && b2) = "mac#%"
+overload * with mul_bool1_bool0 of 10
+
+fun
+mul_bool1_bool1
+  {b1,b2:bool}
+  (b1: bool b1, b2: bool b2):<> bool(b1 && b2) = "mac#%"
 overload * with mul_bool1_bool1 of 20
 
+(* ****** ****** *)
+//
+fun
+xor_bool1_bool1
+  {b1,b2:bool}
+  (b1: bool b1, b2: bool b2):<> bool((b1)==(~b2)) = "mac#%"
+//
 (* ****** ****** *)
 
 //

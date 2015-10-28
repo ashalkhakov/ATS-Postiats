@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Sat Jun 27 21:39:15 2015
+** Time of generation: Sun Oct 18 08:25:08 2015
 *)
 
 (* ****** ****** *)
@@ -42,9 +42,13 @@ sortdef t0p = t@ype and vt0p = vt@ype
 // HX: lazy linear streams
 //
 datavtype
-stream_vt_con (a:vt@ype+) =
-  | stream_vt_nil of ((*void*)) | stream_vt_cons of (a, stream_vt(a))
-where stream_vt (a:vt@ype) = lazy_vt (stream_vt_con(a))
+stream_vt_con
+  (a:vt@ype+) =
+  | stream_vt_nil of ((*void*))
+  | stream_vt_cons of (a, stream_vt(a))
+//
+where
+stream_vt(a:vt@ype) = lazy_vt(stream_vt_con(a))
 //
 (* ****** ****** *)
 

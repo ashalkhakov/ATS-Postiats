@@ -6,7 +6,7 @@
 
 /* (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Fri Sep 25 23:06:25 2015
+** Time of generation: Sat Oct 17 15:20:02 2015
 */
 
 /* ****** ****** */
@@ -61,6 +61,13 @@ typedef uint8_t atstype_uint8 ;
 typedef uint16_t atstype_uint16 ;
 typedef uint32_t atstype_uint32 ;
 typedef uint64_t atstype_uint64 ;
+
+/* ****** ****** */
+
+#define atspre_g0int2int_int8_int(x) ((atstype_int)(x))
+#define atspre_g0int2int_int16_int(x) ((atstype_int)(x))
+#define atspre_g0int2int_int32_int(x) ((atstype_int)(x))
+#define atspre_g0int2int_int64_int(x) ((atstype_int)(x))
 
 /* ****** ****** */
 
@@ -580,6 +587,23 @@ atspre_g0int_neq_int64
 ) {
   return (x1 != x2 ? atsbool_true : atsbool_false) ;
 } // end of [atspre_g0int_neq_int64]
+//
+/* ****** ****** */
+//
+#define atspre_g0int2uint_int8_uint(x) ((atstype_uint)(x))
+#define atspre_g0int2uint_int16_uint(x) ((atstype_uint)(x))
+#define atspre_g0int2uint_int32_uint(x) ((atstype_uint)(x))
+#define atspre_g0int2uint_int64_uint(x) ((atstype_uint)(x))
+//
+#define atspre_g0uint2int_uint8_int(x) ((atstype_int)(x))
+#define atspre_g0uint2int_uint16_int(x) ((atstype_int)(x))
+#define atspre_g0uint2int_uint32_int(x) ((atstype_int)(x))
+#define atspre_g0uint2int_uint64_int(x) ((atstype_int)(x))
+//
+#define atspre_g0uint2uint_uint8_uint(x) ((atstype_uint)(x))
+#define atspre_g0uint2uint_uint16_uint(x) ((atstype_uint)(x))
+#define atspre_g0uint2uint_uint32_uint(x) ((atstype_uint)(x))
+#define atspre_g0uint2uint_uint64_uint(x) ((atstype_uint)(x))
 //
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array_prf.atxt
-** Time of generation: Sat Jun 27 21:39:13 2015
+** Time of generation: Sun Oct 25 01:01:49 2015
 *)
 
 (* ****** ****** *)
@@ -66,6 +66,8 @@ array_v_split_at
 ) :<prf> @(
   array_v (a, l, i), array_v (a, l+i*sizeof(a), n-i)
 ) // end of [array_v_split_at]
+
+(* ****** ****** *)
 
 prfun
 array_v_unsplit

@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Sat Jun 27 21:39:00 2015
+** Time of generation: Wed Oct 28 00:57:34 2015
 *)
 
 (* ****** ****** *)
@@ -149,14 +149,30 @@ overload g1ofg0 with g1ofg0_char // index-inducing
 (* ****** ****** *)
 //
 castfn
-char2schar1 {c:int} (c: char (c)):<> schar (c)
+char2schar1
+  {c:int}(c: char (c)):<> schar (c)
 castfn
-schar2char1 {c:int} (c: schar (c)):<> char (c)
+schar2char1
+  {c:int}(c: schar (c)):<> char (c)
 //
 castfn
-char2uchar1 {c:int} (c: char (c)):<> uchar (i2u8(c))
+char2uchar1
+  {c:int}(c: char (c)):<> uchar (i2u8(c))
 castfn
-uchar2char1 {c:int} (c: uchar (c)):<> char (u2i8(c))
+uchar2char1
+  {c:int}(c: uchar (c)):<> char (u2i8(c))
+//
+(* ****** ****** *)
+//
+fun
+char2int1
+  {c:int}(c: char (c)):<> int (c) = "mac#%"
+fun
+schar2int1
+  {c:int}(c: schar (c)):<> int (c) = "mac#%"
+fun
+uchar2int1
+  {c:int}(c: uchar (c)):<> int (c) = "mac#%"
 //
 (* ****** ****** *)
 //

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/basics.atxt
-** Time of generation: Tue Nov 17 15:19:51 2015
+** Time of generation: Tue Nov 17 16:34:22 2015
 */
 
 /* ****** ****** */
@@ -82,6 +82,16 @@ atspre_lxor_int_int
 ) {
   return ((x1)^(x2)) ;
 } /* [atspre_lxor_int_int] */
+
+/* ****** ****** */
+
+ATSinline()
+atstype_int
+atspre_int2sgn
+  (atstype_int x)
+{
+  return ((x < 0) ? -1 : ((x > 0) ? 1 : 0)) ;
+} /* [atspre_int2sgn] */
 
 /* ****** ****** */
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Tue Nov 17 15:19:38 2015
+** Time of generation: Tue Nov 17 16:34:09 2015
 *)
 
 (* ****** ****** *)
@@ -143,31 +143,31 @@ overload mod with g0float_mod of 0
 (* ****** ****** *)
 
 fun{tk:tk}
-g0float_isltz (x: g0float (tk)):<> bool
+g0float_isltz (x: g0float(tk)):<> bool
 overload isltz with g0float_isltz of 0
 fun{tk:tk}
-g0float_isltez (x: g0float (tk)):<> bool
+g0float_isltez (x: g0float(tk)):<> bool
 overload isltez with g0float_isltez of 0
 fun{tk:tk}
-g0float_isgtz (x: g0float (tk)):<> bool
+g0float_isgtz (x: g0float(tk)):<> bool
 overload isgtz with g0float_isgtz of 0
 fun{tk:tk}
-g0float_isgtez (x: g0float (tk)):<> bool
+g0float_isgtez (x: g0float(tk)):<> bool
 overload isgtez with g0float_isgtez of 0
 fun{tk:tk}
-g0float_iseqz (x: g0float (tk)):<> bool
+g0float_iseqz (x: g0float(tk)):<> bool
 overload iseqz with g0float_iseqz of 0
 fun{tk:tk}
-g0float_isneqz (x: g0float (tk)):<> bool
+g0float_isneqz (x: g0float(tk)):<> bool
 overload isneqz with g0float_isneqz of 0
 
 (* ****** ****** *)
-
+//
 typedef
 g0float_cmp_type (tk:tk) =
-  (g0float (tk), g0float (tk)) -<fun0> bool
+  (g0float(tk), g0float(tk)) -<fun0> bool
 // end of [g0float_cmp_type]
-
+//
 fun
 {tk:tk}
 g0float_lt : g0float_cmp_type(tk)
@@ -193,25 +193,27 @@ fun
 g0float_neq : g0float_cmp_type(tk)
 overload != with g0float_neq of 0
 overload <> with g0float_neq of 0
-
+//
 (* ****** ****** *)
-
+//
 typedef
-g0float_compare_type (tk:tk) =
-  (g0float (tk), g0float (tk)) -<fun0> (int)
+g0float_compare_type
+  (tk:tk) =
+  (g0float(tk), g0float(tk)) -<fun0> (int)
 // end of [g0float_compare_type]
-
+//
 fun{tk:tk}
-g0float_compare : g0float_compare_type (tk)
+g0float_compare : g0float_compare_type(tk)
+//
 overload compare with g0float_compare of 0
-
+//
 (* ****** ****** *)
 
 fun{tk:tk}
-g0float_max : g0float_aop_type (tk)
+g0float_max : g0float_aop_type(tk)
 overload max with g0float_max of 0
 fun{tk:tk}
-g0float_min : g0float_aop_type (tk)
+g0float_min : g0float_aop_type(tk)
 overload min with g0float_min of 0
 
 (* ****** ****** *)

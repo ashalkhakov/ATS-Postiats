@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Sat Oct 17 15:19:45 2015
+** Time of generation: Tue Nov 17 15:19:38 2015
 *)
 
 (* ****** ****** *)
@@ -348,29 +348,26 @@ fun g0float_min_ldouble
 
 (* ****** ****** *)
 //
-fun fprint_float
-  : fprint_type (float) = "mac#%"
-overload fprint with fprint_float
-fun print_float (x: float): void = "mac#%"
-fun prerr_float (x: float): void = "mac#%"
+fun print_float (float): void = "mac#%"
+fun prerr_float (float): void = "mac#%"
+fun fprint_float : fprint_type (float) = "mac#%"
 overload print with print_float
 overload prerr with prerr_float
+overload fprint with fprint_float
 //
-fun fprint_double
-  : fprint_type (double) = "mac#%"
-overload fprint with fprint_double
-fun print_double (x: double): void = "mac#%"
-fun prerr_double (x: double): void = "mac#%"
+fun print_double (double): void = "mac#%"
+fun prerr_double (double): void = "mac#%"
+fun fprint_double : fprint_type (double) = "mac#%"
 overload print with print_double
 overload prerr with prerr_double
+overload fprint with fprint_double
 //
-fun fprint_ldouble
-  : fprint_type (ldouble) = "mac#%"
-overload fprint with fprint_ldouble
-fun print_ldouble (x: ldouble): void = "mac#%"
-fun prerr_ldouble (x: ldouble): void = "mac#%"
+fun print_ldouble (ldouble): void = "mac#%"
+fun prerr_ldouble (ldouble): void = "mac#%"
+fun fprint_ldouble : fprint_type (ldouble) = "mac#%"
 overload print with print_ldouble
 overload prerr with prerr_ldouble
+overload fprint with fprint_ldouble
 //
 (* ****** ****** *)
 //

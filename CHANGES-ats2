@@ -22,6 +22,13 @@ https://sourceforge.net/projects/ats2-lang-contrib/
 
 Here is a list of major additions and changes since the last release:
 
+1. With libatscc2js(JS), Atscc2js can now run entirely inside the
+   browser.
+2. Patsopt(JS) and Atscc2js(JS) have been combined to allow one to
+   try ATS entirely in one's browser (running only client-side JS).
+3. Treating the following form as a value: let ... in aValue end
+   (where aValue is assumed to be a value).
+
 ######
 
 0.2.4
@@ -60,7 +67,7 @@ Here is a list of major additions and changes since the last release:
 7. Adding some examples to illustrate a way of using ATS+Emscripten
 8. Supporting evaluated expressions (of the form %(...)) in statics
 9. Generally improving libatscc2js and libatscc2erl
-10. With libatsopt(JS), patsopt can now run entirely inside the browser.
+10. With libatsopt(JS), Patsopt can now run entirely inside the browser.
 11. Adding char2int1 and fixing add_bool_bool and mul_bool_bool
 
 ######

@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Sat Oct 17 15:19:52 2015
+** Time of generation: Tue Nov 17 15:19:46 2015
 *)
 
 (* ****** ****** *)
@@ -80,7 +80,8 @@ end // end of [string_sing]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string_is_empty
   {n} (str) = let
   val p = string2ptr(str)
@@ -97,7 +98,8 @@ end // end of [string_isnot_empty]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string_is_atend_size{n}{i}
   (str, i) = let
   val p_i = add_ptr_bsz (string2ptr(str), i)
@@ -105,34 +107,40 @@ in
   $UN.cast{bool(n==i)}($UN.ptr1_get<char>(p_i) = CNUL)
 end // end of [string_is_atend_size]
 
-implement{tk}
+implement
+{tk}(*tmp*)
 string_is_atend_gint (str, i) =
   string_is_atend_size (str, g1int2uint(i))
 // end of [string_is_atend_gint]
-implement{tk}
+implement
+{tk}(*tmp*)
 string_is_atend_guint (str, i) =
   string_is_atend_size (str, g1uint2uint(i))
 // end of [string_is_atend_guint]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string_get_at_size (str, i) =
   $UN.ptr1_get<charNZ>(string2ptr(str) + i)
 // end of [string_get_at_size]
 
-implement{tk}
+implement
+{tk}(*tmp*)
 string_get_at_gint (str, i) =
   string_get_at_size (str, g1int2uint (i))
 // end of [string_get_at_gint]
-implement{tk}
+implement
+{tk}(*tmp*)
 string_get_at_guint (str, i) =
   string_get_at_size (str, g1uint2uint (i))
 // end of [string_get_at_guint]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string_test_at_size
   {n}{i} (str, i) = let
 //
@@ -145,33 +153,65 @@ in
   __cast ($UN.ptr1_get<char>(string2ptr(str) + i))
 end // end of [string_test_at_size]
 
-implement{tk}
+implement
+{tk}(*tmp*)
 string_test_at_gint (str, i) =
-  string_test_at_size (str, g1int2uint (i))
+  string_test_at_size (str, g1int2uint(i))
 // end of [string_test_at_gint]
-implement{tk}
+implement
+{tk}(*tmp*)
 string_test_at_guint (str, i) =
-  string_test_at_size (str, g1uint2uint (i))
+  string_test_at_size (str, g1uint2uint(i))
 // end of [string_test_at_guint]
 
 (* ****** ****** *)
 
-implement{
-} strintcmp
-  {n1,n2} (x1, n2) = let
+implement
+{}(*tmp*)
+strcmp(x1, x2) = let
 //
-prval () = lemma_string_param (x1)
+extern
+fun
+__strcmp
+(
+  x1: string, x2: string
+) :<> int = "mac#atspre_strcmp"
+//
+in
+  __strcmp(x1, x2)
+end // end of [let] // end of [strcmp]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+strintcmp
+  {n1,n2}(x1, n2) = let
+//
+prval() =
+  lemma_string_param (x1)
 //
 fun loop
   {n2:nat} .<n2>.
-  (p1: ptr, n2: int n2):<> int = let
+(
+  p1: ptr, n2: int n2
+) :<> int = let
+//
   val c = $UN.ptr0_get<char>(p1)
+//
 in
-  if c != CNUL then (
-    if n2 > 0 then loop (ptr_succ<char>(p1), n2-1) else 1(*gt*)
-  ) else (
-    if n2 > 0 then ~1(*lt*) else 0(*eq*)
-  ) // end of [if]
+//
+if
+c != CNUL
+then (
+  if n2 > 0
+    then loop (ptr_succ<char>(p1), n2-1)
+    else 1(*gt*)
+  // end of [if]
+) else (
+  if n2 > 0 then ~1(*lt*) else 0(*eq*)
+) (* end of [else] *)
+//
 end // end of [loop]
 //
 in
@@ -180,9 +220,10 @@ end // end of [strintcmp]
 
 (* ****** ****** *)
 
-implement{
-} strlencmp
-  {n1,n2} (x1, x2) = let
+implement
+{}(*tmp*)
+strlencmp
+  {n1,n2}(x1, x2) = let
 //
 prval () = lemma_string_param (x1)
 prval () = lemma_string_param (x2)
@@ -192,19 +233,26 @@ fun loop
   {n1:nat} .<n1>. (
   p1: ptr, p2: ptr
 ) :<> int = let
-  val c1 = $UN.ptr0_get<char>(p1)
-  val c2 = $UN.ptr0_get<char>(p2)
+//
+val c1 = $UN.ptr0_get<char>(p1)
+val c2 = $UN.ptr0_get<char>(p2)
+//
 in
 //
-if c1 != CNUL then let
+if
+c1 != CNUL
+then let
   prval () =
-    __assert () where {
+  __assert () where
+  {
       extern praxi __assert (): [n1 > 0] void
-  } // end of [prval]
+  } (* end of [prval] *)
 in
-  if c2 != CNUL then
-    loop {n1-1} (ptr_succ<char>(p1), ptr_succ<char>(p2))
-  else 1(*gt*) // end of [if]
+  if c2 != CNUL
+    then (
+      loop {n1-1} (ptr_succ<char>(p1), ptr_succ<char>(p2))
+    ) else 1(*gt*) // end of [else]
+  // end of [if]
 end else (
   if c2 != CNUL then ~1(*lt*) else 0(*eq*)
 ) (* end of [if] *)
@@ -217,13 +265,15 @@ end // end of [strlencmp]
 
 (* ****** ****** *)
 
-implement{
-} string_make_list (cs) =
-  string_make_listlen (cs, list_length (cs))
+implement
+{}(*tmp*)
+string_make_list(cs) =
+  string_make_listlen(cs, list_length(cs))
 // end of [string_make_list]
 
-implement{
-} string_make_listlen
+implement
+{}(*tmp*)
+string_make_listlen
   {n} (cs, n) = let
 //
 prval () = lemma_list_param (cs)
@@ -255,38 +305,49 @@ end // end of [string_make_listlen]
 
 (* ****** ****** *)
 
-implement{
-} string_make_rlist (cs) =
-  string_make_rlistlen (cs, list_length (cs))
+implement
+{}(*tmp*)
+string_make_rlist(cs) =
+  string_make_rlistlen(cs, list_length(cs))
 // end of [string_make_rlist]
 
-implement{
-} string_make_rlistlen
-  {n} (cs, n) = let
+implement
+{}(*tmp*)
+string_make_rlistlen
+  {n}(cs, n) = let
 //
-prval () = lemma_list_param (cs)
+prval() = lemma_list_param (cs)
 //
 fun loop
   {n:nat} .<n>.
 (
-  cs: list (char, n), n: int n, p: ptr
+  cs: list(char, n), n: int n, p: ptr
 ) :<!wrt> ptr = let
 in
-  if n > 0 then let
-    val p1 = ptr_pred<char>(p)
-    val+list_cons (c, cs) = cs
-    val () = $UN.ptr0_set<char>(p1, c)
-  in
-    loop (cs, n-1, p1)
-  end else p // end of [if]
+//
+if
+n > 0
+then let
+  val p1 = ptr_pred<char>(p)
+  val+list_cons (c, cs) = cs
+  val () = $UN.ptr0_set<char>(p1, c)
+in
+  loop (cs, n-1, p1)
+end // end of [then]
+else (p) // end of [else]
+//
 end // end of [loop]
 //
 val n1 = n + 1
+//
 val (pf, pfgc | p0) =
   $effmask_wrt (malloc_gc(i2sz(n1)))
+//
 val p1 = ptr_add<char>(p0, n)
+//
 val () =
   $effmask_wrt ($UN.ptr0_set<char>(p1, CNUL))
+//
 val p0 = $effmask_wrt (loop (cs, n, p1))
 //
 in
@@ -295,8 +356,9 @@ end // end of [string_make_rlistlen]
 
 (* ****** ****** *)
 
-implement{
-} string_make_substring
+implement
+{}(*tmp*)
+string_make_substring
   {n}{st,ln}
   (str, st, ln) = $effmask_wrt let
 //
@@ -313,36 +375,48 @@ end // end of [string_make_substring]
 
 (* ****** ****** *)
 //
-implement{}
+implement
+{}(*tmp*)
 string_head
-  (str) = $UN.ptr0_get<charNZ> (string2ptr(str))
-implement{}
+  (str) = $UN.ptr0_get<charNZ>(string2ptr(str))
+implement
+{}(*tmp*)
 string_tail{n}
-  (str) = $UN.cast{string(n-1)}(ptr_succ<char> (string2ptr(str)))
+  (str) =
+(
+  $UN.cast{string(n-1)}(ptr_succ<char>(string2ptr(str)))
+)
 //
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string0_length
-  (str) = string1_length<> (g1ofg0(str))
+  (str) = string1_length<>(g1ofg0(str))
 // end of [string0_length]
 
-implement{}
+implement
+{}(*tmp*)
 string1_length
   {n} (str) =
-  __strlen (str) where {
-  extern fun __strlen (str: string n):<> size_t (n) = "mac#atspre_strlen"
+  __strlen (str) where
+{
+  extern
+  fun
+  __strlen (string(n)):<> size_t(n) = "mac#atspre_strlen"
 } // end of [where] // end of [string1_length]
 
 (* ****** ****** *)
 //
-implement{}
+implement
+{}(*tmp*)
 string0_nlength
   (str1, n2) =
   string1_nlength<> (g1ofg0(str1), g1ofg0(n2))
 // end of [string0_nlength]
 //
-implement{}
+implement
+{}(*tmp*)
 string1_nlength
   (str1, n2) = let
 //
@@ -350,22 +424,25 @@ fun
 loop{n1,n2,r:nat} .<n1>.
 (
   str1: string(n1), n2: size_t(n2), r: size_t(r)
-) :<> size_t(min(n1,n2)+r) =
-(
+) :<> size_t(min(n1,n2)+r) = (
+//
 if
 (n2 > 0)
-then let
-in
+then (
 //
 if
 isneqz(str1)
-  then loop (str1.tail(), pred(n2), succ(r)) else (r)
+then loop(str1.tail(), pred(n2), succ(r)) else (r)
 //
-end // end of [then]
+) (* end of [then] *)
 else (r) // end of [else]
-)
 //
-prval () = lemma_string_param(str1) and () = lemma_g1uint_param(n2)
+) (* end of [loop] *)
+//
+prval () =
+  lemma_string_param(str1)
+//
+prval () = lemma_g1uint_param(n2)
 //
 in
   loop (str1, n2, i2sz(0))
@@ -373,7 +450,8 @@ end // end of [string1_nlength]
 //
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string0_copy
   (str) = let
 //
@@ -385,7 +463,8 @@ in
   strnptr2strptr (str2)
 end // end of [string0_copy]
 
-implement{}
+implement
+{}(*tmp*)
 string1_copy
   {n} (str) = let
 //
@@ -400,8 +479,9 @@ end // end of [string1_copy]
 
 (* ****** ****** *)
 
-implement{
-} strchr {n} (str, c0) = let
+implement
+{}(*tmp*)
+strchr{n}(str, c0) = let
 //
 prval () = lemma_string_param (str)
 extern fun __strchr (string, int):<> ptr = "mac#atspre_strchr"
@@ -413,8 +493,9 @@ in
   if p1 > the_null_ptr then __sub (p1, p0) else i2ssz(~1)
 end // end of [strchr]
 
-implement{
-} strrchr {n} (str, c0) = let
+implement
+{}(*tmp*)
+strrchr{n}(str, c0) = let
 //
 prval () = lemma_string_param (str)
 extern fun __strrchr (string, int):<> ptr = "mac#atspre_strrchr"
@@ -428,8 +509,9 @@ end // end of [strrchr]
 
 (* ****** ****** *)
 
-implement{
-} strstr {n}
+implement
+{}(*tmp*)
+strstr{n}
   (haystack, needle) = let
 //
 prval () = lemma_string_param (haystack)
@@ -444,23 +526,31 @@ end // end of [strstr]
 
 (* ****** ****** *)
 
-implement{
-} strspn {n}
+implement
+{}(*tmp*)
+strspn{n}
   (str, accept) = let
 //
-prval () = lemma_string_param (str)
-extern fun __strspn (string, string):<> sizeLte (n) = "mac#atspre_strspn"
+prval() = lemma_string_param (str)
+//
+extern
+fun
+__strspn (string, string):<> sizeLte (n) = "mac#atspre_strspn"
 //
 in
   __strspn (str, accept)
 end // end of [strspn]
 
-implement{
-} strcspn {n}
+implement
+{}(*tmp*)
+strcspn{n}
   (str, reject) = let
 //
-prval () = lemma_string_param (str)
-extern fun __strcspn (string, string):<> sizeLte (n) = "mac#atspre_strcspn"
+prval() = lemma_string_param (str)
+//
+extern
+fun
+__strcspn (string, string):<> sizeLte (n) = "mac#atspre_strcspn"
 //
 in
   __strcspn (str, reject)
@@ -468,19 +558,22 @@ end // end of [strcspn]
 
 (* ****** ****** *)
 
-implement{}
-string_index {n}
-  (str, c) = $UN.cast{ssizeBtw(~1,n)}(strchr (str, c))
+implement
+{}(*tmp*)
+string_index
+  {n}(str, c) = $UN.cast{ssizeBtw(~1,n)}(strchr (str, c))
 // end of [string_index]
 
-implement{}
-string_rindex {n}
-  (str, c) = $UN.cast{ssizeBtw(~1,n)}(strrchr (str, c))
+implement
+{}(*tmp*)
+string_rindex
+  {n}(str, c) = $UN.cast{ssizeBtw(~1,n)}(strrchr (str, c))
 // end of [string_rindex]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string0_append
   (x1, x2) = let
 //
@@ -493,7 +586,8 @@ in
   strnptr2strptr (x12)
 end // end of [string0_append]
 
-implement{}
+implement
+{}(*tmp*)
 string1_append
   {n1,n2} (x1, x2) = let
 //
@@ -511,7 +605,8 @@ end // end of [string1_append]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string0_append3
   (x1, x2, x3) = let
 //
@@ -524,7 +619,8 @@ stringarr_concat<>
 //
 end // end of [string0_append3]
 
-implement{}
+implement
+{}(*tmp*)
 string0_append4
   (x1, x2, x3, x4) = let
 //
@@ -537,7 +633,8 @@ stringarr_concat<>
 //
 end // end of [string0_append4]
 
-implement{}
+implement
+{}(*tmp*)
 string0_append5
   (x1, x2, x3, x4, x5) = let
 //
@@ -550,7 +647,8 @@ stringarr_concat<>
 //
 end // end of [string0_append5]
 
-implement{}
+implement
+{}(*tmp*)
 string0_append6
   (x1, x2, x3, x4, x5, x6) = let
 //
@@ -565,7 +663,8 @@ end // end of [string0_append6]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 stringarr_concat (xs, asz) = let
 //
 fun loop
@@ -616,7 +715,8 @@ end // end of [stringarr_concat]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 stringlst_concat (xs) = let
 //
 val n = list_length (xs)
@@ -632,7 +732,8 @@ end // end of [stringlst_concat]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string_explode
   {n} (x) = let
 //
@@ -679,7 +780,8 @@ end // end of [string_explode]
 
 (* ****** ****** *)
 
-implement{}
+implement
+{}(*tmp*)
 string_tabulate {n} (n) = let
 //
 prval () = lemma_g1uint_param (n)
@@ -758,17 +860,20 @@ end // end of [string_iforall]
 
 (* ****** ****** *)
 
-implement{env}
+implement
+{env}
 string_foreach$cont (c, env) = true
 implement{env}
 string_foreach$fwork (c, env) = ((*void*))
 
-implement{}
+implement
+{}(*tmp*)
 string_foreach (str) = let
   var env: void = () in string_foreach_env (str, env)
 end // end of [string_foreach]
 
-implement{env}
+implement
+{env}
 string_foreach_env
   {n} (str, env) = let
 //
@@ -797,12 +902,15 @@ end // end of [string_foreach_env]
 
 (* ****** ****** *)
 
-implement{env}
+implement
+{env}
 string_rforeach$cont (c, env) = true
-implement{env}
+implement
+{env}
 string_rforeach$fwork (c, env) = ((*void*))
 
-implement{}
+implement
+{}(*tmp*)
 string_rforeach (str) = let
   var env: void = () in string_rforeach_env (str, env)
 end // end of [string_rforeach]
@@ -859,21 +967,24 @@ stropt_none () = $UN.cast{stropt(~1)} (the_null_ptr)
 
 (* ****** ****** *)
 
-implement{
-} stropt_is_none {n} (x) = (
+implement
+{}(*tmp*)
+stropt_is_none{n}(x) = (
   $UN.cast{bool(n < 0)} (ptr0_is_null ($UN.cast2ptr (x)))
 ) // end of [stropt_is_none]
 
-implement{
-} stropt_is_some {n} (x) =
+implement
+{}(*tmp*)
+stropt_is_some{n}(x) =
 (
   $UN.cast{bool(n>=0)} (ptr0_isnot_null ($UN.cast2ptr (x)))
 ) // end of [stropt_is_some]
 
 (* ****** ****** *)
 
-implement{
-} stropt_length (x) = let
+implement
+{}(*tmp*)
+stropt_length (x) = let
   prval () = lemma_stropt_param (x)
 in
   if stropt_is_some (x) then

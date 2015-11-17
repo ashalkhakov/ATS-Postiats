@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Sat Oct 17 15:19:43 2015
+** Time of generation: Tue Nov 17 15:19:37 2015
 *)
 
 (* ****** ****** *)
@@ -1514,37 +1514,33 @@ fun g0int_min_ssize (x: ssize_t, y: ssize_t):<> ssize_t = "mac#%"
 //
 (* ****** ****** *)
 //
-fun fprint_int
-  : fprint_type (int) = "mac#%"
-overload fprint with fprint_int
-fun print_int (x: int): void = "mac#%"
-fun prerr_int (x: int): void = "mac#%"
+fun print_int (int): void = "mac#%"
+fun prerr_int (int): void = "mac#%"
+fun fprint_int : fprint_type (int) = "mac#%"
 overload print with print_int
 overload prerr with prerr_int
+overload fprint with fprint_int
 //
-fun fprint_lint
-  : fprint_type (lint) = "mac#%"
-overload fprint with fprint_lint
-fun print_lint (x: lint): void = "mac#%"
-fun prerr_lint (x: lint): void = "mac#%"
+fun print_lint (lint): void = "mac#%"
+fun prerr_lint (lint): void = "mac#%"
+fun fprint_lint : fprint_type (lint) = "mac#%"
 overload print with print_lint
 overload prerr with prerr_lint
+overload fprint with fprint_lint
 //
-fun fprint_llint
-  : fprint_type (llint) = "mac#%"
-overload fprint with fprint_llint
-fun print_llint (x: llint): void = "mac#%"
-fun prerr_llint (x: llint): void = "mac#%"
+fun print_llint (llint): void = "mac#%"
+fun prerr_llint (llint): void = "mac#%"
+fun fprint_llint : fprint_type (llint) = "mac#%"
 overload print with print_llint
 overload prerr with prerr_llint
+overload fprint with fprint_llint
 //
-fun fprint_ssize
-  : fprint_type (ssize_t) = "mac#%"
-overload fprint with fprint_ssize
-fun print_ssize (x: ssize_t): void = "mac#%"
-fun prerr_ssize (x: ssize_t): void = "mac#%"
+fun print_ssize (ssize_t): void = "mac#%"
+fun prerr_ssize (ssize_t): void = "mac#%"
+fun fprint_ssize : fprint_type (ssize_t) = "mac#%"
 overload print with print_ssize
 overload prerr with prerr_ssize
+overload fprint with fprint_ssize
 //
 (* ****** ****** *)
 //
@@ -1658,37 +1654,33 @@ fun g0uint_min_size (x: size_t, y: size_t):<> size_t = "mac#%"
 //
 (* ****** ****** *)
 //
-fun fprint_uint
-  : fprint_type (uint) = "mac#%"
-overload fprint with fprint_uint
-fun print_uint (x: uint): void = "mac#%"
-fun prerr_uint (x: uint): void = "mac#%"
+fun print_uint (uint): void = "mac#%"
+fun prerr_uint (uint): void = "mac#%"
+fun fprint_uint : fprint_type (uint) = "mac#%"
 overload print with print_uint
 overload prerr with prerr_uint
+overload fprint with fprint_uint
 //
-fun fprint_ulint
-  : fprint_type (ulint) = "mac#%"
-overload fprint with fprint_ulint
-fun print_ulint (x: ulint): void = "mac#%"
-fun prerr_ulint (x: ulint): void = "mac#%"
+fun print_ulint (ulint): void = "mac#%"
+fun prerr_ulint (ulint): void = "mac#%"
+fun fprint_ulint : fprint_type (ulint) = "mac#%"
 overload print with print_ulint
 overload prerr with prerr_ulint
+overload fprint with fprint_ulint
 //
-fun fprint_ullint
-  : fprint_type (ullint) = "mac#%"
-overload fprint with fprint_ullint
-fun print_ullint (x: ullint): void = "mac#%"
-fun prerr_ullint (x: ullint): void = "mac#%"
+fun print_ullint (ullint): void = "mac#%"
+fun prerr_ullint (ullint): void = "mac#%"
+fun fprint_ullint : fprint_type (ullint) = "mac#%"
 overload print with print_ullint
 overload prerr with prerr_ullint
+overload fprint with fprint_ullint
 //
-fun fprint_size
-  : fprint_type (size_t) = "mac#%"
-overload fprint with fprint_size
-fun print_size (x: size_t): void = "mac#%"
-fun prerr_size (x: size_t): void = "mac#%"
+fun print_size (size_t): void = "mac#%"
+fun prerr_size (size_t): void = "mac#%"
+fun fprint_size : fprint_type (size_t) = "mac#%"
 overload print with print_size
 overload prerr with prerr_size
+overload fprint with fprint_size
 //
 (* ****** ****** *)
 //

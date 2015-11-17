@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/libc/CATS/CODEGEN/stdio.atxt
-** Time of generation: Wed Sep 23 16:09:12 2015
+** Time of generation: Sat Oct 31 08:40:28 2015
 */
 
 /* ****** ****** */
@@ -85,7 +85,11 @@ atslib_clearerr(p) clearerr(((FILE*)p))
 
 /* ****** ****** */
 //
+#define atslib_fflush fflush
+#define atslib_fflush0 atslib_fflush
+#define atslib_fflush1 atslib_fflush
 #define atslib_fflush0_exn atslib_fflush_exn
+#define atslib_fflush1_exn atslib_fflush_exn
 //
 #define atslib_fflush_all() atslib_fclose_exn((FILE*)0)
 #define atslib_fflush_stdout() atslib_fclose_exn(stdout)

@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sat Oct 17 15:19:55 2015
+** Time of generation: Tue Nov 17 15:19:48 2015
 *)
 
 (* ****** ****** *)
@@ -415,24 +415,43 @@ fun loop{n:int}
 , i: int i, x: a
 , res: &ptr? >> list (a, n+1)
 ) :<!wrt> void =
-  if i > 0 then let
-    val+list_cons (x1, xs1) = xs
-    val () = res :=
-      list_cons{a}{0}(x1, _(*?*))
-    val+list_cons
-      (_, res1) = res // res1 = res.1
-    val () = loop (xs1, i-1, x, res1)
-    prval () = fold@ (res)
-  in
-    // nothing
-  end else res := list_cons (x, xs)
 //
-var res: ptr
-val () = $effmask_wrt (loop (xs, i, x, res))
+if
+i > 0
+then let
+  val+list_cons(x1, xs1) = xs
+  val () = res :=
+    list_cons{a}{0}(x1, _(*?*))
+  val+list_cons
+    (_, res1) = res // res1 = res.1
+  val () = loop (xs1, i-1, x, res1)
+  prval () = fold@ (res)
+in
+  // nothing
+end // end of [then]
+else res := list_cons (x, xs)
+//
+var
+res: ptr
+val () =
+  $effmask_wrt(loop(xs, i, x, res))
 //
 in
   res
 end // end of [list_insert_at]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_remove_at
+  (xs, i) = let
+//
+var x0: a // uninitized
+//
+in
+  $effmask_wrt(list_takeout_at(xs, i, x0))
+end // end of [list_remove_at]
 
 (* ****** ****** *)
 

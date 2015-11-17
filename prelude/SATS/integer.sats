@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Tue Nov 17 16:34:08 2015
+** Time of generation: Tue Nov 17 17:57:54 2015
 *)
 
 (* ****** ****** *)
@@ -673,12 +673,12 @@ typedef
 g1int_gt_type
   (tk:tk) =
   {i,j:int}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> bool (i > j)
+  (g1int(tk, i), g1int(tk, j)) -<fun0> bool(i > j)
 typedef
 g1int_gte_type
   (tk:tk) =
   {i,j:int}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> bool (i >= j)
+  (g1int(tk, i), g1int(tk, j)) -<fun0> bool(i >= j)
 //
 fun
 {tk:tk}
@@ -695,12 +695,12 @@ typedef
 g1int_eq_type
   (tk:tk) =
   {i,j:int}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> bool (i == j)
+  (g1int(tk, i), g1int(tk, j)) -<fun0> bool(i == j)
 typedef
 g1int_neq_type
   (tk:tk) =
   {i,j:int}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> bool (i != j)
+  (g1int(tk, i), g1int(tk, j)) -<fun0> bool(i != j)
 //
 fun
 {tk:tk}
@@ -718,7 +718,7 @@ typedef
 g1int_compare_type
   (tk:tk) =
   {i,j:int}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> int (sgn(i-j))
+  (g1int(tk, i), g1int(tk, j)) -<fun0> int(sgn(i-j))
 //
 fun{tk:tk}
 g1int_compare : g1int_compare_type(tk)
@@ -730,7 +730,7 @@ typedef
 g1int_max_type
   (tk:tk) =
   {i,j:int}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, max(i, j))
+  (g1int(tk, i), g1int(tk, j)) -<fun0> g1int(tk, max(i, j))
 //
 fun
 {tk:tk}
@@ -741,7 +741,7 @@ typedef
 g1int_min_type
   (tk:tk) =
   {i,j:int}
-  (g1int (tk, i), g1int (tk, j)) -<fun0> g1int (tk, min(i, j))
+  (g1int(tk, i), g1int(tk, j)) -<fun0> g1int(tk, min(i, j))
 //
 fun
 {tk:tk}

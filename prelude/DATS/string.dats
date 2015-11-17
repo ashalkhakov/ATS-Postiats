@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Tue Nov 17 16:34:16 2015
+** Time of generation: Tue Nov 17 17:57:55 2015
 *)
 
 (* ****** ****** *)
@@ -83,14 +83,14 @@ end // end of [string_sing]
 implement
 {}(*tmp*)
 string_is_empty
-  {n} (str) = let
+  {n}(str) = let
   val p = string2ptr(str)
 in
   $UN.cast{bool(n==0)}($UN.ptr1_get<char>(p) = CNUL)
 end // end of [string_is_empty]
 implement{}
 string_isnot_empty
-  {n} (str) = let
+  {n}(str) = let
   val p = string2ptr(str)
 in
   $UN.cast{bool(n > 0)}($UN.ptr1_get<char>(p) != CNUL)
@@ -100,8 +100,8 @@ end // end of [string_isnot_empty]
 
 implement
 {}(*tmp*)
-string_is_atend_size{n}{i}
-  (str, i) = let
+string_is_atend_size
+  {n}{i}(str, i) = let
   val p_i = add_ptr_bsz (string2ptr(str), i)
 in
   $UN.cast{bool(n==i)}($UN.ptr1_get<char>(p_i) = CNUL)
@@ -142,7 +142,7 @@ string_get_at_guint (str, i) =
 implement
 {}(*tmp*)
 string_test_at_size
-  {n}{i} (str, i) = let
+  {n}{i}(str, i) = let
 //
 extern
 castfn
@@ -250,7 +250,7 @@ then let
 in
   if c2 != CNUL
     then (
-      loop {n1-1} (ptr_succ<char>(p1), ptr_succ<char>(p2))
+      loop{n1-1}(ptr_succ<char>(p1), ptr_succ<char>(p2))
     ) else 1(*gt*) // end of [else]
   // end of [if]
 end else (
@@ -274,7 +274,7 @@ string_make_list(cs) =
 implement
 {}(*tmp*)
 string_make_listlen
-  {n} (cs, n) = let
+  {n}(cs, n) = let
 //
 prval () = lemma_list_param (cs)
 //
@@ -381,8 +381,8 @@ string_head
   (str) = $UN.ptr0_get<charNZ>(string2ptr(str))
 implement
 {}(*tmp*)
-string_tail{n}
-  (str) =
+string_tail
+  {n}(str) =
 (
   $UN.cast{string(n-1)}(ptr_succ<char>(string2ptr(str)))
 )
@@ -398,7 +398,7 @@ string0_length
 implement
 {}(*tmp*)
 string1_length
-  {n} (str) =
+  {n}(str) =
   __strlen (str) where
 {
   extern
@@ -466,7 +466,7 @@ end // end of [string0_copy]
 implement
 {}(*tmp*)
 string1_copy
-  {n} (str) = let
+  {n}(str) = let
 //
 val n = string1_length (str)
 val n1 = succ(n)
@@ -589,7 +589,7 @@ end // end of [string0_append]
 implement
 {}(*tmp*)
 string1_append
-  {n1,n2} (x1, x2) = let
+  {n1,n2}(x1, x2) = let
 //
 val n1 = strlen (x1) and n2 = strlen (x2)
 //
@@ -735,7 +735,7 @@ end // end of [stringlst_concat]
 implement
 {}(*tmp*)
 string_explode
-  {n} (x) = let
+  {n}(x) = let
 //
 prval () = lemma_string_param (x)
 //
@@ -755,7 +755,7 @@ if c != CNUL then let
     extern praxi __assert (): [n > 0] void
   }
   val () = res :=
-    list_vt_cons {charNZ}{0} (c, _)
+    list_vt_cons{charNZ}{0}(c, _)
   val+list_vt_cons (_, res1) = res
   val x = $UN.cast{string(n-1)}(ptr1_succ<char>(p))
   val () = loop (x, res1)
@@ -782,7 +782,7 @@ end // end of [string_explode]
 
 implement
 {}(*tmp*)
-string_tabulate {n} (n) = let
+string_tabulate{n}(n) = let
 //
 prval () = lemma_g1uint_param (n)
 //
@@ -875,7 +875,7 @@ end // end of [string_foreach]
 implement
 {env}
 string_foreach_env
-  {n} (str, env) = let
+  {n}(str, env) = let
 //
 fun loop (
   p: ptr, env: &env
@@ -918,7 +918,7 @@ end // end of [string_rforeach]
 implement
 {env}(*tmp*)
 string_rforeach_env
-  {n} (str, env) = let
+  {n}(str, env) = let
 //
 fun loop
 (
@@ -962,22 +962,23 @@ end // end of [string_rforeach_env]
 // HX-2013-03: it is now defined as a macro
 //
 implement
-stropt_none () = $UN.cast{stropt(~1)} (the_null_ptr)
+stropt_none () = $UN.cast{stropt(~1)}(the_null_ptr)
 *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-stropt_is_none{n}(x) = (
-  $UN.cast{bool(n < 0)} (ptr0_is_null ($UN.cast2ptr (x)))
+stropt_is_none{n}(x) =
+(
+  $UN.cast{bool(n < 0)}(ptr0_is_null ($UN.cast2ptr (x)))
 ) // end of [stropt_is_none]
 
 implement
 {}(*tmp*)
 stropt_is_some{n}(x) =
 (
-  $UN.cast{bool(n>=0)} (ptr0_isnot_null ($UN.cast2ptr (x)))
+  $UN.cast{bool(n>=0)}(ptr0_isnot_null ($UN.cast2ptr (x)))
 ) // end of [stropt_is_some]
 
 (* ****** ****** *)

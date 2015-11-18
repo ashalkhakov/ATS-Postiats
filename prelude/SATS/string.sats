@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Tue Nov 17 16:34:09 2015
+** Time of generation: Tue Nov 17 21:36:27 2015
 *)
 
 (* ****** ****** *)
@@ -156,10 +156,10 @@ string_isnot_atend
 
 (* ****** ****** *)
 //
-fun{
-} string_head{n:pos} (str: string(n)):<> charNZ
-fun{
-} string_tail{n:pos} (str: string(n)):<> string(n-1)
+fun{}
+string_head{n:pos} (str: string(n)):<> charNZ
+fun{}
+string_tail{n:pos} (str: string(n)):<> string(n-1)
 //
 (* ****** ****** *)
 
@@ -257,20 +257,20 @@ string_make_listlen
 
 (* ****** ****** *)
 
-fun{
-} string_make_rlist
+fun{}
+string_make_rlist
   {n:int} (cs: list(charNZ, n)):<!wrt> strnptr (n)
 // end of [string_make_rlist]
 
-fun{
-} string_make_rlistlen
+fun{}
+string_make_rlistlen
   {n:int} (cs: list(charNZ, n), n: int n):<!wrt> strnptr (n)
 // end of [string_make_rlistlen]
 
 (* ****** ****** *)
 
-fun{
-} string_make_substring
+fun{}
+string_make_substring
   {n:int}{st,ln:nat | st+ln <= n}
   (str: string (n), st: size_t st, ln: size_t ln):<!wrt> strnptr (ln)
 // end of [string_make_substring]
@@ -291,29 +291,29 @@ fun fprint_substring
 //
 (* ****** ****** *)
 
-fun{
-} strchr{n:int}
+fun{}
+strchr{n:int}
   (str: string (n), c0: char):<> ssizeBtwe (~1, n)
 // end of [strchr]
 
-fun{
-} strrchr{n:int}
+fun{}
+strrchr{n:int}
   (str: string (n), c0: char):<> ssizeBtwe (~1, n)
 // end of [strrchr]
 
-fun{
-} strstr{n:int}
+fun{}
+strstr{n:int}
   (haystack: string (n), needle: string):<> ssizeBtw (~1, n)
 // end of [strstr]
 
 (* ****** ****** *)
 
-fun{
-} strspn{n:int} // spanning
+fun{}
+strspn{n:int} // spanning
   (str: string (n), accept: string):<> sizeLte (n)
 // end of [strspn]
-fun{
-} strcspn{n:int} // complement spanning
+fun{}
+strcspn{n:int} // complement spanning
   (str: string (n), accept: string):<> sizeLte (n)
 // end of [strcspn]
 
@@ -331,11 +331,11 @@ fun{
 
 (* ****** ****** *)
 //
-fun{
-} string0_length
+fun{}
+string0_length
   (x: NSH(string)):<> size_t
-fun{
-} string1_length
+fun{}
+string1_length
   {n:int} (x: NSH(string(n))):<> size_t(n)
 //
 symintr strlen
@@ -347,11 +347,11 @@ overload string_length with string1_length of 10
 //
 (* ****** ****** *)
 //
-fun{
-} string0_nlength
+fun{}
+string0_nlength
   (x: NSH(string), n: size_t):<> size_t
-fun{
-} string1_nlength
+fun{}
+string1_nlength
   {n1,n2:int}
   (NSH(string(n1)), size_t(n2)):<> size_t(min(n1,n2))
 //
@@ -361,22 +361,22 @@ overload string_nlength with string1_nlength of 10
 //
 (* ****** ****** *)
 //
-fun{
-} string0_copy
+fun{}
+string0_copy
   (xs: NSH(string)):<!wrt> Strptr1
-fun{
-} string1_copy
+fun{}
+string1_copy
   {n:int} (xs: NSH(string(n))):<!wrt> strnptr (n)
 //
 (* ****** ****** *)
 //
-fun{
-} string0_append
+fun{}
+string0_append
 (
   x1: NSH(string), x2: NSH(string)
 ) :<!wrt> Strptr1 // end-of-fun
-fun{
-} string1_append
+fun{}
+string1_append
   {n1,n2:int} (
   x1: NSH(string(n1)), x2: NSH(string(n2))
 ) :<!wrt> strnptr (n1+n2) // end of [string1_append]
@@ -389,23 +389,23 @@ overload string_append with string1_append of 20
 //
 (* ****** ****** *)
 //
-fun{
-} string0_append3
+fun{}
+string0_append3
 (
   x1: NSH(string), x2: NSH(string), x3: NSH(string)
 ) :<!wrt> Strptr1 // end-of-fun
-fun{
-} string0_append4
+fun{}
+string0_append4
 (
   x1: NSH(string), x2: NSH(string), x3: NSH(string), x4: NSH(string)
 ) :<!wrt> Strptr1 // end-of-fun
-fun{
-} string0_append5
+fun{}
+string0_append5
 (
   x1: NSH(string), x2: NSH(string), x3: NSH(string), x4: NSH(string), x5: NSH(string)
 ) :<!wrt> Strptr1 // end-of-fun
-fun{
-} string0_append6
+fun{}
+string0_append6
 (
   x1: NSH(string), x2: NSH(string), x3: NSH(string), x4: NSH(string), x5: NSH(string), x6: NSH(string)
 ) :<!wrt> Strptr1 // end-of-fun
@@ -417,25 +417,25 @@ overload string_append with string0_append6 of 0
 //
 (* ****** ****** *)
 
-fun{
-} stringarr_concat{n:int}
-  (xs: arrayref(string, n), size_t n):<!wrt> Strptr1
-fun{
-} stringlst_concat (xs: List(string)):<!wrt> Strptr1
+fun{}
+stringarr_concat{n:int}
+  (arrayref(string, n), size_t(n)):<!wrt> Strptr1
+fun{}
+stringlst_concat (xs: List(string)):<!wrt> Strptr1
 
 (* ****** ****** *)
 
-fun{
-} string_explode
-  {n:int} (x: string(n)):<!wrt> list_vt (charNZ, n)
+fun{}
+string_explode
+  {n:int} (x: string(n)):<!wrt> list_vt(charNZ, n)
 // end of [string_explode]
 
 (* ****** ****** *)
 
-fun{
-} string_tabulate$fopr (size_t): charNZ
-fun{
-} string_tabulate{n:int} (n: size_t(n)): strnptr(n)
+fun{}
+string_tabulate$fopr (size_t): charNZ
+fun{}
+string_tabulate{n:int} (n: size_t(n)): strnptr(n)
 
 (* ****** ****** *)
 //
@@ -507,15 +507,13 @@ fun{
 (* ****** ****** *)
 
 castfn
-stropt_unsome {n:nat} (x: stropt n):<> string (n)
+stropt_unsome{n:nat}(opt: stropt n):<> string (n)
 
 (* ****** ****** *)
-
-fun{
-} stropt_length
-  {n:int} (x: stropt (n)):<> ssize_t (n)
-// end of [stropt_length]
-
+//
+fun{}
+stropt_length{n:int}(opt: stropt (n)):<> ssize_t (n)
+//
 (* ****** ****** *)
 
 fun print_stropt (opt: Stropt0): void = "mac#%"

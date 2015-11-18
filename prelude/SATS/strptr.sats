@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Tue Nov 17 16:34:09 2015
+** Time of generation: Tue Nov 17 21:36:28 2015
 *)
 
 (* ****** ****** *)
@@ -299,55 +299,61 @@ strnptr_length {n:int} (x: !strnptr n):<> ssize_t (n)
 
 (* ****** ****** *)
 //
-fun{
-} strptr0_copy (x: !Strptr0):<!wrt> Strptr0
-fun{
-} strptr1_copy (x: !Strptr1):<!wrt> Strptr1
-fun{
-} strnptr_copy
+fun{}
+strptr0_copy (x: !Strptr0):<!wrt> Strptr0
+fun{}
+strptr1_copy (x: !Strptr1):<!wrt> Strptr1
+fun{}
+strnptr_copy
   {n:int} (x: !strnptr (n)):<!wrt> strnptr (n)
 //
 (* ****** ****** *)
 //
-fun{
-} strptr_append (x1: !Strptr0, x2: !Strptr0):<!wrt> Strptr0
-fun{
-} strnptr_append {n1,n2:nat}
+fun{}
+strptr_append (x1: !Strptr0, x2: !Strptr0):<!wrt> Strptr0
+fun{}
+strnptr_append {n1,n2:nat}
   (x1: !strnptr n1, x2: !strnptr n2):<!wrt> strnptr (n1+n2)
 //
 (* ****** ****** *)
 
-fun{
-} strptrlst_free (xs: List_vt (Strptr0)):<!wrt> void
+fun{}
+strptrlst_free (xs: List_vt (Strptr0)):<!wrt> void
+
+(* ****** ****** *)
+
+fun{}
+strptrlst_concat (xs: List_vt (Strptr0)):<!wrt> Strptr0
 
 (* ****** ****** *)
 
 fun{
-} strptrlst_concat (xs: List_vt (Strptr0)):<!wrt> Strptr0
-
-(* ****** ****** *)
-
-fun{env:vt0p}
-strnptr_foreach$cont (c: &charNZ, env: &env): bool
-fun{env:vt0p}
-strnptr_foreach$fwork (c: &charNZ >> _, env: &env): void
+env:vt0p
+} strnptr_foreach$cont (c: &charNZ, env: &env): bool
+fun{
+env:vt0p
+} strnptr_foreach$fwork (c: &charNZ >> _, env: &env): void
 fun{}
 strnptr_foreach {n:nat} (str: !strnptr n): sizeLte(n)
-fun{env:vt0p}
-strnptr_foreach_env
+fun{
+env:vt0p
+} strnptr_foreach_env
   {n:nat} (str: !strnptr n, env: &(env) >> _): sizeLte(n)
 // end of [strnptr_foreach_env]
 
 (* ****** ****** *)
 
-fun{env:vt0p}
-strnptr_rforeach$cont (c: &charNZ, env: &env): bool
-fun{env:vt0p}
-strnptr_rforeach$fwork (c: &charNZ >> _, env: &env): void
+fun{
+env:vt0p
+} strnptr_rforeach$cont (c: &charNZ, env: &env): bool
+fun{
+env:vt0p
+} strnptr_rforeach$fwork (c: &charNZ >> _, env: &env): void
 fun{}
 strnptr_rforeach {n:nat} (str: !strnptr n): sizeLte(n)
-fun{env:vt0p}
-strnptr_rforeach_env
+fun{
+env:vt0p
+} strnptr_rforeach_env
   {n:nat} (str: !strnptr n, env: &(env) >> _): sizeLte(n)
 // end of [strnptr_rforeach_env]
 

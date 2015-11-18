@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/strptr.atxt
-** Time of generation: Tue Nov 17 16:34:24 2015
+** Time of generation: Wed Nov 18 01:24:32 2015
 */
 
 /* ****** ****** */
@@ -52,7 +52,7 @@
 //
 extern
 int // (sign)
-strcmp (const char *x1, const char *x2) ;
+strcmp(const char *x1, const char *x2) ;
 
 /* ****** ****** */
 
@@ -71,10 +71,11 @@ atspre_compare_strptr_strptr
 (
   atstype_strptr x1, atstype_strptr x2
 ) {
-  if (x1==0) {
+  if(x1==0)
+  {
     return (x2==0 ? 0 : -1) ;
   } else {
-    return (x2==0 ? 1 : strcmp((char*)x1, (char*)x2)) ;
+    return (x2==0 ? 1 : atspre_compare_string_string(x1, x2)) ;
   } // end of [if]
 } // end of [atspre_compare_strptr_strptr]
 

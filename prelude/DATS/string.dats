@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Tue Nov 17 17:57:55 2015
+** Time of generation: Tue Nov 17 21:36:28 2015
 *)
 
 (* ****** ****** *)
@@ -84,14 +84,18 @@ implement
 {}(*tmp*)
 string_is_empty
   {n}(str) = let
-  val p = string2ptr(str)
+//
+val p = string2ptr(str)
+//
 in
   $UN.cast{bool(n==0)}($UN.ptr1_get<char>(p) = CNUL)
 end // end of [string_is_empty]
 implement{}
 string_isnot_empty
   {n}(str) = let
-  val p = string2ptr(str)
+//
+val p = string2ptr(str)
+//
 in
   $UN.cast{bool(n > 0)}($UN.ptr1_get<char>(p) != CNUL)
 end // end of [string_isnot_empty]
@@ -102,39 +106,42 @@ implement
 {}(*tmp*)
 string_is_atend_size
   {n}{i}(str, i) = let
-  val p_i = add_ptr_bsz (string2ptr(str), i)
+//
+val p_i =
+  add_ptr_bsz(string2ptr(str), i)
+//
 in
   $UN.cast{bool(n==i)}($UN.ptr1_get<char>(p_i) = CNUL)
 end // end of [string_is_atend_size]
 
 implement
 {tk}(*tmp*)
-string_is_atend_gint (str, i) =
-  string_is_atend_size (str, g1int2uint(i))
+string_is_atend_gint(str, i) =
+  string_is_atend_size(str, g1int2uint(i))
 // end of [string_is_atend_gint]
 implement
 {tk}(*tmp*)
-string_is_atend_guint (str, i) =
-  string_is_atend_size (str, g1uint2uint(i))
+string_is_atend_guint(str, i) =
+  string_is_atend_size(str, g1uint2uint(i))
 // end of [string_is_atend_guint]
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-string_get_at_size (str, i) =
-  $UN.ptr1_get<charNZ>(string2ptr(str) + i)
+string_get_at_size(str, i) =
+  $UN.ptr1_get<charNZ>(string2ptr(str)+i)
 // end of [string_get_at_size]
 
 implement
 {tk}(*tmp*)
-string_get_at_gint (str, i) =
-  string_get_at_size (str, g1int2uint (i))
+string_get_at_gint(str, i) =
+  string_get_at_size(str, g1int2uint(i))
 // end of [string_get_at_gint]
 implement
 {tk}(*tmp*)
-string_get_at_guint (str, i) =
-  string_get_at_size (str, g1uint2uint (i))
+string_get_at_guint(str, i) =
+  string_get_at_size(str, g1uint2uint(i))
 // end of [string_get_at_guint]
 
 (* ****** ****** *)
@@ -146,11 +153,22 @@ string_test_at_size
 //
 extern
 castfn
-__cast (c: char):<>
-  [c:int] (string_index_p (n, i, c) | char (c))
+__cast
+(
+  c: char
+) :<>
+[c:int]
+(
+  string_index_p(n, i, c) | char(c)
+)
 //
 in
-  __cast ($UN.ptr1_get<char>(string2ptr(str) + i))
+//
+__cast
+(
+  $UN.ptr1_get<char>(string2ptr(str)+i)
+) (* __cast *)
+//
 end // end of [string_test_at_size]
 
 implement
@@ -293,9 +311,12 @@ in
 end // end of [loop]
 //
 val n1 = n + 1
+//
 val (pf, pfgc | p0) =
   $effmask_wrt (malloc_gc(i2sz(n1)))
+//
 val p1 = $effmask_wrt (loop (cs, n, p0))
+//
 val () =
   $effmask_wrt ($UN.ptr0_set<char>(p1, CNUL))
 //
@@ -364,8 +385,11 @@ string_make_substring
 //
 val ln1 = succ(ln)
 val (pf, pfgc | p_dst) = malloc_gc (ln1)
-val p_src = string2ptr(str)
-val p_dst = memcpy (p_dst, p_src + st, ln)
+//
+val
+p_src = string2ptr(str)
+val
+p_dst = memcpy (p_dst, p_src + st, ln)
 //
 val () = $UN.ptr0_set<char>(p_dst + ln, CNUL)
 //
@@ -665,7 +689,7 @@ end // end of [string0_append6]
 
 implement
 {}(*tmp*)
-stringarr_concat (xs, asz) = let
+stringarr_concat(xs, asz) = let
 //
 fun loop
 (
@@ -673,13 +697,16 @@ fun loop
 ) : size_t = let
 in
 //
-if i > 0 then let
+if
+i > 0
+then let
   val x = $UN.ptr0_get<string> (p1)
   val nx: size_t = string_length (x)
   val () = $UN.ptr0_set<size_t> (p2, nx)
 in
-  loop (ptr_succ<string> (p1), ptr_succ<size_t> (p2), pred(i), ntot+nx)
-end else ntot // end of [if]
+  loop(ptr_succ<string> (p1), ptr_succ<size_t> (p2), pred(i), ntot+nx)
+end // end of [then]
+else ntot // end of [else]
 //
 end // end of [loop]
 //
@@ -689,13 +716,16 @@ fun loop2
 ) : void = let
 in
 //
-if i > 0 then let
+if
+i > 0
+then let
   val x = $UN.ptr0_get<string> (p1)
   val nx = $UN.ptr0_get<size_t> (p2)
   val _(*ptr*) = memcpy (pres, $UN.cast{ptr}(x), nx)
 in
   loop2 (ptr_succ<string> (p1), ptr_succ<size_t> (p2), pred(i), pres+nx)
-end else $UN.ptr0_set<char> (pres, CNUL)
+end // end of [then]
+else $UN.ptr0_set<char> (pres, CNUL) // else
 //
 end // end of [loop2]
 //
@@ -703,11 +733,13 @@ val p1 = $UN.cast{ptr}(xs)
 val nxs = arrayptr_make_uninitized<size_t> (asz)
 val p2 = arrayptr2ptr (nxs)
 //
-val ntot = $effmask_all (loop (p1, p2, asz, i2sz(0)))
+val ntot =
+  $effmask_all (loop (p1, p2, asz, i2sz(0)))
+//
 val (pf, pfgc | pres) = malloc_gc (g1ofg0(succ(ntot)))
 val ((*void*)) = $effmask_all (loop2 (p1, p2, asz, pres))
 //
-val () = arrayptr_free (nxs)
+val ((*freed*)) = arrayptr_free (nxs)
 //
 in
   castvwtp_trans{Strptr1}((pf, pfgc | pres))
@@ -717,18 +749,26 @@ end // end of [stringarr_concat]
 
 implement
 {}(*tmp*)
-stringlst_concat (xs) = let
+stringlst_concat
+  (xs) = res where
+{
 //
-val n = list_length (xs)
-prval () = lemma_list_param (xs)
-prval [n:int] EQINT() = eqint_make_gint (n)
+val n = list_length(xs)
+//
+prval() = lemma_list_param(xs)
+//
+prval
+[n:int] EQINT() = eqint_make_gint(n)
+//
 val xs2 = arrayptr_make_list (n, xs)
-val res = stringarr_concat ($UN.castvwtp1{arrayref(string,n)}(xs2), i2sz(n))
-val () = arrayptr_free (xs2)
 //
-in
-  res
-end // end of [stringlst_concat]
+val res =
+stringarr_concat
+  ($UN.castvwtp1{arrayref(string,n)}(xs2), i2sz(n))
+//
+val ((*freed*)) = arrayptr_free{string}(xs2)
+//
+} (* end of [stringlst_concat] *)
 
 (* ****** ****** *)
 
@@ -751,9 +791,11 @@ fun loop
 in
 //
 if c != CNUL then let
-  prval () = __assert () where {
+  prval () =
+  __assert () where
+  {
     extern praxi __assert (): [n > 0] void
-  }
+  } (* prval *)
   val () = res :=
     list_vt_cons{charNZ}{0}(c, _)
   val+list_vt_cons (_, res1) = res
@@ -762,9 +804,11 @@ if c != CNUL then let
 in
   fold@ (res)
 end else let
-  prval () = __assert () where {
+  prval () =
+  __assert () where
+  {
     extern praxi __assert (): [n == 0] void
-  } // end of [prval]
+  } (* [prval] *)
 in
   res := list_vt_nil ()
 end // end of [if]
@@ -825,8 +869,12 @@ loop
   val c0 = $UN.ptr0_get<char>(p)
 in
 //
-if c0 = CNUL then true else
-  (if string_forall$pred(c0) then loop(ptr0_succ<char>(p)) else false)
+if
+c0 = CNUL
+then true else
+(
+  if string_forall$pred(c0) then loop(ptr0_succ<char>(p)) else false
+) (* end of [if] *)
 //
 end // end of [loop]
 //
@@ -849,8 +897,12 @@ loop
   val c0 = $UN.ptr0_get<char>(p)
 in
 //
-if c0 = CNUL then true else
-  (if string_iforall$pred(i, c0) then loop(i+1, ptr0_succ<char>(p)) else false)
+if
+c0 = CNUL
+then true else
+(
+  if string_iforall$pred(i, c0) then loop(i+1, ptr0_succ<char>(p)) else false
+) (* end of [if] *)
 //
 end // end of [loop]
 //
@@ -862,14 +914,14 @@ end // end of [string_iforall]
 
 implement
 {env}
-string_foreach$cont (c, env) = true
+string_foreach$cont(c, env) = true
 implement{env}
-string_foreach$fwork (c, env) = ((*void*))
+string_foreach$fwork(c, env) = ((*void*))
 
 implement
 {}(*tmp*)
-string_foreach (str) = let
-  var env: void = () in string_foreach_env (str, env)
+string_foreach(str) = let
+  var env: void = () in string_foreach_env(str, env)
 end // end of [string_foreach]
 
 implement
@@ -882,12 +934,14 @@ fun loop (
 ) : ptr = let
   val c = $UN.ptr0_get<char> (p)
   val cont = (
-    if c != CNUL then string_foreach$cont<env> (c, env) else false
+    if c != CNUL
+      then string_foreach$cont<env> (c, env) else false
+    // end of [if]
   ) : bool // end of [val]
 in
   if cont then let
     val () =
-      string_foreach$fwork<env> (c, env) in loop (ptr_succ<char> (p), env)
+      string_foreach$fwork<env> (c, env) in loop(ptr_succ<char> (p), env)
     // end of [val]
   end else (p) // end of [if]
 end // end of [fun]
@@ -911,8 +965,8 @@ string_rforeach$fwork (c, env) = ((*void*))
 
 implement
 {}(*tmp*)
-string_rforeach (str) = let
-  var env: void = () in string_rforeach_env (str, env)
+string_rforeach(str) = let
+  var env: void = () in string_rforeach_env(str, env)
 end // end of [string_rforeach]
 
 implement
@@ -971,14 +1025,14 @@ implement
 {}(*tmp*)
 stropt_is_none{n}(x) =
 (
-  $UN.cast{bool(n < 0)}(ptr0_is_null ($UN.cast2ptr (x)))
+  $UN.cast{bool(n < 0)}(ptr0_is_null($UN.cast2ptr(x)))
 ) // end of [stropt_is_none]
 
 implement
 {}(*tmp*)
 stropt_is_some{n}(x) =
 (
-  $UN.cast{bool(n>=0)}(ptr0_isnot_null ($UN.cast2ptr (x)))
+  $UN.cast{bool(n>=0)}(ptr0_isnot_null($UN.cast2ptr(x)))
 ) // end of [stropt_is_some]
 
 (* ****** ****** *)
@@ -986,11 +1040,15 @@ stropt_is_some{n}(x) =
 implement
 {}(*tmp*)
 stropt_length (x) = let
-  prval () = lemma_stropt_param (x)
+//
+prval() = lemma_stropt_param(x)
+//
 in
-  if stropt_is_some (x) then
-    g1uint2int (string1_length (stropt_unsome(x)))
-  else i2ssz(~1) // end of [if]
+//
+if
+stropt_is_some(x)
+then g1uint2int(string1_length(stropt_unsome(x))) else i2ssz(~1)
+//
 end // end of [stropt_length]
 
 (* ****** ****** *)

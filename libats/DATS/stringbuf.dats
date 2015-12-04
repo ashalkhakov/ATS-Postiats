@@ -329,10 +329,15 @@ end // end of [stringbuf_insert_string]
 //
 extern
 fun _stringbuf_pow2min
-  (s1: sizeGte(1), s2: size_t): sizeGte(1) = "ext#%"
+  (s1: sizeGte(1), s2: size_t): sizeGte(1) = "mac#%"
+(*
+//
+// HX-2015-11-19: It has been moved to CATS
+//
 implement
 _stringbuf_pow2min (s1, s2) =
    if s1 >= s2 then s1 else _stringbuf_pow2min (s1+s1, s2)
+*)
 //
 (* ****** ****** *)
 

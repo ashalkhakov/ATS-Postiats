@@ -115,11 +115,18 @@ case+ gv0 of
 | GVfloat(x) => fprint! (out, "GVfloat(", x, ")")
 | GVstring(x) => fprint! (out, "GVstring(", x, ")")
 //
+| GVboxed(x) =>
+    fprint! (out, "GVboxed(", $UN.cast{ptr}(x), ")")
+  // end of [GVboxed]
+//
 | GVlist(xs) => fprint! (out, "GVlist(", xs, ")")
 //
 | GVarray(xs) => fprint! (out, "GVarray(", xs, ")")
 //
 | GVhashtbl(kxs) => fprint! (out, "GVhashtbl(", kxs, ")")
+//
+| GVfunclo_fun _ => fprint! (out, "GVfunclo_fun(", "...", ")")
+| GVfunclo_clo _ => fprint! (out, "GVfunclo_clo(", "...", ")")
 //
 end // end of [fprint_gvalue]
 
@@ -167,6 +174,40 @@ end // end of [fprint_gvhashtbl]
 implement
 fprint_val<gvalue> = fprint_gvalue
 
+(* ****** ****** *)
+//
+implement
+gvalue_nil() = GVnil()
+//
+implement
+gvalue_int(x) = GVint(x)
+//
+implement
+gvalue_bool(x) = GVbool(x)
+implement
+gvalue_char(x) = GVchar(x)
+//
+implement
+gvalue_float(x) = GVfloat(x)
+implement
+gvalue_string(x) = GVstring(x)
+//
+(* ****** ****** *)
+
+implement
+gvalue_boxed(x) = GVboxed(x)
+
+(* ****** ****** *)
+//
+implement
+gvalue_list(xs) = GVlist(xs)
+//
+implement
+gvalue_array(xs) = GVarray(xs)
+//
+implement
+gvalue_hashtbl(kxs) = GVhashtbl(kxs)
+//
 (* ****** ****** *)
 //
 implement

@@ -168,18 +168,24 @@ datatype gvalue =
 //
   | GVstring of (string)
 //
-  | GVlist of (list0(gvalue))
+  | {a:type} GVboxed of (a)
 //
-  | GVarray of (array0(gvalue))
+  | GVlist of (gvlist)
 //
-  | GVhashtbl of (hashtbl(string, gvalue))
+  | GVarray of (gvarray)
 //
-(* ****** ****** *)
-
-typedef gvlist = list0(gvalue)
-typedef gvarray = array0(gvalue)
-typedef gvhashtbl = hashtbl(string, gvalue)
-
+  | GVhashtbl of (gvhashtbl)
+//
+  | GVfunclo_fun of ((gvalue) -<fun1> gvalue)
+  | GVfunclo_clo of ((gvalue) -<cloref1> gvalue)
+//
+where
+gvlist = list0(gvalue)
+and
+gvarray = array0(gvalue)
+and
+gvhashtbl = hashtbl(string, gvalue)
+//
 (* ****** ****** *)
 
 (* end of [basis.sats] *)

@@ -73,11 +73,15 @@ fun
 s0exp_list12
 (
   t_beg: token, ent2: s0explst12, t_end: token
-) : s0exp =
-  case+ ent2 of
-  | ~LIST12one (xs) => s0exp_list (t_beg, (l2l)xs, t_end)
-  | ~LIST12two (xs1, xs2) => s0exp_list2 (t_beg, (l2l)xs1, (l2l)xs2, t_end)
-// end of [s0exp_list12]
+) : s0exp = (
+//
+case+ ent2 of
+| ~LIST12one(xs) =>
+    s0exp_list(t_beg, (l2l)xs, t_end)
+| ~LIST12two(xs1, xs2) =>
+    s0exp_list2(t_beg, (l2l)xs1, (l2l)xs2, t_end)
+//
+) (* end of [s0exp_list12] *)
 
 (* ****** ****** *)
 
@@ -86,17 +90,18 @@ s0exp_tytup12
 (
   knd: int
 , t_beg: token, ent2: s0explst12, t_end: token
-) : s0exp =
-(
-  case+ ent2 of
-  | ~LIST12one (xs) =>
-      s0exp_tytup (knd, t_beg, ~1, (l2l)xs, t_end)
-  | ~LIST12two (xs1, xs2) => let
-      val npf = list_vt_length (xs1)
-      val xs12 = list_vt_append (xs1, xs2)
-    in
-      s0exp_tytup (knd, t_beg, npf, (l2l)xs12, t_end)
-    end
+) : s0exp = (
+//
+case+ ent2 of
+| ~LIST12one(xs) =>
+    s0exp_tytup(knd, t_beg, ~1, (l2l)xs, t_end)
+| ~LIST12two(xs1, xs2) => let
+    val npf = list_vt_length (xs1)
+    val xs12 = list_vt_append (xs1, xs2)
+  in
+    s0exp_tytup(knd, t_beg, npf, (l2l)xs12, t_end)
+  end // end of [LIST12two]
+//
 ) (* end of [s0exp_tytup12] *)
 
 (* ****** ****** *)
@@ -106,17 +111,18 @@ s0exp_tyrec12
 (
   knd: int
 , t_beg: token, ent2: labs0explst12, t_end: token
-) : s0exp =
-(
-  case+ ent2 of
-  | ~LIST12one (xs) =>
-      s0exp_tyrec (knd, t_beg, ~1, (l2l)xs, t_end)
-  | ~LIST12two (xs1, xs2) => let
-      val npf = list_vt_length (xs1)
-      val xs12 = list_vt_append (xs1, xs2)
-    in
-      s0exp_tyrec (knd, t_beg, npf, (l2l)xs12, t_end)
-    end
+) : s0exp = (
+//
+case+ ent2 of
+| ~LIST12one(xs) =>
+    s0exp_tyrec(knd, t_beg, ~1, (l2l)xs, t_end)
+| ~LIST12two(xs1, xs2) => let
+    val npf = list_vt_length (xs1)
+    val xs12 = list_vt_append (xs1, xs2)
+  in
+    s0exp_tyrec(knd, t_beg, npf, (l2l)xs12, t_end)
+  end // end of [LIST12two]
+//
 ) (* end of [s0exp_tyrec12] *)
 
 (* ****** ****** *)
@@ -126,17 +132,18 @@ s0exp_tyrec12_ext
 (
   name: string
 , t_beg: token, ent2: labs0explst12, t_end: token
-) : s0exp =
-(
-  case+ ent2 of
-  | ~LIST12one (xs) =>
-      s0exp_tyrec_ext (name, t_beg, ~1, (l2l)xs, t_end)
-  | ~LIST12two (xs1, xs2) => let
-      val npf = list_vt_length (xs1)
-      val xs12 = list_vt_append (xs1, xs2)
-    in
-      s0exp_tyrec_ext (name, t_beg, npf, (l2l)xs12, t_end)
-    end
+) : s0exp = (
+//
+case+ ent2 of
+| ~LIST12one(xs) =>
+    s0exp_tyrec_ext(name, t_beg, ~1, (l2l)xs, t_end)
+| ~LIST12two(xs1, xs2) => let
+    val npf = list_vt_length (xs1)
+    val xs12 = list_vt_append (xs1, xs2)
+  in
+    s0exp_tyrec_ext(name, t_beg, npf, (l2l)xs12, t_end)
+  end // end of [LIST12two]
+//
 ) (* end of [s0exp_tyrec12_ext] *)
 
 (* ****** ****** *)
@@ -189,7 +196,7 @@ val tok =
 //
 val loc = tok.token_loc
 //
-macdef incby1 () = tokbuf_incby1 (buf)
+macdef incby1() = tokbuf_incby1 (buf)
 //
 in
 //
@@ -197,46 +204,58 @@ case+
 tok.token_node
 of // case+
 //
-| T_IDENT_alp (x) => let
-    val () = incby1 () in i0de_make_string (loc, x)
+| T_IDENT_alp(x) =>
+  let
+    val () = incby1() in i0de_make_string(loc, x)
   end
-| T_IDENT_sym (x) => let
-    val () = incby1 () in i0de_make_string (loc, x)
-  end
-//
-| T_AT () => let
-    val () = incby1 () in i0de_make_sym (loc, symbol_AT)
-  end
-| T_BANG () => let
-    val () = incby1 () in i0de_make_sym (loc, symbol_BANG)
-  end
-| T_LT () => let
-    val () = incby1 () in i0de_make_sym (loc, symbol_LT)
-  end
-| T_GT () => let
-    val () = incby1 () in i0de_make_sym (loc, symbol_GT)
+| T_IDENT_sym(x) =>
+  let
+    val () = incby1() in i0de_make_string(loc, x)
   end
 //
-| T_BACKSLASH () => let
-    val () = incby1 () in i0de_make_sym (loc, symbol_BACKSLASH)
+| T_AT() =>
+  let
+    val () = incby1() in i0de_make_sym(loc, symbol_AT)
   end
-| T_TILDE () => let
-    val () = incby1 () in i0de_make_sym (loc, symbol_TILDE)
-  end
-//
-| T_MINUSGT () => let
-    val () = incby1 () in i0de_make_sym (loc, symbol_MINUSGT)
+| T_BANG() => let
+    val () = incby1() in i0de_make_sym(loc, symbol_BANG)
   end
 //
-| T_REFAT () => let
-    val () = incby1 () in i0de_make_sym (loc, symbol_REFAT)
+| T_LT() => let
+    val () = incby1() in i0de_make_sym(loc, symbol_LT)
   end
+| T_GT() => let
+    val () = incby1() in i0de_make_sym(loc, symbol_GT)
+  end
+//
+| T_TILDE() => let
+    val () = incby1() in i0de_make_sym(loc, symbol_TILDE)
+  end
+//
+| T_MINUSGT() => let
+    val () = incby1() in i0de_make_sym(loc, symbol_MINUSGT)
+  end
+//
+| T_BACKSLASH() => let
+    val () = incby1() in i0de_make_sym(loc, symbol_BACKSLASH)
+  end
+//
+(*
+//
+// HX-2015-12-10:
+// 'ref@' is removed
+//
+| T_REFAT() => let
+    val () = incby1() in i0de_make_sym(loc, symbol_REFAT)
+  end // end of [T_REFAT]
+*)
 //
 | _ (*rest*) => let
-    val () = err := err + 1
-    val () = the_parerrlst_add_ifnbt (bt, loc, PE_si0de)
-  in
-    synent_null ()
+    val () =
+      err := err + 1
+    val () =
+      the_parerrlst_add_ifnbt(bt, loc, PE_si0de) in synent_null()
+    // end of [val]
   end // end of [_]
 //
 end // end of [p_si0de]

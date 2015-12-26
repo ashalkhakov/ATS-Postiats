@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Tue Nov 17 21:36:27 2015
+** Time of generation: Sun Dec 20 12:03:12 2015
 *)
 
 (* ****** ****** *)
@@ -119,7 +119,12 @@ overload g1ofg0 with g1ofg0_string // index-inducing
 (* ****** ****** *)
 
 fun{}
-string_sing (c: charNZ):<!wrt> strnptr (1)
+string_char (str: string):<> char
+
+(* ****** ****** *)
+
+fun{}
+string_sing (chr: charNZ):<!wrt> strnptr (1)
 
 (* ****** ****** *)
 //

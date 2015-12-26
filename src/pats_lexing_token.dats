@@ -100,9 +100,20 @@ implement LLAMAT = T_LAM (VIEWT0YPE_int)
 implement MACDEF = T_MACDEF (0) // short form
 implement MACRODEF = T_MACDEF (1) // long form
 
+(* ****** ****** *)
+
+(*
+//
 implement REF = T_IDENT_alp "ref"
-// HX: ref@ for flattened reference
-implement REFAT = T_REFAT // in a boxed record
+//
+implement
+REFAT = T_REFAT // HX: flattened ref
+//
+// HX-2015-12-10: 'ref@' is removed for now
+//
+*)
+
+(* ****** ****** *)
 
 implement TKINDEF = T_TKINDEF () // for introducing tkinds
 

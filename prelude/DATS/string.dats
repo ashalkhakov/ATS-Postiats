@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Tue Nov 17 21:36:28 2015
+** Time of generation: Sun Dec 20 12:03:13 2015
 *)
 
 (* ****** ****** *)
@@ -67,15 +67,22 @@ fun memcpy
 // end of [memcpy]
 
 (* ****** ****** *)
+//
+implement
+{}(*tmp*)
+string_char(str) =
+  $UN.ptr0_get<char>(string2ptr(str))
+//
+(* ****** ****** *)
 
 implement
 {}(*tmp*)
-string_sing (c) = let
-  val (pfat, pfgc | p) = malloc_gc(i2sz(2))
-  val ((*void*)) = $UN.ptr0_set<char> (p, c)
-  val ((*void*)) = $UN.ptr0_set_at<char> (p, 1, '\000')
+string_sing(chr) = let
+  val (pfat, pfgc | p0) = malloc_gc(i2sz(2))
+  val ((*void*)) = $UN.ptr0_set<char> (p0, chr)
+  val ((*void*)) = $UN.ptr0_set_at<char> (p0, 1, '\000')
 in
-  $UN.castvwtp0{strnptr(1)}((pfat, pfgc | p))
+  $UN.castvwtp0{strnptr(1)}((pfat, pfgc | p0))
 end // end of [string_sing]
 
 (* ****** ****** *)

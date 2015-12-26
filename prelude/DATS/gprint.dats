@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/gprint.atxt
-** Time of generation: Tue Nov 17 18:55:39 2015
+** Time of generation: Fri Dec 25 21:31:52 2015
 *)
 
 (* ****** ****** *)
@@ -111,7 +111,8 @@ gprint_list$sep () = gprint_string ", "
 
 implement
 {a}(*tmp*)
-gprint_list (xs) = let
+gprint_list
+  (xs) = let
 //
 typedef tenv = int
 //
@@ -195,7 +196,8 @@ gprint_array$sep () = gprint_string ", "
 
 implement
 {a}(*tmp*)
-gprint_array (A, n) = let
+gprint_array
+  (A, n) = let
 //
 typedef tenv = size_t
 //

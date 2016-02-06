@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrix.atxt
-** Time of generation: Sat Jun 27 21:39:42 2015
+** Time of generation: Sat Feb  6 15:18:16 2016
 *)
 
 (* ****** ****** *)
@@ -196,39 +196,159 @@ fprint_matrix_sep
 ) = let
 //
 implement
-fprint_matrix$sep1<> (out) = fprint (out, sep1)
+fprint_matrix$sep1<>
+  (out) = fprint (out, sep1)
 implement
-fprint_matrix$sep2<> (out) = fprint (out, sep2)
+fprint_matrix$sep2<>
+  (out) = fprint (out, sep2)
 //
 in
   fprint_matrix_size (out, M, m, n)
 end // end of [fprint_matrix_sep]
 
 (* ****** ****** *)
-
+//
+implement
+{}(*tmp*)
+matrix_foreach$rowsep() = ()
+//
 implement{a}
-matrix_foreach (A, m, n) = let
-  var env: void = () in matrix_foreach_env<a><void> (A, m, n, env)
+matrix_foreach
+  (A, m, n) = let
+//
+var env: void = ()
+//
+in
+  matrix_foreach_env<a><void> (A, m, n, env)
 end // end of [matrix_foreach]
-
+//
+(*
 implement
 {a}{env}
 matrix_foreach_env
   (A, m, n, env) = let
 //
 implement
-array_foreach$cont<a><env> (x, env) = true
+array_foreach$cont<a><env>
+  (x, env) = true
 implement
-array_foreach$fwork<a><env> (x, env) = matrix_foreach$fwork<a><env> (x, env)
+array_foreach$fwork<a><env>
+  (x, env) =
+  matrix_foreach$fwork<a><env> (x, env)
 //
 val p = addr@(A)
 prval pf = matrix2array_v (view@(A))
+//
 val _(*mn*) = array_foreach_env<a> (!p, m*n, env)
-prval () = view@(A) := array2matrix_v (pf)
+prval ((*void*)) = view@(A) := array2matrix_v (pf)
 //
 in
   // nothing
 end // end of [matrix_foreach_env]
+*)
+//
+implement
+{a}{env}
+matrix_foreach_env
+  {m,n}(M, m, n, env) = let
+//
+prval () = lemma_matrix_param(M)
+//
+fnx
+loop1
+(
+  p: ptr
+, i: sizeLte(m), env: &env >> _
+) : void = (
+//
+if
+i < m
+then loop2(p, i, i2sz(0), env) where
+{
+  val () =
+    if i > 0 then matrix_foreach$rowsep()
+  // end of [val]
+}
+//
+) (* end of [loop1] *)
+//
+and
+loop2
+(
+  p: ptr
+, i: sizeLt(m), j: sizeLte(n), env: &env >> _
+) : void = (
+//
+if
+j < n
+then let
+//
+val
+(pf, fpf | p) =
+$UN.ptr_vtake{a}(p)
+//
+val ((*void*)) =
+  matrix_foreach$fwork<a><env>(!p, env)
+//
+prval ((*void*)) = fpf(pf)
+//
+in
+  loop2(ptr_succ<a>(p), i, succ(j), env)
+end // end of [then]
+else loop1(p, succ(i), env) // end of [else]
+//
+) (* end of [loop2] *)
+//
+in
+  loop1(addr@M, i2sz(0), env)
+end // end of [matrix_foreach_env]
+//
+(* ****** ****** *)
+
+implement{a}
+matrix_foreachrow
+  (A, m, n) = let
+//
+var env: void = ()
+//
+in
+  matrix_foreachrow_env<a><void> (A, m, n, env)
+end // end of [matrix_foreachrow]
+
+implement
+{a}{env}
+matrix_foreachrow_env
+  {m,n}(M, m, n, env) = let
+//
+prval () = lemma_matrix_param(M)
+//
+fun
+loop
+(
+  p: ptr, i: sizeLte(m), env: &env >> _
+) : void = (
+//
+if
+i < m
+then let
+//
+val
+(pf, fpf | p) =
+$UN.ptr_vtake{@[a][n]}(p)
+val () =
+  matrix_foreachrow$fwork<a><env>(!p, n, env)
+prval ((*void*)) = fpf(pf)
+//
+in
+  loop(ptr_add<a>(p, n), succ(i), env)
+end // end of [then]
+else () // end of [else]
+//
+) (* end of [loop] *)
+//
+in
+  loop(addr@M, i2sz(0), env)
+end // end of [matrix_foreachrow_env]
 
 (* ****** ****** *)
 

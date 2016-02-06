@@ -52,6 +52,7 @@ stadef true = true_bool and false = false_bool
 stacst neg_bool
   : bool -> bool (* boolean negation *)
 stadef ~ = neg_bool // overloaded
+stadef not = neg_bool // overloaded
 //
 stacst add_bool_bool
   : (bool, bool) -> bool (* disjunction *)
@@ -428,6 +429,7 @@ symintr ptrcast (* for functions taking the address of a boxed val *)
 symintr copy free length
 //
 symintr print prerr fprint
+symintr println prerrln fprintln
 //
 (*
 //

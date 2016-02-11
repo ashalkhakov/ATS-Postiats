@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Fri Oct  2 22:17:55 2015
+** Time of generation: Wed Feb 10 02:01:20 2016
 *)
 
 (* ****** ****** *)
@@ -52,6 +52,9 @@ sortdef t0p = t@ype and vt0p = viewt@ype
 //
 praxi
 prop_assert{b:bool}((*void*)): [b] void
+//
+praxi
+proof_assert{proof:prop}((*void*)): proof
 //
 praxi
 eqint_assert{i1,i2:int}((*void*)): EQINT(i1,i2)
@@ -108,7 +111,7 @@ castfn cast2uintptr {a:t0p} (x: INV(a)):<> uintptr
 //
 (* ****** ****** *)
 
-praxi cast2void {a:vt0p} (x: INV(a)):<prf> void
+praxi cast2void{a:vt0p}(x: INV(a)):<prf> void
 
 (* ****** ****** *)
 //

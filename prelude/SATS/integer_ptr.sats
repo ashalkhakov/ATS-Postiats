@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer_ptr.atxt
-** Time of generation: Fri Sep 25 23:06:22 2015
+** Time of generation: Tue Nov 17 16:34:10 2015
 *)
 
 (* ****** ****** *)
@@ -108,13 +108,12 @@ fun g0int_min_intptr (x: intptr, y: intptr):<> intptr = "mac#%"
 //
 (* ****** ****** *)
 //
-fun fprint_intptr
-  : fprint_type (intptr) = "mac#%"
-overload fprint with fprint_intptr
-fun print_intptr (x: intptr): void = "mac#%"
-fun prerr_intptr (x: intptr): void = "mac#%"
+fun print_intptr (intptr): void = "mac#%"
+fun prerr_intptr (intptr): void = "mac#%"
+fun fprint_intptr : fprint_type (intptr) = "mac#%"
 overload print with print_intptr
 overload prerr with prerr_intptr
+overload fprint with fprint_intptr
 //
 (* ****** ****** *)
 //
@@ -147,13 +146,12 @@ fun g0uint_min_uintptr (x: uintptr, y: uintptr):<> uintptr = "mac#%"
 //
 (* ****** ****** *)
 //
-fun fprint_uintptr
-  : fprint_type (uintptr) = "mac#%"
-overload fprint with fprint_uintptr
-fun print_uintptr (x: uintptr): void = "mac#%"
-fun prerr_uintptr (x: uintptr): void = "mac#%"
+fun print_uintptr (uintptr): void = "mac#%"
+fun prerr_uintptr (uintptr): void = "mac#%"
+fun fprint_uintptr : fprint_type (uintptr) = "mac#%"
 overload print with print_uintptr
 overload prerr with prerr_uintptr
+overload fprint with fprint_uintptr
 //
 (* ****** ****** *)
 //

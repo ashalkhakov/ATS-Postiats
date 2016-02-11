@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer_fixed.atxt
-** Time of generation: Sun Oct 11 11:11:36 2015
+** Time of generation: Tue Nov 17 16:34:10 2015
 *)
 
 (* ****** ****** *)
@@ -187,37 +187,33 @@ fun g0int_min_int64 (x: int64, y: int64):<> int64 = "mac#%"
 //
 (* ****** ****** *)
 
-fun fprint_int8
-  : fprint_type (int8) = "mac#%"
-overload fprint with fprint_int8
-fun print_int8 (x: int8): void = "mac#%"
-fun prerr_int8 (x: int8): void = "mac#%"
+fun print_int8 (int8): void = "mac#%"
+fun prerr_int8 (int8): void = "mac#%"
+fun fprint_int8 : fprint_type (int8) = "mac#%"
 overload print with print_int8
 overload prerr with prerr_int8
+overload fprint with fprint_int8
 
-fun fprint_int16
-  : fprint_type (int16) = "mac#%"
-overload fprint with fprint_int16
-fun print_int16 (x: int16): void = "mac#%"
-fun prerr_int16 (x: int16): void = "mac#%"
+fun print_int16 (int16): void = "mac#%"
+fun prerr_int16 (int16): void = "mac#%"
+fun fprint_int16 : fprint_type (int16) = "mac#%"
 overload print with print_int16
 overload prerr with prerr_int16
+overload fprint with fprint_int16
 
-fun fprint_int32
-  : fprint_type (int32) = "mac#%"
-overload fprint with fprint_int32
-fun print_int32 (x: int32): void = "mac#%"
-fun prerr_int32 (x: int32): void = "mac#%"
+fun print_int32 (int32): void = "mac#%"
+fun prerr_int32 (int32): void = "mac#%"
+fun fprint_int32 : fprint_type (int32) = "mac#%"
 overload print with print_int32
 overload prerr with prerr_int32
+overload fprint with fprint_int32
 
-fun fprint_int64
-  : fprint_type (int64) = "mac#%"
-overload fprint with fprint_int64
-fun print_int64 (x: int64): void = "mac#%"
-fun prerr_int64 (x: int64): void = "mac#%"
+fun print_int64 (int64): void = "mac#%"
+fun prerr_int64 (int64): void = "mac#%"
+fun fprint_int64 : fprint_type (int64) = "mac#%"
 overload print with print_int64
 overload prerr with prerr_int64
+overload fprint with fprint_int64
 
 
 (* ****** ****** *)
@@ -349,37 +345,33 @@ fun g0uint_min_uint64 (x: uint64, y: uint64):<> uint64 = "mac#%"
 //
 (* ****** ****** *)
 
-fun fprint_uint8
-  : fprint_type (uint8) = "mac#%"
-overload fprint with fprint_uint8
-fun print_uint8 (x: uint8): void = "mac#%"
-fun prerr_uint8 (x: uint8): void = "mac#%"
+fun print_uint8 (uint8): void = "mac#%"
+fun prerr_uint8 (uint8): void = "mac#%"
+fun fprint_uint8 : fprint_type (uint8) = "mac#%"
 overload print with print_uint8
 overload prerr with prerr_uint8
+overload fprint with fprint_uint8
 
-fun fprint_uint16
-  : fprint_type (uint16) = "mac#%"
-overload fprint with fprint_uint16
-fun print_uint16 (x: uint16): void = "mac#%"
-fun prerr_uint16 (x: uint16): void = "mac#%"
+fun print_uint16 (uint16): void = "mac#%"
+fun prerr_uint16 (uint16): void = "mac#%"
+fun fprint_uint16 : fprint_type (uint16) = "mac#%"
 overload print with print_uint16
 overload prerr with prerr_uint16
+overload fprint with fprint_uint16
 
-fun fprint_uint32
-  : fprint_type (uint32) = "mac#%"
-overload fprint with fprint_uint32
-fun print_uint32 (x: uint32): void = "mac#%"
-fun prerr_uint32 (x: uint32): void = "mac#%"
+fun print_uint32 (uint32): void = "mac#%"
+fun prerr_uint32 (uint32): void = "mac#%"
+fun fprint_uint32 : fprint_type (uint32) = "mac#%"
 overload print with print_uint32
 overload prerr with prerr_uint32
+overload fprint with fprint_uint32
 
-fun fprint_uint64
-  : fprint_type (uint64) = "mac#%"
-overload fprint with fprint_uint64
-fun print_uint64 (x: uint64): void = "mac#%"
-fun prerr_uint64 (x: uint64): void = "mac#%"
+fun print_uint64 (uint64): void = "mac#%"
+fun prerr_uint64 (uint64): void = "mac#%"
+fun fprint_uint64 : fprint_type (uint64) = "mac#%"
 overload print with print_uint64
 overload prerr with prerr_uint64
+overload fprint with fprint_uint64
 
 
 (* ****** ****** *)

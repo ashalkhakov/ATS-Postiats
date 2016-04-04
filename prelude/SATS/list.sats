@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Tue Nov 17 16:34:12 2015
+** Time of generation: Fri Mar  4 01:59:40 2016
 *)
 
 (* ****** ****** *)
@@ -718,7 +718,8 @@ x:t0p
 } list_foreach (xs: List (INV(x))): void
 fun{
 x:t0p}{env:vt0p
-} list_foreach_env (xs: List (INV(x)), env: &(env) >> _): void
+} list_foreach_env
+  (xs: List (INV(x)), env: &(env) >> _): void
 //
 fun{
 x:t0p}{env:vt0p

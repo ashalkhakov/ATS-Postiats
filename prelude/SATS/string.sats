@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Sun Jan 10 12:18:44 2016
+** Time of generation: Thu Mar 31 20:42:30 2016
 *)
 
 (* ****** ****** *)
@@ -436,12 +436,16 @@ string_explode
 // end of [string_explode]
 
 (* ****** ****** *)
-
+//
 fun{}
 string_tabulate$fopr (size_t): charNZ
 fun{}
 string_tabulate{n:int} (n: size_t(n)): strnptr(n)
-
+//
+fun{}
+string_tabulate_cloref{n:int}
+  (n: size_t(n), f: (sizeLt(n)) -<cloref1> charNZ): strnptr(n)
+//
 (* ****** ****** *)
 //
 fun{}

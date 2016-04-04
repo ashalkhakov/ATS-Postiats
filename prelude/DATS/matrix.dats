@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/matrix.atxt
-** Time of generation: Thu Jan 28 00:17:02 2016
+** Time of generation: Sun Mar  6 02:47:52 2016
 *)
 
 (* ****** ****** *)
@@ -112,9 +112,10 @@ end // end of [matrix_ptr_alloc]
 
 implement{}
 matrix_ptr_free
-  {a} (pfmat, pfgc | p) = let
+  {a}(pfmat, pfgc | p) = let
 //
-prval pfarr = matrix2array_v (pfmat)
+prval
+pfarr = matrix2array_v{a?}(pfmat)
 //
 in
   array_ptr_free (pfarr, pfgc | p)
@@ -237,10 +238,10 @@ array_foreach$fwork<a><env>
   matrix_foreach$fwork<a><env> (x, env)
 //
 val p = addr@(A)
-prval pf = matrix2array_v (view@(A))
+prval pf = matrix2array_v{a}(view@(A))
 //
 val _(*mn*) = array_foreach_env<a> (!p, m*n, env)
-prval ((*void*)) = view@(A) := array2matrix_v (pf)
+prval ((*void*)) = view@(A) := array2matrix_v{a}(pf)
 //
 in
   // nothing
@@ -367,13 +368,38 @@ in
 end // end of [array_initize$init]
 //
 val p = addr@(M)
-prval pf = matrix2array_v (view@(M))
+prval pf = matrix2array_v{a?}(view@(M))
 val () = array_initize<a> (!p, m * n)
-prval () = view@(M) := array2matrix_v (pf)
+prval () = view@(M) := array2matrix_v{a}(pf)
 //
 in
   // nothing
 end // end of [matrix_initize]
+
+(* ****** ****** *)
+
+implement{a}
+matrix_uninitize
+  (M, m, n) = let
+//
+infixl (/) %
+#define % g0uint_mod
+//
+implement
+array_uninitize$clear<a>
+  (ij, x) = let
+in
+  matrix_uninitize$clear<a> (ij/n, ij%n, x)
+end // end of [array_uninitize$clear]
+//
+val p = addr@(M)
+prval pf = matrix2array_v{a}(view@(M))
+val () = array_uninitize<a> (!p, m * n)
+prval () = view@(M) := array2matrix_v{a?}(pf)
+//
+in
+  // nothing
+end // end of [matrix_uninitize]
 
 (* ****** ****** *)
 
@@ -385,8 +411,8 @@ matrix_mapto
 val pA = addr@(A)
 val pB = addr@(B)
 //
-prval pfA = matrix2array_v (view@(A))
-prval pfB = matrix2array_v (view@(B))
+prval pfA = matrix2array_v{a}(view@(A))
+prval pfB = matrix2array_v{b?}(view@(B))
 //
 local
 //
@@ -418,9 +444,9 @@ val pA = addr@(A)
 val pB = addr@(B)
 val pC = addr@(C)
 //
-prval pfA = matrix2array_v (view@(A))
-prval pfB = matrix2array_v (view@(B))
-prval pfC = matrix2array_v (view@(C))
+prval pfA = matrix2array_v{a}(view@(A))
+prval pfB = matrix2array_v{b}(view@(B))
+prval pfC = matrix2array_v{c?}(view@(C))
 //
 local
 //

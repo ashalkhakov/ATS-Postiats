@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrix.atxt
-** Time of generation: Sun Jan 24 09:49:21 2016
+** Time of generation: Sun Mar  6 03:30:34 2016
 *)
 
 (* ****** ****** *)
@@ -133,7 +133,7 @@ fun{a:vt0p}
 matrix_getref_at_int
   {m,n:int}
 (
-  M: &RD(matrix (INV(a), m, n))
+  M: &RD(matrix(INV(a), m, n))
 , i: natLt (m), n: int n, j: natLt (n)
 ) :<> cPtr1 (a) // end-of-function
 //
@@ -141,7 +141,7 @@ fun{a:vt0p}
 matrix_getref_at_size
   {m,n:int}
 (
-  M: &RD(matrix (INV(a), m, n))
+  M: &RD(matrix(INV(a), m, n))
 , i: sizeLt (m), n: size_t n, j: sizeLt (n)
 ) :<> cPtr1 (a) // end-of-function
 //
@@ -158,9 +158,9 @@ fun{a:t0p}
 matrix_get_at_int
   {m,n:int}
 (
-  M: &RD(matrix (INV(a), m, n))
+  M: &RD(matrix(INV(a), m, n))
 , i: natLt (m), n: int n, j: natLt (n)
-) :<> (a) // endfun
+) :<> (a) // end-of-function
 //
 overload [] with matrix_get_at_int
 //
@@ -369,36 +369,37 @@ fun{
 a:vt0p
 } matrix_foreach{m,n:int}
 (
-  M: &matrix(INV(a), m, n) >> _, m: size_t m, n: size_t n
+  M: &matrix(INV(a), m, n) >> _, size_t(m), size_t(n)
 ) : void // end of [matrix_foreach]
 fun{
 a:vt0p}{env:vt0p
 } matrix_foreach_env{m,n:int}
 (
-  M: &matrix(INV(a), m, n) >> _, m: size_t m, n: size_t n, env: &(env) >> _
+  M: &matrix(INV(a), m, n) >> _, size_t(m), size_t(n), env: &(env) >> _
 ) : void // end of [matrix_foreach_env]
 //
 (* ****** ****** *)
 //
 fun{
 a:vt0p}{env:vt0p
-} matrix_foreachrow$fwork{n:int}
+} matrix_foreachrow$fwork
+  {n:int}
 (
-  row: &array(INV(a), n) >> _, n: size_t n, env: &(env) >> _
+  A: &array(INV(a), n) >> _, n: size_t(n), env: &(env) >> _
 ) : void // end of [matrix_foreachrow$fwork]
 //
 fun{
 a:vt0p
 } matrix_foreachrow{m,n:int}
 (
-  M: &matrix(INV(a), m, n) >> _, m: size_t (m), n: size_t (n)
+  M: &matrix(INV(a), m, n) >> _, m: size_t(m), n: size_t(n)
 ) : void // end of [matrix_foreachrow]
 //
 fun{
 a:vt0p}{env:vt0p
 } matrix_foreachrow_env{m,n:int}
 (
-  M: &matrix(INV(a), m, n) >> _, m: size_t m, n: size_t n, env: &(env) >> _
+  M: &matrix(INV(a), m, n) >> _, m: size_t(m), n: size_t(n), env: &(env) >> _
 ) : void // end of [matrix_foreachrow_env]
 //
 (* ****** ****** *)
@@ -410,10 +411,22 @@ matrix_initize$init
 fun{a:vt0p}
 matrix_initize{m,n:int}
 (
-  M: &matrix (a?, m, n) >> matrix (a, m, n), row: size_t m, col: size_t n
+  M: &matrix(a?, m, n) >> matrix(a, m, n), m: size_t(m), n: size_t(n)
 ) : void // end of [matrix_initize]
 //
 macdef matrix_initialize = matrix_initize
+//
+(* ****** ****** *)
+//
+fun{a:vt0p}
+matrix_uninitize$clear
+  (i: size_t, j: size_t, x: &a >> a?): void
+//
+fun{a:vt0p}
+matrix_uninitize{m,n:int}
+(
+  M: &matrix(a, m, n) >> matrix(a?, m, n), m: size_t(m), n: size_t(n)
+) : void // end of [matrix_uninitize]
 //
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Thu Jan 28 00:16:58 2016
+** Time of generation: Thu Mar 31 20:32:55 2016
 *)
 
 (* ****** ****** *)
@@ -860,6 +860,20 @@ val () = loop (p0, n, g1int2uint (0))
 in
   castvwtp_trans{strnptr(n)}((pf, fpf | p0))
 end // end of [string_tabulate]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+string_tabulate_cloref
+  {n}(n, fopr) = let
+//
+implement
+string_tabulate$fopr<>(i) = fopr($UN.cast{sizeLt(n)}(i))
+//
+in
+  string_tabulate<>(n)
+end // end of [string_tabulate_cloref]
 
 (* ****** ****** *)
 

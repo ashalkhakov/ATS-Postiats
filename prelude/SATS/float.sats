@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Tue Nov 17 16:34:09 2015
+** Time of generation: Wed Apr 13 20:32:12 2016
 *)
 
 (* ****** ****** *)
@@ -375,19 +375,19 @@ overload fprint with fprint_ldouble
 //
 fun
 add_int_float
-  (x: int, y: float): float = "mac#%"
+  (x: int, y: float):<> float = "mac#%"
 fun
 add_float_int
-  (x: float, y: int): float = "mac#%"
+  (x: float, y: int):<> float = "mac#%"
 overload + with add_int_float of 0
 overload + with add_float_int of 0
 //
 fun
 add_int_double
-  (x: int, y: double): double = "mac#%"
+  (x: int, y: double):<> double = "mac#%"
 fun
 add_double_int
-  (x: double, y: int): double = "mac#%"
+  (x: double, y: int):<> double = "mac#%"
 overload + with add_int_double of 0
 overload + with add_double_int of 0
 //
@@ -395,19 +395,19 @@ overload + with add_double_int of 0
 //
 fun
 sub_int_float
-  (x: int, y: float): float = "mac#%"
+  (x: int, y: float):<> float = "mac#%"
 fun
 sub_float_int
-  (x: float, y: int): float = "mac#%"
+  (x: float, y: int):<> float = "mac#%"
 overload - with sub_int_float of 0
 overload - with sub_float_int of 0
 //
 fun
 sub_int_double
-  (x: int, y: double): double = "mac#%"
+  (x: int, y: double):<> double = "mac#%"
 fun
 sub_double_int
-  (x: double, y: int): double = "mac#%"
+  (x: double, y: int):<> double = "mac#%"
 overload - with sub_int_double of 0
 overload - with sub_double_int of 0
 //
@@ -415,19 +415,19 @@ overload - with sub_double_int of 0
 //
 fun
 mul_int_float
-  (x: int, y: float): float = "mac#%"
+  (x: int, y: float):<> float = "mac#%"
 fun
 mul_float_int
-  (x: float, y: int): float = "mac#%"
+  (x: float, y: int):<> float = "mac#%"
 overload * with mul_int_float of 0
 overload * with mul_float_int of 0
 //
 fun
 mul_int_double
-  (x: int, y: double): double = "mac#%"
+  (x: int, y: double):<> double = "mac#%"
 fun
 mul_double_int
-  (x: double, y: int): double = "mac#%"
+  (x: double, y: int):<> double = "mac#%"
 overload * with mul_int_double of 0
 overload * with mul_double_int of 0
 //
@@ -435,19 +435,19 @@ overload * with mul_double_int of 0
 //
 fun
 div_int_float
-  (x: int, y: float): float = "mac#%"
+  (x: int, y: float):<> float = "mac#%"
 fun
 div_float_int
-  (x: float, y: int): float = "mac#%"
+  (x: float, y: int):<> float = "mac#%"
 overload / with div_int_float of 0
 overload / with div_float_int of 0
 //
 fun
 div_int_double
-  (x: int, y: double): double = "mac#%"
+  (x: int, y: double):<> double = "mac#%"
 fun
 div_double_int
-  (x: double, y: int): double = "mac#%"
+  (x: double, y: int):<> double = "mac#%"
 overload / with div_int_double of 0
 overload / with div_double_int of 0
 //
@@ -456,7 +456,7 @@ overload / with div_double_int of 0
 fun
 {tk:tk}
 g0float_npow
-  (x: g0float(tk), n: intGte(0)): g0float(tk)
+  (x: g0float(tk), n: intGte(0)):<> g0float(tk)
 //
 overload ** with g0float_npow of 0
 //

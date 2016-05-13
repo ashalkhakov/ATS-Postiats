@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Tue Nov 17 16:34:14 2015
+** Time of generation: Thu Apr 14 21:41:51 2016
 *)
 
 (* ****** ****** *)
@@ -70,6 +70,13 @@ stream2list
 (* ****** ****** *)
 
 fun{a:t0p}
+stream_head_exn(xs: stream(INV(a))):<!laz> (a)
+fun{a:t0p}
+stream_tail_exn(xs: stream(INV(a))):<!laz> stream(a)
+
+(* ****** ****** *)
+
+fun{a:t0p}
 stream_nth_exn
   (xs: stream(INV(a)), n: intGte(0)):<!laz> (a)
 // end of [stream_nth_exn]
@@ -77,6 +84,13 @@ fun{a:t0p}
 stream_nth_opt
   (xs: stream(INV(a)), n: intGte(0)):<!laz> Option_vt(a)
 // end of [stream_nth_opt]
+
+(* ****** ****** *)
+
+fun{a:t0p}
+stream_get_at_exn
+  (xs: stream(INV(a)), n: intGte(0)):<!laz> (a)
+// end of [stream_get_at_exn]
 
 (* ****** ****** *)
 
@@ -301,6 +315,11 @@ fprint_stream
 (* ****** ****** *)
 
 overload [] with stream_nth_exn
+
+(* ****** ****** *)
+
+overload .head with stream_head_exn
+overload .tail with stream_tail_exn
 
 (* ****** ****** *)
 

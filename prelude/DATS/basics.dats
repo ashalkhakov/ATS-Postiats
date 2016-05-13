@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Thu Jan 28 00:17:00 2016
+** Time of generation: Wed Apr 13 20:32:12 2016
 *)
 
 (* ****** ****** *)
@@ -133,16 +133,23 @@ argv_get_at
 *)
 
 (* ****** ****** *)
-
+//
 implement{}
-assertexn_bool0 (b) = if not(b) then $raise AssertExn()
+assertexn_bool0 (b) =
+  if not(b) then $raise AssertExn()
+//
 implement{}
-assertexn_bool1 (b) = if not(b) then $raise AssertExn()
-
+assertexn_bool1 (b) =
+  if not(b) then $raise AssertExn()
+//
 (* ****** ****** *)
 
-implement{a} gidentity (x) = x
-implement{a} gidentity_vt (x) = x
+implement
+{a}(*tmp*)
+gidentity (x) = (x)
+implement
+{a}(*tmp*)
+gidentity_vt (x) = (x)
 
 (* ****** ****** *)
 

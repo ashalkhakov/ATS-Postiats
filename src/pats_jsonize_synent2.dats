@@ -791,6 +791,35 @@ end // end of [jsonize_s0tring]
 
 (* ****** ****** *)
 //
+extern
+fun
+jsonize_dcstextdef(ext: dcstextdef): jsonval
+//
+implement
+jsonize_dcstextdef
+  (ext) = let
+(*
+//
+val () =
+  println! ("jsonize_dcstextdef")
+//
+*)
+in
+//
+case+ ext of
+| $SYN.DCSTEXTDEFnone(knd) =>
+    jsonval_conarg1("DCSTEXTDEFnone", jsonval_int(knd))
+| $SYN.DCSTEXTDEFsome_ext(name) =>
+    jsonval_conarg1("DCSTEXTDEFsome_ext", jsonval_string(name))
+| $SYN.DCSTEXTDEFsome_mac(name) =>
+    jsonval_conarg1("DCSTEXTDEFsome_mac", jsonval_string(name))
+| $SYN.DCSTEXTDEFsome_sta(name) =>
+    jsonval_conarg1("DCSTEXTDEFsome_sta", jsonval_string(name))
+//
+end // end of [jsonize_dcstextdef]
+
+(* ****** ****** *)
+//
 implement
 jsonize_d2cst
   (d2c) = let
@@ -799,7 +828,9 @@ val stamp =
   jsonize_stamp(d2cst_get_stamp(d2c))
 //
 in
-  jsonval_labval1 ("d2cst_stamp", stamp)
+//
+  jsonval_labval1("d2cst_stamp", stamp)
+//
 end // end of [jsonize_d2cst]
 //
 // HX-2014-09-08:
@@ -812,17 +843,23 @@ jsonize_d2cst_long
 //
 val sym =
   jsonize_symbol (d2cst_get_sym (d2c))
+//
 val type =
   jsonize0_s2exp (d2cst_get_type (d2c))
+//
+val extdef = 
+  jsonize_dcstextdef(d2cst_get_extdef(d2c))
+//
 val stamp =
   jsonize_stamp (d2cst_get_stamp (d2c))
 //
 in
 //
-jsonval_labval3
+jsonval_labval4
 (
   "d2cst_sym", sym
 , "d2cst_type", type
+, "d2cst_extdef", extdef
 , "d2cst_stamp", stamp
 )
 //
@@ -1139,6 +1176,33 @@ d2e0.d2exp_node of
 //
 | D2Eempty ((*void*)) => jsonval_conarg0 ("D2Eempty")
 //
+| D2Eextval(s2e, name) => let
+    val s2e = jsonize0_s2exp(s2e)
+    val name = jsonval_string(name)
+  in
+    jsonval_conarg2("D2Eextval", s2e, name)
+  end // end of [D2Eextval]
+| D2Eextfcall
+    (s2e, name, d2es_arg) => let
+    val s2e = jsonize0_s2exp(s2e)
+    val name = jsonval_string(name)
+    val d2es_arg = jsonize_d2explst(d2es_arg)
+  in
+    jsonval_conarg3("D2Eextfcall", s2e, name, d2es_arg)
+  end // end of [D2Eextfcall]
+| D2Eextmcall
+    (s2e, obj, name, d2es_arg) => let
+//
+    val s2e = jsonize0_s2exp(s2e)
+//
+    val obj = jsonize_d2exp(obj)
+    val name = jsonval_string(name)
+    val d2es_arg = jsonize_d2explst(d2es_arg)
+//
+  in
+    jsonval_conarg4("D2Eextmcall", s2e, obj, name, d2es_arg)
+  end // end of [D2Eextmcall]
+//
 | D2Elet
     (d2cs, d2e_body) => let
     val d2cs = jsonize_d2eclist (d2cs)
@@ -1229,6 +1293,26 @@ d2e0.d2exp_node of
   in
     jsonval_conarg2 ("D2Eselab", jsv1, jsv2)
   end // end of [D2Eselab]
+//
+| D2Ederef(d2e) => let
+    val d2e = jsonize_d2exp (d2e)
+  in
+    jsonval_conarg1("D2Ederef", d2e)
+  end // end of [D2Ederef]
+| D2Eassgn
+    (d2e_l, d2e_r) => let
+    val d2e_l = jsonize_d2exp (d2e_l)
+    val d2e_r = jsonize_d2exp (d2e_r)
+  in
+    jsonval_conarg2("D2Eassgn", d2e_l, d2e_r)
+  end // end of [D2Eassgn]
+| D2Exchng
+    (d2e_l, d2e_r) => let
+    val d2e_l = jsonize_d2exp (d2e_l)
+    val d2e_r = jsonize_d2exp (d2e_r)
+  in
+    jsonval_conarg2("D2Exchng", d2e_l, d2e_r)
+  end // end of [D2Exchng]
 //
 | D2Elam_dyn
   (

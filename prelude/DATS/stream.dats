@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Jan 28 00:17:01 2016
+** Time of generation: Thu Apr 14 21:42:39 2016
 *)
 
 (* ****** ****** *)
@@ -84,6 +84,30 @@ end // end of [stream2list]
 
 implement
 {a}(*tmp*)
+stream_head_exn(xs) =
+(
+//
+case+ !xs of
+| stream_cons(x, _) => x
+| stream_nil() => $raise StreamSubscriptExn()
+//
+) // end of [stream_head_exn]
+
+implement
+{a}(*tmp*)
+stream_tail_exn(xs) =
+(
+//
+case+ !xs of
+| stream_cons(_, xs) => xs
+| stream_nil() => $raise StreamSubscriptExn()
+//
+) // end of [stream_tail_exn]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
 stream_nth_exn
   (xs, n) = let
 in
@@ -92,19 +116,31 @@ in
       (x, xs) =>
     (
       if n > 0
-        then stream_nth_exn<a> (xs, pred(n)) else (x)
+        then stream_nth_exn<a> (xs, pred(n))
+        else (x)
       // end of [if]
-    )
+    ) (* stream_cons *)
   | stream_nil () => $raise StreamSubscriptExn()
 end // end of [stream_nth_exn]
+
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)
 stream_nth_opt
   (xs, n) = let
 in
-  try Some_vt(stream_nth_exn<a> (xs, n)) with ~StreamSubscriptExn() => None_vt()
+//
+try
+Some_vt(stream_nth_exn<a>(xs, n)) with ~StreamSubscriptExn() => None_vt()
+//
 end // end of [stream_nth_opt]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_get_at_exn(xs, n) = stream_nth_exn<a>(xs, n)
 
 (* ****** ****** *)
 

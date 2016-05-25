@@ -558,6 +558,71 @@ d2exp_sifhead (
 
 (* ****** ****** *)
 
+local
+
+fun
+i2fcl_is_else
+  (ifcl: i2fcl): bool = let
+//
+val test = ifcl.i2fcl_test
+//
+in
+//
+case+ test.d2exp_node of
+  | D2Etop _ => true | _ => false
+//
+end // end of [i2fcl_is_else]
+
+fun
+i2fclist_is_else
+  (ifcls: i2fclist): bool = let
+//
+fun
+aux
+(
+  x: i2fcl, xs: i2fclist
+) : bool =
+  case+ xs of
+  | list_nil() => i2fcl_is_else(x)
+  | list_cons(x, xs) => aux(x, xs)
+//
+in
+//
+case+ ifcls of
+| list_nil() => true
+| list_cons(x, xs) => aux(x, xs)
+//
+end // end of [i2fclist_is_else]
+
+in (* in-of-local *)
+
+implement
+d2exp_ifcasehd (
+  loc, r2es, ifcls
+) = let
+//
+val opt =
+  i2fclist_is_else(ifcls)
+//
+val knd = (if opt then 1 else 0): int
+//
+(*
+val () =
+println!
+  ("d2exp_ifcasehd: knd = ", knd)
+*)
+//
+in
+//
+d2exp_make_node
+  (loc, D2Eifcasehd(knd, r2es, ifcls))
+//
+end // end of [d2exp_ifcasehd]
+
+end // end of [local]
+
+(* ****** ****** *)
+
 implement
 d2exp_casehead (
   loc, knd, inv, d2es, c2ls
@@ -568,7 +633,7 @@ d2exp_casehead (
 implement
 d2exp_scasehead (
   loc, inv, s2f, sc2ls
-) = d2exp_make_node (loc, D2Escasehead (inv, s2f, sc2ls))
+) = d2exp_make_node(loc, D2Escasehead (inv, s2f, sc2ls))
 
 (* ****** ****** *)
 //
@@ -997,6 +1062,15 @@ loopi2nv_make (
 , loopi2nv_met= met
 , loopi2nv_res= res
 } // end of [loopi2nv_make]
+
+(* ****** ****** *)
+
+implement
+i2fcl_make
+  (loc, test, body) = '{
+  i2fcl_loc= loc
+, i2fcl_test= test, i2fcl_body= body
+} (* end of [i2fcl_make] *)
 
 (* ****** ****** *)
 

@@ -360,7 +360,10 @@ and d1exp_node =
   | D1Eifhead of
       (i1nvresstate, d1exp, d1exp, d1expopt)
   | D1Esifhead of
-      (i1nvresstate, s1exp, d1exp, d1exp) // HX: no dangling else-branch
+      (i1nvresstate, s1exp, d1exp, d1exp(*else*))
+//
+  | D1Eifcasehd of (i1nvresstate, i1fclist) // for ifcase-expressions
+//
   | D1Ecasehead of (* case-expression *)
       (caskind, i1nvresstate, d1explst, c1laulst)
   | D1Escasehead of (i1nvresstate, s1exp, sc1laulst)
@@ -465,22 +468,40 @@ and labd1explst = List (labd1exp)
 
 (* ****** ****** *)
 
-and d1lab = '{
-  d1lab_loc= location, d1lab_node= d1lab_node
+and
+d1lab = '{
+  d1lab_loc= location
+, d1lab_node= d1lab_node
 }
 and d1lablst = List (d1lab)
 
 (* ****** ****** *)
 
-and gm1at = '{
-  gm1at_loc= location, gm1at_exp= d1exp, gm1at_pat= p1atopt
-} // end of [gm1at]
+and
+i1fcl = '{
+//
+  i1fcl_loc= location
+//
+, i1fcl_test= d1exp, i1fcl_body= d1exp
+//
+} (* end of [i1fcl] *)
 
-and gm1atlst = List gm1at
+and i1fclist = List(i1fcl)
 
 (* ****** ****** *)
 
-and c1lau = '{
+and
+gm1at = '{
+  gm1at_loc= location
+, gm1at_exp= d1exp, gm1at_pat= p1atopt
+} // end of [gm1at]
+
+and gm1atlst = List(gm1at)
+
+(* ****** ****** *)
+
+and
+c1lau = '{
   c1lau_loc= location
 , c1lau_pat= p1at
 , c1lau_gua= gm1atlst
@@ -489,11 +510,12 @@ and c1lau = '{
 , c1lau_body= d1exp
 } // end of [c1lau]
 
-and c1laulst = List c1lau
+and c1laulst = List(c1lau)
 
 (* ****** ****** *)
 
-and sc1lau = '{
+and
+sc1lau = '{
   sc1lau_loc= location
 , sc1lau_pat= sp1at
 , sc1lau_body= d1exp
@@ -503,7 +525,8 @@ and sc1laulst = List sc1lau
 
 (* ****** ****** *)
 
-and m1acdef = '{
+and
+m1acdef = '{
   m1acdef_loc= location
 , m1acdef_sym= symbol
 , m1acdef_arg= m1acarglst
@@ -514,7 +537,8 @@ and m1acdeflst = List m1acdef
 
 (* ****** ****** *)
 
-and f1undec = '{
+and
+f1undec = '{
   f1undec_loc= location
 , f1undec_sym= symbol
 , f1undec_sym_loc= location
@@ -526,7 +550,8 @@ and f1undeclst = List f1undec
 
 (* ****** ****** *)
 
-and v1aldec = '{
+and
+v1aldec = '{
   v1aldec_loc= location
 , v1aldec_pat= p1at
 , v1aldec_def= d1exp
@@ -537,7 +562,8 @@ and v1aldeclst = List (v1aldec)
 
 (* ****** ****** *)
 
-and v1ardec = '{
+and
+v1ardec = '{
   v1ardec_loc= location
 , v1ardec_knd= int (* knd=0/1:var/ptr *)
 , v1ardec_sym= symbol
@@ -551,7 +577,8 @@ and v1ardeclst = List v1ardec
 
 (* ****** ****** *)
 
-and i1mpdec = '{
+and
+i1mpdec = '{
   i1mpdec_loc= location
 , i1mpdec_qid= impqi0de
 , i1mpdec_tmparg= t1mpmarglst
@@ -662,30 +689,41 @@ fun d1exp_list
 //
 (* ****** ****** *)
 
-fun d1exp_ifhead (
+fun
+d1exp_ifhead (
   loc: location
 , inv: i1nvresstate
 , _cond: d1exp
-, _then: d1exp
-, _else: d1expopt
+, _then: d1exp, _else: d1expopt
 ) : d1exp // end of [d1exp_if]
 
-fun d1exp_sifhead (
+fun
+d1exp_sifhead (
   loc: location
 , inv: i1nvresstate
-, _cond: s1exp
-, _then: d1exp
-, _else: d1exp
+, _cond: s1exp, _then: d1exp, _else: d1exp
 ) : d1exp // end of [d1exp_if]
 
-fun d1exp_casehead (
+(* ****** ****** *)
+
+fun
+d1exp_ifcasehd
+(
+    loc: location, inv: i1nvresstate, ifcls: i1fclist
+) : d1exp // end of [d1exp_ifcasehd]
+
+(* ****** ****** *)
+
+fun
+d1exp_casehead (
   loc: location
 , knd: caskind
 , inv: i1nvresstate
 , d1es: d1explst, c1las: c1laulst
 ) : d1exp // end of [d1exp_casehead]
 
-fun d1exp_scasehead (
+fun
+d1exp_scasehead (
   loc: location
 , inv: i1nvresstate
 , s1e: s1exp, c1las: sc1laulst
@@ -792,7 +830,9 @@ fun d1exp_delay (loc: location, knd: int, d1e: d1exp): d1exp
 
 (* ****** ****** *)
 
-fun d1exp_trywith (
+fun
+d1exp_trywith
+(
   loc: location, inv: i1nvresstate, d1e: d1exp, handler: c1laulst
 ) : d1exp // end of [d1exp_trywith]
 
@@ -888,6 +928,14 @@ fun d1lab_ind (loc: location, ind: d1explst): d1lab
 
 fun fprint_d1lab : fprint_type (d1lab)
 
+(* ****** ****** *)
+//
+fun
+i1fcl_make
+(
+  loc: location, test: d1exp, body: d1exp
+) : i1fcl // end of [i1fcl_make]
+//
 (* ****** ****** *)
 
 fun gm1at_make

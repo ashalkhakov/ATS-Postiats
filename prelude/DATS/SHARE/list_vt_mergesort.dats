@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_mergesort.atxt
-** Time of generation: Sat Oct 17 15:20:00 2015
+** Time of generation: Tue May 31 20:25:50 2016
 *)
 
 (* ****** ****** *)
@@ -197,17 +197,19 @@ case+ xs1 of
         // end of [val]
       in
         if sgn <= 0 then let
+            val () = res := xs1
           prval () = fold@{a}(xs2)
-          val () = merge (xs11, xs2, xs11)
-          prval () = fold@{a}(xs1)
+            val () = merge (xs11, xs2, xs11)
+          prval () = fold@{a}(res)
         in
-          res := xs1
+          // nothing
         end else let
+            val () = res := xs2
           prval () = fold@{a}(xs1)
-          val () = merge (xs1, xs21, xs21)
-          prval () = fold@{a}(xs2)
+            val () = merge (xs1, xs21, xs21)
+          prval () = fold@{a}(res)
         in
-          res := xs2
+          // nothing
         end // end of [if]
       end // end of [list_vt_cons]
     | ~list_vt_nil () => (fold@ (xs1); res := xs1)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt_mergesort.atxt
-** Time of generation: Tue May 31 20:25:50 2016
+** Time of generation: Wed Jun  1 19:08:17 2016
 *)
 
 (* ****** ****** *)
@@ -73,9 +73,9 @@ insord
 {l0,l1,l2:addr}{n:nat} .<n>.
 (
   pf1: a @ l1
-, pf2: list_vt (a, 0)? @ l2
-| xs0: &list_vt (a, n) >> list_vt (a, n+1)
-, nx0: list_vt_cons_unfold (l0, l1, l2), p1: ptr (l1), p2: ptr (l2)
+, pf2: list_vt(a, 0)? @ l2
+| xs0: &list_vt(a, n) >> list_vt(a, n+1)
+, nx0: list_vt_cons_unfold(l0, l1, l2), p1: ptr(l1), p2: ptr(l2)
 ) :<!wrt> void = let
 in
 //

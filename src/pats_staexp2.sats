@@ -273,12 +273,14 @@ fun fprint_s2rtlst : fprint_type (s2rtlst)
 // pre-defined predicative sorts
 //
 val s2rt_int : s2rt // integers
-val s2rt_bool : s2rt // booleans
 val s2rt_addr : s2rt // addresses
+val s2rt_bool : s2rt // booleans
 //
 (*
 val s2rt_char : s2rt // = s2rt_int
 *)
+//
+val s2rt_real : s2rt // real numbers
 //
 val s2rt_float : s2rt // floating-point
 val s2rt_string : s2rt // string constants
@@ -532,7 +534,7 @@ s2exp_node =
 //
   | S2Ewthtype of (s2exp, wths2explst) // the result part of a fun type
 //
-  | S2Eerr of () // HX: placeholder for indicating error or something else
+  | S2Eerrexp of () // HX: placeholder for indicating error or something else
 //
 // end of [s2exp_node]
 
@@ -556,9 +558,9 @@ and labs2exp = SLABELED of (label, Option(string), s2exp)
 
 and wths2explst =
   | WTHS2EXPLSTnil of ()
+  | WTHS2EXPLSTcons_none of wths2explst
   | WTHS2EXPLSTcons_invar of (int(*refval*), s2exp, wths2explst)
   | WTHS2EXPLSTcons_trans of (int(*refval*), s2exp, wths2explst)
-  | WTHS2EXPLSTcons_none of wths2explst
 // end of [wths2explst]
 
 where
@@ -1227,7 +1229,7 @@ fun s2exp_wthtype (_res: s2exp, _with: wths2explst): s2exp
 
 (* ****** ****** *)
 
-fun s2exp_err (s2t: s2rt): s2exp // HX: error indication
+fun s2exp_errexp (s2t: s2rt): s2exp // HX: error indication
 fun s2exp_s2rt_err (): s2exp // HX: s2exp_err (s2rt_err ())
 fun s2exp_t0ype_err (): s2exp // HX: s2exp_err (s2rt_t0ype)
 

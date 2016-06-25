@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Mar  4 01:55:20 2016
+** Time of generation: Thu Jun 23 15:51:37 2016
 *)
 
 (* ****** ****** *)
@@ -1800,6 +1800,47 @@ case+ xs of
 in
   $effmask_all (loop (xs))
 end // end of [list_foreach_fun]
+
+(* ****** ****** *)
+//
+implement
+{x}(*tmp*)
+list_foreach_clo
+  (xs, f) =
+(
+$effmask_all
+  (list_foreach_cloref<x>(xs, $UN.cast(addr@f)))
+) (* list_foreach_clo *)
+implement
+{x}(*tmp*)
+list_foreach_vclo
+  (pf | xs, f) =
+(
+$effmask_all
+  (list_foreach_cloref<x>(xs, $UN.cast(addr@f)))
+) (* list_foreach_vclo *)
+//
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_foreach_cloptr
+  (xs, f) =
+(
+$effmask_all
+  (list_foreach_cloref<x>(xs, $UN.castvwtp1(f)))
+) (* list_foreach_cloptr *)
+
+implement
+{x}(*tmp*)
+list_foreach_vcloptr
+  (pf | xs, f) =
+(
+$effmask_all
+  (list_foreach_cloref<x>(xs, $UN.castvwtp1(f)))
+) (* list_foreach_vcloptr *)
+
+(* ****** ****** *)
 
 implement
 {x}(*tmp*)

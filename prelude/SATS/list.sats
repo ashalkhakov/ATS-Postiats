@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Fri Mar  4 01:59:40 2016
+** Time of generation: Thu Jun 23 15:51:37 2016
 *)
 
 (* ****** ****** *)
@@ -766,7 +766,8 @@ list_foreach_cloref
 
 fun{x:t0p}
 list_foreach_funenv
-  {v:view}{env:viewtype}{fe:eff} (
+  {v:view}{env:viewtype}{fe:eff}
+(
   pfv: !v
 | xs: List (INV(x))
 , f: (!v | x, !env) -<fun,fe> void
@@ -777,35 +778,39 @@ list_foreach_funenv
 //
 fun{
 x,y:t0p
-} list_foreach2 (xs: List (INV(x)), ys: List (INV(y))): void
+} list_foreach2
+  (xs: List (INV(x)), ys: List (INV(y))): void
 //
 fun{
 x,y:t0p}{env:vt0p
-} list_foreach2_env (xs: List (INV(x)), ys: List (INV(y)), env: &(env) >> _): void
+} list_foreach2_env
+  (xs: List (INV(x)), ys: List (INV(y)), env: &(env) >> _): void
 //
 fun{
 x,y:t0p}{env:vt0p
-} list_foreach2$cont (x: x, y: y, env: &env): bool
+} list_foreach2$cont(x: x, y: y, env: &env): bool
 fun{
 x,y:t0p}{env:vt0p
-} list_foreach2$fwork (x: x, y: y, env: &(env) >> _): void
+} list_foreach2$fwork(x: x, y: y, env: &(env) >> _): void
 //
 (* ****** ****** *)
 
 fun{
 x:t0p
-} list_iforeach{n:int} (xs: list (INV(x), n)): natLte(n)
+} list_iforeach{n:int}
+  (xs: list (INV(x), n)): natLte(n)
 
 fun{
 x:t0p}{env:vt0p
-} list_iforeach_env{n:int} (xs: list (INV(x), n), env: &(env) >> _): natLte(n)
+} list_iforeach_env{n:int}
+  (xs: list (INV(x), n), env: &(env) >> _): natLte(n)
 //
 fun{
 x:t0p}{env:vt0p
-} list_iforeach$cont (i: intGte(0), x: x, env: &env): bool
+} list_iforeach$cont(i: intGte(0), x: x, env: &env): bool
 fun{
 x:t0p}{env:vt0p
-} list_iforeach$fwork (i: intGte(0), x: x, env: &(env) >> _): void
+} list_iforeach$fwork(i: intGte(0), x: x, env: &(env) >> _): void
 //
 (* ****** ****** *)
 
@@ -823,19 +828,25 @@ x:t0p // type for elements
 fun{
 x,y:t0p
 } list_iforeach2{m,n:int}
-  (xs: list (INV(x), m), ys: list(INV(y), n)): natLte(min(m,n))
+(
+  xs: list (INV(x), m), ys: list(INV(y), n)
+) : natLte(min(m,n)) // end-of-function
 
 fun{
 x,y:t0p}{env:vt0p
 } list_iforeach2_env{m,n:int}
-  (xs: list (INV(x), m), ys: list(INV(y), n), env: &(env) >> _): natLte(min(m,n))
+(
+  xs: list (INV(x), m), ys: list(INV(y), n), env: &(env) >> _
+) : natLte(min(m,n)) // end-of-function
 //
 fun{
 x,y:t0p}{env:vt0p
-} list_iforeach2$cont (i: intGte(0), x: x, y: y, env: &env): bool
+} list_iforeach2$cont
+  (i: intGte(0), x: x, y: y, env: &env): bool
 fun{
 x,y:t0p}{env:vt0p
-} list_iforeach2$fwork (i: intGte(0), x: x, y: y, env: &(env) >> _): void
+} list_iforeach2$fwork
+  (i: intGte(0), x: x, y: y, env: &(env) >> _): void
 //
 (* ****** ****** *)
 

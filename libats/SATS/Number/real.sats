@@ -31,8 +31,12 @@
 //
 (* ****** ****** *)
 //
+(*
+// HX:
+// it is built-in
 datasort real = //
 // abstract sort for real numbers
+*)
 //
 (* ****** ****** *)
 //
@@ -43,22 +47,93 @@ stadef ~ = neg_real
 (* ****** ****** *)
 //
 stacst
-add_real_real:
-  (real, real) -> real
+add_real_real
+  : (real, real) -> real
 stacst
-sub_real_real:
-  (real, real) -> real
+sub_real_real
+  : (real, real) -> real
 stacst
-mul_real_real:
-  (real, real) -> real
+mul_real_real
+  : (real, real) -> real
 stacst
-div_real_real:
-  (real, real) -> real
+div_real_real
+  : (real, real) -> real
 //
 stadef + = add_real_real
 stadef - = sub_real_real
 stadef * = mul_real_real
 stadef / = div_real_real
+//
+(* ****** ****** *)
+
+stacst
+int2real : int -> real
+stadef i2r = int2real
+
+stacst
+intint2real : (int, int) -> real
+stadef ii2r = intint2real
+
+(* ****** ****** *)
+
+stacst
+sgn_real : real -> int
+
+(* ****** ****** *)
+
+stacst
+floor_real : real -> int
+
+(* ****** ****** *)
+//
+(*
+stacst
+add_int_real: (int, real) -> real
+stacst
+add_real_int: (real, int) -> real
+stacst
+sub_int_real: (int, real) -> real
+stacst
+sub_real_int: (real, int) -> real
+stacst
+mul_int_real: (int, real) -> real
+stacst
+div_real_int: (real, int) -> real
+*)
+//
+stadef
+add_int_real
+  (i: int, x: real) =
+  add_real_real(i2r(i), x)
+stadef
+add_real_int
+  (x: real, i: int) =
+  add_real_real(x, i2r(i))
+//
+stadef
+sub_int_real
+  (i: int, x: real) =
+  sub_real_real(i2r(i), x)
+stadef
+sub_real_int
+  (x: real, i: int) =
+  sub_real_real(x, i2r(i))
+//
+stadef
+mul_int_real
+  (i: int, x: real) =
+  mul_real_real(i2r(i), x)
+stadef
+div_real_int
+  (x: real, i: int) =
+  div_real_real(x, i2r(i))
+//
+stadef + = add_int_real
+stadef + = add_real_int
+stadef + = sub_int_real
+stadef + = sub_real_int
+stadef * = mul_int_real
+stadef / = div_real_int
 //
 (* ****** ****** *)
 //
@@ -90,24 +165,30 @@ stadef != = neq_real_real
 //
 (* ****** ****** *)
 //
-stacst
-lt_real_int:
-  (real, int) -> bool
-stacst
-lte_real_int:
-  (real, int) -> bool
-stacst
-gt_real_int:
-  (real, int) -> bool
-stacst
-gte_real_int:
-  (real, int) -> bool
-stacst
-eq_real_int:
-  (real, int) -> bool
-stacst
-neq_real_int:
-  (real, int) -> bool
+stadef
+lt_real_int
+  (x: real, i: int) =
+  lt_real_real(x, i2r(i))
+stadef
+lte_real_int
+  (x: real, i: int) =
+  lte_real_real(x, i2r(i))
+stadef
+gt_real_int
+  (x: real, i: int) =
+  gt_real_real(x, i2r(i))
+stadef
+gte_real_int
+  (x: real, i: int) =
+  gte_real_real(x, i2r(i))
+stadef
+eq_real_int
+  (x: real, i: int) =
+  eq_real_real(x, i2r(i))
+stadef
+neq_real_int
+  (x: real, i: int) =
+  neq_real_real(x, i2r(i))
 //
 stadef < = lt_real_int
 stadef <= = lte_real_int
@@ -117,10 +198,6 @@ stadef == = eq_real_int
 stadef != = neq_real_int
 //
 (* ****** ****** *)
-
-stacst
-int2real : int -> real
-stadef i2r = int2real
 
 stacst
 float2real : float -> real
@@ -138,6 +215,16 @@ stadef sqrt = sqrt_real
 stacst
 cbrt_real: real -> real
 stadef cbrt = cbrt_real
+//
+(* ****** ****** *)
+//
+praxi
+lemma_sqrt_def
+  {x:real|x >= 0}(): [x==sqrt(x)*sqrt(x)] unit_p
+//
+praxi
+lemma_cbrt_def
+  {x:real}((*void*)): [x==cbrt(x)*cbrt(x)*cbrt(x)] unit_p
 //
 (* ****** ****** *)
 //

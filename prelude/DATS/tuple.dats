@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/tuple.atxt
-** Time of generation: Mon Jun  6 20:02:00 2016
+** Time of generation: Wed Jun 29 09:33:44 2016
 *)
 
 (* ****** ****** *)
@@ -40,16 +40,19 @@
 (* Start time: December, 2012 *)
 
 (* ****** ****** *)
-
+//
 implement
-fprint_tup$beg<> (out) = fprint_string (out, "(")
+fprint_tup$beg<>
+  (out) = fprint_string(out, "(")
 implement
-fprint_tup$end<> (out) = fprint_string (out, ")")
+fprint_tup$end<>
+  (out) = fprint_string(out, ")")
 implement
-fprint_tup$sep<> (out) = fprint_string (out, ", ")
-
+fprint_tup$sep<>
+  (out) = fprint_string(out, ", ")
+//
 (* ****** ****** *)
-
+//
 implement
 {a0,a1}
 fprint_tupval2
@@ -62,13 +65,14 @@ fprint_tupval2
 in
   // nothing
 end // end of [fprint_tupval2]
-
+//
 implement
 (a0,a1)
-fprint_val<tup(a0,a1)> (out, x) = fprint_tupval2<a0,a1> (out, x)
-
+fprint_val<tup(a0,a1)>
+  (out, x) = fprint_tupval2<a0,a1> (out, x)
+//
 (* ****** ****** *)
-
+//
 implement
 {a0,a1,a2}
 fprint_tupval3
@@ -83,13 +87,14 @@ fprint_tupval3
 in
   // nothing
 end // end of [fprint_tupval3]
-
+//
 implement
 (a0,a1,a2)
-fprint_val<tup(a0,a1,a2)> (out, x) = fprint_tupval3<a0,a1,a2> (out, x)
-
+fprint_val<tup(a0,a1,a2)>
+  (out, x) = fprint_tupval3<a0,a1,a2> (out, x)
+//
 (* ****** ****** *)
-
+//
 implement
 {a0,a1,a2,a3}
 fprint_tupval4
@@ -106,13 +111,14 @@ fprint_tupval4
 in
   // nothing
 end // end of [fprint_tupval4]
-
+//
 implement
 (a0,a1,a2,a3)
-fprint_val<tup(a0,a1,a2,a3)> (out, x) = fprint_tupval4<a0,a1,a2,a3> (out, x)
-
+fprint_val<tup(a0,a1,a2,a3)>
+  (out, x) = fprint_tupval4<a0,a1,a2,a3> (out, x)
+//
 (* ****** ****** *)
-
+//
 implement
 {a0,a1}
 fprint_tupref2
@@ -125,13 +131,14 @@ fprint_tupref2
 in
   // nothing
 end // end of [fprint_tupref2]
-
+//
 implement
 (a0,a1)
-fprint_ref<tup(a0,a1)> (out, x) = fprint_tupref2<a0,a1> (out, x)
-
+fprint_ref<tup(a0,a1)>
+  (out, x) = fprint_tupref2<a0,a1> (out, x)
+//
 (* ****** ****** *)
-
+//
 implement
 {a0,a1,a2}
 fprint_tupref3
@@ -149,10 +156,11 @@ end // end of [fprint_tupref3]
 
 implement
 (a0,a1,a2)
-fprint_ref<tup(a0,a1,a2)> (out, x) = fprint_tupref3<a0,a1,a2> (out, x)
-
+fprint_ref<tup(a0,a1,a2)>
+  (out, x) = fprint_tupref3<a0,a1,a2> (out, x)
+//
 (* ****** ****** *)
-
+//
 implement
 {a0,a1,a2,a3}
 fprint_tupref4
@@ -169,11 +177,103 @@ fprint_tupref4
 in
   // nothing
 end // end of [fprint_tupref4]
-
+//
 implement
 (a0,a1,a2,a3)
-fprint_ref<tup(a0,a1,a2,a3)> (out, x) = fprint_tupref4<a0,a1,a2,a3> (out, x)
-
+fprint_ref<tup(a0,a1,a2,a3)>
+  (out, x) = fprint_tupref4<a0,a1,a2,a3> (out, x)
+//
+(* ****** ****** *)
+//
+implement
+fprint_tupbox$beg<>
+  (out) = fprint_string(out, "$tup(")
+//
+implement
+fprint_tupbox$end<> (out) = fprint_string(out, ")")
+implement
+fprint_tupbox$sep<> (out) = fprint_string(out, ", ")
+//
+(* ****** ****** *)
+//
+implement
+{a0}
+fprint_tupbox1
+  (out, x) = let
+  val () = fprint_tupbox$beg<> (out)
+  val () = fprint_val<a0> (out, x.0)
+  val () = fprint_tupbox$end<> (out)
+in
+  // nothing
+end // end of [fprint_tupbox1]
+//
+implement(a0)
+fprint_val<tupbox(a0)>
+  (out, x) = fprint_tupbox1<a0> (out, x)
+//
+(* ****** ****** *)
+//
+implement
+{a0,a1}
+fprint_tupbox2
+  (out, x) = let
+  val () = fprint_tupbox$beg<> (out)
+  val () = fprint_val<a0> (out, x.0)
+  val () = fprint_tupbox$sep<> (out)
+  val () = fprint_val<a1> (out, x.1)
+  val () = fprint_tupbox$end<> (out)
+in
+  // nothing
+end // end of [fprint_tupbox2]
+//
+implement(a0,a1)
+fprint_val<tupbox(a0,a1)>
+  (out, x) = fprint_tupbox2<a0,a1> (out, x)
+//
+(* ****** ****** *)
+//
+implement
+{a0,a1,a2}
+fprint_tupbox3
+  (out, x) = let
+  val () = fprint_tupbox$beg<> (out)
+  val () = fprint_val<a0> (out, x.0)
+  val () = fprint_tupbox$sep<> (out)
+  val () = fprint_val<a1> (out, x.1)
+  val () = fprint_tupbox$sep<> (out)
+  val () = fprint_val<a2> (out, x.2)
+  val () = fprint_tupbox$end<> (out)
+in
+  // nothing
+end // end of [fprint_tupbox3]
+//
+implement(a0,a1,a2)
+fprint_val<tupbox(a0,a1,a2)>
+  (out, x) = fprint_tupbox3<a0,a1,a2> (out, x)
+//
+(* ****** ****** *)
+//
+implement
+{a0,a1,a2,a3}
+fprint_tupbox4
+  (out, x) = let
+  val () = fprint_tupbox$beg<> (out)
+  val () = fprint_val<a0> (out, x.0)
+  val () = fprint_tupbox$sep<> (out)
+  val () = fprint_val<a1> (out, x.1)
+  val () = fprint_tupbox$sep<> (out)
+  val () = fprint_val<a2> (out, x.2)
+  val () = fprint_tupbox$sep<> (out)
+  val () = fprint_val<a3> (out, x.3)
+  val () = fprint_tupbox$end<> (out)
+in
+  // nothing
+end // end of [fprint_tupbox4]
+//
+implement(a0,a1,a2,a3)
+fprint_val<tupbox(a0,a1,a2,a3)>
+  (out, x) = fprint_tupbox4<a0,a1,a2,a3> (out, x)
+//
 (* ****** ****** *)
 
 implement

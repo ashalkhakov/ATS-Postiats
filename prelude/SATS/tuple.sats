@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/tuple.atxt
-** Time of generation: Tue Nov 17 16:34:09 2015
+** Time of generation: Wed Jun 29 09:32:50 2016
 *)
 
 (* ****** ****** *)
@@ -49,17 +49,34 @@ typedef SHR(a:type) = a // for commenting purpose
 typedef NSH(a:type) = a // for commenting purpose
 
 (* ****** ****** *)
-
+//
 typedef tup2
   (a0:t0p, a1:t0p) = @(a0, a1)
-stadef tup = tup2
 typedef tup3
   (a0:t0p, a1:t0p, a2:t0p) = @(a0, a1, a2)
-stadef tup = tup3
 typedef tup4
   (a0:t0p, a1:t0p, a2:t0p, a3:t0p) = @(a0, a1, a2, a3)
+//
+stadef tup = tup2
+stadef tup = tup3
 stadef tup = tup4
-
+//
+(* ****** ****** *)
+//
+typedef tupbox1
+  (a0:t0p) = $tup(a0)
+typedef tupbox2
+  (a0:t0p, a1:t0p) = $tup(a0, a1)
+typedef tupbox3
+  (a0:t0p, a1:t0p, a2:t0p) = $tup(a0, a1, a2)
+typedef tupbox4
+  (a0:t0p, a1:t0p, a2:t0p, a3:t0p) = $tup(a0, a1, a2, a3)
+//
+stadef tupbox = tupbox1
+stadef tupbox = tupbox2
+stadef tupbox = tupbox3
+stadef tupbox = tupbox4
+//
 (* ****** ****** *)
 
 fun{} fprint_tup$beg (out: FILEref): void
@@ -89,6 +106,27 @@ a0,a1,a2:vt0p
 fun{
 a0,a1,a2,a3:vt0p
 } fprint_tupref4 (out: FILEref, x: &(a0, a1, a2, a3)): void
+
+(* ****** ****** *)
+
+fun{} fprint_tupbox$beg (out: FILEref): void
+fun{} fprint_tupbox$end (out: FILEref): void
+fun{} fprint_tupbox$sep (out: FILEref): void
+
+(* ****** ****** *)
+
+fun{
+a0:t0p
+} fprint_tupbox1 (out: FILEref, x: $tup(a0)): void
+fun{
+a0,a1:t0p
+} fprint_tupbox2 (out: FILEref, x: $tup(a0, a1)): void
+fun{
+a0,a1,a2:t0p
+} fprint_tupbox3 (out: FILEref, x: $tup(a0, a1, a2)): void
+fun{
+a0,a1,a2,a3:t0p
+} fprint_tupbox4 (out: FILEref, x: $tup(a0, a1, a2, a3)): void
 
 (* ****** ****** *)
 

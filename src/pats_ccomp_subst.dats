@@ -46,11 +46,14 @@ UN = "prelude/SATS/unsafe.sats"
 staload "./pats_basics.sats"
 
 (* ****** ****** *)
-
+//
 staload "./pats_errmsg.sats"
 staload _(*anon*) = "./pats_errmsg.dats"
-implement prerr_FILENAME<> () = prerr "pats_ccomp_subst"
-
+//
+implement
+prerr_FILENAME<>
+  ((*void*)) = prerr "pats_ccomp_subst"
+//
 (* ****** ****** *)
 
 staload ERR = "./pats_error.sats"
@@ -136,8 +139,10 @@ t2mpmarglst_subst
 //
 (*
 val out = stdout_ref
-val () = fprintln! (out, "t2mpmarglst_subst: sub = ", sub)
-val () = fprintln! (out, "t2mpmarglst_subst: t2mas = <", t2mas, ">")
+val () =
+fprintln! (out, "t2mpmarglst_subst: sub = ", sub)
+val () =
+fprintln! (out, "t2mpmarglst_subst: t2mas = <", t2mas, ">")
 *)
 //
 in
@@ -360,25 +365,26 @@ typedef
 instrlst0 = ccomp_instrlst_type
 //
 extern
-fun instrlst0_subst
-(
-  env: !ccompenv
+fun
+instrlst0_subst
+( env: !ccompenv
 , map: !tmpmap, sub: !stasub, inss: instrlst0, sfx: int
 ) : instrlst0 // [instrlst0_subst]
 //
 (* ****** ****** *)
-
+//
 extern
-fun primval_lamfix_subst
+fun
+primval_lamfix_subst
   (env: !ccompenv, sub: !stasub, pmv: primval): primval
 // end of [primval_lamfix_subst]
-
+//
 (* ****** ****** *)
 
 extern
-fun ccompenv_add_fundecsloc_subst
-(
-  env: !ccompenv
+fun
+ccompenv_add_fundecsloc_subst
+( env: !ccompenv
 , sub: !stasub, knd: funkind, decarg: s2qualst, hfds: hifundeclst
 ) : void // end of [ccompenv_add_fundecsloc_subst]
 
@@ -543,13 +549,14 @@ end // end of [tmpvarlst_reset_alias]
 *)
 
 (* ****** ****** *)
-
+//
 extern
 fun
 funent_funlablst_update
 (
   env: !ccompenv, fls: funlablst
 ) : funlablst_vt // end-of-fun
+//
 implement
 funent_funlablst_update (env, fls) = let
 //
@@ -664,7 +671,7 @@ in
 //
 case+ opt of
 | Some (d2c) =>
-    ccompenv_add_tmpcstmat (env, TMPCSTMATsome2 (d2c, tmparg2, flab2))
+    ccompenv_add_tmpcstmat(env, TMPCSTMATsome2(d2c, tmparg2, flab2))
 | None () => ()
 //
 end // end of [val]
@@ -675,7 +682,7 @@ in
 //
 case+ opt of
 | Some (d2v) => (
-    ccompenv_add_tmpvarmat (env, TMPVARMATsome2 (d2v, tmparg2, flab2))
+    ccompenv_add_tmpvarmat(env, TMPVARMATsome2(d2v, tmparg2, flab2))
   ) (* end of [Some] *)
 | None ((*void*)) => ()
 //
@@ -725,7 +732,8 @@ val () = fprintln! (out, "funent_subst: d2es2 = ", $UN.linlst2lst{d2env}(d2es2))
 val () = fprintln! (out, "funent_subst: vbmap2 = ", vbmap2)
 *)
 //
-val fent2 =
+val
+fent2 =
 funent_make (
   loc, flab2
 , imparg, tmparg, None(*tmpsub*), tmpret2
@@ -1830,14 +1838,35 @@ case+ hfds of
 //
 end // end of [auxmain]
 
-fun auxfnxset
+fun
+auxfnxset
 (
   fls: funlablst
 ) : void = let
 //
-  val-list_cons (fl0, _) = fls
-  val-Some (fent) = funlab_get_funent (fl0)
-  val () = funent_set_fnxlablst (fent, fls)
+val-
+list_cons
+  (fl0, _) = fls
+//
+val-
+Some(fent0) =
+  funlab_get_funent(fl0)
+//
+val ((*void*)) =
+  funent_set_fnxlablst(fent0, fls)
+//
+fun
+fwork
+(
+  fl: funlab
+) : void = let
+  val-Some(fent) = funlab_get_funent(fl)
+in
+  tmpvar_inc_tailcal(funent_get_tmpret(fent))
+end // end of [fwork]
+//
+val ((*void*)) = list_foreach_fun<funlab>(fls, fwork)
+//
 in
   // nothing
 end // end of [auxfnxset]

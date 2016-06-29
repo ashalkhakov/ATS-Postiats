@@ -52,11 +52,13 @@ staload GLOB = "./pats_global.sats"
 staload "./pats_basics.sats"
 
 (* ****** ****** *)
-
+//
 staload "./pats_errmsg.sats"
 staload _(*anon*) = "./pats_errmsg.dats"
-implement prerr_FILENAME<> () = prerr "pats_trans2_decl"
-
+//
+implement
+prerr_FILENAME<> () = prerr "pats_trans2_decl"
+//
 (* ****** ****** *)
 //
 staload
@@ -486,158 +488,207 @@ s1rtdeflst_tr
 
 (* ****** ****** *)
 
-fun s1tacst_tr
-  (d: s1tacst): s2cst = let
+fun
+s1tacst_tr
+(
+  d0: s1tacst
+) : s2cst = let
 //
-  fun aux (
-    xs: a1msrtlst, res: s2rt
-  ) : s2rt =
-    case+ xs of
-    | list_cons (x, xs) =>
-        s2rt_fun (a1msrt_tr_srt (x), aux (xs, res))
-      // end of [list_cons]
-    | list_nil () => res
-  // end of [aux]
+fun
+aux
+(
+  xs: a1msrtlst, res: s2rt
+) : s2rt =
+  case+ xs of
+  | list_cons(x, xs) =>
+      s2rt_fun (a1msrt_tr_srt (x), aux (xs, res))
+    // end of [list_cons]
+  | list_nil((*void*)) => res
+// end of [aux]
 //
-  val id = d.s1tacst_sym
-  val loc = d.s1tacst_loc
-  val fil = d.s1tacst_fil
+val id0 = d0.s1tacst_sym
+val loc = d0.s1tacst_loc
+val fil = d0.s1tacst_fil
 //
-  val
-  s2t_res = s1rt_tr (d.s1tacst_res)
-  val
-  s2t_cst = aux (d.s1tacst_arg, s2t_res)
+val
+s2t_res =
+  s1rt_tr(d0.s1tacst_res)
 //
-  val s2c =
-  s2cst_make (
-    id // sym
-  , loc // location
-  , fil // filename
-  , s2t_cst // srt
-  , None () // isabs
-  , false // iscon
-  , false // isrec
-  , false // isasp
-  , None () // islst
-  , list_nil () // argvarlst
-  , None () // def
-  ) (* end of [s2cst_make] *)
+val
+s2cs2t = aux(d0.s1tacst_arg, s2t_res)
+//
+val
+s2c0 =
+s2cst_make
+(
+  id0 // sym
+, loc // location
+, fil // filename
+, s2cs2t // srt
+, None() // isabs
+, false  // iscon
+, false  // isrec
+, false  // isasp
+, None() // islst
+, list_nil() // argvarlst
+, None(*void*) // s2cstdef
+) (* end of [s2cst_make] *)
+//
+val () =
+s2cst_set_extdef
+  (s2c0, d0.s1tacst_extdef)
 //
 in
-  the_s2expenv_add_scst (s2c); s2c
+  the_s2expenv_add_scst(s2c0); s2c0
 end // end of [s1tacst_tr]
 
 fun
 s1tacstlst_tr
   (ds: s1tacstlst): s2cstlst =
 (
-  list_of_list_vt (list_map_fun (ds, s1tacst_tr))
+  list_of_list_vt(list_map_fun(ds, s1tacst_tr))
 ) (* end of [s1tacstlst_tr] *)
 
 (* ****** ****** *)
 
-fun s1tacon_tr
+fun
+s1tacon_tr
 (
-  s2t_res: s2rt, d: s1tacon
+  s2t_res: s2rt, d0: s1tacon
 ) : s2cst = let
 //
-  val id = d.s1tacon_sym
-  val loc = d.s1tacon_loc
-  val fil = d.s1tacon_fil
+val id0 = d0.s1tacon_sym
+val loc = d0.s1tacon_loc
+val fil = d0.s1tacon_fil
 //
-  val argvars = l2l (
-    list_map_fun (d.s1tacon_arg, a1msrt_tr_symsrt)
-  ) (* end of [val] *)
+val
+argvars = l2l
+(
+  list_map_fun
+  (
+    d0.s1tacon_arg, a1msrt_tr_symsrt
+  ) (* list_map_fun *)
+) (* end of [val] *)
 //
-  val s2t_fun = let
-    fun aux (
-      s2t_res: s2rt, xss: List (syms2rtlst)
-    ) : s2rt =
-      case+ xss of
-      | list_cons (xs, xss) => let
-          val s2ts_arg =
-            list_map_fun<syms2rt><s2rt> (xs, lam x =<0> x.1)
-          val s2t_res = s2rt_fun ((l2l)s2ts_arg, s2t_res)
-        in
-          aux (s2t_res, xss)
-        end (* end of [list_cons] *)
-      | list_nil () => s2t_res
-    // end of [aux]
-  in
-    aux (s2t_res, argvars)
-  end : s2rt // end of [val]
-(*
-  val () = (
-    print "s1tacon_tr: sym = "; $SYM.print_symbol (id); print_newline ();
-    print "s1tacon_tr: s2t_fun = "; print_s2rt (s2t_fun); print_newline ();
-  ) // end of [val]
-*)
-  val (pfenv | ()) = the_s2expenv_push_nil ()
+val
+s2t_fun = let
 //
-  val s2vss = let
-    fun f1 (x: syms2rt): s2var =
-      if x.0 = $SYM.symbol_empty then
-        s2var_make_srt (x.1) else s2var_make_id_srt (x.0, x.1)
-      // end of [if]
-    fun f2 (
-      xs: syms2rtlst
-    ) : s2varlst = let
-      val s2vs = l2l (list_map_fun (xs, f1))
-      val () = the_s2expenv_add_svarlst (s2vs)
-    in
-      s2vs
-    end // end of [f2]
-    val s2vss = list_map_fun (argvars, f2)
-  in
-    l2l (s2vss)
-  end : List (s2varlst) // end of [val]
-  val def = let
-    fun aux (
-      s2t_fun: s2rt, s2vss: List (s2varlst), s2e: s2exp
-    ) : s2exp =
-      case+ s2vss of
-      | list_cons
-          (s2vs, s2vss) => let
-          val-S2RTfun (_, s2t1_fun) = s2t_fun
-          val s2e = aux (s2t1_fun, s2vss, s2e)
-          val s2e_lam = s2exp_lam_srt (s2t_fun, s2vs, s2e)
-        in
-          s2e_lam
-        end // end of [list_cons]
-      | list_nil () => s2e
-     // end of [aux]
-     val def = d.s1tacon_def
-   in
-     case+ def of
-     | Some s1e => let
-         val s2e =
-           s1exp_trdn (s1e, s2t_res)
-         // end of [val]
-         val s2e_def = aux (s2t_fun, s2vss, s2e)
-       in
-         Some (s2e_def)
-       end // end of [Some]
-     | None () => None ()
-  end : s2expopt // end of [val]
+  fun aux (
+    s2t_res: s2rt, xss: List(syms2rtlst)
+  ) : s2rt =
+  (
+    case+ xss of
+    | list_cons
+        (xs, xss) => let
 //
-  val () = the_s2expenv_pop_free (pfenv | (*none*))
+        val
+        s2ts_arg = l2l
+        (
+          list_map_fun<syms2rt><s2rt>
+            (xs, lam (x) =<fun0> x.1)
+        ) (* s2ts_arg *)
 //
-  val s2c =
-  s2cst_make (
-    id // sym
-  , loc // location
-  , fil // filename
-  , s2t_fun // srt
-  , Some (def) // isabs
-  , true // iscon
-  , false // isrec
-  , false // isasp
-  , None () // islst
-  , argvars // argvarlst
-  , None () // definition
-  ) // end of [val]
+        val s2t0_res = s2rt_fun(s2ts_arg, s2t_res)
+//
+      in
+        aux(s2t0_res, xss)
+      end (* end of [list_cons] *)
+    | list_nil((*void*)) => s2t_res
+  ) (* end of [aux] *)
 in
-  the_s2expenv_add_scst (s2c); s2c
+  aux(s2t_res, argvars)
+end : s2rt // end of [val]
+//
+(*
+val () = (
+//
+print "s1tacon_tr: sym = "; $SYM.print_symbol(id); print_newline();
+print "s1tacon_tr: s2t_fun = "; print_s2rt(s2t_fun); print_newline();
+//
+) (* end of [val] *)
+*)
+//
+val (pfenv|()) =
+  the_s2expenv_push_nil((*void*))
+//
+val s2vss = let
+  fun f1(x: syms2rt): s2var =
+    if x.0 = $SYM.symbol_empty
+      then s2var_make_srt(x.1)
+      else s2var_make_id_srt(x.0, x.1)
+    // end of [if]
+  fun f2
+  (
+    xs: syms2rtlst
+  ) : s2varlst = let
+    val s2vs =
+      l2l(list_map_fun(xs, f1))
+    // end of [val]
+    val ((*void*)) =
+      the_s2expenv_add_svarlst(s2vs)
+    // end of [val]
+  in
+    s2vs
+  end // end of [f2]
+  val s2vss = list_map_fun(argvars, f2)
+//
+in
+  l2l (s2vss)
+end : List(s2varlst) // end of [val]
+//
+val def = let
+  fun aux (
+    s2t_fun: s2rt, s2vss: List (s2varlst), s2e: s2exp
+  ) : s2exp =
+  (
+    case+ s2vss of
+    | list_cons
+        (s2vs, s2vss) => let
+        val-S2RTfun(_, s2t1_fun) = s2t_fun
+        val s2e = aux(s2t1_fun, s2vss, s2e)
+        val s2e_lam = s2exp_lam_srt(s2t_fun, s2vs, s2e)
+      in
+        s2e_lam
+      end // end of [list_cons]
+    | list_nil((*void*)) => s2e
+  ) (* end of [aux] *)
+//
+  val def = d0.s1tacon_def
+//
+in
+  case+ def of
+  | Some s1e => let
+      val s2e =
+        s1exp_trdn(s1e, s2t_res)
+      // end of [val]
+      val s2e_def = aux(s2t_fun, s2vss, s2e)
+    in
+      Some (s2e_def)
+    end // end of [Some]
+  | None((*void*)) => None()
+end : s2expopt // end of [val]
+//
+val () = the_s2expenv_pop_free(pfenv | (*none*))
+//
+val
+s2c0 =
+s2cst_make
+(
+  id0 // sym
+, loc // location
+, fil // filename
+, s2t_fun // srt
+, Some(def) // isabs
+, true // iscon
+, false // isrec
+, false // isasp
+, None() // islst
+, argvars // argvarlst
+, None() // definition
+) (* s2cst_make *)
+//
+in
+  the_s2expenv_add_scst(s2c0); s2c0
 end // end of [s1tacon_tr]
 
 fun
@@ -650,20 +701,25 @@ fun
 auxlst
 (
   s2t: s2rt, ds: s1taconlst
-) : s2cstlst =
-  case+ ds of
-  | list_nil () => list_nil ()
-  | list_cons (d, ds) => let
-      val s2c = s1tacon_tr (s2t, d)
-    in
-      list_cons (s2c, auxlst (s2t, ds))
-    end // end of [list_cons]
-// end of [aux]
+) : s2cstlst = (
 //
-val s2t_res = s2rt_impred (knd)
+case+ ds of
+| list_cons
+    (d, ds) => let
+    val s2c =
+      s1tacon_tr(s2t, d)
+    // end of [val]
+  in
+    list_cons
+      (s2c, auxlst(s2t, ds))
+    // list_cons
+  end // end of [list_cons]
+| list_nil((*void*)) => list_nil()
+//
+) (* end of [aux] *)
 //
 in
-  auxlst (s2t_res, ds)
+  auxlst(s2rt_impred(knd), ds)
 end // end of [s1taconlst_tr]
 
 (* ****** ****** *)
@@ -2464,14 +2520,28 @@ case+ d1c0.d1ecl_node of
 //
 | D1Cfundecs
   (
-    funknd, decarg, f1ds
+    fk0, decarg, f1ds
   ) => let
 //
     val
-    istmp = list_is_cons (decarg)
-    val () = if istmp then the_tmplev_inc ()
+    istmp = list_is_cons(decarg)
+    val
+    ismtr = funkind_is_mutailrec(fk0)
 //
-    val (pfenv | ()) = the_trans2_env_push ()
+    var fk0: funkind = fk0
+//
+    val () =
+    if (istmp && ismtr)
+      then let
+        val () = fk0 := FK_fun()
+        val () = prerr_warning2_loc(loc0)
+      in
+        prerrln! (": [fnx] is treated as [fun] for initiating function templates!")
+      end (* end of [then] *)
+//
+    val () = if istmp then the_tmplev_inc()
+//
+    val (pfenv | ()) = the_trans2_env_push()
 //
     val
     tmplev = the_tmplev_get()
@@ -2486,17 +2556,17 @@ case+ d1c0.d1ecl_node of
     // end of [val]
 //
     val f2ds =
-      f1undeclst_tr (funknd, s2qs, f1ds)
+      f1undeclst_tr (fk0, s2qs, f1ds)
     // end of [val]
 //
     val () = if istmp then the_tmplev_dec ()
 //
     val () = the_trans2_env_pop (pfenv | (*none*))
 //
-    val () = the_d2expenv_add_fundeclst (funknd, f2ds)
+    val () = the_d2expenv_add_fundeclst (fk0, f2ds)
 //
   in
-    d2ecl_fundecs (loc0, funknd, s2qs, f2ds)
+    d2ecl_fundecs (loc0, fk0, s2qs, f2ds)
   end // end of [D1Cfundecs]
 //
 | D1Cvaldecs

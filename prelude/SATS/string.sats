@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Thu Mar 31 20:42:30 2016
+** Time of generation: Wed Jun 29 02:49:19 2016
 *)
 
 (* ****** ****** *)
@@ -74,10 +74,14 @@ stringBtwe
   (m:int, n:int) = [k:int | m <= k; k <= n] string (k)
 //
 (* ****** ****** *)
-
-typedef stringlst = List0 (string)
-vtypedef stringlst_vt = List0_vt (string)
-
+//
+typedef stringlst = List0(string)
+vtypedef stringlst_vt = List0_vt(string)
+//
+(* ****** ****** *)
+//
+typedef stringopt = Option(string)
+//
 (* ****** ****** *)
 
 dataprop

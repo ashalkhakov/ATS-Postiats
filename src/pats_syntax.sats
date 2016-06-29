@@ -39,6 +39,7 @@ staload "./pats_basics.sats"
 //
 staload
 LOC = "./pats_location.sats"
+typedef loc_t = $LOC.location
 typedef location = $LOC.location
 //
 staload LEX = "./pats_lexing.sats"
@@ -148,23 +149,26 @@ fun fprint_f0loat : fprint_type (f0loat)
 fun fprint_s0tring : fprint_type (s0tring)
 
 (* ****** ****** *)
-
+//
 typedef
 i0de = '{
-  i0de_loc= location, i0de_sym= symbol
+  i0de_loc= loc_t, i0de_sym= symbol
 } (* end of [i0de] *)
-
+//
 typedef i0delst = List (i0de)
 typedef i0deopt = Option (i0de)
-
-fun i0de_make_sym (loc: location, sym: symbol): i0de
-fun i0de_make_string (loc: location, name: string): i0de
-fun i0de_make_lrbrackets (t_beg: token, t_end: token): i0de
-
+//
+fun
+i0de_make_sym(loc: loc_t, sym: symbol): i0de
+fun
+i0de_make_string(loc: loc_t, name: string): i0de
+fun
+i0de_make_lrbrackets (t_beg: token, t_end: token): i0de
+//
 fun print_i0de (x: i0de): void
 fun prerr_i0de (x: i0de): void
 fun fprint_i0de : fprint_type (i0de)
-
+//
 (* ****** ****** *)
 
 datatype
@@ -902,19 +906,34 @@ typedef s0rtdeflst = List s0rtdef
 fun s0rtdef_make (id: i0de, s0te: s0rtext): s0rtdef
 
 (* ****** ****** *)
-
-typedef s0tacst = '{
-  s0tacst_loc= location
+//
+datatype
+scstextdef =
+  | SCSTEXTDEFnone of ()
+  | SCSTEXTDEFsome of string
+// end of [scstextdef]
+//
+typedef
+s0tacst = '{
+  s0tacst_loc= loc_t
 , s0tacst_sym= symbol
 , s0tacst_arg= a0msrtlst
 , s0tacst_res= s0rt
-} // end of [s0tacst]
+, s0tacst_extopt= s0tringopt
+} (* end of [s0tacst] *)
+//
 typedef s0tacstlst = List s0tacst
-
-fun s0tacst_make (id: i0de, arg: a0msrtlst, srt: s0rt): s0tacst
-
+//
+fun
+s0tacst_make
+(
+  id: i0de
+, arg: a0msrtlst, srt: s0rt
+, ext: s0tringopt (* optional external name *)
+) : s0tacst // end of [s0tacst_make]
+//
 (* ****** ****** *)
-
+//
 typedef
 s0tacon = '{
   s0tacon_loc= location
@@ -923,11 +942,12 @@ s0tacon = '{
 , s0tacon_def= s0expopt
 } // end of [s0tacon]
 typedef s0taconlst = List s0tacon
-
-fun s0tacon_make
+//
+fun
+s0tacon_make
   (id: i0de, arg: a0msrtlst, def: s0expopt): s0tacon
 // end of [s0tacon_make]
-
+//
 (* ****** ****** *)
 
 (*
@@ -1049,7 +1069,7 @@ d0atdec_make
 ) : d0atdec // end of [d0atdec_make]
 
 (* ****** ****** *)
-
+//
 datatype
 dcstextdef =
   | DCSTEXTDEFnone of (int) // 0/1 static/extern
@@ -1057,15 +1077,15 @@ dcstextdef =
   | DCSTEXTDEFsome_mac of string // macro
   | DCSTEXTDEFsome_sta of string // static
 // end of [dcstextdef]
-
+//
 fun dcstextdef_sta (sym: symbol): dcstextdef
-
+//
 fun dcstextdef_is_ext (x: dcstextdef):<> bool
 fun dcstextdef_is_mac (x: dcstextdef):<> bool
 fun dcstextdef_is_sta (x: dcstextdef):<> bool
-
+//
 fun dcstextdef_is_mainats (x: dcstextdef):<> bool
-
+//
 (* ****** ****** *)
 
 typedef

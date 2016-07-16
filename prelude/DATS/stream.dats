@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Mon Jun  6 20:02:04 2016
+** Time of generation: Sun Jul 10 22:39:05 2016
 *)
 
 (* ****** ****** *)
@@ -49,6 +49,18 @@ implement
 {a}(*tmp*)
 stream_sing(x) =
   stream_cons{a}(x, $delay(stream_nil))
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stream_make_nil() =
+  $delay(stream_nil{a}())
+//
+implement
+{a}(*tmp*)
+stream_make_sing(x) =
+  $delay(stream_cons{a}(x, $delay(stream_nil)))
 //
 (* ****** ****** *)
 
@@ -79,6 +91,26 @@ val () = $effmask_all (loop (xs, res))
 in
   res
 end // end of [stream2list]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_length
+  (xs) = loop(xs, 0) where
+{
+//
+fun
+loop
+(
+  xs: stream(a), j: intGte(0)
+) :<!laz> intGte(0) =
+(
+case+ !xs of
+| stream_nil() => j | stream_cons(_, xs) => loop(xs, j+1)
+)
+//
+} (* end of [stream_length] *)
 
 (* ****** ****** *)
 

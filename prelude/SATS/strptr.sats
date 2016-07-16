@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Tue Nov 17 21:36:28 2015
+** Time of generation: Sun Jul  3 11:13:14 2016
 *)
 
 (* ****** ****** *)

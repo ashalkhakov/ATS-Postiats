@@ -98,13 +98,11 @@ val () = assertloc (iseq)
 val () =
 {
 //
-val xs = list0_of_list($list{int}(0, 2, 4, 6, 8))
+val xs =
+list0_of_list($list{int}(0, 2, 4, 6, 8))
 //
-val isevn = list0_forall<int> (xs, lam (x) => x mod 2 = 0)
-val () = assertloc ( isevn)
-//
-val isodd = list0_exists<int> (xs, lam (x) => x mod 2 != 0)
-val () = assertloc (~isodd)
+val () = assertloc(xs.forall()(lam (x) => x mod 2 = 0))
+val () = assertloc (~(xs.exists()(lam (x) => x mod 2 != 0)))
 //
 } (* end of [val] *)
 
@@ -115,7 +113,7 @@ val () =
 //
 val out = stdout_ref
 //
-val xs = list0_make_intrange (0, 10)
+val xs = list0_make_intrange(0, 10)
 val () = fprintln! (out, "xs = ", xs)
 //
 val ys =
@@ -132,6 +130,16 @@ list0_mapopt<int><int> (
 ) (* end of [val] *)
 val () = fprintln! (out, "ys_evn = ", ys_evn)
 //
+val () =
+assertloc
+( 0+1+2+3+4+5+6+7+8+9
+= xs.foldleft(TYPE{int})(0, lam(res, x) => res + x))
+//
+val () =
+assertloc
+( 0+1+2+3+4+5+6+7+8+9
+= xs.foldright(TYPE{int})(lam(x, res) => x + res, 0))
+//
 } (* end of [val] *)
 
 (* ****** ****** *)
@@ -145,6 +153,17 @@ val xs_sorted = list0_mergesort (xs, lam (x, y) => compare (x, y))
 val () = fprintln! (out, "xs_sorted = ", xs_sorted)
 val xs_sorted = list0_quicksort (xs, lam (x, y) => compare (x, y))
 val () = fprintln! (out, "xs_sorted = ", xs_sorted)
+} (* end of [val] *)
+
+(* ****** ****** *)
+
+val () = {
+//
+val xs = g0ofg1($list{int}(0,1,2))
+val () = xs.foreach_choose()(lam(x, y) => println!(x, "/", y))
+val () = xs.foreach_xprod(xs)(lam(x, y) => println!(x, "/", y))
+val () = xs.iforeach_xprod(xs)(lam(i, x, j, y) => println!(i, ":", x, "/", j, ":", y))
+//
 } (* end of [val] *)
 
 (* ****** ****** *)

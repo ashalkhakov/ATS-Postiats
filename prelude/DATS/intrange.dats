@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/intrange.atxt
-** Time of generation: Mon Jun  6 20:02:02 2016
+** Time of generation: Sun Jul  3 11:13:24 2016
 *)
 
 (* ****** ****** *)
@@ -242,6 +242,45 @@ then (
 in
   loop1 (l1, env)
 end // end of [intrange2_foreach]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+streamize_intrange_l
+  (m) = aux0(m) where
+{
+//
+vtypedef res_vt = stream_vt(int)
+//
+fun aux0
+(
+  m: int
+) : res_vt = $ldelay(stream_vt_cons(m, aux0(m+1)))
+//
+} (* end of [streamize_intrange_l] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+streamize_intrange_lr
+  (m, n) = aux0(m) where
+{
+//
+vtypedef res_vt = stream_vt(int)
+//
+fun aux0
+(
+  m: int
+) : res_vt = $ldelay
+(
+  if m < n
+    then stream_vt_cons(m, aux0(m+1)) else stream_vt_nil()
+  // end of [if]
+) : stream_vt_con(int) // [aux0]
+//
+} (* end of [streamize_intrange_lr] *)
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Wed Jun 29 02:49:19 2016
+** Time of generation: Sun Jul  3 11:13:14 2016
 *)
 
 (* ****** ****** *)
@@ -482,17 +482,22 @@ env:vt0p
 (* ****** ****** *)
 //
 fun{env:vt0p}
-string_rforeach$cont (c: char, env: &env): bool
+string_rforeach$cont(c: char, env: &env): bool
 fun{env:vt0p}
-string_rforeach$fwork (c: char, env: &(env) >> _): void
+string_rforeach$fwork(c: char, env: &(env) >> _): void
 //
-fun{
-} string_rforeach {n:int} (str: string(n)): sizeLte(n)
+fun{}
+string_rforeach{n:int}(str: string(n)): sizeLte(n)
 fun{
 env:vt0p
 } string_rforeach_env
-  {n:int} (str: string(n), env: &(env) >> _): sizeLte(n)
+  {n:int}(str: string(n), env: &(env) >> _): sizeLte(n)
 // end of [string_rforeach_env]
+//
+(* ****** ****** *)
+//
+fun{}
+streamize_string_char(string): stream_vt(charNZ)
 //
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Mon Jun  6 20:02:03 2016
+** Time of generation: Mon Jul 11 10:26:14 2016
 *)
 
 (* ****** ****** *)
@@ -40,8 +40,16 @@
 (* Start time: Feburary, 2012 *)
 
 (* ****** ****** *)
+//
+staload
+UN = "prelude/SATS/unsafe.sats"
+staload
+_(*anon*) = "prelude/DATS/unsafe.dats"
+//
+(* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+absvtype
+List0_vt_(a:vt@ype+) = List0_vt(a)
 
 (* ****** ****** *)
 //

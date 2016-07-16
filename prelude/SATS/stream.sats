@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Thu Apr 14 21:41:51 2016
+** Time of generation: Sun Jul 10 22:40:20 2016
 *)
 
 (* ****** ****** *)
@@ -39,12 +39,23 @@ sortdef t0p = t@ype
 
 (* ****** ****** *)
 //
+#if(0)
+//
 // HX: lazy streams
+// It is declared in [basics_dyn]
 //
 datatype
-stream_con (a:t@ype+) =
-  | stream_nil of ((*void*)) | stream_cons of (a, stream(a))
+stream_con
+  (a:t@ype+) =
+//
+// t@ype+: covariant
+//
+  | stream_nil of ((*void*))
+  | stream_cons of (a, stream(a))
+//
 where stream (a:t@ype) = lazy (stream_con(a))
+//
+#endif // [#if(0)]
 //
 (* ****** ****** *)
 //
@@ -58,8 +69,15 @@ fun isStreamSubscriptExn (x: !exn):<> bool = "mac#isStreamSubscriptExn"
 (* ****** ****** *)
 //
 fun{a:t0p}
-stream_sing(x: a):<> stream_con(a)
+stream_sing(a):<> stream_con(a)
 //
+(* ****** ****** *)
+
+fun{a:t0p}
+stream_make_nil(): stream(a)
+fun{a:t0p}
+stream_make_sing(x: a): stream(a)
+
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -67,6 +85,11 @@ stream2list
   (xs: stream(INV(a))):<!laz> List0_vt(a)
 // end of [stream2list]
 
+(* ****** ****** *)
+//
+fun{a:t0p}
+stream_length(stream(INV(a))):<!laz> intGte(0)
+//
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -317,10 +340,12 @@ fprint_stream
 overload [] with stream_nth_exn
 
 (* ****** ****** *)
-
+//
 overload .head with stream_head_exn
 overload .tail with stream_tail_exn
-
+//
+overload length with stream_length
+//
 (* ****** ****** *)
 
 (* end of [stream.sats] *)

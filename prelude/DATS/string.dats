@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Mon Jun  6 20:02:00 2016
+** Time of generation: Sun Jul  3 11:13:22 2016
 *)
 
 (* ****** ****** *)
@@ -1029,6 +1029,40 @@ val p1 = ptr_add<char> (p0, length(str))
 in
   $UN.cast{sizeLte(n)}(p1 - loop (p0, p1, env))
 end // end of [string_rforeach_env]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+streamize_string_char
+  (str) = let
+//
+typedef elt = charNZ
+//
+fun
+auxmain
+(
+  p: ptr
+) : stream_vt(elt) = $ldelay(
+//
+let
+//
+val c0 = $UN.ptr0_get<Char>(p)
+//
+in
+//
+if
+isneqz(c0)
+then (
+  stream_vt_cons(c0, auxmain(ptr0_succ<Char>(p)))
+) else stream_vt_nil((*void*))
+//
+end : stream_vt_con(elt) // end of [let]
+) (* end of [auxmain] *)
+//
+in
+  auxmain(string2ptr(str))
+end // end of [streamize_string_char]
 
 (* ****** ****** *)
 

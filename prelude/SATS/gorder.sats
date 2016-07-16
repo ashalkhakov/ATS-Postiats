@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gorder.atxt
-** Time of generation: Tue Nov 17 16:34:11 2015
+** Time of generation: Sun Jul  3 11:13:16 2016
 *)
 
 (* ****** ****** *)

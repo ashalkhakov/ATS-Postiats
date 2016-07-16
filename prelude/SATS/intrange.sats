@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/intrange.atxt
-** Time of generation: Tue Nov 17 16:34:11 2015
+** Time of generation: Sun Jul  3 11:13:16 2016
 *)
 
 (* ****** ****** *)
@@ -105,6 +105,13 @@ intrange2_foreach_env
 //
 fun{env:vt0p}
 intrange2_foreach$fwork (i: int, j: int, env: &env >> _): void
+//
+(* ****** ****** *)
+//
+fun{}
+streamize_intrange_l(m: int): stream_vt(int)
+fun{}
+streamize_intrange_lr(m: int, n: int): stream_vt(int)
 //
 (* ****** ****** *)
 

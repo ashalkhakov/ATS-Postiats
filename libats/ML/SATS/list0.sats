@@ -325,19 +325,53 @@ list0_app
 ) : void // end of [list0_app]
 
 (* ****** ****** *)
-
+//
 fun{a:t0p}
 list0_foreach
 (
   xs: list0(INV(a)), fwork: cfun(a, void)
 ) : void // end of [list0_foreach]
-
+//
+fun{a:t0p}
+list0_foreach_method
+(
+  xs: list0(INV(a))) (fwork: cfun(a, void)
+) : void // end of [list0_foreach_method]
+//
+overload .foreach with list0_foreach_method
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+list0_rforeach
+(
+  xs: list0(INV(a)), fwork: cfun(a, void)
+) : void // end of [list0_rforeach]
+//
+fun{a:t0p}
+list0_rforeach_method
+(
+  xs: list0(INV(a))) (fwork: cfun(a, void)
+) : void // end of [list0_rforeach_method]
+//
+overload .rforeach with list0_rforeach_method
+//
+(* ****** ****** *)
+//
 fun{a:t0p}
 list0_iforeach
 (
- xs: list0(INV(a)), fwork: cfun2(int, a, void)
-) : int(*length*) // end of [list0_iforeach]
-
+  list0(INV(a)), fwork: cfun2(intGte(0), a, void)
+) : intGte(0)(*length*) // end of [list0_iforeach]
+//
+fun{a:t0p}
+list0_iforeach_method
+(
+  list0(INV(a))) (fwork: cfun2(intGte(0), a, void)
+) : intGte(0)(*length*) // end of [list0_iforeach_method]
+//
+overload .iforeach with list0_iforeach_method
+//
 (* ****** ****** *)
 
 fun
@@ -360,20 +394,37 @@ list0_foreach2_eq
 (* ****** ****** *)
 //
 fun{
-a:t0p}{res:t0p
+res:t0p}{a:t0p
 } list0_foldleft
-  (xs: list0(INV(a)), ini: res, fopr: cfun2(res, a, res)): res
+  (list0(INV(a)), ini: res, fopr: cfun2(res, a, res)): res
 //
 fun{
-a:t0p}{res:t0p
+res:t0p}{a:t0p
+} list0_foldleft_method
+  (list0(INV(a)), TYPE(res))(ini: res, fopr: cfun2(res, a, res)): res
+//
+overload .foldleft with list0_foldleft_method
+//
+(* ****** ****** *)
+//
+fun{
+res:t0p}{a:t0p
 } list0_ifoldleft
-  (xs: list0(INV(a)), ini: res, fopr: cfun3(res, int, a, res)): res
+  (list0(INV(a)), ini: res, fopr: cfun3(res, int, a, res)): res
 // end of [list0_ifoldleft]
+//
+fun{
+res:t0p}{a:t0p
+} list0_ifoldleft_method
+  (list0(INV(a)), TYPE(res))(ini: res, fopr: cfun3(res, int, a, res)): res
+// end of [list0_ifoldleft_method]
+//
+overload .ifoldleft with list0_ifoldleft_method
 //
 (* ****** ****** *)
 
 fun{
-a1,a2:t0p}{res:t0p
+res:t0p}{a1,a2:t0p
 } list0_foldleft2 (
   xs1: list0(INV(a1))
 , xs2: list0(INV(a2))
@@ -386,6 +437,15 @@ fun{
 a:t0p}{res:t0p
 } list0_foldright
   (xs: list0(INV(a)), fopr: cfun2(a, res, res), snk: res): res
+//
+fun{
+a:t0p}{res:t0p
+} list0_foldright_method
+  (list0(INV(a)), TYPE(res)) (fopr: cfun2(a, res, res), snk: res): res
+//
+overload .foldright with list0_foldright_method
+//
+(* ****** ****** *)
 //
 (*
 fun{
@@ -400,7 +460,34 @@ a:t0p}{res:t0p
 fun
 {a:t0p}
 list0_exists
-  (xs: list0(INV(a)), p: cfun(a, bool)): bool
+  (xs: list0(INV(a)), pred: cfun(a, bool)): bool
+//
+fun
+{a:t0p}
+list0_exists_method
+  (xs: list0(INV(a))) (pred: cfun(a, bool)): bool
+//
+overload .exists with list0_exists_method
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+list0_iexists
+(
+  xs: list0(INV(a)), pred: cfun(intGte(0), a, bool)
+) : bool // end of [list0_iexists]
+//
+fun
+{a:t0p}
+list0_iexists_method
+(
+  xs: list0(INV(a))) (pred: cfun(intGte(0), a, bool)
+) : bool // end of [list0_iexists_method]
+//
+overload .iexists with list0_iexists_method
+//
+(* ****** ****** *)
 //
 fun
 {a1,a2:t0p}
@@ -416,7 +503,34 @@ list0_exists2
 fun
 {a:t0p}
 list0_forall
-  (xs: list0(INV(a)), p: cfun(a, bool)): bool
+  (xs: list0(INV(a)), pred: cfun(a, bool)): bool
+//
+fun
+{a:t0p}
+list0_forall_method
+  (xs: list0(INV(a))) (pred: cfun(a, bool)): bool
+//
+overload .forall with list0_forall_method
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+list0_iforall
+(
+  xs: list0(INV(a)), pred: cfun(intGte(0), a, bool)
+) : bool // end of [list0_iforall]
+//
+fun
+{a:t0p}
+list0_iforall_method
+(
+  xs: list0(INV(a))) (pred: cfun(intGte(0), a, bool)
+) : bool // end of [list0_iforall_method]
+//
+overload .iforall with list0_iforall_method
+//
+(* ****** ****** *)
 //
 fun
 {a1,a2:t0p}
@@ -562,6 +676,54 @@ x,y:t0p}{z:t0p
 (
   list0(INV(x)), list0(INV(y)), fopr: cfun2(x, y, z)
 ) : list0(z) // end of [list0_crosswith]
+//
+(* ****** ****** *)
+//
+fun
+{x:t0p}
+list0_foreach_choose2
+(
+  list0(INV(x)), fwork: cfun2(x, x, void)
+) : void // end-of-function
+fun
+{x:t0p}
+list0_foreach_choose2_method
+(
+  list0(INV(x))) (fwork: cfun2(x, x, void)
+) : void // end-of-function
+//
+overload .foreach_choose with list0_foreach_choose2_method
+//
+(* ****** ****** *)
+//
+fun{
+x,y:t0p
+} list0_foreach_xprod2
+(
+  list0(INV(x)), list0(INV(y)), fwork: cfun2(x, y, void)
+) : void // end-of-function
+fun
+{x,y:t0p}
+list0_foreach_xprod2_method
+(
+  list0(INV(x)), list0(INV(y))) (fwork: cfun2(x, y, void)
+) : void // end-of-function
+//
+fun{
+x,y:t0p
+} list0_iforeach_xprod2
+(
+  list0(INV(x)), list0(INV(y)), fwork: cfun4(intGte(0), x, intGte(0), y, void)
+) : void // end-of-function
+fun
+{x,y:t0p}
+list0_iforeach_xprod2_method
+(
+  list0(INV(x)), list0(INV(y))) (fwork: cfun4(intGte(0), x, intGte(0), y, void)
+) : void // end-of-function
+//
+overload .foreach_xprod with list0_foreach_xprod2_method
+overload .iforeach_xprod with list0_iforeach_xprod2_method
 //
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Jul 10 22:39:05 2016
+** Time of generation: Sun Jul 17 10:25:14 2016
 *)
 
 (* ****** ****** *)
@@ -750,13 +750,12 @@ end // end of [stream_tabulate_cloref]
 (* ****** ****** *)
 
 implement
-{a}{env}
-stream_foreach$cont (x, env) = true
-
-implement
 {a}(*tmp*)
-stream_foreach (xs) = let
-  var env: void = () in stream_foreach_env<a><void> (xs, env)
+stream_foreach
+  (xs) = let
+  var env: void = ()
+in
+  stream_foreach_env<a><void>(xs, env)
 end // end of [stream_foreach]
 
 implement
@@ -794,6 +793,9 @@ case+ !xs of
 in
   loop (xs, env)
 end (* end of [stream_foreach_env] *)
+
+implement(a,env)
+stream_foreach$cont<a><env>(x0, env) = true(*cont*)
 
 (* ****** ****** *)
 

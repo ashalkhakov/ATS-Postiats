@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Wed Jul 13 15:51:47 2016
+** Time of generation: Mon Jul 18 00:50:24 2016
 *)
 
 (* ****** ****** *)
@@ -154,12 +154,16 @@ stream_vt_concat
 //
 fun{a:vt0p}
 stream_vt_foreach
-  (xs: stream_vt(INV(a))): void
+  (stream_vt(INV(a))): stream_vt_con(a)
 fun{
 a:vt0p}{env:vt0p
 } stream_vt_foreach_env
-  (xs: stream_vt(INV(a)), &env >> _): void
+  (stream_vt(INV(a)), env: &env >> _): stream_vt_con(a)
 //
+fun{
+a:vt0p}{env:vt0p
+} stream_vt_foreach$cont
+  (x: &a, env: &env >> _): bool
 fun{
 a:vt0p}{env:vt0p
 } stream_vt_foreach$fwork
@@ -173,8 +177,6 @@ stream_vt_foreach_cloptr
 //
 (* ****** ****** *)
 //
-fun{a:vt0p}
-stream_vt_filter$pred(x: &a):<> bool
 fun{a:t0p}
 stream_vt_filter
   (xs: stream_vt(INV(a))): stream_vt(a)
@@ -193,6 +195,11 @@ stream_vt_filter_cloptr
 fun{a:vt0p}
 stream_vt_filterlin
   (xs: stream_vt(INV(a))): stream_vt(a)
+//
+fun{a:t0p}
+stream_vt_filter$pred(x: &a):<> bool
+fun{a:vt0p}
+stream_vt_filterlin$pred(x: &a):<> bool
 fun{a:vt0p}
 stream_vt_filterlin$clear(x: &a >> a?):<!wrt> void
 //

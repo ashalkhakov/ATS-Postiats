@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Sun Jul  3 16:27:17 2016
+** Time of generation: Mon Jul 18 22:45:08 2016
 *)
 
 (* ****** ****** *)
@@ -164,7 +164,8 @@ array_v_unsing
 
 (* ****** ****** *)
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_getref_at
   {n:int} (A: &RD(@[INV(a)][n]), i: sizeLt n):<> cPtr1(a)
 //
@@ -231,7 +232,8 @@ overload array_exch_at with array_exch_at_guint of 0
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_subreverse
  {n:int}
  {i,j:int |
@@ -242,7 +244,8 @@ array_subreverse
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_interchange
   {n:int}
 (
@@ -251,7 +254,8 @@ array_interchange
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_subcirculate
   {n:int}
 (
@@ -260,7 +264,8 @@ array_subcirculate
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_ptr_takeout
   {l:addr}{n:int}{i:nat | i < n}
 (
@@ -273,7 +278,8 @@ array_ptr_takeout
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_ptr_alloc
   {n:int}
 (
@@ -283,7 +289,8 @@ array_ptr_alloc
   array_v (a?, l, n), mfree_gc_v (l) | ptr l
 ) (* end of [array_ptr_alloc] *)
 
-fun{}
+fun
+{(*void*)}
 array_ptr_free
   {a:vt0p}{l:addr}{n:int}
 (
@@ -292,7 +299,8 @@ array_ptr_free
 
 (* ****** ****** *)
 //
-fun{}
+fun
+{(*void*)}
 fprint_array$sep (out: FILEref): void
 //
 fun{a:vt0p}
@@ -310,7 +318,8 @@ symintr fprint_array
 overload fprint_array with fprint_array_int
 overload fprint_array with fprint_array_size
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 fprint_array_sep{n:int}
 (
   out: FILEref
@@ -324,7 +333,8 @@ overload fprint with fprint_array_sep
 
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_copy{n:int}
 (
   to: &(@[a?][n]) >> @[a][n]
@@ -334,13 +344,15 @@ array_copy{n:int}
 
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 array_copy_from_list{n:int}
 (
   A: &(@[a?][n]) >> @[a][n], xs: list (INV(a), n)
 ) :<!wrt> void // end of [array_copy_from_list]
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_copy_from_list_vt{n:int}
 (
   A: &(@[a?][n]) >> @[a][n], xs: list_vt (INV(a), n)
@@ -348,7 +360,8 @@ array_copy_from_list_vt{n:int}
 //
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_copy_to_list_vt{n:int}
 (
   A: &RD(@[INV(a)][n]) >> @[a?!][n], n: size_t n
@@ -358,10 +371,12 @@ macdef array2list = array_copy_to_list_vt
 
 (* ****** ****** *)
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_tabulate$fopr(i: size_t): (a)
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array_ptr_tabulate
   {n:int}
 (
@@ -716,7 +731,7 @@ fun{a:vt0p}
 array_permute{n:int}
   (A: &(@[INV(a)][n]) >> @[a][n], n: size_t(n)): void
 //
-fun{}
+fun{(*void*)}
 array_permute$randint {n:int | n > 0} (size_t n): sizeLt (n)
 //
 (* ****** ****** *)

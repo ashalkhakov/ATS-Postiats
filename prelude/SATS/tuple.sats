@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/tuple.atxt
-** Time of generation: Sun Jul  3 11:13:14 2016
+** Time of generation: Mon Jul 18 17:43:24 2016
 *)
 
 (* ****** ****** *)
@@ -127,6 +127,46 @@ a0,a1,a2:t0p
 fun{
 a0,a1,a2,a3:t0p
 } fprint_tupbox4 (out: FILEref, x: $tup(a0, a1, a2, a3)): void
+
+(* ****** ****** *)
+
+fun{
+a0,a1:t0p
+} tupval2_equal
+  (x: @(a0, a1), y: @(a0, a1)):<> bool
+// end of [tupval2_equal]
+
+fun{
+a0,a1,a2:t0p
+} tupval3_equal
+  (x: @(a0, a1, a2), y: @(a0, a1, a2)):<> bool
+// end of [tupval3_equal]
+
+fun{
+a0,a1,a2,a3:t0p
+} tupval4_equal
+  (x: @(a0, a1, a2, a3), y: @(a0, a1, a2, a3)):<> bool
+// end of [tupval4_equal]
+
+(* ****** ****** *)
+
+fun{
+a0,a1:vt0p
+} tupref2_equal
+  (x: &(a0, a1), y: &(a0, a1)):<> bool
+// end of [tupref2_equal]
+
+fun{
+a0,a1,a2:vt0p
+} tupref3_equal
+  (x: &(a0, a1, a2), y: &(a0, a1, a2)):<> bool
+// end of [tupref3_equal]
+
+fun{
+a0,a1,a2,a3:vt0p
+} tupref4_equal
+  (x: &(a0, a1, a2, a3), y: &(a0, a1, a2, a3)):<> bool
+// end of [tupref4_equal]
 
 (* ****** ****** *)
 

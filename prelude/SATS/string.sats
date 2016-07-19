@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Sun Jul  3 11:13:14 2016
+** Time of generation: Sun Jul 17 21:46:06 2016
 *)
 
 (* ****** ****** *)
@@ -126,10 +126,12 @@ fun{}
 string_char (str: string):<> char
 
 (* ****** ****** *)
-
+//
 fun{}
-string_sing (chr: charNZ):<!wrt> strnptr (1)
-
+string_nil ((*void*)):<!wrt> strnptr(0)
+fun{}
+string_sing (chr: charNZ):<!wrt> strnptr(1)
+//
 (* ****** ****** *)
 //
 fun{

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Thu Jul 14 14:34:26 2016
+** Time of generation: Mon Jul 18 22:45:08 2016
 *)
 
 (* ****** ****** *)
@@ -527,7 +527,7 @@ overload isneqz with list_vt_is_cons
 //
 overload length with list_vt_length
 //
-overload copy with list_vt_free
+overload copy with list_vt_copy
 overload free with list_vt_free
 //
 overload print with print_list_vt

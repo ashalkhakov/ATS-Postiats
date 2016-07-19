@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Wed Jul 13 15:54:00 2016
+** Time of generation: Mon Jul 18 00:50:25 2016
 *)
 
 (* ****** ****** *)
@@ -451,7 +451,9 @@ implement
 {a}(*tmp*)
 stream_vt_foreach
   (xs) = let
-  var env: void = ()
+//
+var env: void = ((*void*))
+//
 in
   stream_vt_foreach_env<a><void> (xs, env)
 end // end of [stream_vt_foreach]
@@ -460,22 +462,46 @@ implement
 {a}{env}(*tmp*)
 stream_vt_foreach_env
   (xs, env) = let
-  val xs_con = !xs
+//
+fun
+loop
+(
+  xs: stream_vt(a)
+, env: &env >> env
+) : stream_vt_con(a) = let
+//
+val xs_con = !xs
+//
 in
 //
 case+ xs_con of
 | @stream_vt_cons
     (x, xs1) => let
-    val xs1 = xs1
-    val ((*void*)) =
-      stream_vt_foreach$fwork<a> (x, env)
-    val ((*freed*)) = free@{a}(xs_con)
+    val test =
+    stream_vt_foreach$cont<a>(x, env)
   in
-    stream_vt_foreach<a> (xs1)
+    if test
+      then let
+        val xs1 = xs1
+        val ((*void*)) =
+        stream_vt_foreach$fwork<a>(x, env)
+        val ((*freed*)) = free@{a}(xs_con)
+      in
+        loop(xs1, env)
+      end else let
+        prval((*folded*)) = fold@(xs_con) in xs_con
+      end // end of [if]
   end // end of [stream_vt_cons]
-| ~stream_vt_nil((*void*)) => ()
+| ~stream_vt_nil((*void*)) => stream_vt_nil()
 //
+end // end of [loop]
+//
+in
+  loop(xs, env)
 end // end of [stream_vt_foreach_env]
+
+implement(a,env)
+stream_vt_foreach$cont<a><env>(x0, env) = true(*cont*)
 
 (* ****** ****** *)
 
@@ -486,7 +512,10 @@ stream_vt_foreach_cloptr
 //
 fun
 loop :
-$d2ctype(stream_vt_foreach_cloptr<a>) =
+$d2ctype
+(
+  stream_vt_foreach_cloptr<a>
+) =
 lam(xs, fwork) => let
   val xs_con = !xs
 in
@@ -644,6 +673,62 @@ end : stream_vt_con(a) // end of [let]
 ) (* end of auxmain *)
 //
 } (* end of [stream_vt_filter_cloptr] *)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_vt_filterlin
+  (xs) = auxmain(xs) where
+{
+//
+fun
+auxmain
+(
+xs: stream_vt(a)
+) : stream_vt(a) = $ldelay
+(
+//
+let
+  val xs_con = !xs
+in
+//
+case+ xs_con of
+| ~stream_vt_nil
+    ((*_*)) => stream_vt_nil()
+  // end of [stream_vt_nil]
+| @stream_vt_cons
+    (x, xs1) => let
+    val test =
+      stream_vt_filterlin$pred<a>(x)
+    // end of [val]
+  in
+    if test
+      then let
+        val () =
+        xs1 := auxmain(xs1)
+      in
+        fold@{a}(xs_con); xs_con
+      end // end of [then]
+      else let
+        val () =
+          stream_vt_filterlin$clear<a>(x)
+        // end of [val]
+      in
+        let val xs1 = xs1 in free@{a}(xs_con); !(auxmain(xs1)) end
+      end // end of [else]
+    // end of [if]
+  end // end of [stream_vt_cons]
+//
+end : stream_vt_con(a) // end of [let]
+//
+,
+//
+~(xs) // called when the stream is freed
+//
+) (* end of auxmain *)
+//
+} (* end of [stream_vt_filterlin] *)
 
 (* ****** ****** *)
 

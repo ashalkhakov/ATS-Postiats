@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Thu Jul 14 14:37:00 2016
+** Time of generation: Sat Jul 16 23:33:54 2016
 *)
 
 (* ****** ****** *)
@@ -448,9 +448,16 @@ fun{x:t0p}
 list_exists$pred(x: x):<> bool
 fun{x:t0p}
 list_exists(xs: List(INV(x))):<> bool
+//
 fun{x:t0p}
 list_exists_cloref
   (xs: List(INV(x)), pred: (x) -<cloref> bool):<> bool
+fun{x:t0p}
+list_iexists_cloref
+  {n:int}
+(
+  xs: list(INV(x), n), pred: (natLt(n), x) -<cloref> bool
+) :<> bool // end of [list_iexists_cloref]
 //
 (* ****** ****** *)
 //
@@ -458,9 +465,16 @@ fun{x:t0p}
 list_forall$pred(x: x):<> bool
 fun{x:t0p}
 list_forall(xs: List(INV(x))):<> bool
+//
 fun{x:t0p}
 list_forall_cloref
   (xs: List(INV(x)), pred: (x) -<cloref> bool):<> bool
+fun{x:t0p}
+list_iforall_cloref
+  {n:int}
+(
+  xs: list(INV(x), n), pred: (natLt(n), x) -<cloref> bool
+) :<> bool // end of [list_iforall_cloref]
 //
 (* ****** ****** *)
 //
@@ -833,12 +847,21 @@ x:t0p}{env:vt0p
 (* ****** ****** *)
 
 fun{
+x:t0p
+} list_iforeach_cloref
+  {n:int}
+(
+  xs: list(INV(x), n)
+, fwork: (natLt(n), x) -<cloref1> void
+) : void // end of [list_iforeach_cloref]
+
+fun{
 x:t0p // type for elements
 } list_iforeach_funenv
   {v:view}{vt:viewtype}{n:int}{fe:eff} (
   pfv: !v |
   xs: list(INV(x), n)
-, f: (!v | natLt(n), x, !vt) -<fun,fe> void, env: !vt
+, fwork: (!v | natLt(n), x, !vt) -<fun,fe> void, env: !vt
 ) :<fe> int (n) // end of [list_iforeach_funenv]
 
 (* ****** ****** *)

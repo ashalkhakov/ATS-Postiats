@@ -29,7 +29,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/char.atxt
-** Time of generation: Sun Jul  3 11:13:13 2016
+** Time of generation: Sun Jul 17 21:46:05 2016
 *)
 
 (* ****** ****** *)
@@ -176,9 +176,11 @@ uchar2int1
 //
 (* ****** ****** *)
 //
-fun char1_iseqz
+fun
+char1_iseqz
   {c:int}(c: char(c)):<> bool(c == 0) = "mac#%"
-fun char1_isneqz
+fun
+char1_isneqz
   {c:int}(c: char(c)):<> bool(c != 0) = "mac#%"
 //
 overload iseqz with char1_iseqz of 10

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Sun Jul  3 11:13:22 2016
+** Time of generation: Mon Jul 18 00:50:24 2016
 *)
 
 (* ****** ****** *)
@@ -77,10 +77,23 @@ string_char(str) =
 
 implement
 {}(*tmp*)
+string_nil() = let
+//
+val (pfat, pfgc | p0) = malloc_gc(i2sz(1))
+val ((*void*)) = $UN.ptr0_set<char> (p0, '\000')
+//
+in
+  $UN.castvwtp0{strnptr(0)}((pfat, pfgc | p0))
+end // end of [string_nil]
+
+implement
+{}(*tmp*)
 string_sing(chr) = let
-  val (pfat, pfgc | p0) = malloc_gc(i2sz(2))
-  val ((*void*)) = $UN.ptr0_set<char> (p0, chr)
-  val ((*void*)) = $UN.ptr0_set_at<char> (p0, 1, '\000')
+//
+val (pfat, pfgc | p0) = malloc_gc(i2sz(2))
+val ((*void*)) = $UN.ptr0_set<char> (p0, chr)
+val ((*void*)) = $UN.ptr0_set_at<char> (p0, 1, '\000')
+//
 in
   $UN.castvwtp0{strnptr(1)}((pfat, pfgc | p0))
 end // end of [string_sing]

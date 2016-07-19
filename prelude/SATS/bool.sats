@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/bool.atxt
-** Time of generation: Sun Jul  3 11:13:13 2016
+** Time of generation: Mon Jul 18 12:06:28 2016
 *)
 
 (* ****** ****** *)
@@ -92,46 +92,60 @@ typedef boolLte (b: bool) = [a: bool | a <= b] bool (a)
 typedef boolGte (b: bool) = [a: bool | a >= b] bool (a)
 
 (* ****** ****** *)
-
-fun neg_bool0
+//
+fun
+neg_bool0
   (b: bool):<> bool = "mac#%"
+//
 overload ~ with neg_bool0 of 0
 overload not with neg_bool0 of 0
-
+//
 (* ****** ****** *)
-
-fun add_bool0_bool0
+//
+fun
+add_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
+fun
+mul_bool0_bool0
+  (b1: bool, b2: bool):<> bool = "mac#%"
+//
 overload + with add_bool0_bool0 of 0
-fun mul_bool0_bool0
-  (b1: bool, b2: bool):<> bool = "mac#%"
 overload * with mul_bool0_bool0 of 0
-
+//
 (* ****** ****** *)
 //
-fun xor_bool0_bool0
+fun
+xor_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 //
+overload xor with xor_bool0_bool0 of 0
+//
 (* ****** ****** *)
 
-fun lt_bool0_bool0
+fun
+lt_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload < with lt_bool0_bool0 of 0
-fun lte_bool0_bool0
+fun
+lte_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload <= with lte_bool0_bool0 of 0
 
-fun gt_bool0_bool0
+fun
+gt_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload > with gt_bool0_bool0 of 0
-fun gte_bool0_bool0
+fun
+gte_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload >= with gte_bool0_bool0 of 0
 
-fun eq_bool0_bool0
+fun
+eq_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload = with eq_bool0_bool0 of 0
-fun neq_bool0_bool0
+fun
+neq_bool0_bool0
   (b1: bool, b2: bool):<> bool = "mac#%"
 overload != with neq_bool0_bool0 of 0
 overload <> with neq_bool0_bool0 of 0
@@ -224,6 +238,8 @@ fun
 xor_bool1_bool1
   {b1,b2:bool}
   (b1: bool b1, b2: bool b2):<> bool((b1)==(~b2)) = "mac#%"
+//
+overload xor with xor_bool1_bool1 of 20
 //
 (* ****** ****** *)
 

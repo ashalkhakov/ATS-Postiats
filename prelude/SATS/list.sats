@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sat Jul 16 23:33:54 2016
+** Time of generation: Sat Jul 30 11:26:12 2016
 *)
 
 (* ****** ****** *)
@@ -490,8 +490,10 @@ list_equal_cloref
 //
 fun{
 x:t0p
-} list_find
-  (List(INV(x)), x: &(x)? >> opt(x, b)):<> #[b:bool] bool(b)
+} list_find{n:int}
+(
+  xs: list(INV(x), n), x0: &(x)? >> opt(x, i >= 0)
+) :<!wrt> #[i:int | i < n] int(i) // end-of-function
 //
 fun{x:t0p} list_find$pred (x):<> bool
 //

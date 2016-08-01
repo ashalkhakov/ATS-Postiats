@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Mon Jul 18 00:50:24 2016
+** Time of generation: Sun Jul 31 12:26:42 2016
 *)
 
 (* ****** ****** *)
@@ -61,6 +61,15 @@ stream_vt
 //
 vtypedef
 streamopt_vt(a:vt0p) = Option_vt(stream_vt(a))
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+stream_vt_is_nil(stream_vt(a)): bool
+fun
+{a:t0p}
+stream_vt_is_cons(stream_vt(a)): bool
 //
 (* ****** ****** *)
 //
@@ -96,6 +105,13 @@ fun{a:t0p}
 stream_vt_free (xs: stream_vt a):<!wrt> void
 fun{a:t0p}
 stream_vt_con_free (xs: stream_vt_con(a)):<!wrt> void
+
+(* ****** ****** *)
+
+fun{a:t0p}
+stream_vt_take
+  (xs: stream_vt(INV(a)), n: intGte(0)): List0_vt(a)
+// end of [stream_vt_take]
 
 (* ****** ****** *)
 //
@@ -149,31 +165,6 @@ stream_vt_append
 fun{a:vt0p}
 stream_vt_concat
   (xss: stream_vt(stream_vt(INV(a)))): stream_vt(a)
-//
-(* ****** ****** *)
-//
-fun{a:vt0p}
-stream_vt_foreach
-  (stream_vt(INV(a))): stream_vt_con(a)
-fun{
-a:vt0p}{env:vt0p
-} stream_vt_foreach_env
-  (stream_vt(INV(a)), env: &env >> _): stream_vt_con(a)
-//
-fun{
-a:vt0p}{env:vt0p
-} stream_vt_foreach$cont
-  (x: &a, env: &env >> _): bool
-fun{
-a:vt0p}{env:vt0p
-} stream_vt_foreach$fwork
-  (x: &a >> a?!, env: &env >> _): void // lin-cleared
-//
-fun{a:vt0p}
-stream_vt_foreach_cloptr
-(
-  stream_vt(INV(a)), fwork: (&a >> a?!) -<cloptr1> void
-) : void // end of [stream_vt_foreach_cloptr]
 //
 (* ****** ****** *)
 //
@@ -273,6 +264,41 @@ stream_vt_labelize
   (stream_vt(INV(a))): stream_vt(@(intGte(0), a))
 //
 (* ****** ****** *)
+//
+fun{a:vt0p}
+stream_vt_foreach
+  (stream_vt(INV(a))): stream_vt_con(a)
+fun{
+a:vt0p}{env:vt0p
+} stream_vt_foreach_env
+  (stream_vt(INV(a)), env: &env >> _): stream_vt_con(a)
+//
+fun{
+a:vt0p}{env:vt0p
+} stream_vt_foreach$cont
+  (x: &a, env: &env >> _): bool
+fun{
+a:vt0p}{env:vt0p
+} stream_vt_foreach$fwork
+  (x: &a >> a?!, env: &env >> _): void // lin-cleared
+//
+fun{a:vt0p}
+stream_vt_foreach_cloptr
+(
+  stream_vt(INV(a)), fwork: (&a >> a?!) -<cloptr1> void
+) : void // end of [stream_vt_foreach_cloptr]
+//
+(* ****** ****** *)
+//
+fun{
+res:vt0p
+}{a:vt0p}
+stream_vt_foldleft_cloptr
+(
+  xs: stream_vt(a), init: res, fopr: (res, &a >> a?!) -<cloptr1> res
+) : res // end of [stream_vt_foldleft_cloptr]
+//
+(* ****** ****** *)
 
 fun
 {env:t0p}{a:t0p}
@@ -347,6 +373,11 @@ overload ~ with streamer_vt_free
 (* ****** ****** *)
 
 overload [] with streamer_vt_eval_exn
+
+(* ****** ****** *)
+
+overload iseqz with stream_vt_is_nil
+overload isneqz with stream_vt_is_cons
 
 (* ****** ****** *)
 

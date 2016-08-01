@@ -57,16 +57,27 @@ ifval(test, v_then, v_else) =
   (if ,(test) then ,(v_then) else ,(v_else))
 //
 (* ****** ****** *)
+//
+macdef delay(exp) = $delay(,(exp))
+macdef raise(exn) = $raise(,(exn))
+//
+(*
+macdef effless(exp) = $effmask_all(,(exp))
+*)
+//
+(* ****** ****** *)
 
 macdef assign(lv, rv) = ,(lv) := ,(rv)
 
 (* ****** ****** *)
 
-macdef exitloc(x) = exit_errmsg (,(x), $mylocation)
+macdef
+exitloc(x) = exit_errmsg (,(x), $mylocation)
 
 (* ****** ****** *)
 
-macdef assertloc(x) = assert_errmsg (,(x), $mylocation)
+macdef
+assertloc(x) = assert_errmsg (,(x), $mylocation)
 
 (* ****** ****** *)
 //

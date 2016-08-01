@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Sun Jul 10 22:40:20 2016
+** Time of generation: Sun Jul 31 10:16:07 2016
 *)
 
 (* ****** ****** *)
@@ -70,6 +70,15 @@ fun isStreamSubscriptExn (x: !exn):<> bool = "mac#isStreamSubscriptExn"
 //
 fun{a:t0p}
 stream_sing(a):<> stream_con(a)
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+stream_is_nil(xs: stream(a)): bool
+fun
+{a:t0p}
+stream_is_cons(xs: stream(a)): bool
 //
 (* ****** ****** *)
 
@@ -339,6 +348,11 @@ fprint_stream
 
 overload [] with stream_nth_exn
 
+(* ****** ****** *)
+//
+overload iseqz with stream_is_nil
+overload isneqz with stream_is_cons
+//
 (* ****** ****** *)
 //
 overload .head with stream_head_exn

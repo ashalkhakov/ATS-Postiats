@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Jul 17 10:25:14 2016
+** Time of generation: Sun Jul 31 10:16:08 2016
 *)
 
 (* ****** ****** *)
@@ -49,6 +49,19 @@ implement
 {a}(*tmp*)
 stream_sing(x) =
   stream_cons{a}(x, $delay(stream_nil))
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stream_is_nil(xs) =
+(
+case+ !xs of
+| stream_nil _ => true | stream_cons _ => false
+)
+implement
+{a}(*tmp*)
+stream_is_cons(xs) = not(stream_is_nil<a>(xs))
 //
 (* ****** ****** *)
 //

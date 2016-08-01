@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sat Jul 16 23:38:26 2016
+** Time of generation: Sat Jul 30 11:27:18 2016
 *)
 
 (* ****** ****** *)
@@ -1107,6 +1107,42 @@ implement{y}
 list_equal$eqfn(x1, x2) = eqfn($UN.cast(x1), $UN.cast(x2))
 //
 } (* end of [list_equal_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_find
+  {n}(xs, x0) = let
+//
+prval() = lemma_list_param(xs)
+//
+fun
+loop
+{ i:nat
+| i <= n
+} .<n-i>.
+(
+  xs: list(x, n-i)
+, i: int(i), x0: &x? >> opt(x, i >= 0)
+) :<!wrt> #[i:int | i < n] int(i) =
+(
+case+ xs of
+| list_nil() =>
+  (
+    opt_none(x0); ~1
+  ) (* list_nil *)
+| list_cons(x, xs) =>
+  (
+    if list_find$pred<x>(x)
+      then (x0 := x; opt_some(x0); i) else loop(xs, i+1, x0)
+    // end of [if]
+  ) (* list_cons *)
+) (* end of [loop] *)
+//
+in
+  loop(xs, 0, x0)
+end // end of [list_find]
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Mon Jul 18 00:50:25 2016
+** Time of generation: Sun Jul 31 12:26:42 2016
 *)
 
 (* ****** ****** *)
@@ -43,6 +43,21 @@
 
 staload UN = "prelude/SATS/unsafe.sats"
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stream_vt_is_nil(xs) =
+(
+case+ !xs of
+| ~stream_vt_nil() => true
+| ~stream_vt_cons(_, xs) => (~xs; false)
+)
+implement
+{a}(*tmp*)
+stream_vt_is_cons(xs) =
+  not(stream_vt_is_nil<a>(xs))
+//
 (* ****** ****** *)
 //
 implement
@@ -183,6 +198,51 @@ stream_vt_con_free
   | ~stream_vt_nil() => () | ~stream_vt_cons(_, xs) => ~xs
 ) (* stream_vt_con_free *)
 //
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_vt_take
+  (xs, n) = let
+//
+fun
+loop
+(
+  xs: stream_vt(a)
+, rem: int, res: &ptr? >> List0_vt(a)
+) : void =
+(
+if
+(rem > 0)
+then (
+case+ !xs of
+| ~stream_vt_nil
+    () =>
+  (
+    res := list_vt_nil()
+  )
+| ~stream_vt_cons
+    (x, xs) => () where
+  {
+    val () =
+    res :=
+    list_vt_cons{a}{0}(x, _)
+    val+
+    list_vt_cons(_, res1) = res
+    val () = loop(xs, rem-1, res1)
+//
+    prval ((*folded*)) = fold@(res)
+//
+  } (* end of [stream_vt_cons] *)
+) else (
+  stream_vt_free(xs); res := list_vt_nil()
+) (* end of [if] *)
+) (* end of [loop] *)
+//
+in
+  let var res: ptr in loop(xs, n, res); res end
+end // end of [stream_vt_take]
+
 (* ****** ****** *)
 //
 implement
@@ -444,96 +504,6 @@ auxmain
 )
 //
 } (* end of [stream_vt_concat] *)
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-stream_vt_foreach
-  (xs) = let
-//
-var env: void = ((*void*))
-//
-in
-  stream_vt_foreach_env<a><void> (xs, env)
-end // end of [stream_vt_foreach]
-
-implement
-{a}{env}(*tmp*)
-stream_vt_foreach_env
-  (xs, env) = let
-//
-fun
-loop
-(
-  xs: stream_vt(a)
-, env: &env >> env
-) : stream_vt_con(a) = let
-//
-val xs_con = !xs
-//
-in
-//
-case+ xs_con of
-| @stream_vt_cons
-    (x, xs1) => let
-    val test =
-    stream_vt_foreach$cont<a>(x, env)
-  in
-    if test
-      then let
-        val xs1 = xs1
-        val ((*void*)) =
-        stream_vt_foreach$fwork<a>(x, env)
-        val ((*freed*)) = free@{a}(xs_con)
-      in
-        loop(xs1, env)
-      end else let
-        prval((*folded*)) = fold@(xs_con) in xs_con
-      end // end of [if]
-  end // end of [stream_vt_cons]
-| ~stream_vt_nil((*void*)) => stream_vt_nil()
-//
-end // end of [loop]
-//
-in
-  loop(xs, env)
-end // end of [stream_vt_foreach_env]
-
-implement(a,env)
-stream_vt_foreach$cont<a><env>(x0, env) = true(*cont*)
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-stream_vt_foreach_cloptr
-  (xs, fwork) = let
-//
-fun
-loop :
-$d2ctype
-(
-  stream_vt_foreach_cloptr<a>
-) =
-lam(xs, fwork) => let
-  val xs_con = !xs
-in
-//
-case+ xs_con of
-| ~stream_vt_nil() =>
-    cloptr_free
-      ($UN.castvwtp0{cloptr0}(fwork))
-    // cloptr_free
-| @stream_vt_cons(x, xs) =>
-    let val xs = xs in
-      fwork(x); free@{a?}(xs_con); loop(xs, fwork)
-    end // end of [let]
-end // end of [let] // end of [lam]
-//
-in
-  loop(xs, fwork)
-end // end of [stream_vt_foreach_cloptr]
 
 (* ****** ****** *)
 
@@ -997,6 +967,134 @@ in
   auxmain(0, xs)
 end // end of [stream_vt_labelize]
 
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_vt_foreach
+  (xs) = let
+//
+var env: void = ((*void*))
+//
+in
+  stream_vt_foreach_env<a><void> (xs, env)
+end // end of [stream_vt_foreach]
+
+implement
+{a}{env}(*tmp*)
+stream_vt_foreach_env
+  (xs, env) = let
+//
+fun
+loop
+(
+  xs: stream_vt(a)
+, env: &env >> env
+) : stream_vt_con(a) = let
+//
+val xs_con = !xs
+//
+in
+//
+case+ xs_con of
+| @stream_vt_cons
+    (x, xs1) => let
+    val test =
+    stream_vt_foreach$cont<a>(x, env)
+  in
+    if test
+      then let
+        val xs1 = xs1
+        val ((*void*)) =
+        stream_vt_foreach$fwork<a>(x, env)
+        val ((*freed*)) = free@{a}(xs_con)
+      in
+        loop(xs1, env)
+      end else let
+        prval((*folded*)) = fold@(xs_con) in xs_con
+      end // end of [if]
+  end // end of [stream_vt_cons]
+| ~stream_vt_nil((*void*)) => stream_vt_nil()
+//
+end // end of [loop]
+//
+in
+  loop(xs, env)
+end // end of [stream_vt_foreach_env]
+
+implement(a,env)
+stream_vt_foreach$cont<a><env>(x0, env) = true(*cont*)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_vt_foreach_cloptr
+  (xs, fwork) = let
+//
+fun
+loop :
+$d2ctype
+(
+  stream_vt_foreach_cloptr<a>
+) =
+lam(xs, fwork) => let
+  val xs_con = !xs
+in
+//
+case+ xs_con of
+| ~stream_vt_nil() =>
+    cloptr_free
+      ($UN.castvwtp0{cloptr0}(fwork))
+    // cloptr_free
+| @stream_vt_cons(x, xs) =>
+    let val xs = xs in
+      fwork(x); free@{a?}(xs_con); loop(xs, fwork)
+    end // end of [let]
+end // end of [let] // end of [lam]
+//
+in
+  loop(xs, fwork)
+end // end of [stream_vt_foreach_cloptr]
+
+(* ****** ****** *)
+//
+implement
+{res}{a}
+stream_vt_foldleft_cloptr
+  (xs, init, fopr) =
+  loop(xs, init, fopr) where
+{
+//
+fun
+loop:
+$d2ctype
+(stream_vt_foldleft_cloptr<res><a>) =
+lam
+(
+xs, res, fopr
+) => let
+  var xs_con = !xs
+in
+//
+case+
+xs_con
+of // case+
+| ~stream_vt_nil
+    () =>
+  (
+    cloptr_free($UN.castvwtp0(fopr)); res
+  ) (* end of [stream_vt_nil] *)
+| @stream_vt_cons
+    (x0, xs1) => let
+    val res = fopr(res, x0)
+    val xs1 = xs1 in free@(xs_con); loop(xs1, res, fopr)
+  end // end of [stream_vt_cons]
+//
+end // end of [loop]
+//
+} (* end of [stream_vt_foldleft_cloptr] *)
+//
 (* ****** ****** *)
 
 implement

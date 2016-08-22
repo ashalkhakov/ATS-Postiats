@@ -28,17 +28,17 @@
 /* ****** ****** */
 
 /*
-** Source:
-** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
-** Time of generation: Tue Nov 17 16:34:23 2015
+(* Author: Hongwei Xi *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Start time: April, 2012 *)
 */
 
 /* ****** ****** */
 
 /*
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: April, 2012 *)
+** Source:
+** $PATSHOME/prelude/CATS/CODEGEN/string.atxt
+** Time of generation: Sun Aug 21 20:48:36 2016
 */
 
 /* ****** ****** */

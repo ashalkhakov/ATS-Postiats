@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Sun Jul  3 11:13:16 2016
+** Time of generation: Sun Aug 21 20:48:22 2016
 *)
 
 (* ****** ****** *)
@@ -310,7 +310,7 @@ fileref_get_word$isalpha(c0: charNZ): bool
 (* ****** ****** *)
 //
 fun{}
-fileref_foreach (inp: FILEref): void
+fileref_foreach(inp: FILEref): void
 fun{
 env:vt0p
 } fileref_foreach_env(inp: FILEref, env: &(env) >> _): void

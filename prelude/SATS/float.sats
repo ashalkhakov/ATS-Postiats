@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Sun Jul  3 11:13:13 2016
+** Time of generation: Sun Aug 21 20:48:20 2016
 *)
 
 (* ****** ****** *)
@@ -141,30 +141,33 @@ overload % with g0float_mod of 0
 overload mod with g0float_mod of 0
 
 (* ****** ****** *)
-
+//
 fun{tk:tk}
-g0float_isltz (x: g0float(tk)):<> bool
+g0float_isltz(g0float(tk)):<> bool
+fun{tk:tk}
+g0float_isltez(g0float(tk)):<> bool
 overload isltz with g0float_isltz of 0
-fun{tk:tk}
-g0float_isltez (x: g0float(tk)):<> bool
 overload isltez with g0float_isltez of 0
+//
 fun{tk:tk}
-g0float_isgtz (x: g0float(tk)):<> bool
+g0float_isgtz(g0float(tk)):<> bool
+fun{tk:tk}
+g0float_isgtez(g0float(tk)):<> bool
 overload isgtz with g0float_isgtz of 0
-fun{tk:tk}
-g0float_isgtez (x: g0float(tk)):<> bool
 overload isgtez with g0float_isgtez of 0
+//
 fun{tk:tk}
-g0float_iseqz (x: g0float(tk)):<> bool
+g0float_iseqz(g0float(tk)):<> bool
+fun{tk:tk}
+g0float_isneqz(g0float(tk)):<> bool
 overload iseqz with g0float_iseqz of 0
-fun{tk:tk}
-g0float_isneqz (x: g0float(tk)):<> bool
 overload isneqz with g0float_isneqz of 0
-
+//
 (* ****** ****** *)
 //
 typedef
-g0float_cmp_type (tk:tk) =
+g0float_cmp_type
+  (tk:tk) =
   (g0float(tk), g0float(tk)) -<fun0> bool
 // end of [g0float_cmp_type]
 //
@@ -208,14 +211,15 @@ g0float_compare : g0float_compare_type(tk)
 overload compare with g0float_compare of 0
 //
 (* ****** ****** *)
-
+//
 fun{tk:tk}
 g0float_max : g0float_aop_type(tk)
-overload max with g0float_max of 0
 fun{tk:tk}
 g0float_min : g0float_aop_type(tk)
+//
+overload max with g0float_max of 0
 overload min with g0float_min of 0
-
+//
 (* ****** ****** *)
 
 fun g0float_neg_float
@@ -375,19 +379,21 @@ overload fprint with fprint_ldouble
 //
 fun
 add_int_float
-  (x: int, y: float):<> float = "mac#%"
+  (int, float):<> float = "mac#%"
 fun
 add_float_int
-  (x: float, y: int):<> float = "mac#%"
+  (float, int):<> float = "mac#%"
+//
 overload + with add_int_float of 0
 overload + with add_float_int of 0
 //
 fun
 add_int_double
-  (x: int, y: double):<> double = "mac#%"
+  (int, double):<> double = "mac#%"
 fun
 add_double_int
-  (x: double, y: int):<> double = "mac#%"
+  (double, int):<> double = "mac#%"
+//
 overload + with add_int_double of 0
 overload + with add_double_int of 0
 //
@@ -395,19 +401,21 @@ overload + with add_double_int of 0
 //
 fun
 sub_int_float
-  (x: int, y: float):<> float = "mac#%"
+  (int, float):<> float = "mac#%"
 fun
 sub_float_int
-  (x: float, y: int):<> float = "mac#%"
+  (float, int):<> float = "mac#%"
+//
 overload - with sub_int_float of 0
 overload - with sub_float_int of 0
 //
 fun
 sub_int_double
-  (x: int, y: double):<> double = "mac#%"
+  (int, double):<> double = "mac#%"
 fun
 sub_double_int
-  (x: double, y: int):<> double = "mac#%"
+  (double, int):<> double = "mac#%"
+//
 overload - with sub_int_double of 0
 overload - with sub_double_int of 0
 //
@@ -415,19 +423,21 @@ overload - with sub_double_int of 0
 //
 fun
 mul_int_float
-  (x: int, y: float):<> float = "mac#%"
+  (int, float):<> float = "mac#%"
 fun
 mul_float_int
-  (x: float, y: int):<> float = "mac#%"
+  (float, int):<> float = "mac#%"
+//
 overload * with mul_int_float of 0
 overload * with mul_float_int of 0
 //
 fun
 mul_int_double
-  (x: int, y: double):<> double = "mac#%"
+  (int, double):<> double = "mac#%"
 fun
 mul_double_int
-  (x: double, y: int):<> double = "mac#%"
+  (double, int):<> double = "mac#%"
+//
 overload * with mul_int_double of 0
 overload * with mul_double_int of 0
 //
@@ -435,19 +445,19 @@ overload * with mul_double_int of 0
 //
 fun
 div_int_float
-  (x: int, y: float):<> float = "mac#%"
+  (int, float):<> float = "mac#%"
 fun
 div_float_int
-  (x: float, y: int):<> float = "mac#%"
+  (float, int):<> float = "mac#%"
 overload / with div_int_float of 0
 overload / with div_float_int of 0
 //
 fun
 div_int_double
-  (x: int, y: double):<> double = "mac#%"
+  (int, double):<> double = "mac#%"
 fun
 div_double_int
-  (x: double, y: int):<> double = "mac#%"
+  (double, int):<> double = "mac#%"
 overload / with div_int_double of 0
 overload / with div_double_int of 0
 //

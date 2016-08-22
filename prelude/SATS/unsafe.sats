@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Sun Jul  3 11:13:15 2016
+** Time of generation: Sun Aug 21 20:48:22 2016
 *)
 
 (* ****** ****** *)
@@ -185,6 +185,18 @@ fun{a:vt0p} ptr1_exch (p: Ptr1, x: &INV(a) >> a):<!wrt> void
 //
 fun{a:vt0p} ptr0_intch (p1: ptr, p2: ptr):<!wrt> void
 fun{a:vt0p} ptr1_intch (p1: Ptr1, p2: Ptr1):<!wrt> void
+//
+(* ****** ****** *)
+//
+fun{a:vt0p}
+ptr0_getinc(p: &ptr >> _): a
+fun{a:vt0p}
+ptr1_getinc{l:addr}(p: &ptr(l) >> ptr(l+sizeof(a))): a
+//
+fun{a:vt0p}
+ptr0_setinc(p: &ptr >> _, x: a): void
+fun{a:vt0p}
+ptr1_setinc{l:addr}(p: &ptr(l) >> ptr(l+sizeof(a)), x: a): void
 //
 (* ****** ****** *)
 //

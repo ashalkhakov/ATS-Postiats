@@ -28,7 +28,8 @@ Here is a list of major additions and changes since the last release:
 4. Reorganizing prelude/integer into
    integer_long, integer_size, and integer_short
    (Note that there are also integer_ptr and integer_fixed)
-
+5. Adding support for codegen2_absrec (for generating record interface)
+  
 ######
 
 0.2.9

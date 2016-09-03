@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/pointer.atxt
-** Time of generation: Sun Aug 21 20:48:27 2016
+** Time of generation: Sun Aug 28 11:09:39 2016
 *)
 
 (* ****** ****** *)
@@ -148,26 +148,68 @@ end // end of [aptr_make_elt]
 implement
 {a}(*tmp*)
 aptr_getfree_elt
-  {l}(ap) = x where
+  {l}(ap) = x0 where
 {
-  val p = aptr2ptr(ap)
-  val x = $UN.ptr1_get<a>(p)
-  prval
-  pfat_ = $UN.castview0{(a?)@l}(0)
-  prval
-  pfgc_ = $UN.castview0{mfree_gc_v(l)}(0)
-  val () = ptr_free{a?}{l}(pfgc_, pfat_ | p)
-  prval () = $UN.cast2void(ap)
+//
+val p0 = aptr2ptr(ap)
+val x0 = $UN.ptr1_get<a>(p0)
+//
+prval
+pfat_ = $UN.castview0{(a?)@l}(0)
+prval
+pfgc_ = $UN.castview0{mfree_gc_v(l)}(0)
+val () = ptr_free{a?}{l}(pfgc_, pfat_ | p0)
+//
+prval () = $UN.cast2void(ap)
+//
 } (* end of [aptr_getfree_elt] *)
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-aptr_get_elt(ap) = $UN.ptr1_get<a>(aptr2ptr(ap))
+aptr_get_elt(ap) =
+  $UN.ptr1_get<a>(aptr2ptr(ap))
 implement
 {a}(*tmp*)
-aptr_set_elt(ap, x) = $UN.ptr1_set<a>(aptr2ptr(ap), x)
+aptr_set_elt(ap, x0) =
+  $UN.ptr1_set<a>(aptr2ptr(ap), x0)
+//
+implement
+{a}(*tmp*)
+aptr_exch_elt(ap, x0) =
+  $UN.ptr1_exch<a>(aptr2ptr(ap), x0)
+//
+(* ****** ****** *)
+//
+//
+implement
+{a}(*tmp*)
+aptr_vtget0_elt
+  {l}(ap) = x0 where
+{
+//
+val x0 =
+  $UN.ptr1_get<a>(aptr2ptr(ap))
+//
+prval () = $UN.castvwtp2void(ap)
+//
+} (* end of [aptr_vtget0_elt] *)
+//
+implement
+{a}(*tmp*)
+aptr_vtget1_elt
+  {l}(ap) = let
+//
+val x0 =
+  $UN.ptr1_get<a>(aptr2ptr(ap))
+//
+vtypedef
+res_vt = (minus_v(aptr(a,l),a) | a)
+//
+in
+  $UN.castvwtp0{res_vt}(x0)
+end // end of [aptr_vtget1_elt]
 //
 (* ****** ****** *)
 

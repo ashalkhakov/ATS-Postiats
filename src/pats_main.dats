@@ -293,6 +293,7 @@ dynload "pats_trans2_decl.dats"
 //
 dynload "pats_codegen2.dats"
 dynload "pats_codegen2_util.dats"
+dynload "pats_codegen2_absrec.dats"
 dynload "pats_codegen2_datype.dats"
 dynload "pats_codegen2_fprint.dats"
 //

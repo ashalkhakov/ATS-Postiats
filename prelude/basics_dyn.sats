@@ -216,21 +216,34 @@ mfree_gc_v_elim
 praxi
 mfree_gcngc_v_nullify
   {l:addr} (
-  pf1: mfree_gc_v (l), pf1: mfree_ngc_v (l)
+  pf1: mfree_gc_v(l), pf1: mfree_ngc_v(l)
 ) : void // end of [mfree_gcngc_nullify_v]
 
 (* ****** ****** *)
 //
 fun
 cloptr_free
-  {a:t0p}(pclo: cloptr (a)):<!wrt> void = "mac#%"
+  {a:t0p}
+  (pclo: cloptr(a)):<!wrt> void = "mac#%"
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
-lazy_force (lazyval: lazy (a)):<!laz> a
-fun{a:vt0p}
-lazy_vt_force (lazyval: lazy_vt (a)): (a)
+fun
+{a:t0p}
+lazy_force(lazyval: lazy(INV(a))):<!laz> (a)
+//
+fun
+{a:vt0p}
+lazy_vt_force(lazyval: lazy_vt(INV(a))):<!all> (a)
+//
+(*
+//
+// HX-2016-08:
+// this is assumed internally!
+//
+overload ! with lazy_force of 0
+overload ! with lazy_vt_force of 0
+*)
 //
 (* ****** ****** *)
 //
@@ -239,8 +252,10 @@ lazy_vt_force (lazyval: lazy_vt (a)): (a)
 //
 fun
 lazy_vt_free
-  {a:vt0p} (lazyval: lazy_vt (a)):<!wrt> void = "mac#%"
-overload ~ with lazy_vt_free
+  {a:vt0p}
+  (lazyval: lazy_vt(a)):<!wrt> void = "mac#%"
+//
+overload ~ with lazy_vt_free of 0
 //
 (* ****** ****** *)
 //
@@ -295,11 +310,11 @@ stamp_vt{a:vt@ype}(x: a):<> stamped_vt(a)
 
 castfn
 unstamp_t
-  {a:t@ype}{x:int} (x: stamped_t (INV(a), x)):<> a
+  {a:t@ype}{x:int}(x: stamped_t(INV(a), x)):<> a
 // end of [unstamp_t]
 castfn
 unstamp_vt
-  {a:vt@ype}{x:int} (x: stamped_vt (INV(a), x)):<> a
+  {a:vt@ype}{x:int}(x: stamped_vt(INV(a), x)):<> a
 // end of [unstamp_vt]
 
 (* ****** ****** *)
@@ -307,25 +322,27 @@ unstamp_vt
 castfn
 stamped_t2vt
   {a:t@ype}{x:int}
-  (x: stamped_t(INV(a), x)):<> stamped_vt (a, x)
+  (x: stamped_t(INV(a), x)):<> stamped_vt(a, x)
 // end of [stamped_t2vt]
 //
 castfn
 stamped_vt2t
   {a:t@ype}{x:int}
-  (x: stamped_vt(INV(a), x)):<> stamped_t (a, x)
+  (x: stamped_vt(INV(a), x)):<> stamped_t(a, x)
 // end of [stamped_vt2t]
 //
 fun{a:t@ype}
 stamped_vt2t_ref{x:int}
-  (x: &stamped_vt(INV(a), x)):<> stamped_t (a, x)
+  (x: &stamped_vt(INV(a), x)):<> stamped_t(a, x)
 //
 (* ****** ****** *)
 //
 praxi
-vcopyenv_v_decode{v:view} (x: vcopyenv_v (v)): vtakeout0 (v)
+vcopyenv_v_decode
+  {v:view}(x: vcopyenv_v(v)): vtakeout0(v)
 castfn
-vcopyenv_vt_decode{vt:vt0p} (x: vcopyenv_vt (vt)): vttakeout0 (vt)
+vcopyenv_vt_decode
+  {vt:vt0p}(x: vcopyenv_vt(vt)): vttakeout0(vt)
 //
 overload decode with vcopyenv_v_decode
 overload decode with vcopyenv_vt_decode
@@ -335,13 +352,15 @@ overload decode with vcopyenv_vt_decode
 // HX: the_null_ptr = (void*)0
 //
 val
-the_null_ptr : ptr (null) = "mac#atsptr_null"
+the_null_ptr
+  : ptr(null) = "mac#atsptr_null"
 //
 (* ****** ****** *)
-
+//
 praxi
-lemma_addr_param{l:addr} (): [l >= null] void
-
+lemma_addr_param
+  {l:addr}((*void*)): [l >= null] void
+//
 (* ****** ****** *)
 
 praxi
@@ -395,6 +414,7 @@ praxi __vfree_exn (x: exn):<> void // for freeing nullary exception-con
 datatype unit = unit of ()
 dataprop unit_p = unit_p of ()
 dataview unit_v = unit_v of ()
+datavtype unit_vt = unit_vt of ()
 //
 prfun unit_v_elim (pf: unit_v): void
 //

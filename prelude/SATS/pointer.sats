@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Sun Aug 21 20:48:18 2016
+** Time of generation: Sun Aug 28 11:09:38 2016
 *)
 
 (* ****** ****** *)
@@ -499,7 +499,7 @@ stadef aPtr0 (a:vt0p) = [l:addr] aptr (a, l)
 stadef aPtr1 (a:vt0p) = [l:addr | l > null] aptr (a, l)
 //
 castfn
-aptr2ptr{a:vt0p}{l:addr} (ap: !aptr (a, l)):<> ptr (l)
+aptr2ptr{a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> ptr(l)
 //
 (* ****** ****** *)
 //
@@ -512,16 +512,30 @@ aptr_getfree_elt{l:agz}(aptr(a, l)):<!wrt> (a)
 //
 fun
 {a:t0p}
-aptr_get_elt{l:agz}(ap: !aptr(INV(a), l)):<!wrt> a
+aptr_get_elt{l:agz}(ap: !aptr(INV(a), l)):<!wrt> (a)
 fun
 {a:t0p}
-aptr_set_elt{l:agz}(ap: !aptr(INV(a), l) >> _, x: a):<!wrt> void
+aptr_set_elt
+  {l:agz}(ap: !aptr(INV(a), l) >> _, x: a):<!wrt> void
 fun
 {a:t0p}
-aptr_exch_elt{l:agz}(ap: !aptr(INV(a), l) >> _, x: &(a)>>_):<!wrt> void
+aptr_exch_elt
+  {l:agz}(ap: !aptr(INV(a), l) >> _, x: &(a)>>_):<!wrt> void
 //
 overload [] with aptr_get_elt
 overload [] with aptr_set_elt
+//
+(* ****** ****** *)
+//
+fun aptr_null{a:vt0p}():<> aptr(a, null) = "mac#%"
+//
+fun aptr_is_null
+  {a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> bool(l==null) = "mac#%"
+fun aptr_isnot_null
+  {a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> bool(l > null) = "mac#%"
+//
+overload iseqz with aptr_is_null
+overload isneqz with aptr_isnot_null
 //
 (* ****** ****** *)
 //

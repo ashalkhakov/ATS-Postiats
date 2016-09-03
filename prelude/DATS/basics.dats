@@ -76,14 +76,14 @@ primplmnt eqbool_make () = EQBOOL ()
 primplmnt eqbool_make_bool (x) = EQBOOL ()
 
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
 lazy_force (lazyval) = !lazyval
 implement
 {a}(*tmp*)
 lazy_vt_force (lazyval) = !lazyval
-
+//
 (* ****** ****** *)
 //
 implement

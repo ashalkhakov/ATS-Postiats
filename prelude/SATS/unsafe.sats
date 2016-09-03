@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Sun Aug 21 20:48:22 2016
+** Time of generation: Wed Aug 31 15:30:31 2016
 *)
 
 (* ****** ****** *)
@@ -118,9 +118,18 @@ praxi cast2void{a:vt0p}(x: INV(a)):<prf> void
 praxi castview0 {to:view}{from:view} (pf: from):<prf> to
 praxi castview1 {to:view}{from:view} (pf: !INV(from)):<prf> to
 //
-praxi castview2void {to:view}{from:view} (x: !INV(from) >> to):<prf> void
+(* ****** ****** *)
 //
-praxi castvwtp2void {to:vt0p}{from:vt0p} (x: !INV(from) >> to):<prf> void
+praxi
+castview2void
+  {to:view}{from:view}(x: !INV(from) >> to):<prf> void
+praxi
+castvwtp2void
+  {to:vt0p}{from:vt0p}(x: !INV(from) >> to):<prf> void
+//
+praxi
+castview2void_at
+  {to:vt0p}{from:vt0p}{l:addr}(x: !INV(from@l) >> to@l):<prf> void
 //
 (* ****** ****** *)
 

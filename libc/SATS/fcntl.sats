@@ -52,7 +52,7 @@ RD(a:vt0p) = a // for commenting: read-only
 //
 staload
 TYPES =
-"libc/sys/SATS/types.sats"
+"libc/SATS/sys/types.sats"
 //
 typedef mode_t = $TYPES.mode_t
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Sun Aug 21 20:48:30 2016
+** Time of generation: Mon Sep  5 11:12:14 2016
 *)
 
 (* ****** ****** *)
@@ -58,7 +58,7 @@ vtypedef FILEptr1 = $STDIO.FILEptr1 (*linear/nonnull*)
 
 (* ****** ****** *)
 
-staload STAT = "libc/sys/SATS/stat.sats"
+staload STAT = "libc/SATS/sys/stat.sats"
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Sun Aug 28 11:09:38 2016
+** Time of generation: Mon Sep  5 11:12:02 2016
 *)
 
 (* ****** ****** *)
@@ -182,23 +182,32 @@ fun neq_ptr0_ptr0
 overload != with neq_ptr0_ptr0 of 0
 overload <> with neq_ptr0_ptr0 of 0
 
-fun compare_ptr0_ptr0
-  (p1: ptr, p2: ptr):<> int = "mac#%"
-overload compare with compare_ptr0_ptr0 of 0
-
 (* ****** ****** *)
-
-fun gt_ptr0_intz
+//
+fun
+compare_ptr0_ptr0
+  (p1: ptr, p2: ptr):<> int = "mac#%"
+//
+overload compare with compare_ptr0_ptr0 of 0
+//
+(* ****** ****** *)
+//
+fun
+gt_ptr0_intz
   (p: ptr, i: int(0)):<> bool = "mac#%"
+//
+fun
+eq_ptr0_intz
+  (p: ptr, i: int(0)):<> bool = "mac#%"
+fun
+neq_ptr0_intz
+  (p: ptr, i: int(0)):<> bool = "mac#%"
+//
 overload > with gt_ptr0_intz of 0
-fun eq_ptr0_intz
-  (p: ptr, i: int(0)):<> bool = "mac#%"
 overload = with eq_ptr0_intz of 0
-fun neq_ptr0_intz
-  (p: ptr, i: int(0)):<> bool = "mac#%"
 overload != with neq_ptr0_intz of 0
 overload <> with neq_ptr0_intz of 0
-
+//
 (* ****** ****** *)
 
 (*
@@ -365,18 +374,22 @@ fun compare_ptr1_ptr1
 overload compare with compare_ptr1_ptr1 of 20
 
 (* ****** ****** *)
-
-fun gt_ptr1_intz {l:addr}
-  (p: ptr l, i: int(0)):<> bool(l > null) = "mac#%"
+//
+fun
+gt_ptr1_intz{l:addr}
+  (p: ptr(l), i: int(0)):<> bool(l > null) = "mac#%"
+fun
+eq_ptr1_intz{l:addr}
+  (p: ptr(l), i: int(0)):<> bool(l== null) = "mac#%"
+fun
+neq_ptr1_intz{l:addr}
+  (p: ptr(l), i: int(0)):<> bool(l > null) = "mac#%"
+//
 overload > with gt_ptr1_intz of 10
-fun eq_ptr1_intz {l:addr}
-  (p: ptr l, i: int(0)):<> bool(l == null) = "mac#%"
 overload = with eq_ptr1_intz of 10
-fun neq_ptr1_intz {l:addr}
-  (p: ptr l, i: int(0)):<> bool(l > null) = "mac#%"
 overload != with neq_ptr1_intz of 10
 overload <> with neq_ptr1_intz of 10
-
+//
 (* ****** ****** *)
 //
 // HX: implemented in [prelude/DATS/pointer.dats]
@@ -404,31 +417,56 @@ cptr_vt0ype_addr_type
 //
 stadef cptr = cptr_vt0ype_addr_type
 stadef cPtr0 (a:vt0p) = [l:addr] cptr (a, l)
-stadef cPtr1 (a:vt0p) = [l:addr | l > null] cptr (a, l)
+stadef cPtr1 (a:vt0p) = [l:addr | l > null] cptr(a, l)
 //
 castfn
-cptr2ptr{a:vt0p}{l:addr} (p: cptr (a, l)):<> ptr (l)
+cptr2ptr{a:vt0p}{l:addr} (cp: cptr(a, l)):<> ptr(l)
 //
 (* ****** ****** *)
 //
-fun cptr_null{a:vt0p} ():<> cptr (a, null) = "mac#%"
+fun cptr_null{a:vt0p} ():<> cptr(a, null) = "mac#%"
 //
-castfn cptr_rvar{a:vt0p} (x: &INV(a)):<> cPtr1 (a) // read
-castfn cptr_wvar{a:vt0p} (x: &a? >> a):<> cPtr1 (a) // write
-//
-(* ****** ****** *)
-//
-fun cptr_succ
-  {a:vt0p}{l:addr} (p: cptr (a, l)):<> cptr (a, l+sizeof(a))
-fun cptr_pred
-  {a:vt0p}{l:addr} (p: cptr (a, l)):<> cptr (a, l-sizeof(a))
+castfn cptr_rvar{a:vt0p} (x: &INV(a)):<> cPtr1(a) // read
+castfn cptr_wvar{a:vt0p} (x: &a? >> a):<> cPtr1(a) // write
 //
 (* ****** ****** *)
 //
-fun cptr_is_null
-  {a:vt0p}{l:addr} (p: cptr (a, l)):<> bool (l==null) = "mac#%"
-fun cptr_isnot_null
-  {a:vt0p}{l:addr} (p: cptr (a, l)):<> bool (l > null) = "mac#%"
+fun
+{a:vt0p}
+cptr_succ{l:addr}(cp: cptr(a, l)):<> cptr(a, l+sizeof(a))
+fun
+{a:vt0p}
+cptr_pred{l:addr}(cp: cptr(a, l)):<> cptr(a, l-sizeof(a))
+//
+(* ****** ****** *)
+//
+fun
+cptr_is_null
+  {a:vt0p}{l:addr}(cp: cptr(a, l)):<> bool(l==null) = "mac#%"
+fun
+cptr_isnot_null
+  {a:vt0p}{l:addr}(cp: cptr(a, l)):<> bool(l > null) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+gt_cptr_intz
+  {a:vt0p}{l:addr}
+  (cp: cptr(a, l), i: int(0)):<> bool(l > null) = "mac#%"
+//
+fun
+eq_cptr_intz
+  {a:vt0p}{l:addr}
+  (cp: cptr(a, l), i: int(0)):<> bool(l== null) = "mac#%"
+fun
+neq_cptr_intz
+  {a:vt0p}{l:addr}
+  (cp: cptr(a, l), i: int(0)):<> bool(l > null) = "mac#%"
+//
+overload > with gt_cptr_intz of 0
+overload = with eq_cptr_intz of 0
+overload != with neq_cptr_intz of 0
+overload <> with neq_cptr_intz of 0
 //
 (* ****** ****** *)
 

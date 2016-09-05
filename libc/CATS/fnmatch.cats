@@ -52,8 +52,10 @@
 
 /* ****** ****** */
 
-#define atslib_fnmatch_null(pat, str) fnmatch((char*)pat, (char*)str, 0)
-#define atslib_fnmatch_flags(pat, str, flags) fnmatch((char*)pat, (char*)str, flags)
+#define \
+atslib_fnmatch_null(pat, str) fnmatch((char*)pat, (char*)str, 0)
+#define \
+atslib_fnmatch_flags(pat, str, flags) fnmatch((char*)pat, (char*)str, flags)
 
 /* ****** ****** */
 

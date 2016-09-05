@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/pointer.atxt
-** Time of generation: Sun Aug 28 11:09:40 2016
+** Time of generation: Mon Sep  5 11:12:19 2016
 */
 
 /* ****** ****** */
@@ -198,7 +198,7 @@ atspre_eq_ptr_intz
 } // end of [atspre_eq_ptr_intz]
 #define atspre_eq_ptr0_intz atspre_eq_ptr_intz
 #define atspre_eq_ptr1_intz atspre_eq_ptr_intz
-
+  
 ATSinline()
 atstype_bool
 atspre_neq_ptr_intz
@@ -223,6 +223,12 @@ atspre_neq_ptr_intz
 #define atspre_cptr_is_null atspre_ptr_is_null
 #define atspre_cptr_isnot_null atspre_ptr_isnot_null
 //
+/* ****** ****** */
+
+#define atspre_gt_cptr_intz atspre_gt_ptr_intz
+#define atspre_eq_cptr_intz atspre_eq_ptr_intz
+#define atspre_neq_cptr_intz atspre_neq_ptr_intz
+
 /* ****** ****** */
 //
 #define atspre_ptr_free atspre_mfree_gc

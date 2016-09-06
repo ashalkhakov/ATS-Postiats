@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Mon Sep  5 11:12:14 2016
+** Time of generation: Mon Sep  5 21:52:43 2016
 *)
 
 (* ****** ****** *)
@@ -41,25 +41,30 @@
 
 (* ****** ****** *)
 
-#define ATS_DYNLOADFLAG 0 // no dynloading at run-time
+#define
+ATS_DYNLOADFLAG 0 // no dynloading at run-time
 
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-staload _(*anon*) = "prelude/DATS/integer.dats"
+staload
+_(*INT*) = "prelude/DATS/integer.dats"
 
 (* ****** ****** *)
 
-staload STDIO = "libc/SATS/stdio.sats"
-vtypedef FILEptr1 = $STDIO.FILEptr1 (*linear/nonnull*)
-
+staload
+STDIO = "libats/libc/SATS/stdio.sats"
+vtypedef
+FILEptr1 = $STDIO.FILEptr1 (*linear/nonnull*)
+//
 (* ****** ****** *)
-
-staload STAT = "libc/SATS/sys/stat.sats"
-
+//
+staload STAT = "libats/libc/SATS/sys/stat.sats"
+//
 (* ****** ****** *)
 
 #define c2i char2int0
@@ -654,7 +659,8 @@ fun loop
 //
 #define CNUL '\000'
 //
-val nw = $extfcall (size_t, "atslib_fread", p1, 1, n1, inp)
+val nw =
+$extfcall(size_t, "atslib_libc_fread", p1, 1, n1, inp)
 //
 in (* in-of-let *)
 //
@@ -682,7 +688,9 @@ and loop2
   val bsz2 = g1ofg0(bsz + bsz)
   val (pf, pfgc | p0_) = malloc_gc (bsz2)
   val p0_ = $UN.castvwtp0{ptr}((pf, pfgc | p0_))
-  val _(*ptr*) = $extfcall (ptr, "atslib_memcpy", p0_, p0, n0)
+//
+  val _(*ptr*) = $extfcall(ptr, "atslib_libc_memcpy", p0_, p0, n0)
+//
   val () = strptr_free ($UN.castvwtp0{Strptr1}(p0))
   val n0_ = pred(g0ofg1(bsz2))
   val p1_ = add_ptr_bsz (p0_, n0)
@@ -845,11 +853,15 @@ end // end of [fileref_foreach]
 
 local
 //
-staload "libc/SATS/stdio.sats"
+staload
+"libats/libc/SATS/stdio.sats"
 //
 extern
-fun fread
-  (ptr, size_t, size_t, FILEref): Size = "mac#atslib_fread"
+fun
+fread
+(
+  ptr, size_t, size_t, FILEref
+) : Size = "mac#atslib_libc_fread"
 //
 in (* in of [local] *)
 

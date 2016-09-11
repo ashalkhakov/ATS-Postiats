@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Mon Sep  5 21:48:33 2016
+** Time of generation: Sun Sep 11 18:59:47 2016
 *)
 
 (* ****** ****** *)
@@ -273,7 +273,7 @@ ptr1_list_next(p: Ptr1): Ptr0 // HX: &(p->next)
 // HX: only if you know what you are doing ...
 //
 castfn
-ptr2cptr{a:vt0p}{l:addr} (p: ptr(l)):<> cptr(a, l)
+ptr2cptr{a:vt0p}{l:addr}(p: ptr(l)):<> cptr(a, l)
 //
 (* ****** ****** *)
 //

@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer_short.atxt
-** Time of generation: Mon Sep  5 21:48:40 2016
+** Time of generation: Sun Oct  2 10:33:53 2016
 *)
 
 (* ****** ****** *)

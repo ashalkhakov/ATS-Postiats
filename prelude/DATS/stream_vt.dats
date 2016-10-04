@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Mon Sep  5 21:48:45 2016
+** Time of generation: Sun Oct  2 22:36:27 2016
 *)
 
 (* ****** ****** *)
@@ -67,15 +67,17 @@ stream_vt_make_nil
 //
 implement
 {a}(*tmp*)
+stream_vt_make_cons(x, xs) =
+$ldelay(
+  stream_vt_cons(x, xs), $effmask_wrt(~xs)
+)(*$ldelay*)
+//
+implement
+{a}(*tmp*)
 stream_vt_make_sing(x) =
-(
+stream_vt_make_cons<a>(x, stream_vt_make_nil())
 //
-$ldelay
-(
-stream_vt_cons(x, $ldelay(stream_vt_nil))
-) (* $ldelay *)
-//
-) (* stream_vt_make_sing *)
+(* ****** ****** *)
 //
 implement
 {a}(*tmp*)
@@ -309,28 +311,28 @@ end // end of [stream_vt_drop_opt]
 //
 implement
 {a}(*tmp*)
-stream_vt_head(xs) =
+stream_vt_head_exn(xs) =
 (
 case+ !xs of
 | ~stream_vt_cons (x, xs) =>
     let val () = stream_vt_free(xs) in x end
 | ~stream_vt_nil ((*void*)) => $raise StreamSubscriptExn()
-) (* end of [stream_vt_head] *)
+) (* end of [stream_vt_head_exn] *)
 //
 implement
 {a}(*tmp*)
-stream_vt_tail(xs) =
+stream_vt_tail_exn(xs) =
 (
 case+ !xs of
 | ~stream_vt_cons (x, xs) => (xs)
 | ~stream_vt_nil ((*void*)) => $raise StreamSubscriptExn()
-) (* end of [stream_vt_tail] *)
+) (* end of [stream_vt_tail_exn] *)
 //
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-stream_vt_uncons(xs0) =
+stream_vt_uncons_exn(xs0) =
 (
 case+ !xs0 of
 | ~stream_vt_cons
@@ -342,7 +344,7 @@ case+ !xs0 of
   in
     $raise StreamSubscriptExn((*void*))
   end // end of [stream_vt_nil]
-) (* end of [stream_vt_uncons] *)
+) (* end of [stream_vt_uncons_exn] *)
 
 implement
 {a}(*tmp*)

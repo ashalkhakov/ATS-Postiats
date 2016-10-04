@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Mon Sep  5 21:52:43 2016
+** Time of generation: Sun Oct  2 10:33:56 2016
 *)
 
 (* ****** ****** *)
@@ -951,15 +951,20 @@ in
     then (
       stream_vt_cons(int2char0(c0), auxmain(inp))
     ) else (
-      fileref_close(inp); stream_vt_nil((*void*))
+(*
+      fileref_close(inp); // HX: FILEref is not freed!
+*)
+      stream_vt_nil((*void*))
     ) (* else *)
   // end of [[if]
 end : stream_vt_con(elt)
 //
+(*
 ,
 //
-fileref_close(inp) // called when the stream is freed
+fileref_close(inp) // HX-2016-09-12: FILEref is not freed!
 //
+*)
 ) (* end of [auxmain] *)
 //
 } (* end of [streamize_fileref_char] *)
@@ -987,9 +992,11 @@ let
 in
   if iseof
     then let
+(*
       val () =
         fileref_close(inp)
       // end of [val]
+*)
     in
       stream_vt_nil((*void*))
     end // end of [then]
@@ -1002,10 +1009,12 @@ in
     end // end of [else]
 end : stream_vt_con(elt)
 //
+(*
 ,
 //
-fileref_close(inp) // called when the stream is freed
+fileref_close(inp) // HX-2016-09-12: FILEref is not freed!
 //
+*)
 ) (* end of [auxmain] *)
 //
 } (* end of [streamize_fileref_line] *)

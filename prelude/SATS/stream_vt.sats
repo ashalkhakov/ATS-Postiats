@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Mon Sep  5 21:48:37 2016
+** Time of generation: Mon Oct  3 09:01:09 2016
 *)
 
 (* ****** ****** *)
@@ -77,10 +77,15 @@ fun
 {a:vt0p}
 stream_vt_make_nil():<> stream_vt(a)
 fun{a:t0p}
+stream_vt_make_cons
+  (a, stream_vt(INV(a))):<> stream_vt(a)
+//
+fun{a:t0p}
 stream_vt_make_sing(x: a):<> stream_vt(a)
 //
 fun{a:t0p}
-stream_vt_make_con(stream_vt_con(a)):<> stream_vt(a)
+stream_vt_make_con
+  (xs_con: stream_vt_con(INV(a))):<> stream_vt(a)
 //
 (* ****** ****** *)
 //
@@ -128,24 +133,24 @@ stream_vt_drop_opt
 (* ****** ****** *)
 //
 fun{a:t0p}
-stream_vt_head
-  (stream_vt(INV(a))):<!exnwrt> (a)
-fun{a:t0p}
-stream_vt_tail
-  (stream_vt(INV(a))):<!exnwrt> stream_vt(a)
-//
-fun{a:vt0p}
-stream_vt_uncons
-  (xs: &stream_vt(INV(a)) >> _):<!exnwrt> (a)
-fun{a:vt0p}
-stream_vt_uncons_opt
-  (xs: &stream_vt(INV(a)) >> _):<!exnwrt> Option_vt(a)
+stream_vt_length
+  (xs: stream_vt(INV(a))):<!wrt> intGte(0)
 //
 (* ****** ****** *)
 //
 fun{a:t0p}
-stream_vt_length
-  (xs: stream_vt(INV(a))):<!wrt> intGte(0)
+stream_vt_head_exn
+  (stream_vt(INV(a))):<!exnwrt> (a)
+fun{a:t0p}
+stream_vt_tail_exn
+  (stream_vt(INV(a))):<!exnwrt> stream_vt(a)
+//
+fun{a:vt0p}
+stream_vt_uncons_exn
+  (xs: &stream_vt(INV(a)) >> _):<!exnwrt> (a)
+fun{a:vt0p}
+stream_vt_uncons_opt
+  (xs: &stream_vt(INV(a)) >> _):<!exnwrt> Option_vt(a)
 //
 (* ****** ****** *)
 //
@@ -330,6 +335,9 @@ cross_stream_vt_list_vt
 // HX-2016-07-01:
 // [stream_vt_fprint] calls [fprint_val]
 //
+// HX-2016-09-12:
+// Note that (n < 0) means to print all the values
+//
 fun{}
 stream_vt_fprint$beg(out: FILEref): void
 fun{}
@@ -380,9 +388,13 @@ overload iseqz with stream_vt_is_nil
 overload isneqz with stream_vt_is_cons
 
 (* ****** ****** *)
+//
+overload length with stream_vt_length
+//
+(* ****** ****** *)
 
-overload .head with stream_vt_head
-overload .tail with stream_vt_tail
+overload .head with stream_vt_head_exn
+overload .tail with stream_vt_tail_exn
 
 (* ****** ****** *)
 

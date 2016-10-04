@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Mon Sep  5 21:48:44 2016
+** Time of generation: Mon Oct  3 09:01:09 2016
 *)
 
 (* ****** ****** *)
@@ -719,7 +719,10 @@ stream_mergeq$cmp
 
 implement
 {a}(*tmp*)
-stream_tabulate () = let
+stream_tabulate
+  ((*void*)) =
+  aux(0) where
+{
 //
 fun
 aux{n:nat}
@@ -727,22 +730,23 @@ aux{n:nat}
   n: int(n)
 ) : stream(a) = $delay
 (
-  stream_cons{a}(stream_tabulate$fopr<a> (n), aux (n+1))
-)
+stream_cons{a}
+  (stream_tabulate$fopr<a>(n), aux(n+1))
+) (* end of [aux] *)
 //
-in
-  aux (0)
-end // end of [stream_tabulate]
+} (* end of [stream_tabulate] *)
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-stream_tabulate_fun (f) = let
+stream_tabulate_fun
+  (fopr) = let
 //
 implement
 {a2}(*tmp*)
-stream_tabulate$fopr (n) = $UN.cast{a2}(f(n))
+stream_tabulate$fopr
+  (n) = $UN.cast{a2}(fopr(n))
 //
 in
   stream_tabulate ()
@@ -750,11 +754,13 @@ end // end of [stream_tabulate_fun]
 
 implement
 {a}(*tmp*)
-stream_tabulate_cloref (f) = let
+stream_tabulate_cloref
+  (fopr) = let
 //
 implement
 {a2}(*tmp*)
-stream_tabulate$fopr (n) = $UN.cast{a2}(f(n))
+stream_tabulate$fopr
+  (n) = $UN.cast{a2}(fopr(n))
 //
 in
   stream_tabulate ()
@@ -809,6 +815,42 @@ end (* end of [stream_foreach_env] *)
 
 implement(a,env)
 stream_foreach$cont<a><env>(x0, env) = true(*cont*)
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_foreach_fun
+  (xs, fwork) =
+  loop(xs) where
+{
+//
+fun
+loop(xs: stream(a)): void =
+(
+  case+ !xs of
+  | stream_nil() => ()
+  | stream_cons(x, xs) => (fwork(x); loop(xs))
+)
+//
+} (* end of [stream_foreach_fun] *)
+
+implement
+{a}(*tmp*)
+stream_foreach_cloref
+  (xs, fwork) =
+  loop(xs) where
+{
+//
+fun
+loop(xs: stream(a)): void =
+(
+  case+ !xs of
+  | stream_nil() => ()
+  | stream_cons(x, xs) => (fwork(x); loop(xs))
+)
+//
+} (* end of [stream_foreach_cloref] *)
 
 (* ****** ****** *)
 

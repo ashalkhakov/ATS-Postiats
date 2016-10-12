@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Mon Oct  3 09:01:09 2016
+** Time of generation: Wed Oct  5 14:07:42 2016
 *)
 
 (* ****** ****** *)
@@ -292,6 +292,12 @@ stream_vt_foreach_cloptr
 (
   stream_vt(INV(a)), fwork: (&a >> a?!) -<cloptr1> void
 ) : void // end of [stream_vt_foreach_cloptr]
+//
+fun{a:vt0p}
+stream_vt_iforeach_cloptr
+(
+  stream_vt(INV(a)), fwork: (intGte(0), &a >> a?!) -<cloptr1> void
+) : void // end of [stream_vt_iforeach_cloptr]
 //
 (* ****** ****** *)
 //

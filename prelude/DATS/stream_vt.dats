@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Oct  2 22:36:27 2016
+** Time of generation: Wed Oct  5 14:07:42 2016
 *)
 
 (* ****** ****** *)
@@ -1058,6 +1058,39 @@ end // end of [let] // end of [lam]
 in
   loop(xs, fwork)
 end // end of [stream_vt_foreach_cloptr]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_vt_iforeach_cloptr
+  (xs, fwork) = let
+//
+fun
+loop (
+  i0: intGte(0)
+, xs: stream_vt(a)
+, fwork: (intGte(0), &a >> a?!) -<cloptr1> void
+) : void = let
+//
+  val xs_con = !xs
+//
+in
+//
+case+ xs_con of
+| ~stream_vt_nil() =>
+    cloptr_free
+      ($UN.castvwtp0{cloptr0}(fwork))
+    // cloptr_free
+| @stream_vt_cons(x, xs) =>
+    let val xs = xs in
+      fwork(i0, x); free@{a?}(xs_con); loop(i0+1, xs, fwork)
+    end // end of [let]
+end // end of [let] // end of [lam]
+//
+in
+  loop(0(*i0*), xs, fwork)
+end // end of [stream_vt_iforeach_cloptr]
 
 (* ****** ****** *)
 //

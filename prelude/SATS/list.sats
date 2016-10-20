@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Mon Sep  5 21:48:35 2016
+** Time of generation: Mon Oct 17 22:01:13 2016
 *)
 
 (* ****** ****** *)
@@ -959,10 +959,24 @@ a:t0p
 (* ****** ****** *)
 //
 fun{a:t0p}
-streamize_list_elt(List(a)):<!wrt> stream_vt(a)
+streamize_list_elt
+  (xs: List(INV(a))):<!wrt> stream_vt(a)
 //
 fun{a:t0p}
-streamize_list_choose2(List(a)):<!wrt> stream_vt(@(a, a))
+streamize_list_choose2
+  (xs: List(INV(a))):<!wrt> stream_vt(@(a, a))
+//
+(* ****** ****** *)
+//
+fun
+{a,b:t0p}
+streamize_list_zip
+  (List(INV(a)), List(INV(b))):<!wrt> stream_vt(@(a, b))
+//
+fun
+{a,b:t0p}
+streamize_list_cross
+  (List(INV(a)), List(INV(b))):<!wrt> stream_vt(@(a, b))
 //
 (* ****** ****** *)
 //

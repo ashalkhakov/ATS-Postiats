@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Wed Oct  5 14:07:42 2016
+** Time of generation: Thu Oct 20 17:40:01 2016
 *)
 
 (* ****** ****** *)
@@ -464,9 +464,11 @@ case+ xs_con of
     prval () = fold@{a}(xs_con) in xs_con
   end // end of [stream_vt_cons]
 //
-end : stream_vt_con(a) // end-of-let
+end // end-of-let
 ,
-(~(xs); ~(ys))
+(
+  ~(xs); ~(ys)
+) // HX: for freeing the stream!
 //
 ) (* end of [auxmain] *)
 //
@@ -492,17 +494,17 @@ auxmain
 ) : stream1_vt = $ldelay
 (
 (
-  case+ !xss of
-  | ~stream_vt_nil
-       () => stream_vt_nil()
-    // end of [stream_vt_nil]
-  | ~stream_vt_cons
-       (xs, xss) =>
-      !(stream_vt_append<a>(xs, auxmain(xss)))
-    // end of [stream_vt_cons]
-) : stream_vt_con(a)
+case+ !xss of
+| ~stream_vt_nil
+    () => stream_vt_nil()
+  // end of [stream_vt_nil]
+| ~stream_vt_cons
+    (xs, xss) =>
+    !(stream_vt_append<a>(xs, auxmain(xss)))
+  // end of [stream_vt_cons]
+)
 ,
-  ~(xss)
+~(xss) // HX: freeing the stream!
 )
 //
 } (* end of [stream_vt_concat] *)
@@ -551,11 +553,11 @@ case+ xs_con of
     // end of [if]
   end // end of [stream_vt_cons]
 //
-end : stream_vt_con(a) // end of [let]
+end // end of [let]
 //
 ,
 //
-~(xs) // called when the stream is freed
+~(xs) // HX: for freeing the stream!
 //
 ) (* end of auxmain *)
 //
@@ -636,7 +638,7 @@ case+ xs_con of
     // end of [if]
   end // end of [stream_vt_cons]
 //
-end : stream_vt_con(a) // end of [let]
+end // end of [let]
 //
 ,
 //
@@ -692,11 +694,11 @@ case+ xs_con of
     // end of [if]
   end // end of [stream_vt_cons]
 //
-end : stream_vt_con(a) // end of [let]
+end // end of [let]
 //
 ,
 //
-~(xs) // called when the stream is freed
+~(xs) // HX: for freeing the stream!
 //
 ) (* end of auxmain *)
 //
@@ -736,7 +738,7 @@ of // case+
     stream_vt_cons{b}(y, auxmain(xs))
   end (* end of [stream_vt_con] *)
 //
-end : stream_vt_con(b)
+end // end of [let]
 //
 ,
 //
@@ -813,7 +815,7 @@ in
     in
       stream_vt_cons(y, auxmain(xs, fopr))
     end // end of [stream_vt_cons]
-end : stream_vt_con(b)
+end // end of [let]
 ,
 (~xs; cloptr_free($UN.castvwtp0{cloptr0}(fopr)))
 ) (* end of [auxmain] *)
@@ -873,12 +875,12 @@ case+ xs1_con of
       end // end of [stream_vt_cons]
   end // end of [stream_vt_cons]
 //
-end : stream_vt_con(b)
+end // end of [let]
 ,
 //
-(~(xs1); ~(xs2))
-//
-// called when the stream is freed
+(
+  ~(xs1); ~(xs2)
+) (* HX: for freeing the stream! *)
 //
 ) (* $ldelay] *) // end of [auxmain]
 //
@@ -960,9 +962,9 @@ case+ !xs of
     (x, xs) =>
     stream_vt_cons((i, x), auxmain(i+1, xs))
   // end of [stream_vt_cons]
-) : stream_vt_con(ia)
+)
 ,
-~(xs) // called when the stream is freed!
+~(xs) // HX: for freeing the stream!
 ) (* end of [auxmain] *)
 //
 in
@@ -1175,7 +1177,7 @@ in
   case+ opt of
   | ~None_vt() => stream_vt_nil()
   | ~Some_vt(x0) => stream_vt_cons{a}(x0, aux(st))
-end : stream_vt_con(a) // end of [aux]
+end // end of [let]
 )
 //
 } (* end of [stream_vt_unfold_opt] *)
@@ -1199,7 +1201,7 @@ case+ !xs of
     () => stream_vt_nil()
 | ~stream_vt_cons
     (x, xs) => !(auxmain2(x, xs, ys0))
-) : stream_vt_con(@(x, y))
+)
 ,
 (~xs) // called when the stream is freed
 ) (* end of [auxmain] *)
@@ -1216,7 +1218,7 @@ case+ ys of
 | list_nil() => !(auxmain(xs))
 | list_cons(y, ys) =>
     stream_vt_cons((x0, y), auxmain2(x0, xs, ys))
-) : stream_vt_con(@(x, y))
+)
 ,
 ~(xs) // called when the stream is freed
 ) (* end of [auxmain2] *)
@@ -1247,7 +1249,7 @@ case+ !xs of
     ((*void*)) => stream_vt_nil()
 | ~stream_vt_cons(x, xs) =>
     !(auxmain2(x, xs, $UN.cast{List(y)}(ys0)))
-) : stream_vt_con(@(x, y))
+)
 ,
 (~xs; list_vt_free<y>($UN.castvwtp0{List_vt(y)}(ys0)))
 ) (* end of [auxmain] *)
@@ -1264,7 +1266,7 @@ case+ ys of
 | list_nil() => !(auxmain(xs))
 | list_cons(y, ys) =>
     stream_vt_cons((x0, y), auxmain2(x0, xs, ys))
-) : stream_vt_con(@(x, y))
+)
 ,
 (~xs; list_vt_free<y>($UN.castvwtp0{List_vt(y)}(ys0)))
 ) (* end of [auxmain2] *)

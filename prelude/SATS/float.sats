@@ -27,17 +27,17 @@
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
-** Time of generation: Mon Sep  5 21:48:32 2016
-*)
-
-(* ****** ****** *)
-
 (* Author: Hongwei Xi *)
 (* Authoremail: hwxi AT cs DOT bu DOT edu *)
 (* Start time: September, 2011 *)
+
+(* ****** ****** *)
+
+(*
+** Source:
+** $PATSHOME/prelude/SATS/CODEGEN/float.atxt
+** Time of generation: Mon Oct 17 23:04:07 2016
+*)
 
 (* ****** ****** *)
 
@@ -46,78 +46,101 @@ stadef dblknd = double_kind
 stadef ldblknd = ldouble_kind
 
 (* ****** ****** *)
-
-fun{
-tk1,tk2:tk
-} g0int2float (x: g0int (tk1)):<> g0float (tk2)
-
-fun g0int2float_int_float (x: int):<> float = "mac#%"
-fun g0int2float_int_double (x: int):<> double = "mac#%"
-fun g0int2float_lint_double (x: lint):<> double = "mac#%"
-
-(* ****** ****** *)
-
-fun{
-tk1,tk2:tk
-} g0float2int (x: g0float (tk1)):<> g0int (tk2)
-
-fun g0float2int_float_int (x: float):<> int = "mac#%"
-fun g0float2int_float_lint (x: float):<> lint = "mac#%"
-fun g0float2int_double_int (x: double):<> int = "mac#%"
-fun g0float2int_double_lint (x: double):<> lint = "mac#%"
-fun g0float2int_double_llint (x: double):<> llint = "mac#%"
-
-(* ****** ****** *)
-
-fun{
-tk1,tk2:tk
-} g0float2float (x: g0float (tk1)):<> g0float (tk2)
-
-fun g0float2float_float_float (x: float):<> float = "mac#%"
-fun g0float2float_float_double (x: float):<> double = "mac#%"
-fun g0float2float_double_float (x: double):<> float = "mac#%"
-fun g0float2float_double_double (x: double):<> double = "mac#%"
-
+//
+fun
+{tk1,tk2:tk}
+g0int2float(x: g0int(tk1)):<> g0float(tk2)
+//
+fun
+g0int2float_int_float(x: int):<> float = "mac#%"
+fun
+g0int2float_int_double(x: int):<> double = "mac#%"
+fun
+g0int2float_lint_double(x: lint):<> double = "mac#%"
+//
 (* ****** ****** *)
 //
-fun{tk:tk}
-g0string2float (str: NSH(string)):<> g0float (tk)
+fun
+{tk1,tk2:tk}
+g0float2int(x: g0float(tk1)):<> g0int(tk2)
 //
-fun g0string2float_double (x: NSH(string)):<> double = "mac#%"
+fun
+g0float2int_float_int(x: float):<> int = "mac#%"
+fun
+g0float2int_float_lint(x: float):<> lint = "mac#%"
+fun
+g0float2int_double_int(x: double):<> int = "mac#%"
+fun
+g0float2int_double_lint(x: double):<> lint = "mac#%"
+fun
+g0float2int_double_llint(x: double):<> llint = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+{tk1,tk2:tk}
+g0float2float(x: g0float(tk1)):<> g0float(tk2)
+//
+fun
+g0float2float_float_float(x: float):<> float = "mac#%"
+fun
+g0float2float_float_double(x: float):<> double = "mac#%"
+fun
+g0float2float_double_float(x: double):<> float = "mac#%"
+fun
+g0float2float_double_double(x: double):<> double = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+{tk:tk}
+g0string2float(rep: NSH(string)):<> g0float(tk)
+//
+fun
+g0string2float_double(rep: NSH(string)):<> double = "mac#%"
 //
 (* ****** ****** *)
 //
 typedef
 g0float_uop_type
-  (tk:tk) = g0float (tk) -<fun0> g0float (tk)
+  (tk:tk) =
+  g0float(tk) -<fun0> g0float(tk)
 //
 (* ****** ****** *)
-
-fun{tk:tk}
-g0float_neg : g0float_uop_type (tk)
+//
+fun
+{tk:tk}
+g0float_abs : g0float_uop_type(tk)
+fun
+{tk:tk}
+g0float_neg : g0float_uop_type(tk)
+//
+overload abs with g0float_abs of 0
 overload ~ with g0float_neg of 0 // ~ for uminus
 overload neg with g0float_neg of 0
-
-fun{tk:tk}
-g0float_abs : g0float_uop_type (tk)
-overload abs with g0float_abs of 0
-
+//
 (* ****** ****** *)
-
-fun{tk:tk}
-g0float_succ : g0float_uop_type (tk)
+//
+fun
+{tk:tk}
+g0float_succ : g0float_uop_type(tk)
+fun
+{tk:tk}
+g0float_pred : g0float_uop_type(tk)
+//
 overload succ with g0float_succ of 0
-fun{tk:tk}
-g0float_pred : g0float_uop_type (tk)
 overload pred with g0float_pred of 0
-
+//
 (* ****** ****** *)
-
+//
 typedef
-g0float_aop_type (tk:tk) =
-  (g0float (tk), g0float (tk)) -<fun0> g0float (tk)
+g0float_aop_type
+  (tk:tk) =
+  (g0float(tk), g0float(tk)) -<fun0> g0float(tk)
 // end of [g0float_aop_type]
-
+//
+(* ****** ****** *)
+//
 fun
 {tk:tk}
 g0float_add : g0float_aop_type(tk)
@@ -139,27 +162,36 @@ fun
 g0float_mod : g0float_aop_type(tk)
 overload % with g0float_mod of 0
 overload mod with g0float_mod of 0
-
+//
 (* ****** ****** *)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_isltz(g0float(tk)):<> bool
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_isltez(g0float(tk)):<> bool
+//
 overload isltz with g0float_isltz of 0
 overload isltez with g0float_isltez of 0
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_isgtz(g0float(tk)):<> bool
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_isgtez(g0float(tk)):<> bool
+//
 overload isgtz with g0float_isgtz of 0
 overload isgtez with g0float_isgtez of 0
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_iseqz(g0float(tk)):<> bool
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_isneqz(g0float(tk)):<> bool
+//
 overload iseqz with g0float_iseqz of 0
 overload isneqz with g0float_isneqz of 0
 //
@@ -171,29 +203,32 @@ g0float_cmp_type
   (g0float(tk), g0float(tk)) -<fun0> bool
 // end of [g0float_cmp_type]
 //
+(* ****** ****** *)
+//
 fun
 {tk:tk}
 g0float_lt : g0float_cmp_type(tk)
-overload < with g0float_lt of 0
 fun
 {tk:tk}
 g0float_lte : g0float_cmp_type(tk)
-overload <= with g0float_lte of 0
 fun
 {tk:tk}
 g0float_gt : g0float_cmp_type(tk)
-overload > with g0float_gt of 0
 fun
 {tk:tk}
 g0float_gte : g0float_cmp_type(tk)
-overload >= with g0float_gte of 0
 fun
 {tk:tk}
 g0float_eq : g0float_cmp_type(tk)
-overload = with g0float_eq of 0
 fun
 {tk:tk}
 g0float_neq : g0float_cmp_type(tk)
+//
+overload < with g0float_lt of 0
+overload <= with g0float_lte of 0
+overload > with g0float_gt of 0
+overload >= with g0float_gte of 0
+overload = with g0float_eq of 0
 overload != with g0float_neq of 0
 overload <> with g0float_neq of 0
 //
@@ -202,19 +237,25 @@ overload <> with g0float_neq of 0
 typedef
 g0float_compare_type
   (tk:tk) =
-  (g0float(tk), g0float(tk)) -<fun0> (int)
+  (g0float(tk), g0float(tk)) -<fun0> int
 // end of [g0float_compare_type]
 //
-fun{tk:tk}
-g0float_compare : g0float_compare_type(tk)
+(* ****** ****** *)
+//
+fun
+{tk:tk}
+g0float_compare
+  : g0float_compare_type(tk)
 //
 overload compare with g0float_compare of 0
 //
 (* ****** ****** *)
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_max : g0float_aop_type(tk)
-fun{tk:tk}
+fun
+{tk:tk}
 g0float_min : g0float_aop_type(tk)
 //
 overload max with g0float_max of 0

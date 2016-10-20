@@ -1305,6 +1305,19 @@ val res = list0_of_list_vt (res)
 } // end of [list0_mapopt]
 
 (* ****** ****** *)
+//
+implement
+{a}{b}
+list0_map_method
+  (xs, _) =
+  lam(fopr) => list0_map<a><b>(xs, fopr)
+implement
+{a}{b}
+list0_mapopt_method
+  (xs, _) =
+  lam(fopr) => list0_mapopt<a><b>(xs, fopr)
+//
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)
@@ -1620,7 +1633,79 @@ implement
 {x,y}(*tmp*)
 list0_iforeach_xprod2_method
   (xs, ys) =
-  lam(fwork) => list0_iforeach_xprod2<x,y>(xs, ys, fwork)
+(
+lam(fwork) => list0_iforeach_xprod2<x,y>(xs, ys, fwork)
+)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+streamize_list0_elt
+  (xs) = streamize_list_elt<a>(g1ofg0(xs))
+implement
+{a}(*tmp*)
+streamize_list0_choose2
+  (xs) = streamize_list_choose2<a>(g1ofg0(xs))
+//
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+streamize_list0_nchoose
+  (xs, n) = let  
+//
+fun
+auxmain
+(
+  xs: list0(a), n: intGte(0)
+) : stream_vt(list0(a)) = $ldelay
+(
+//
+if
+(n > 0)
+then
+(
+case+ xs of
+| list0_nil() =>
+  stream_vt_nil()
+| list0_cons(x0, xs1) => let
+    val res1 =
+      auxmain(xs1, n-1)
+    // end of [val]
+    val res2 = auxmain(xs1, n)
+  in
+    !(stream_vt_append
+      (
+        stream_vt_map_cloptr<list0(a)><list0(a)>(res1, lam(ys) => list0_cons(x0, ys)), res2
+      ) // stream_vt_append
+     )
+  end // end of [list0_cons]
+) (* end of [then] *)
+else
+(
+  stream_vt_cons(list0_nil, stream_vt_make_nil())
+) (* end of [else] *)
+//
+) : stream_vt_con(list0(a)) // auxmain
+//
+in
+  $effmask_all(auxmain(xs, n))
+end // end of [streamize_list0_nchoose]
+
+(* ****** ****** *)
+//
+implement
+{a,b}(*tmp*)
+streamize_list0_zip
+  (xs, ys) =
+  streamize_list_zip<a,b>(g1ofg0(xs), g1ofg0(ys))
+//
+implement
+{a,b}(*tmp*)
+streamize_list0_cross
+  (xs, ys) =
+  streamize_list_cross<a,b>(g1ofg0(xs), g1ofg0(ys))
 //
 (* ****** ****** *)
 

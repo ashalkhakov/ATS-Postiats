@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Oct 20 17:57:22 2016
+** Time of generation: Thu Oct 20 22:09:20 2016
 *)
 
 (* ****** ****** *)
@@ -83,7 +83,8 @@ stream2list (xs) = let
 //
 fun loop
 (
-  xs: stream (a), res: &ptr? >> List0_vt (a)
+  xs: stream(a)
+, res: &ptr? >> List0_vt(a)
 ) : void = let
 in
   case+ !xs of
@@ -120,7 +121,8 @@ loop
 ) :<!laz> intGte(0) =
 (
 case+ !xs of
-| stream_nil() => j | stream_cons(_, xs) => loop(xs, j+1)
+| stream_nil() => j
+| stream_cons(_, xs) => loop(xs, j+1)
 )
 //
 } (* end of [stream_length] *)
@@ -133,7 +135,9 @@ stream_head_exn(xs) =
 (
 //
 case+ !xs of
-| stream_cons(x, _) => x
+| stream_cons
+    (x, _) => x
+  // stream_cons
 | stream_nil() => $raise StreamSubscriptExn()
 //
 ) // end of [stream_head_exn]
@@ -144,7 +148,9 @@ stream_tail_exn(xs) =
 (
 //
 case+ !xs of
-| stream_cons(_, xs) => xs
+| stream_cons
+    (_, xs) => xs
+  // stream_cons
 | stream_nil() => $raise StreamSubscriptExn()
 //
 ) // end of [stream_tail_exn]
@@ -194,30 +200,37 @@ implement
 stream_take_exn
   (xs, n) = let
 //
-fun loop{n:nat}
+fun
+loop{n:nat}
 (
-  xs: stream a, res: &ptr? >> list_vt (a, n-k), n: int n
+  xs: stream(a)
+, res: &ptr? >> list_vt(a, n-k), n: int(n)
 ) : #[k:nat | k <= n] int k =
-  if n > 0 then (
-    case+ !xs of
-    | stream_cons
-        (x, xs) => let
-        val () =
-        res := list_vt_cons{a}{0}(x, _)
-        val+list_vt_cons (_, res1) = res
-        val k = loop (xs, res1, pred(n))
-        prval () = fold@ (res)
-      in
-        k
-      end // end of [stream_cons]
-    | stream_nil() => let
-        val () =
-          res := list_vt_nil() in n
-        // end of [val]
-      end // end of [stream_nil]
-  ) else let
-    val () = res := list_vt_nil() in n
-  end // end of [if]
+(
+//
+if
+(n > 0)
+then (
+  case+ !xs of
+  | stream_cons
+      (x, xs) => k where
+    {
+      val () =
+      res := list_vt_cons{a}{0}(x, _)
+      val+list_vt_cons (_, res1) = res
+      val k = loop (xs, res1, pred(n))
+      prval () = fold@ (res)
+    } (* end of [stream_cons] *)
+  | stream_nil() => let
+      val () =
+        res := list_vt_nil() in n
+      // end of [val]
+    end // end of [stream_nil]
+) else (
+  let val () = res := list_vt_nil() in n end
+) (* end of [if] *)
+//
+) (* end of [loop] *)
 //
 var res: ptr // uninitialized
 val k = $effmask_all (loop (xs, res, n))

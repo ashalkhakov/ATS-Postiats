@@ -27,17 +27,17 @@
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Oct 20 17:40:01 2016
-*)
-
-(* ****** ****** *)
-
 (* Author: Hongwei Xi *)
 (* Authoremail: gmhwxiATgmailDOTcom *)
 (* Start time: July, 2012 *)
+
+(* ****** ****** *)
+
+(*
+** Source:
+** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
+** Time of generation: Thu Oct 20 23:42:49 2016
+*)
 
 (* ****** ****** *)
 
@@ -504,7 +504,9 @@ case+ !xss of
   // end of [stream_vt_cons]
 )
 ,
-~(xss) // HX: freeing the stream!
+(
+  ~xss
+) (* HX: freeing the stream! *)
 )
 //
 } (* end of [stream_vt_concat] *)
@@ -557,7 +559,9 @@ end // end of [let]
 //
 ,
 //
-~(xs) // HX: for freeing the stream!
+(
+  ~xs
+) (* HX: for freeing the stream! *)
 //
 ) (* end of auxmain *)
 //
@@ -698,7 +702,9 @@ end // end of [let]
 //
 ,
 //
-~(xs) // HX: for freeing the stream!
+(
+  ~xs
+) (* HX: for freeing the stream! *)
 //
 ) (* end of auxmain *)
 //
@@ -742,7 +748,9 @@ end // end of [let]
 //
 ,
 //
-~(xs) // called when the stream is freed
+(
+  ~xs
+) (* HX: for freeing the stream! *)
 //
 ) (* end of [auxmain] *)
 //
@@ -964,7 +972,9 @@ case+ !xs of
   // end of [stream_vt_cons]
 )
 ,
-~(xs) // HX: for freeing the stream!
+(
+  ~xs
+) // HX: for freeing the stream!
 ) (* end of [auxmain] *)
 //
 in

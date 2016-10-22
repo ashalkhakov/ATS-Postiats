@@ -27,17 +27,17 @@
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Oct 20 22:09:20 2016
-*)
-
-(* ****** ****** *)
-
 (* Author: Hongwei Xi *)
 (* Authoremail: gmhwxiATgmailDOTcom *)
 (* Start time: July, 2012 *)
+
+(* ****** ****** *)
+
+(*
+** Source:
+** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
+** Time of generation: Thu Oct 20 23:42:49 2016
+*)
 
 (* ****** ****** *)
 
@@ -281,7 +281,7 @@ fun aux
 //
 in
 //
-  $delay (aux (xs, ys))
+  $delay(aux(xs, ys))
 //
 end // end of [stream_append]
 
@@ -289,7 +289,8 @@ end // end of [stream_append]
 
 implement
 {a}(*tmp*)
-stream_concat (xss) = let
+stream_concat
+  (xss) = let
 //
 fun aux1
 (
@@ -309,7 +310,7 @@ and aux2
   | stream_cons(x, xs) => stream_cons (x, $delay(aux2(xs, xss)))
 //
 in
-  $delay (aux1 (xss))
+  $delay(aux1(xss))
 end // end of [stream_concat]
 
 (* ****** ****** *)
@@ -318,7 +319,9 @@ local
 
 fun{a:t0p}
 stream_filter_con
-  (xs: stream a): stream_con(a) = let
+(
+xs: stream(a)
+) : stream_con(a) = let
 in
 //
 case+ !xs of
@@ -543,7 +546,7 @@ stream_scan
 fun aux
 (
   xs: stream(x), ini: res
-) :<!laz> stream (res) = $delay
+) :<!laz> stream(res) = $delay
 (
 case+ !xs of
 | stream_nil
@@ -554,7 +557,7 @@ case+ !xs of
   stream_cons{res}
     (stream_scan$fopr<res><x>(ini, x), aux(xs, ini))
   // end of [stream_cons]
-) : stream_con(res) // end of [$delay]
+) // end of [$delay] // end of [aux]
 //
 in
   aux (xs, ini)

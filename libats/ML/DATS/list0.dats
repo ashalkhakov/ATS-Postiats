@@ -1388,7 +1388,7 @@ in
 end // end of [list0_map2]
 
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
 list0_filter
@@ -1403,7 +1403,12 @@ val ys = list_filter<a> (g1ofg0(xs))
 in
   list0_of_list_vt (ys)
 end // end of [list0_filter]
-
+//
+implement
+{a}(*tmp*)
+list0_filter_method
+  (xs) = lam(pred) => list0_filter<a>(xs, pred)
+//
 (* ****** ****** *)
 
 implement
@@ -1714,9 +1719,9 @@ implement
 list0_quicksort(xs, cmp) = let
 //
 implement
-list_quicksort$cmp<a> (x, y) = cmp(x, y)
+list_quicksort$cmp<a>(x, y) = cmp(x, y)
 //
-val ys = $effmask_wrt (list_quicksort<a>(g1ofg0(xs)))
+val ys = $effmask_wrt(list_quicksort<a>(g1ofg0(xs)))
 //
 in
   list0_of_list_vt (ys)
@@ -1729,9 +1734,9 @@ implement
 list0_mergesort(xs, cmp) = let
 //
 implement
-list_mergesort$cmp<a> (x, y) = cmp(x, y)
+list_mergesort$cmp<a>(x, y) = cmp(x, y)
 //
-val ys = $effmask_wrt (list_mergesort<a>(g1ofg0(xs)))
+val ys = $effmask_wrt(list_mergesort<a>(g1ofg0(xs)))
 //
 in
   list0_of_list_vt (ys)

@@ -193,6 +193,34 @@ end // end of [string_is_prefix]
 
 implement
 {}(*tmp*)
+string_is_suffix
+(
+  str1, str2
+) = let
+//
+val n1 = length(str1)
+val n2 = length(str2)
+//
+in (* in-of-let *)
+//
+if
+(n1 >= n2)
+then let
+  val p1 = string2ptr(str1)
+in
+//
+$UN.cast{string}
+  (ptr_add<char>(p1, n1-n2)) = str2
+//
+end // end of [then]
+else false // end of [else]
+//
+end // end of [string_is_suffix]
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
 string_copy
   (str) = (
 //
@@ -203,7 +231,8 @@ strptr2string
 
 (* ****** ****** *)
 //
-implement{}
+implement
+{}(*tmp*)
 string_make_list
   (cs) = let
 //
@@ -236,8 +265,9 @@ end // end of [string_make_rlist]
 //
 (* ****** ****** *)
 
-implement{
-} string_make_substring
+implement
+{}(*tmp*)
+string_make_substring
   (x, st, ln) = let
 //
 val x = g1ofg0_string(x)
@@ -349,8 +379,9 @@ end // end of [string_append6]
 
 (* ****** ****** *)
 
-implement{
-} stringlst_concat (xs) = let
+implement
+{}(*tmp*)
+stringlst_concat (xs) = let
   val res = $effmask_wrt (prelude_stringlst_concat (g1ofg0_list(xs)))
 in
   strptr2string (res)
@@ -385,13 +416,14 @@ string_implode(cs) = string_make_list(cs)
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
 string_tabulate
-  (n, f) = let
+  (n, fopr) = let
 //
 val n = g1ofg0_uint(n)
 //
 implement
-string_tabulate$fopr<> (i) = f(i)
+string_tabulate$fopr<> (i) = fopr(i)
 //
 in
   strnptr2string(prelude_string_tabulate(n))
@@ -400,6 +432,7 @@ end // end of [string_tabulate]
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
 string_forall
   (str, f) = let
 //
@@ -413,6 +446,7 @@ in
 end // end of [string_forall]
 
 implement
+{}(*tmp*)
 string_iforall
   (str, f) = let
 //
@@ -437,6 +471,7 @@ string_iforall_method
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
 string_foreach
   (cs, f) = let
 //
@@ -460,6 +495,7 @@ end // end of [string_foreach]
 (* ****** ****** *)
 
 implement
+{}(*tmp*)
 string_iforeach
   (cs, f) = let
 //
@@ -488,6 +524,36 @@ string_foreach_method
 implement{}
 string_iforeach_method
   (cs) = lam(f) => string_iforeach(cs, f)
+//
+(* ****** ****** *)
+
+implement
+{res}(*tmp*)
+string_foldleft
+  (cs, ini, fopr) = let
+//
+fun
+loop
+(
+p0: ptr, res: res
+) : res = let
+  val c = $UN.ptr0_get<char>(p0)
+in
+//
+if isneqz(c)
+  then loop(ptr_succ<char>(p0), fopr(res, c)) else res
+//
+end // end of [loop]
+//
+in
+  loop(string2ptr(cs), ini)
+end // end of [string_foldleft]
+//
+implement
+{res}(*tmp*)
+string_foldleft_method
+  (cs, _) =
+  lam(ini,fopr) => string_foldleft<res>(cs, ini, fopr)
 //
 (* ****** ****** *)
 //

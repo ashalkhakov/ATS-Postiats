@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Mon Oct  3 09:01:09 2016
+** Time of generation: Wed Nov  9 17:22:12 2016
 *)
 
 (* ****** ****** *)
@@ -68,11 +68,6 @@ fun isStreamSubscriptExn (x: !exn):<> bool = "mac#isStreamSubscriptExn"
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
-stream_sing(a):<> stream_con(a)
-//
-(* ****** ****** *)
-//
 fun
 {a:t0p}
 stream_is_nil(xs: stream(a)): bool
@@ -81,12 +76,20 @@ fun
 stream_is_cons(xs: stream(a)): bool
 //
 (* ****** ****** *)
-
+//
 fun{a:t0p}
 stream_make_nil(): stream(a)
 fun{a:t0p}
+stream_make_cons
+  (a, stream(INV(a))):<> stream(a)
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+stream_sing(a):<> stream_con(a)
+fun{a:t0p}
 stream_make_sing(x: a): stream(a)
-
+//
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -127,9 +130,16 @@ stream_get_at_exn
 (* ****** ****** *)
 
 fun{a:t0p}
+stream_takeLte
+  (xs: stream(INV(a)), n: intGte(0)): stream_vt(a)
+// end of [stream_takeLte]
+
+(* ****** ****** *)
+
+fun{a:t0p}
 stream_take_exn{n:nat}
   (xs: stream(INV(a)), n: int n):<!laz> list_vt(a, n)
-// end of [stream_take_lte]
+// end of [stream_take_exn]
 
 (* ****** ****** *)
 
@@ -137,6 +147,10 @@ fun{a:t0p}
 stream_drop_exn
   (xs: stream(INV(a)), n: intGte(0)):<!laz> stream(a)
 // end of [stream_drop_exn]
+fun{a:t0p}
+stream_drop_opt
+  (xs: stream(INV(a)), n: intGte(0)):<!laz> Option_vt(stream(a))
+// end of [stream_drop_opt]
 
 (* ****** ****** *)
 //
@@ -346,6 +360,17 @@ stream_foreach_fun
 fun{a:t0p}
 stream_foreach_cloref
   (xs: stream(a), fwork: (a) -<cloref1> void): void
+//
+(* ****** ****** *)
+//
+fun{
+res:vt0p}{a:t0p
+} stream_foldleft_fun
+  (xs: stream(a), ini: res, fopr: (res, a) -<fun1> res): res
+fun{
+res:vt0p}{a:t0p
+} stream_foldleft_cloref
+  (xs: stream(a), ini: res, fopr: (res, a) -<cloref1> res): res
 //
 (* ****** ****** *)
 //

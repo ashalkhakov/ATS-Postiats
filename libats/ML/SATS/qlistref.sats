@@ -6,19 +6,19 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2016 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2016 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
 ** the terms of  the GNU GENERAL PUBLIC LICENSE (GPL) as published by the
 ** Free Software Foundation; either version 3, or (at  your  option)  any
 ** later version.
-**
+** 
 ** ATS is distributed in the hope that it will be useful, but WITHOUT ANY
 ** WARRANTY; without  even  the  implied  warranty  of MERCHANTABILITY or
 ** FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License
 ** for more details.
-**
+** 
 ** You  should  have  received  a  copy of the GNU General Public License
 ** along  with  ATS;  see the  file COPYING.  If not, please write to the
 ** Free Software Foundation,  51 Franklin Street, Fifth Floor, Boston, MA
@@ -28,77 +28,81 @@
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
+(* Authoremail: gmmhwxiATgmailDOTcom *)
 (* Start time: October, 2016 *)
 
 (* ****** ****** *)
-
-#define ATS_DYNLOADFLAG 0
-  
-(* ****** ****** *)
-  
-staload
-UN = "prelude/SATS/unsafe.sats"
-
-(* ****** ****** *)
-
-staload "libats/ML/SATS/basis.sats"
-staload "libats/ML/SATS/stream.sats"
-
-(* ****** ****** *)
 //
-implement
-{a}{b}
-stream_map_method
-  (xs, _) =
-(
-lam(fopr) => stream_map_cloref<a><b>(xs, fopr)
-)
+abstype
+qlistref_vt0ype_type(a:vt@ype) = ptr
+//
+typedef
+qlistref(a:vt0ype) = qlistref_vt0ype_type(a)
 //
 (* ****** ****** *)
 //
-implement
-{a}{b}
-stream_imap_method
-  (xs, _) =
-(
-lam(fopr) => stream_imap_cloref<a><b>(xs, fopr)
-)
-//
-(* ****** ****** *)
-//
-implement
-{a}(*tmp*)
-stream_filter_method(xs) =
-  lam(pred) => stream_filter_cloref<a>(xs, pred)
-//
-(* ****** ****** *)
-//
-implement
-{res}{x}
-stream_scan_method(xs, _) =
-  lam(res, fopr) =>
-  stream_scan_cloref<res><x>(xs, res, fopr)
-//
-(* ****** ****** *)
-//
-implement
-{a}(*tmp*)
-stream_foreach_method(xs) =
-  lam(fwork) =>
-    stream_foreach_cloref<a>(xs, fwork)
-  // end of [lam]
-//
-(* ****** ****** *)
-//
-implement
-{res}{a}
-stream_foldleft_method
-  (xs, _(*TYPE*)) =
-  lam(ini, fopr) =>
-    stream_foldleft_cloref<res><a>(xs, ini, fopr)
-  // end of [lam]
+fun{}
+qlistref_make_nil
+  {a:vt0ype}((*void*)):<!wrt> qlistref(a)
 //
 (* ****** ****** *)
 
-(* end of [stream.dats] *)
+fun
+{a:vt0p}
+qlistref_is_nil(q0: qlistref(a)): bool
+fun
+{a:vt0p}
+qlistref_isnot_nil(q0: qlistref(a)): bool
+
+(* ****** ****** *)
+
+fun
+{a:vt0p}
+qlistref_length(q0: qlistref(a)): intGte(0)
+
+(* ****** ****** *)
+//
+fun
+{a:vt0p}
+qlistref_insert(qlistref(a), a):<!ref> void
+//
+(* ****** ****** *)
+//
+fun
+{a:vt0p}
+qlistref_takeout_exn(qlistref(a)):<!ref> (a)
+fun
+{a:vt0p}
+qlistref_takeout_opt(qlistref(a)):<!ref> Option_vt(a)
+//
+(* ****** ****** *)
+//
+fun
+{a:vt0p}
+qlistref_takeout_list(qlistref(a)):<!ref> List0_vt(a)
+//
+(* ****** ****** *)
+//
+// overloading for certain symbols
+//
+(* ****** ****** *)
+//
+overload iseqz with qlistref_is_nil
+overload isneqz with qlistref_isnot_nil
+//
+(* ****** ****** *)
+
+overload length with qlistref_length
+
+(* ****** ****** *)
+//
+overload .insert with qlistref_insert
+//
+(* ****** ****** *)
+//
+overload .takeout with qlistref_takeout_exn
+overload .takeout_opt with qlistref_takeout_opt
+//
+(* ****** ****** *)
+
+(* end of [qlistref.sats] *)

@@ -134,27 +134,32 @@ int_streamGte(n: int): stream(int)
 //
 overload .streamGte with int_streamGte
 //
+fun{}
+int_streamGte_vt(n: int): stream_vt(int)
+//
+overload .streamGte_vt with int_streamGte_vt
+//
 (* ****** ****** *)
 //
 fun{a:t0p}
-int_list_map_cloref
+int_list0_map_cloref
   (n: intGte(0), f: cfun(int, a)): list0(a)
 fun{a:t0p}
-int_list_map_method
+int_list0_map_method
   (n: intGte(0), TYPE(a))(f: cfun(int, a)): list0(a)
 //
-overload .list_map with int_list_map_method
+overload .list0_map with int_list0_map_method
 //
 (* ****** ****** *)
 //
 fun{a:t0p}
-int_array_map_cloref
+int_array0_map_cloref
   (n: intGte(0), f: cfun(size_t, a)): array0(a)
 fun{a:t0p}
-int_array_map_method
+int_array0_map_method
   (n: intGte(0), TYPE(a))(f: cfun(size_t, a)): array0(a)
 //
-overload .array_map with int_array_map_method
+overload .array0_map with int_array0_map_method
 //
 (* ****** ****** *)
 //

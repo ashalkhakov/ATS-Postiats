@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Sun Sep 11 18:59:47 2016
+** Time of generation: Thu Nov  3 11:54:06 2016
 *)
 
 (* ****** ****** *)
@@ -219,6 +219,7 @@ fun{a:vt0p}
 ptr0_get_at_int (p: ptr, i: int):<> a
 fun{a:vt0p}
 ptr0_set_at_int (p: ptr, i: int, x: a):<!wrt> void
+//
 fun{a:vt0p}
 ptr0_get_at_size (p: ptr, i: size_t):<> a
 fun{a:vt0p}
@@ -228,8 +229,8 @@ symintr ptr0_get_at
 symintr ptr0_set_at
 //
 overload ptr0_get_at with ptr0_get_at_int
-overload ptr0_get_at with ptr0_get_at_size
 overload ptr0_set_at with ptr0_set_at_int
+overload ptr0_get_at with ptr0_get_at_size
 overload ptr0_set_at with ptr0_set_at_size
 //
 (* ****** ****** *)

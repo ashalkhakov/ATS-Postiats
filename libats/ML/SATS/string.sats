@@ -67,11 +67,25 @@ overload isneqz with string_isnot_empty
 //
 (* ****** ****** *)
 //
+// HX-2016-11-08:
+// str1 is a prefix of str2
+//
 fun{}
 string_is_prefix
 (
   str1: string, str2: string
 ) :<> bool // string_is_prefix
+//
+(* ****** ****** *)
+//
+// HX-2016-11-12:
+// str1 is a suffix of str2
+//
+fun{}
+string_is_suffix
+(
+  str1: string, str2: string
+) :<> bool // string_is_suffix
 //
 (* ****** ****** *)
 //
@@ -143,16 +157,18 @@ string_implode(cs: list0(char)):<> string
 
 (* ****** ****** *)
 //
-fun
+fun{}
 string_tabulate
-  (n: size_t, f: (size_t) -<cloref1> charNZ): string
+  (n: size_t, fopr: (size_t) -<cloref1> charNZ): string
 //
 (* ****** ****** *)
 //
-fun
-string_forall(x: string, f: cfun(char, bool)): bool
-fun
-string_iforall(x: string, f: cfun2(int, char, bool)): bool
+fun{}
+string_forall
+  (x: string, f: cfun(char, bool)): bool
+fun{}
+string_iforall
+  (x: string, f: cfun2(int, char, bool)): bool
 //
 fun{}
 string_forall_method(string)(cfun(char, bool)): bool
@@ -164,10 +180,12 @@ overload .iforall with string_iforall_method
 //
 (* ****** ****** *)
 //
-fun
-string_foreach(x: string, f: cfun(char, void)): void
-fun
-string_iforeach(x: string, f: cfun2(int, char, void)): void
+fun{}
+string_foreach
+  (x: string, f: cfun(char, void)): void
+fun{}
+string_iforeach
+  (x: string, f: cfun2(int, char, void)): void
 //
 fun{}
 string_foreach_method(x: string)(cfun(char, void)): void
@@ -176,6 +194,19 @@ string_iforeach_method(x: string)(cfun2(int, char, void)): void
 //
 overload .foreach with string_foreach_method
 overload .iforeach with string_iforeach_method
+//
+(* ****** ****** *)
+//
+fun
+{res:vt0p}
+string_foldleft
+  (cs: string, ini: res, cfun(res, char, res)): res
+fun
+{res:vt0p}
+string_foldleft_method
+  (cs: string, TYPE(res))(ini: res, cfun(res, char, res)): res
+//
+overload .foldleft with string_foldleft_method
 //
 (* ****** ****** *)
 //

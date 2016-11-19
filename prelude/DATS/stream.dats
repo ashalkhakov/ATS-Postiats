@@ -36,20 +36,13 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Oct 20 23:42:49 2016
+** Time of generation: Wed Nov  9 17:22:12 2016
 *)
 
 (* ****** ****** *)
 
 staload UN = "prelude/SATS/unsafe.sats"
 
-(* ****** ****** *)
-//
-implement
-{a}(*tmp*)
-stream_sing(x) =
-  stream_cons{a}(x, $delay(stream_nil))
-//
 (* ****** ****** *)
 //
 implement
@@ -69,6 +62,18 @@ implement
 {a}(*tmp*)
 stream_make_nil() =
   $delay(stream_nil{a}())
+//
+implement
+{a}(*tmp*)
+stream_make_cons
+  (x, xs) = $delay(stream_cons{a}(x, xs))
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+stream_sing(x) =
+  stream_cons{a}(x, $delay(stream_nil))
 //
 implement
 {a}(*tmp*)
@@ -197,6 +202,39 @@ stream_get_at_exn(xs, n) = stream_nth_exn<a>(xs, n)
 
 implement
 {a}(*tmp*)
+stream_takeLte
+  (xs, n) = let
+//
+fun
+auxmain
+(
+  xs: stream(a)
+, n0: intGte(0)
+) : stream_vt(a) = $ldelay
+(
+if
+(n0 > 0)
+then
+(
+case+ !xs of
+| stream_nil() =>
+    stream_vt_nil()
+  // end of [stream_nil]
+| stream_cons(x, xs) =>
+    stream_vt_cons(x, auxmain(xs, n0-1))
+  // end of [stream_cons]
+)
+else stream_vt_nil()
+) (* end of [auxmain] *)
+//
+in
+  auxmain(xs, n)
+end // end of [stream_takeLte]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
 stream_take_exn
   (xs, n) = let
 //
@@ -251,17 +289,58 @@ implement
 {a}(*tmp*)
 stream_drop_exn
   (xs, n) = let
-in
+//
+fun
+aux:
+$d2ctype
+(
+stream_drop_exn<a>
+) =
+lam(xs, n) => 
+(
 //
 if n > 0 then
 (
   case+ !xs of
   | stream_cons
-      (_, xs) => stream_drop_exn (xs, pred(n))
+      (_, xs) => aux(xs, pred(n))
+    // stream_cons
   | stream_nil() => $raise StreamSubscriptExn()
 ) else (xs) // end of [if]
 //
+) (* end of [aux] *)
+//
+in
+  aux(xs, n)
 end // end of [stream_drop_exn]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_drop_opt
+  (xs, n) = let
+fun
+aux:
+$d2ctype
+(
+stream_drop_opt<a>
+) =
+lam(xs, n) =>
+(
+//
+if n > 0 then
+(
+  case+ !xs of
+  | stream_nil() => None_vt()
+  | stream_cons(_, xs) => aux(xs, pred(n))
+) else Some_vt(xs) // end of [if]
+//
+) (* end of [aux] *)
+//
+in
+  aux(xs, n)
+end // end of [stream_drop_opt]
 
 (* ****** ****** *)
 
@@ -871,6 +950,40 @@ loop(xs: stream(a)): void =
 )
 //
 } (* end of [stream_foreach_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{res}{a}
+stream_foldleft_fun
+  (xs, ini, fopr) = let
+//
+fun
+loop(xs: stream(a), res: res): res =
+(
+  case+ !xs of
+  | stream_nil() => res
+  | stream_cons(x, xs) => loop(xs, fopr(res, x))
+)
+in
+  loop(xs, ini)
+end // end of [stream_foldleft_fun]
+
+implement
+{res}{a}
+stream_foldleft_cloref
+  (xs, ini, fopr) = let
+//
+fun
+loop(xs: stream(a), res: res): res =
+(
+  case+ !xs of
+  | stream_nil() => res
+  | stream_cons(x, xs) => loop(xs, fopr(res, x))
+)
+in
+  loop(xs, ini)
+end // end of [stream_foldleft_cloref]
 
 (* ****** ****** *)
 

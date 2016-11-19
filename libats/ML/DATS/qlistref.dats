@@ -41,64 +41,138 @@ staload
 UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
-
+//
+staload "libats/SATS/qlist.sats"
+//
 staload "libats/ML/SATS/basis.sats"
-staload "libats/ML/SATS/stream.sats"
+staload "libats/ML/SATS/qlistref.sats"
+//
+(* ****** ****** *)
+//
+#define qencode qlist_encode
+#define qdecode qlist_decode
+//
+extern
+castfn
+qlist_encode
+  {a:vt0p}: qlist(a) -<> qlistref(a)
+extern
+castfn
+qlist_decode
+  {a:vt0p}: qlistref(a) -<> qlist(a)
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+qlistref_make_nil
+  {a}((*void*)) =
+  qencode(qlist_make_nil())
+//
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+qlistref_is_nil
+  (q0) = ans where
+{
+//
+val q0 = qdecode(q0)
+//
+val ans = qlist_is_nil<a>(q0)
+//
+prval () = $UN.cast2void(q0)
+//
+} (* end of [qlistref_is_nil] *)
+
+implement
+{a}(*tmp*)
+qlistref_isnot_nil
+  (q0) = ans where
+{
+//
+val q0 = qdecode(q0)
+//
+val ans = qlist_isnot_nil<a>(q0)
+//
+prval () = $UN.cast2void(q0)
+//
+} (* end of [qlistref_is_cons] *)  
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+qlistref_length
+  (q0) = n0 where
+{
+//
+val q0 = qdecode(q0)
+//
+val n0 = qlist_length<a>(q0)
+//
+prval () = lemma_qlist_param(q0)
+//
+prval () = $UN.cast2void(q0)
+//
+} (* end of [qlistref_length] *)  
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+qlistref_insert
+  (q0, x) = () where
+{
+//
+val q0 = qdecode(q0)
+//
+val () =
+$effmask_wrt
+  (qlist_insert<a>(q0, x))
+//
+prval () = $UN.cast2void(q0)
+//
+} (* end of [qlistref_insert] *)
 
 (* ****** ****** *)
 //
 implement
-{a}{b}
-stream_map_method
-  (xs, _) =
-(
-lam(fopr) => stream_map_cloref<a><b>(xs, fopr)
-)
+{a}(*tmp*)
+qlistref_takeout_opt
+  (q0) = opt where
+{
 //
-(* ****** ****** *)
+val q0 = qdecode(q0)
 //
-implement
-{a}{b}
-stream_imap_method
-  (xs, _) =
-(
-lam(fopr) => stream_imap_cloref<a><b>(xs, fopr)
-)
+val opt =
+$effmask_wrt
+  (qlist_takeout_opt(q0))
+//
+prval () = $UN.cast2void(q0)
+//
+} (* end of [qlistref_takeout_opt] *)
 //
 (* ****** ****** *)
 //
 implement
 {a}(*tmp*)
-stream_filter_method(xs) =
-  lam(pred) => stream_filter_cloref<a>(xs, pred)
+qlistref_takeout_list
+  (q0) = xs where
+{
 //
-(* ****** ****** *)
+val q0 = qdecode(q0)
 //
-implement
-{res}{x}
-stream_scan_method(xs, _) =
-  lam(res, fopr) =>
-  stream_scan_cloref<res><x>(xs, res, fopr)
+val xs =
+$effmask_wrt
+  (qlist_takeout_list(q0))
 //
-(* ****** ****** *)
+prval () = $UN.cast2void(q0)
 //
-implement
-{a}(*tmp*)
-stream_foreach_method(xs) =
-  lam(fwork) =>
-    stream_foreach_cloref<a>(xs, fwork)
-  // end of [lam]
+prval () = lemma_list_vt_param(xs)
 //
-(* ****** ****** *)
-//
-implement
-{res}{a}
-stream_foldleft_method
-  (xs, _(*TYPE*)) =
-  lam(ini, fopr) =>
-    stream_foldleft_cloref<res><a>(xs, ini, fopr)
-  // end of [lam]
+} (* end of [qlistref_takeout_list] *)
 //
 (* ****** ****** *)
 
-(* end of [stream.dats] *)
+(* end of [qlistref.dats] *)

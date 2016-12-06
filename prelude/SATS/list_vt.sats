@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Sat Nov 12 23:15:25 2016
+** Time of generation: Sat Dec  3 10:16:34 2016
 *)
 
 (* ****** ****** *)
@@ -450,6 +450,12 @@ x:vt0p
   {fe:eff} (
   xs: !List_vt(INV(x)), f: (&x) -<fe> void
 ) :<fe> void // end of [list_vt_foreach_fun]
+fun{
+x:vt0p
+} list_vt_foreach_cloref
+  {fe:eff} (
+  xs: !List_vt(INV(x)), f: (&x) -<cloref,fe> void
+) :<fe> void // end of [list_vt_foreach_cloref]
 fun{
 x:vt0p
 } list_vt_foreach_funenv

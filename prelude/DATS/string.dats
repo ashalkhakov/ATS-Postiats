@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Fri Oct 28 10:36:30 2016
+** Time of generation: Sat Nov 26 17:28:20 2016
 *)
 
 (* ****** ****** *)
@@ -402,14 +402,13 @@ end // end of [string_make_rlistlen]
 implement
 {}(*tmp*)
 string_make_list_vt
-  (cs) = str where
-{
+  (cs) = let
 //
-  val cs2 = $UN.list_vt2t(cs)
-  val str = string_make_list(cs2)
-  val ((*freed*)) = list_vt_free<char>(cs)
+val n = list_vt_length(cs)
 //
-} (* end of [string_make_list_vt] *)
+in
+  string_make_listlen_vt(cs, n)
+end (* end of [string_make_list_vt] *)
 //
 implement
 {}(*tmp*)
@@ -422,6 +421,31 @@ string_make_listlen_vt
   val ((*freed*)) = list_vt_free<char>(cs)
 //
 } (* end of [string_make_listlen_vt] *)
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+string_make_rlist_vt
+  (cs) = let
+//
+val n = list_vt_length(cs)
+//
+in
+  string_make_rlistlen_vt(cs, n)
+end (* end of [string_make_rlist_vt] *)
+//
+implement
+{}(*tmp*)
+string_make_rlistlen_vt
+  (cs, n) = str where
+{
+//
+  val cs2 = $UN.list_vt2t(cs)
+  val str = string_make_rlistlen(cs2, n)
+  val ((*freed*)) = list_vt_free<char>(cs)
+//
+} (* end of [string_make_rlistlen_vt] *)
 //
 (* ****** ****** *)
 
@@ -666,6 +690,19 @@ in
   castvwtp_trans{strnptr(n)}((pf, pfgc | p))
 end // end of [string1_copy]
 
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+string_fset_at_size
+  (s0, i, c) = let
+  val s1 = string1_copy(s0)
+in
+//
+let val () = s1[i] := c in strnptr2string(s1) end
+//
+end // end of [string_fset_at_size]
+//
 (* ****** ****** *)
 
 implement

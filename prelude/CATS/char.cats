@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/char.atxt
-** Time of generation: Mon Sep  5 21:48:48 2016
+** Time of generation: Sun Nov 20 15:37:53 2016
 */
 
 /* ****** ****** */

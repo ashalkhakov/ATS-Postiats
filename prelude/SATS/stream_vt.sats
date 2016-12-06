@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Mon Nov  7 10:18:23 2016
+** Time of generation: Sat Nov 26 08:26:49 2016
 *)
 
 (* ****** ****** *)
@@ -193,12 +193,12 @@ stream_vt_filter_fun
 fun{a:t0p}
 stream_vt_filter_cloptr
 (
-  xs: stream_vt(INV(a)), pred: (&a) -<cloptr> bool
+  xs: stream_vt(INV(a)), pred: (&a) -<cloptr1> bool
 ) : stream_vt (a) // end of [stream_vt_filter_cloptr]
 fun{a:t0p}
 stream_vt_ifilter_cloptr
 (
-  xs: stream_vt(INV(a)), pred: (intGte(0), &a) -<cloptr> bool
+  xs: stream_vt(INV(a)), pred: (intGte(0), &a) -<cloptr1> bool
 ) : stream_vt (a) // end of [stream_vt_ifilter_cloptr]
 //
 fun{a:vt0p}
@@ -317,6 +317,12 @@ stream_vt_foreach_cloptr
 (
   stream_vt(INV(a)), fwork: (&a >> a?!) -<cloptr1> void
 ) : void // end of [stream_vt_foreach_cloptr]
+//
+fun{a:vt0p}
+stream_vt_rforeach_cloptr
+(
+  stream_vt(INV(a)), fwork: (&a >> a?!) -<cloptr1> void
+) : void // end of [stream_vt_rforeach_cloptr]
 //
 fun{a:vt0p}
 stream_vt_iforeach_cloptr

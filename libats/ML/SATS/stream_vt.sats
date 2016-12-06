@@ -63,7 +63,7 @@ fun{a:t0p}
 stream_vt_filter_method
 (
 xs: stream_vt(INV(a))
-) : ((&a)-<cloptr>bool)-<lincloptr1>stream_vt(a)
+) : ((&a)-<cloptr1>bool)-<lincloptr1>stream_vt(a)
 //
 overload .filter with stream_vt_filter_method
 //
@@ -74,7 +74,13 @@ stream_vt_foreach_method
   (xs: stream_vt(INV(a))) 
 : ((&a >> a?!) -<cloptr1> void) -<lincloptr1> void
 //
+fun{a:vt0p}
+stream_vt_rforeach_method
+  (xs: stream_vt(INV(a))) 
+: ((&a >> a?!) -<cloptr1> void) -<lincloptr1> void
+//
 overload .foreach with stream_vt_foreach_method
+overload .rforeach with stream_vt_rforeach_method
 //
 (* ****** ****** *)
 //

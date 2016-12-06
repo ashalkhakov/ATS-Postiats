@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Mon Nov  7 10:20:31 2016
+** Time of generation: Sat Nov 26 08:31:02 2016
 *)
 
 (* ****** ****** *)
@@ -633,7 +633,8 @@ fun
 auxmain
 (
 //
-xs: stream_vt(a), pred: (&a) -<cloptr> bool
+xs: stream_vt(a),
+pred: (&a) -<cloptr1> bool
 //
 ) : stream_vt(a) = $ldelay
 (
@@ -675,7 +676,10 @@ end // end of [let]
 //
 ,
 //
-(~xs; cloptr_free($UN.castvwtp0{cloptr0}(pred)))
+(
+  ~xs;
+  cloptr_free($UN.castvwtp0{cloptr0}(pred))
+)
 //
 ) (* end of auxmain *)
 //
@@ -686,17 +690,15 @@ end // end of [let]
 implement
 {a}(*tmp*)
 stream_vt_ifilter_cloptr
-(
-  xs, pred
-) = auxmain(xs, 0, pred) where
-{
+  (xs, pred) = let
 //
 fun
 auxmain
 (
 //
-xs: stream_vt(a),
-i0: intGte(0), pred: (intGte(0), &a) -<cloptr> bool
+  i0: intGte(0)
+, xs: stream_vt(a)
+, pred: (intGte(0), &a) -<cloptr1> bool
 //
 ) : stream_vt(a) = $ldelay
 (
@@ -710,8 +712,9 @@ case+ xs_con of
     ((*_*)) => let
     val () =
     cloptr_free
-      ($UN.castvwtp0{cloptr0}(pred))
-    // end of [val]
+    (
+      $UN.castvwtp0{cloptr0}(pred)
+    ) (* cloptr_free *)
   in
     stream_vt_nil(*void*)
   end // end of [stream_vt_nil]
@@ -723,14 +726,18 @@ case+ xs_con of
       then let
         val () =
         xs1 :=
-        auxmain(xs1, i0+1, pred)
+        auxmain
+        (
+          i0+1, xs1, pred
+        ) (* end-of-val *)
       in
         fold@{a}(xs_con); xs_con
       end // end of [then]
       else let
         val xs1 = xs1
       in
-        free@{a}(xs_con); !(auxmain(xs1, i0+1, pred))
+        free@{a}(xs_con);
+        !(auxmain(i0+1, xs1, pred))
       end // end of [else]
     // end of [if]
   end // end of [stream_vt_cons]
@@ -739,11 +746,16 @@ end // end of [let]
 //
 ,
 //
-(~xs; cloptr_free($UN.castvwtp0{cloptr0}(pred)))
+(
+  ~xs;
+  cloptr_free($UN.castvwtp0{cloptr0}(pred))
+)
 //
 ) (* end of auxmain *)
 //
-} (* end of [stream_vt_ifilter_cloptr] *)
+in
+  auxmain(0, xs, pred)
+end (* end of [stream_vt_ifilter_cloptr] *)
 
 (* ****** ****** *)
 
@@ -1221,6 +1233,39 @@ end // end of [let] // end of [lam]
 in
   loop(xs, fwork)
 end // end of [stream_vt_foreach_cloptr]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_vt_rforeach_cloptr
+  (xs, fwork) = let
+//
+fun
+aux0
+(
+  xs: stream_vt(a)
+, fwork: !(&a >> a?!) -<cloptr1> void
+) : void = let
+  val xs_con = !xs
+in
+//
+case+ xs_con of
+| ~stream_vt_nil() => ()
+| @stream_vt_cons(x, xs) =>
+  (
+    aux0(xs, fwork);
+    fwork(x); free@{a?}(xs_con)
+  ) (* stream_vt_cons *)
+end // end of [let] // end of [lam]
+//
+val ((*void*)) = aux0(xs, fwork)
+//
+in
+//
+cloptr_free($UN.castvwtp0{cloptr0}(fwork))
+//
+end // end of [stream_vt_rforeach_cloptr]
 
 (* ****** ****** *)
 

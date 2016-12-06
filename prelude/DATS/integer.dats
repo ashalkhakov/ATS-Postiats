@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Sat Oct 22 17:10:47 2016
+** Time of generation: Tue Dec  6 09:50:55 2016
 *)
 
 (* ****** ****** *)
@@ -353,24 +353,32 @@ end // end of [let] // end of [nmod2_g1int_int1]
 
 (* ****** ****** *)
 
+(*
+//
+// HX-2016-12:
+// [ngcd] is no longer pre-declared
+//
 implement
 {tk}(*tmp*)
 g1int_ngcd
   (x, y) = let
 //
-fun loop{i,j:nat} .<j>.
+fun
+loop{i,j:nat} .<j>.
 (
-  x: g1int (tk, i), y: g1int (tk, j)
-) :<> [r:nat] g1int (tk, r) = let
+  x: g1int(tk, i)
+, y: g1int(tk, j)
+) :<> [r:nat] g1int(tk, r) = let
 in
 //
-if y > 0 then loop (y, g1int_nmod (x, y)) else x
+if y > 0 then loop (y, g1int_nmod(x, y)) else x
 //
 end // end of [loop]
 //
 in
   loop (x, y)
 end // end of [g1int_ngcd]
+*)
 
 (* ****** ****** *)
 //

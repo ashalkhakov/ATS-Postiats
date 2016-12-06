@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Sat Nov 12 23:49:15 2016
+** Time of generation: Sat Dec  3 10:18:27 2016
 *)
 
 (* ****** ****** *)
@@ -1129,7 +1129,7 @@ implement
 list_vt_foreach_fun
   {fe} (xs, f) = let
 //
-prval () = lemma_list_vt_param (xs)
+prval () = lemma_list_vt_param(xs)
 //
 fun
 loop
@@ -1150,6 +1150,37 @@ loop
 in
   loop (xs, f)
 end // end of [list_vt_foreach_fun]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_vt_foreach_cloref
+  {fe} (xs, f) = let
+//
+prval () = lemma_list_vt_param(xs)
+//
+fun
+loop
+{n:nat} .<n>.
+(
+  xs: !list_vt (a, n), f: (&a) -<cloref,fe> void
+) :<fe> void =
+  case+ xs of
+  | @list_vt_cons
+      (x, xs1) => let
+      val () = f (x)
+      val () = loop (xs1, f)
+    in
+      fold@ (xs)
+    end // end of [cons]
+  | list_vt_nil ((*void*)) => ()
+// end of [loop]
+in
+  loop (xs, f)
+end // end of [list_vt_foreach_cloref]
+
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)

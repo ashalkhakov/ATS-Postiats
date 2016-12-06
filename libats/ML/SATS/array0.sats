@@ -235,23 +235,30 @@ fun
 {a:vt0p}
 {b:vt0p}
 array0_map
-  (A: array0(a), fopr: (&a) -<cloref1> b): array0(b)
+(
+A0: array0(a), fopr: (&a) -<cloref1> b
+) : array0(b) // end of [array0_map]
 //
 (* ****** ****** *)
-
-fun{a:vt0p}
+//
+fun
+{a:vt0p}
 array0_tabulate
-  (asz: size_t, fopr: (size_t) -<cloref1> a): array0(a)
-// end of [array0_tabulate]
-
+  {n:int}
+(
+  asz: size_t(n), fopr: (sizeLt(n)) -<cloref1> a
+) : array0(a) // end of [array0_tabulate]
+//
 (* ****** ****** *)
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array0_foreach
   (A: array0(a), fwork: (&a >> _) -<cloref1> void): void
 // end of [array0_foreach]
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array0_foreach_method
   (A: array0(a)) (fwork: (&a >> _) -<cloref1> void): void
 // end of [array0_foreach_methon]
@@ -260,12 +267,14 @@ overload .foreach with array0_foreach_method
 //
 (* ****** ****** *)
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array0_iforeach
   (A: array0(a), fwork: (size_t, &a >> _) -<cloref1> void): void
 // end of [array0_iforeach]
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array0_iforeach_method
   (A: array0(a)) (fwork: (size_t, &a >> _) -<cloref1> void): void
 // end of [array0_iforeach_method]
@@ -274,12 +283,14 @@ overload .iforeach with array0_iforeach_method
 //
 (* ****** ****** *)
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array0_rforeach
   (A: array0(a), fwork: (&a >> _) -<cloref1> void): void
 // end of [array0_rforeach]
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 array0_rforeach_method
   (A: array0(a)) (fwork: (&a >> _) -<cloref1> void): void
 // end of [array0_rforeach]
@@ -287,20 +298,22 @@ array0_rforeach_method
 overload .rforeach with array0_rforeach_method
 //
 (* ****** ****** *)
-
+//
 (*
 ** HX: raising NotFoundExn if no satisfying element is found
 *)
-fun{a:vt0p}
+fun
+{a:vt0p}
 array0_find_exn
   (A: array0(a), p: (&a) -<cloref1> bool): size_t
 // end of [array0_find_exn]
-
-fun{a:vt0p}
+//
+fun
+{a:vt0p}
 array0_find_opt
   (A: array0(a), p: (&a) -<cloref1> bool): option0(size_t)
 // end of [array0_find_opt]
-
+//
 (* ****** ****** *)
 //
 fun{

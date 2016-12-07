@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Nov 20 21:18:28 2016
+** Time of generation: Tue Dec  6 22:22:03 2016
 *)
 
 (* ****** ****** *)
@@ -622,7 +622,8 @@ implement
 stream_scan
   (xs, ini) = let
 //
-fun aux
+fun
+auxmain
 (
   xs: stream(x), ini: res
 ) :<!laz> stream(res) = $delay
@@ -634,12 +635,12 @@ case+ !xs of
 | stream_cons
     (x, xs) =>
   stream_cons{res}
-    (stream_scan$fopr<res><x>(ini, x), aux(xs, ini))
+    (stream_scan$fopr<res><x>(ini, x), auxmain(xs, ini))
   // end of [stream_cons]
-) // end of [$delay] // end of [aux]
+) // end of [$delay] // end of [auxmain]
 //
 in
-  aux (xs, ini)
+  stream_make_cons<res>(ini, auxmain(xs, ini))
 end // end of [stream_scan]
 
 (* ****** ****** *)
@@ -820,18 +821,18 @@ implement
 {a}(*tmp*)
 stream_tabulate
   ((*void*)) =
-  aux(0) where
+  auxmain(0) where
 {
 //
 fun
-aux{n:nat}
+auxmain{n:nat}
 (
   n: int(n)
 ) : stream(a) = $delay
 (
 stream_cons{a}
-  (stream_tabulate$fopr<a>(n), aux(n+1))
-) (* end of [aux] *)
+  (stream_tabulate$fopr<a>(n), auxmain(n+1))
+) (* end of [auxmain] *)
 //
 } (* end of [stream_tabulate] *)
 

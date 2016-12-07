@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Sun Nov 20 21:18:26 2016
+** Time of generation: Tue Dec  6 22:21:12 2016
 *)
 
 (* ****** ****** *)
@@ -573,8 +573,8 @@ val bsz =
 fileref_get_line_string$bufsize ()
 //
 val [l:addr,n:int] str = $extfcall
-(
-Strnptr0, "atspre_fileref_get_line_string_main2", bsz, inp, addr@(nlen)
+( Strnptr0
+, "atspre_fileref_get_line_string_main2", bsz, inp, addr@(nlen)
 )
 //
 prval () = lemma_strnptr_param (str)

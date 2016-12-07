@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sat Nov 26 08:31:02 2016
+** Time of generation: Tue Dec  6 22:22:04 2016
 *)
 
 (* ****** ****** *)
@@ -1079,7 +1079,7 @@ end // end of [let]
 ) (* end of [auxmain] *)
 //
 in
-  auxmain(xs, ini, fopr)
+  stream_vt_make_cons<res>(ini, auxmain(xs, ini, fopr))
 end // end of [stream_vt_scan_cloptr]
 
 (* ****** ****** *)

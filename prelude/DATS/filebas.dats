@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Tue Dec  6 22:21:12 2016
+** Time of generation: Tue Dec 13 22:33:32 2016
 *)
 
 (* ****** ****** *)
@@ -660,7 +660,7 @@ fun loop
 #define CNUL '\000'
 //
 val nw =
-$extfcall(size_t, "atslib_libc_fread", p1, 1, n1, inp)
+$extfcall(size_t, "atslib_libats_libc_fread", p1, 1, n1, inp)
 //
 in (* in-of-let *)
 //
@@ -689,7 +689,8 @@ and loop2
   val (pf, pfgc | p0_) = malloc_gc (bsz2)
   val p0_ = $UN.castvwtp0{ptr}((pf, pfgc | p0_))
 //
-  val _(*ptr*) = $extfcall(ptr, "atslib_libc_memcpy", p0_, p0, n0)
+  val _(*ptr*) =
+  $extfcall(ptr, "atslib_libats_libc_memcpy", p0_, p0, n0)
 //
   val () = strptr_free ($UN.castvwtp0{Strptr1}(p0))
   val n0_ = pred(g0ofg1(bsz2))
@@ -861,7 +862,7 @@ fun
 fread
 (
   ptr, size_t, size_t, FILEref
-) : Size = "mac#atslib_libc_fread"
+) : Size = "mac#atslib_libats_libc_fread"
 //
 in (* in of [local] *)
 

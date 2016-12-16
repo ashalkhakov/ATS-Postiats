@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Sun Nov 20 21:18:21 2016
+** Time of generation: Thu Dec  8 23:28:10 2016
 *)
 
 (* ****** ****** *)
@@ -379,6 +379,15 @@ fprint_stream$sep (out: FILEref): void
 fun{a:t0p}
 fprint_stream
   (out: FILEref, xs: stream(INV(a)), n: int): void
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+stream_skip_while_cloref
+  (xs: &stream(INV(a)) >> _, test: (a) -<cloref1> bool): intGte(0)
+fun{a:t0p}
+stream_skip_until_cloref
+  (xs: &stream(INV(a)) >> _, test: (a) -<cloref1> bool): intGte(0)
 //
 (* ****** ****** *)
 //

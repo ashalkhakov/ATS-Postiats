@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Sun Nov 20 21:18:26 2016
+** Time of generation: Thu Dec  8 22:34:26 2016
 *)
 
 (* ****** ****** *)
@@ -131,6 +131,47 @@ argv_get_at
   prval () = minus_addback (fpf, pf | argv)
 } // end of [argv_get_at]
 *)
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+listize_argc_argv
+  {n}(argc, argv) = let
+//
+prval () =
+  lemma_argv_param(argv)
+//
+fun
+loop
+{i:nat | i <= n} .<n-i>.
+(
+argv: !argv(n), i0: int(i),
+res0: &ptr? >> list_vt(string, n-i)
+) : void =
+(
+if
+(i0 < argc)
+then let
+  val x0 = argv[i0]
+  val () =
+    res0 :=
+    list_vt_cons{string}{0}(x0, _)
+  // end of [val]
+  val+list_vt_cons(_, res1) = res0
+  val () = loop(argv, i0+1, res1)
+  prval ((*folded*)) = fold@(res0)
+in
+  // nothing
+end // end of [then]
+else () where
+{
+  val () = res0 := list_vt_nil()
+}
+) (* end of [loop] *)
+//
+in
+  let var res0: ptr in loop(argv, 0, res0); res0 end
+end // end of [listize_argc_argv]
 
 (* ****** ****** *)
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Sun Nov 20 21:18:20 2016
+** Time of generation: Wed Dec 21 14:53:05 2016
 *)
 
 (* ****** ****** *)
@@ -242,13 +242,13 @@ fprint_array$sep (out: FILEref): void
 fun{a:vt0p}
 fprint_arrayref
   {n:int} (
-  out: FILEref, A: arrayref(a, n), n: size_t n
+  out: FILEref, A: arrayref(a, n), n: size_t(n)
 ) : void // end of [fprint_arrayref]
 fun{a:vt0p}
 fprint_arrayref_sep
   {n:int} (
   out: FILEref
-, A: arrayref(a, n), asz: size_t n, sep: NSH(string)
+, A: arrayref(a, n), asz: size_t(n), sep: NSH(string)
 ) : void // end of [fprint_arrayref_sep]
 
 (* ****** ****** *)
@@ -315,14 +315,14 @@ fun
 {a:vt0p}
 arrayref_iforeach{n:int}
 (
-  A: arrayref(a, n), asz: size_t (n)
+  A: arrayref(a, n), asz: size_t(n)
 ) : sizeLte(n) // end of [arrayref_iforeach]
 fun
 {a:vt0p}
 {env:vt0p}
 arrayref_iforeach_env{n:int}
 (
-  A: arrayref(a, n), asz: size_t (n), env: &(env)>>env
+  A: arrayref(a, n), asz: size_t(n), env: &(env)>>env
 ) : sizeLte(n) // end of [arrayref_iforeach_env]
 
 (* ****** ****** *)
@@ -400,7 +400,7 @@ overload arrszref with arrszref_make_arrpsz
 fun{}
 arrszref_make_arrayref
   {a:vt0p}{n:int}
-  (A: SHR(arrayref(a, n)), n: size_t n):<!wrt> arrszref(a)
+  (A: SHR(arrayref(a, n)), n: size_t(n)):<!wrt> arrszref(a)
 // end of [arrszref_make_arrayref]
 
 (* ****** ****** *)
@@ -415,7 +415,7 @@ fun{
 fun{}
 arrszref_get_refsize{a:vt0p}
 (
-  A: arrszref(a), asz: &size_t? >> size_t n
+  A: arrszref(a), asz: &size_t? >> size_t(n)
 ) :<!wrt> #[n:nat] arrayref(a, n) // end-of-fun
 //
 (* ****** ****** *)
@@ -558,16 +558,17 @@ streamize_arrayref_elt
 // overloading for certain symbols
 //
 (* ****** ****** *)
-
+//
 overload [] with arrayref_get_at_gint of 0
-overload [] with arrayref_get_at_guint of 0
 overload [] with arrayref_set_at_gint of 0
-overload [] with arrayref_set_at_guint of 0
 overload [] with arrszref_get_at_gint of 0
-overload [] with arrszref_get_at_guint of 0
 overload [] with arrszref_set_at_gint of 0
+//
+overload [] with arrayref_get_at_guint of 0
+overload [] with arrayref_set_at_guint of 0
+overload [] with arrszref_get_at_guint of 0
 overload [] with arrszref_set_at_guint of 0
-
+//
 (* ****** ****** *)
 
 overload .head with arrayref_head
@@ -575,6 +576,7 @@ overload .tail with arrayref_tail
 
 (* ****** ****** *)
 
+overload size with arrszref_get_size
 overload .size with arrszref_get_size
 
 (* ****** ****** *)

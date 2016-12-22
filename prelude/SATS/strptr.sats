@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Sun Nov 20 21:18:16 2016
+** Time of generation: Tue Dec 20 20:00:16 2016
 *)
 
 (* ****** ****** *)
@@ -192,6 +192,13 @@ fun{}
 strnptr_isnot_null
   {l:addr}{n:int}
   (x: !strnptr(l, n)):<> bool(l > null)
+//
+(* ****** ****** *)
+//
+praxi
+strnptr_free_null
+  {l:addr|l <= null}{n:int} (x: strnptr(l, n)):<> void
+// end of [strnptr_free_null]
 //
 (* ****** ****** *)
 

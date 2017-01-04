@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Sat Dec  3 10:16:34 2016
+** Time of generation: Sat Dec 31 03:54:06 2016
 *)
 
 (* ****** ****** *)
@@ -484,6 +484,20 @@ fun{
 x:vt0p}{env:vt0p
 } list_vt_iforeach$fwork
   (i: intGte(0), x: &x >> _, env: &(env) >> _): void
+//
+(* ****** ****** *)
+//
+(*
+HX-2016-12:
+Fisher–Yates shuffle
+*)
+//
+fun{a:t0p}
+list_vt_permute
+  {n:int}(xs: list_vt(INV(a), n)): list_vt(a, n)
+//
+fun{(*void*)}
+list_vt_permute$randint{n:int | n > 0}(int(n)): natLt(n)
 //
 (* ****** ****** *)
 //

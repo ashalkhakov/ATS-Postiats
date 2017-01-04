@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Sun Nov 20 21:18:19 2016
+** Time of generation: Sat Dec 31 03:54:06 2016
 *)
 
 (* ****** ****** *)
@@ -727,12 +727,17 @@ a,b:vt0p}{c:vt0p
 //
 (* ****** ****** *)
 //
+(*
+HX-2016:
+Fisher–Yates shuffle
+*)
+//
 fun{a:vt0p}
 array_permute{n:int}
   (A: &(@[INV(a)][n]) >> @[a][n], n: size_t(n)): void
 //
 fun{(*void*)}
-array_permute$randint {n:int | n > 0} (size_t n): sizeLt (n)
+array_permute$randint{n:int | n > 0}(size_t(n)): sizeLt(n)
 //
 (* ****** ****** *)
 

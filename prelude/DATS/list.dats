@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Nov 20 21:18:27 2016
+** Time of generation: Thu Dec 29 11:37:20 2016
 *)
 
 (* ****** ****** *)
@@ -687,13 +687,54 @@ in
 end // end of [list_append2_vt]
 
 (* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+list_extend(xs, y) =
+(
+  list_append2_vt<a>(xs, list_vt_sing(y))
+) (* end of [list_extend] *)
+//
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)
-list_extend (xs, y) =
+mul_int_list
+{m,n}(m, xs) =
+loop{m,0}
 (
-  list_append2_vt<a> (xs, list_vt_sing (y))
-) // end of [list_extend]
+m, xs, list_vt_nil
+) where
+{
+//
+prval() = lemma_list_param(xs)
+//
+fun
+loop
+{i,j:nat} .<i>.
+(
+i0: int(i)
+,
+xs: list(a, n)
+,
+res: list_vt(a, j*n)
+) :<!wrt> list_vt(a, (i+j)*n) =
+if
+(i0 = 0)
+then
+(
+  res where
+{
+  prval
+  EQINT() = eqint_make{i,0}()
+}
+) (* end of [then] *)
+else
+(
+  loop{i-1,j+1}(i0-1, xs, list_append2_vt<a>(xs, res))
+) (* end of [else] *)
+//
+} (* end of [mul_int_list] *)
 
 (* ****** ****** *)
 

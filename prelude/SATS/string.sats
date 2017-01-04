@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Wed Dec 21 23:20:05 2016
+** Time of generation: Wed Jan  4 13:58:15 2017
 *)
 
 (* ****** ****** *)
@@ -508,20 +508,27 @@ overload string_append with string0_append5 of 0
 overload string_append with string0_append6 of 0
 //
 (* ****** ****** *)
-
+//
 fun{}
 stringarr_concat{n:int}
-  (arrayref(string, n), size_t(n)):<!wrt> Strptr1
+(
+xs: arrayref(string, n), n: size_t(n)
+) :<!wrt> Strptr1 // end of [stringarr]
+//
 fun{}
-stringlst_concat(xs: List(string)):<!wrt> Strptr1
-
+stringlst_concat(List(string)):<!wrt> Strptr1
+//
 (* ****** ****** *)
-
+//
+fun{}
+string_implode
+  {n:int}
+  (cs: list(charNZ, n)):<!wrt> strnptr(n)
+//
 fun{}
 string_explode
   {n:int} (x: string(n)):<!wrt> list_vt(charNZ, n)
-// end of [string_explode]
-
+//
 (* ****** ****** *)
 //
 fun{}
@@ -539,8 +546,6 @@ fun{}
 string_forall(str: string): bool
 fun{}
 string_forall$pred(c: char): bool
-//
-(* ****** ****** *)
 //
 fun{}
 string_iforall(str: string): bool

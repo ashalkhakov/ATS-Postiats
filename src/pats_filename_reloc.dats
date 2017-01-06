@@ -59,9 +59,13 @@ staload SYM = "./pats_symbol.sats"
 staload SYN = "./pats_syntax.sats"
 
 (* ****** ****** *)
-
+//
 staload S1E = "./pats_staexp1.sats"
-
+//
+typedef e1xp = $S1E.e1xp
+typedef v1al = $S1E.v1al
+overload print with $S1E.print_e1xp
+//
 (* ****** ****** *)
 
 staload TRENV1 = "./pats_trans1_env.sats"
@@ -119,7 +123,7 @@ pkgsrcname_get_gurl1
   (given: string, ngurl: int): Strptr1
 implement
 pkgsrcname_get_gurl1
-  (given, ngurl) = __copy_string ("$PATSRELOCROOT")
+  (given, ngurl) = __copy_string("$PATSRELOCROOT")
 //
 (* ****** ****** *)
 
@@ -131,8 +135,8 @@ implement
 pkgsrcname_get2_gurl0
   (given, ngurl) = let
 //
-val p0 = $UN.cast2ptr (given)
-val c1 = $UN.ptr0_get<char> (add_ptr_int (p0, 1))
+val p0 = $UN.cast2ptr(given)
+val c1 = $UN.ptr0_get<char>(add_ptr_int(p0, 1))
 //
 in
 //
@@ -141,18 +145,21 @@ case+ 0 of
     c1 = '$' => let
     val start = $UN.cast2size(2)
     val length = $UN.cast2size(ngurl - 3)
-    val key = __make_substring (given, start, length)
+//
+    val key =
+      __make_substring(given, start, length)
     val key2 =
-      sprintf ("%s_sourceloc", @($UN.castvwtp1{string}(key)))
+      sprintf("%s_sourceloc", @($UN.castvwtp1{string}(key)))
     // end of [val]
-    val () = strptr_free (key)
-    val key2 = string_of_strptr (key2)
-    val key2 = $SYM.symbol_make_string (key2)
-    val opt2 = $TRENV1.the_e1xpenv_find (key2)
+//
+    val () = strptr_free(key)
+    val key2 = string_of_strptr(key2)
+    val key2 = $SYM.symbol_make_string(key2)
+    val opt2 = $TRENV1.the_e1xpenv_find(key2)
   in
     case+ opt2 of
     | ~None_vt() =>
-        pkgsrcname_get_gurl0 (given, ngurl)
+        pkgsrcname_get_gurl0(given, ngurl)
       // end of [None_vt]
     | ~Some_vt(e) => (
         case+ e.e1xp_node of
@@ -279,20 +286,34 @@ case+ c0 of
     val st0 = $UN.cast2size(1)
     val len = $UN.cast2size(nk)
     val key =
-      __make_substring (given, st0, len)
+      __make_substring(given, st0, len)
     // end of [val]
-    val key = string_of_strptr (key)
+    val key = string_of_strptr(key)
 (*
     val () =
     println!
       ("pkgsrcname_eval: auxeval1: key = ", key)
     // end of [val]
 *)
-    val key = $SYM.symbol_make_string (key)
-    val opt = $TRENV1.the_e1xpenv_find (key)
+    val key = $SYM.symbol_make_string(key)
+    val opt = $TRENV1.the_e1xpenv_find(key)
+//
+(*
+    val ((*void*)) = let
+      val opt = $UN.option_vt2t{e1xp}(opt)
+    in
+      case+ opt of
+      | None() => println! ("pkgsrcname_eval: auxeval1: opt = None()")
+      | Some(e) => println! ("pkgsrcname_eval: auxeval1: opt = Some(", e, ")")
+    end // end of [let] // end of [val]
+*)
+//
   in
     case+ opt of
-    | ~None_vt() => given
+    | ~None_vt() =>
+      (
+        given
+      ) (* end of [None_vt] *)
     | ~Some_vt(e) =>
       (
         case+ e.e1xp_node of
@@ -326,56 +347,83 @@ implement
 $FIL.pkgsrcname_relocatize
   (given, ngurl) = let
 //
-val srcd0c = $GLOB.the_ATSRELOC_get_decl()
+val
+srcd0c = $GLOB.the_ATSRELOC_get_decl()
 //
 extern
-fun PATSHOME_get(): string = "ext#patsopt_PATSHOME_get"
+fun
+PATSHOME_get(): string = "ext#patsopt_PATSHOME_get"
 extern
-fun PATSHOMERELOC_get(): Stropt = "ext#patsopt_PATSHOMERELOC_get"
+fun
+PATSHOMERELOC_get(): Stropt = "ext#patsopt_PATSHOMERELOC_get"
 //
 in
 //
 if
-ngurl < 0
+(ngurl < 0)
 then let
+//
+val ((*void*)) =
+if srcd0c > null then
+{
+  val srcd0c =
+    $UN.cast{$SYN.d0ecl}(srcd0c)
   val ((*void*)) =
-  if srcd0c > null then
-  {
-    val srcd0c = $UN.cast{$SYN.d0ecl}(srcd0c)
-    val () = $TRENV1.the_atsreloc_insert(srcd0c, given)
-  } (* end of [if] *) // end of [val]
+    $TRENV1.the_atsreloc_insert(srcd0c, given)
+} (* end of [if] *) // end of [val]
+//
 in
   given // target
 end // end of [then]
 else let
 //
-  val p0 = $UN.cast2ptr(given)
-  val p_ngurl = add_ptr_int(p0, ngurl)
-  val p_ngurl = $UN.cast{string}(p_ngurl)
+val p0 = $UN.cast2ptr(given)
+val p_ngurl = add_ptr_int(p0, ngurl)
+val p_ngurl = $UN.cast{string}(p_ngurl)
 //
-  val dirsep = $FIL.theDirSep_get ()
+val dirsep = $FIL.theDirSep_get ()
 //
-  val gurl_t = // target
-    pkgsrcname_get2_gurl1(given, ngurl)
-  val _gurl_t = $UN.castvwtp1{string}(gurl_t)
-  val given2_t =
-    $UT.dirpath_append(_gurl_t, p_ngurl, dirsep)
-  val ((*freed*)) = strptr_free(gurl_t)
-  val given2_t = pkgsrcname_eval(string_of_strptr(given2_t))
+val gurl_t = // target
+  pkgsrcname_get2_gurl1(given, ngurl)
 //
-  val () =
-  if srcd0c > null then
-  {
-    val gurl_s = // source
-      pkgsrcname_get2_gurl0(given, ngurl)
-    val _gurl_s = $UN.castvwtp1{string}(gurl_s)
-    val given2_s =
-      $UT.dirpath_append(_gurl_s, p_ngurl, dirsep)
-    val ((*freed*)) = strptr_free(gurl_s)
-    val given2_s = pkgsrcname_eval(string_of_strptr(given2_s))
-    val srcd0c = $UN.cast{$SYN.d0ecl}(srcd0c)
-    val ((*void*)) = $TRENV1.the_atsreloc_insert2(srcd0c, given2_s, given2_t)
-  } (* end of [if] *) // end of [val]
+val gurl_t_ =
+  $UN.castvwtp1{string}(gurl_t)
+val given2_t =
+  $UT.dirpath_append(gurl_t_, p_ngurl, dirsep)
+//
+val ((*freed*)) = strptr_free(gurl_t)
+//
+val given2_t = pkgsrcname_eval(string_of_strptr(given2_t))
+//
+val () =
+if
+(srcd0c > null)
+then
+{
+//
+  val gurl_s = // source
+    pkgsrcname_get2_gurl0(given, ngurl)
+//
+  val gurl_s_ =
+    $UN.castvwtp1{string}(gurl_s)
+  val given2_s =
+    $UT.dirpath_append(gurl_s_, p_ngurl, dirsep)
+//
+  val ((*freed*)) = strptr_free(gurl_s)
+//
+  val given2_s = pkgsrcname_eval(string_of_strptr(given2_s))
+//
+  val srcd0c = $UN.cast{$SYN.d0ecl}(srcd0c)
+  val ((*void*)) = $TRENV1.the_atsreloc_insert2(srcd0c, given2_s, given2_t)
+} (* end of [if] *) // end of [val]
+//
+(*
+val () =
+println!
+(
+  "$FIL.pkgsrcname_relocatize: given2_t = ", given2_t
+) (* println! *)
+*)
 //
 in
   given2_t // target

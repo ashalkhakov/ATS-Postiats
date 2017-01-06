@@ -1181,6 +1181,11 @@ case+ xs of
 //
 implement
 {a}(*tmp*)
+list0_find_exn_method
+  (xs) = lam(pred) => list0_find_exn<a>(xs, pred)
+//
+implement
+{a}(*tmp*)
 list0_find_opt_method
   (xs) = lam(pred) => list0_find_opt<a>(xs, pred)
 //

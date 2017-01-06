@@ -459,22 +459,30 @@ staload_file_search
   (fil) = let
 //
 val fname =
-  $FIL.filename_get_fullname (fil)
+  $FIL.filename_get_fullname(fil)
 //
-val k0 = $SYM.symbol_get_stamp (fname)
+val k0 = $SYM.symbol_get_stamp(fname)
 //
-val (vbox(pf) | p) = ref_get_view_ptr{map}(theStaloadMap)
+val
+(
+vbox(pf)|p
+) = ref_get_view_ptr{map}(theStaloadMap)
 //
 var res: itm?  
-val found = $LM.linmap_search<key,itm> (!p, k0, cmp0, res)
+//
+val found =
+  $LM.linmap_search<key,itm>(!p, k0, cmp0, res)
 //
 in
 //
-if found then let
-  prval () = opt_unsome {itm} (res) in Some_vt (res)
-end else let
-  prval () = opt_unnone {itm} (res) in None_vt ()
-end (* end of [if] *)
+if
+found
+then let
+  prval () = opt_unsome{itm}(res) in Some_vt(res)
+end // end of [then]
+else let
+  prval () = opt_unnone{itm}(res) in None_vt(*void*)
+end (* end of [else] *)
 //
 end // end of [staload_file_search]
 
@@ -647,8 +655,10 @@ println! ("the_atsreloc_insert2: targetloc= ", given_t)
 *)
 //
 val itm =
-ATSRELOCITM2 (d0c0, given_s, given_t)
-val () = !the_itmlst := list_cons (itm, !the_itmlst)
+ATSRELOCITM2(d0c0, given_s, given_t)
+//
+val () =
+!the_itmlst := list_cons(itm, !the_itmlst)
 //
 in
   // nothing
@@ -661,38 +671,47 @@ end // end of [local]
 local
 
 %{^
-extern ats_ptr_type patsopt_PATSHOME_get () ;
-extern ats_ptr_type patsopt_PATSHOMERELOC_get () ;
+//
+extern
+ats_ptr_type patsopt_PATSHOME_get() ;
+extern
+ats_ptr_type patsopt_PATSHOMERELOC_get() ;
+/*
+extern
+ats_ptr_type patsopt_PATSHOMERELOCS_get() ;
+*/
+//
 %} // end of [%{^]
 
 in (* in of [local] *)
 
 implement
-the_trans1_env_initialize () =
+the_trans1_env_initialize
+  ((*void*)) =
 {
 //
-val opt = get () where
+val opt = get() where
 {
-  extern fun get (): Stropt = "mac#patsopt_PATSHOME_get"
+  extern fun get(): Stropt = "mac#patsopt_PATSHOME_get"
 } (* end of [val] *)
-val issome = stropt_is_some (opt)
+val issome = stropt_is_some(opt)
 val () =
 if issome then let
   val k = $SYM.symbol_PATSHOME
-  val x = e1xp_string ($LOC.location_dummy, stropt_unsome(opt))
+  val x = e1xp_string($LOC.location_dummy, stropt_unsome(opt))
 in
   the_e1xpenv_addperv (k, x)
 end // end of [if] // end of [val]
 //
-val opt = get () where
+val opt = get() where
 {
-  extern fun get (): Stropt = "mac#patsopt_PATSHOMERELOC_get"
+  extern fun get(): Stropt = "mac#patsopt_PATSHOMERELOC_get"
 } (* end of [val] *)
 val issome = stropt_is_some (opt)
 val () =
 if issome then let
   val k = $SYM.symbol_PATSHOMERELOC
-  val x = e1xp_string ($LOC.location_dummy, stropt_unsome(opt))
+  val x = e1xp_string($LOC.location_dummy, stropt_unsome(opt))
 in
   the_e1xpenv_addperv (k, x)
 end // end of [if] // end of [val]

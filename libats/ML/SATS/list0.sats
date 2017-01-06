@@ -135,21 +135,30 @@ overload list0_make_intrange with list0_make_intrange_lr
 overload list0_make_intrange with list0_make_intrange_lrd
 //
 (* ****** ****** *)
-
+//
 fun{a:t0p}
-list0_is_nil (list0(a)):<> bool
+list0_is_nil(list0(a)):<> bool
 fun{a:t0p}
-list0_is_cons (list0(a)):<> bool
-
+list0_is_cons(list0(a)):<> bool
+//
 (* ****** ****** *)
 //
 fun{a:t0p}
-list0_is_empty (list0(a)):<> bool
+list0_is_empty(list0(a)):<> bool
 fun{a:t0p}
-list0_isnot_empty (list0(a)):<> bool
+list0_isnot_empty(list0(a)):<> bool
 //
 overload iseqz with list0_is_empty
 overload isneqz with list0_isnot_empty
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+list0_length
+  (xs: list0(INV(a))):<> intGte(0)
+//
+overload length with list0_length of 0
 //
 (* ****** ****** *)
 //
@@ -162,32 +171,29 @@ list0_head_opt
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 list0_tail_exn
   (xs: SHR(list0(INV(a)))):<!exn> list0(a)
-fun{a:t0p}
+fun
+{a:t0p}
 list0_tail_opt
   (xs: SHR(list0(INV(a)))):<> Option_vt(list0(a))
 //
 (* ****** ****** *)
 //
-overload .head with list0_head_exn
-overload .tail with list0_tail_exn
+overload .head with list0_head_exn of 0
+overload .tail with list0_tail_exn of 0
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
-list0_length(list0(INV(a))):<> int
+fun
+{a:t0p}
+list0_last_exn(xs: list0(INV(a))):<!exn> (a)
+fun
+{a:t0p}
+list0_last_opt(xs: list0(INV(a))):<> Option_vt(a)
 //
-overload length with list0_length of 0
-//
-(* ****** ****** *)
-
-fun{a:t0p}
-list0_last_exn (xs: list0(INV(a))):<!exn> (a)
-fun{a:t0p}
-list0_last_opt (xs: list0(INV(a))):<> Option_vt(a)
-
 (* ****** ****** *)
 //
 fun{a:t0p}
@@ -572,17 +578,22 @@ list0_equal
 fun
 {a:t0p}
 list0_find_exn
-  (xs: list0(INV(a)), p: cfun(a, bool)): (a)
-//
+  (xs: list0(INV(a)), pred: cfun(a, bool)): (a)
 fun
 {a:t0p}
 list0_find_opt
-  (xs: list0(INV(a)), p: cfun(a, bool)): Option_vt(a)
+  (xs: list0(INV(a)), pred: cfun(a, bool)): Option_vt(a)
+//
+fun
+{a:t0p}
+list0_find_exn_method
+  (xs: list0(INV(a)))(pred: cfun(a, bool)): (a)
 fun
 {a:t0p}
 list0_find_opt_method
-  (xs: list0(INV(a))) (p: cfun(a, bool)): Option_vt(a)
+  (xs: list0(INV(a)))(pred: cfun(a, bool)): Option_vt(a)
 //
+overload .find with list0_find_exn_method
 overload .find_opt with list0_find_opt_method
 //
 (* ****** ****** *)
@@ -590,7 +601,9 @@ overload .find_opt with list0_find_opt_method
 fun
 {a:t0p}
 list0_find_index
-  (xs: list0(INV(a)), p: cfun(a, bool)): intGte(~1)
+(
+  xs: list0(INV(a)), pred: cfun(a, bool)
+) : intGte(~1) // end of [list0_find_index]
 //
 (* ****** ****** *)
 //

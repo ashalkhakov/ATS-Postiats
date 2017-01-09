@@ -207,21 +207,25 @@ list0_nth_opt
 //
 fun{a:t0p}
 list0_get_at_exn
-  (xs: list0(INV(a)), index: int):<!exn> (a)
+  (xs: list0(INV(a)), i0: int):<!exn> (a)
 //
 overload [] with list0_get_at_exn
 //
 (* ****** ****** *)
 //
 fun{a:t0p}
-print_list0 (xs: list0(INV(a))): void
+list0_fset_at_exn
+  (list0(INV(a)), i0: int, x0: a):<!exn> list0(a)
 fun{a:t0p}
-prerr_list0 (xs: list0(INV(a))): void
-//
-overload print with print_list0
-overload prerr with prerr_list0
+list0_fset_at_opt
+  (list0(INV(a)), i0: int, x0: a):<!exn> Option_vt(list0(a))
 //
 (* ****** ****** *)
+//
+fun{a:t0p}
+print_list0(xs: list0(INV(a))): void
+fun{a:t0p}
+prerr_list0(xs: list0(INV(a))): void
 //
 fun{a:t0p}
 fprint_list0
@@ -233,6 +237,9 @@ fprint_list0_sep
 (
   out: FILEref, xs: list0(INV(a)), sep: string
 ) : void // end of [fprint_list0_sep]
+//
+overload print with print_list0
+overload prerr with prerr_list0
 //
 overload fprint with fprint_list0
 overload fprint with fprint_list0_sep

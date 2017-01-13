@@ -46,8 +46,8 @@ ATSLANGCOM "http://www.ats-lang.com"
 LIBGMP_targetloc
 "$PATSHOMERELOCS/atscntrb-libgmp"
 #define
-INTINFHWXI_targetloc
-"$PATSHOMERELOCS/atscntrb-intinf-hwxi"
+HX_INTINF_targetloc
+"$PATSHOMERELOCS/atscntrb-hx-intinf"
 //
 (* ****** ****** *)
 //

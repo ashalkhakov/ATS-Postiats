@@ -1,6 +1,9 @@
 #
-# The main Makefile
-# for C-bootstrapping ATS2
+# The main Makefile for
+# minimally C-bootstrapping ATS2
+#
+# 1. There is no GCATS by default
+# 2. There is no dependency on libgmp
 #
 ######
 #
@@ -9,8 +12,8 @@ GCC=gcc
 CCOMP=$(CC)
 #
 # GCFLAG=-D_ATS_NGC
-# GCFLAG=-D_ATS_GCATS
 # GCFLAG=-D_ATS_GCBDW
+# GCFLAG=-D_ATS_GCATS
 #
 # CFLAGS=
 # LDFLAGS=
@@ -21,9 +24,9 @@ CFLAGS += -I. -I./ccomp/runtime
 
 ######
 #
-# This is fixed:
+# This is fixed
 #
-C3NSTRINTKND=gmpknd
+C3NSTRINTKND=intknd
 #
 # [gmpknd] for CBOOT
 # [intknd] for CBOOTmin
@@ -442,7 +445,7 @@ LIBATS_OBJECTS := \
 
 ######
 #
-libats_%.o: \
+libats_%.o : \
 libats/%.c ; $(CCOMP) $(CFLAGS) -c -o $@ $<
 #
 libats_libats.o: $(LIBATS_OBJECTS) ; ld -r -o $@ $^

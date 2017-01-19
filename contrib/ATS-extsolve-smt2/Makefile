@@ -56,8 +56,10 @@ CFLAGS += -DATS_MEMALLOC_LIBC
 #
 CFLAGS2 :=
 CFLAGS2 +=-DATS_MEMALLOC_LIBC
-CFLAGS2 +=-I${PATSCONTRIB}/contrib
-CFLAGS2 += $(shell pkg-config --cflags json-c)
+CFLAGS2 += \
+$(shell pkg-config --cflags json-c)
+CFLAGS2 += \
+-I${PATSHOMEQ}/atscntrb/atscntrb-libjson-c
 #
 ######
 
@@ -127,21 +129,6 @@ cleanall:: ; $(RMF) patsolve_smt2
 %_dats.o: DATS/%.dats; $(PATSCC2) -c $<
 
 ######
-#
--include .depend
-#
-depend:: ; $(RMF) .depend
-#
-ifeq ("$(strip $(SOURCES_SATS))","")
-else
-depend:: ; $(PATSOPT) --output-a .depend --depgen -s $(SOURCES_SATS)
-endif
-ifeq ("$(strip $(SOURCES_DATS))","")
-else
-depend:: ; $(PATSOPT) --output-a .depend --depgen -d $(SOURCES_DATS)
-endif
-#
-######
 
 testall:: all
 testall:: cleanall
@@ -161,7 +148,6 @@ clean:: ; $(RMF) *_?ats.c
 ######
 
 cleanall:: clean
-cleanall:: ; $(RMF) .depend
 
 ######
 

@@ -1,7 +1,7 @@
-(* ****** ****** *)
-//
-// API in ATS for libgmp
-//
+(*
+** API in ATS for json-c
+*)
+
 (* ****** ****** *)
 
 (*
@@ -25,14 +25,68 @@
 (* ****** ****** *)
 
 (*
-// Author: Hongwei Xi
-// Authoremail: hwxiATcsDOTbuDOTedu
+**
+** Author: Hongwei Xi
+** Authoremail: gmhwxi AT gmail DOT com
+** Start Time: May, 2013
+**
 *)
 
 (* ****** ****** *)
+
+%{#
+#include "json-c/CATS/json.cats"
+%} // end of [%{#]
+
+(* ****** ****** *)
 //
-// HX-2013-09: This file is yet empty!
+#define
+ATS_PACKNAME "ATSCNTRB.jsonc"
+//
+#define
+ATS_EXTERN_PREFIX
+"atscntrb_jsonc_" // prefix for external names
 //
 (* ****** ****** *)
 
-(* end of [gmp.dats] *)
+fun json_c_version(): string = "mac#%"
+fun json_c_version_num(): int = "mac#%"
+
+(* ****** ****** *)
+
+#include "./mybasis.sats"
+
+(* ****** ****** *)
+
+(*
+#include "./linkhash.sats" // HX: for hashtable implementation
+*)
+
+(* ****** ****** *)
+
+(*
+#include "./arraylist.sats" // HX: for dynamic arrays
+*)
+
+(* ****** ****** *)
+
+(*
+#include "./printbuf.sats" // HX: for buffered printing
+*)
+
+(* ****** ****** *)
+
+#include "./json_util.sats"
+
+(* ****** ****** *)
+
+#include "./json_object.sats"
+#include "./json_object_iterator.sats"
+
+(* ****** ****** *)
+
+#include "./json_tokener.sats"
+
+(* ****** ****** *)
+
+(* end of [json.sats] *)

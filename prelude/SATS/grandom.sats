@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/grandom.atxt
-** Time of generation: Sun Nov 20 21:18:19 2016
+** Time of generation: Sun Jun 28 01:21:19 2015
 *)
 
 (* ****** ****** *)
@@ -41,12 +41,10 @@
 
 (* ****** ****** *)
 //
-fun
-{a:vt0p}
-grandom_val((*void*)): a // for randval generation
+fun{a:vt0p}
+grandom_val (): a // for randval generation
 //
-fun
-{a:vt0p} // for random value
+fun{a:vt0p} // for random value
 grandom_ref (x: &(a?) >> a): void // initialization
 //
 (* ****** ****** *)

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Sat Dec 31 03:54:06 2016
+** Time of generation: Fri Feb 10 17:56:57 2017
 *)
 
 (* ****** ****** *)
@@ -63,7 +63,9 @@ list_vt0ype_int_vtype
     list_vt_cons(a, n+1) of (a, list_vt0ype_int_vtype(a, n))
 // end of [list_vt0ype_int_vtype]
 //
-stadef list_vt = list_vt0ype_int_vtype
+stadef
+list_vt = list_vt0ype_int_vtype
+//
 vtypedef
 List_vt(a:vt0p) = [n:int] list_vt(a, n)
 vtypedef

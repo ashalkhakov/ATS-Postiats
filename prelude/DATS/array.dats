@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Sun Nov 20 21:18:28 2016
+** Time of generation: Mon Jul 25 21:39:30 2016
 *)
 
 (* ****** ****** *)

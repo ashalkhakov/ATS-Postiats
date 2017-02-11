@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sun Jan  1 14:50:58 2017
+** Time of generation: Fri Feb 10 17:56:57 2017
 *)
 
 (* ****** ****** *)
@@ -63,7 +63,9 @@ list_t0ype_int_type
     list_cons (a, n+1) of (a, list_t0ype_int_type(a, n))
 // end of [list_t0ype_int_type]
 //
-stadef list = list_t0ype_int_type
+stadef
+list = list_t0ype_int_type
+//
 typedef
 List(a:t0p) = [n:int] list(a, n)
 typedef

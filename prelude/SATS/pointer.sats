@@ -30,14 +30,14 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Sun Nov 20 21:18:14 2016
+** Time of generation: Fri Feb 10 17:56:57 2017
 *)
 
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
 (* Start time: March, 2012 *)
+(* Authoremail: hwxi AT cs DOT bu DOT edu *)
 
 (* ****** ****** *)
 
@@ -549,28 +549,39 @@ fun
 aptr_getfree_elt{l:agz}(aptr(a, l)):<!wrt> (a)
 //
 fun
-{a:t0p}
-aptr_get_elt{l:agz}(ap: !aptr(INV(a), l)):<!wrt> (a)
+{a:vt0p}
+aptr_get_elt
+  {l:agz}
+  (ap: !aptr(a, l) >> aptr(a?!, l)):<!wrt> (a)
 fun
 {a:t0p}
 aptr_set_elt
-  {l:agz}(ap: !aptr(INV(a), l) >> _, x: a):<!wrt> void
-fun
-{a:t0p}
-aptr_exch_elt
-  {l:agz}(ap: !aptr(INV(a), l) >> _, x: &(a)>>_):<!wrt> void
+  {l:agz}
+  (ap: !aptr(a?, l) >> aptr(a, l), x: a):<!wrt> void
 //
-overload [] with aptr_get_elt
-overload [] with aptr_set_elt
+fun
+{a:vt0p}
+aptr_exch_elt
+  {l:agz}
+  (ap: !aptr(INV(a), l) >> _, x: &(a) >> _):<!wrt> void
+//
+(*
+overload [] with aptr_get_elt // HX: template arg needed
+overload [] with aptr_set_elt // HX: template arg needed
+*)
 //
 (* ****** ****** *)
 //
 fun aptr_null{a:vt0p}():<> aptr(a, null) = "mac#%"
 //
-fun aptr_is_null
-  {a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> bool(l==null) = "mac#%"
-fun aptr_isnot_null
-  {a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> bool(l > null) = "mac#%"
+fun
+aptr_is_null
+{a:vt0p}{l:addr}
+  (ap: !aptr(INV(a), l)):<> bool(l==null) = "mac#%"
+fun
+aptr_isnot_null
+{a:vt0p}{l:addr}
+  (ap: !aptr(INV(a), l)):<> bool(l > null) = "mac#%"
 //
 overload iseqz with aptr_is_null
 overload isneqz with aptr_isnot_null

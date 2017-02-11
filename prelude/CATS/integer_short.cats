@@ -38,7 +38,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/integer_short.atxt
-** Time of generation: Wed Dec 14 18:44:54 2016
+** Time of generation: Sat Aug 27 01:48:04 2016
 */
 
 /* ****** ****** */

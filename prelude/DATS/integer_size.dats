@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer_size.atxt
-** Time of generation: Sun Nov 20 21:18:23 2016
+** Time of generation: Sat Aug 27 01:47:58 2016
 *)
 
 (* ****** ****** *)

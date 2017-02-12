@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sun Jan  1 14:50:58 2017
+** Time of generation: Sun Feb 12 08:58:48 2017
 *)
 
 (* ****** ****** *)
@@ -63,7 +63,9 @@ list_t0ype_int_type
     list_cons (a, n+1) of (a, list_t0ype_int_type(a, n))
 // end of [list_t0ype_int_type]
 //
-stadef list = list_t0ype_int_type
+stadef
+list = list_t0ype_int_type
+//
 typedef
 List(a:t0p) = [n:int] list(a, n)
 typedef
@@ -1026,7 +1028,10 @@ streamize_list_cross
 //
 (* ****** ****** *)
 //
-// overloading for certain symbols
+// HX: overloading
+// for certain symbols
+//
+(* ****** ****** *)
 //
 overload = with list_equal
 //

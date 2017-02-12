@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Sat Dec 31 03:54:06 2016
+** Time of generation: Sun Feb 12 08:58:48 2017
 *)
 
 (* ****** ****** *)
@@ -63,7 +63,9 @@ list_vt0ype_int_vtype
     list_vt_cons(a, n+1) of (a, list_vt0ype_int_vtype(a, n))
 // end of [list_vt0ype_int_vtype]
 //
-stadef list_vt = list_vt0ype_int_vtype
+stadef
+list_vt = list_vt0ype_int_vtype
+//
 vtypedef
 List_vt(a:vt0p) = [n:int] list_vt(a, n)
 vtypedef
@@ -540,7 +542,8 @@ streamize_list_vt_elt(List_vt(INV(a))):<!wrt> stream_vt(a)
 //
 (* ****** ****** *)
 //
-// overloading for certain symbols
+// HX: overloading
+// for certain symbols
 //
 (* ****** ****** *)
 //

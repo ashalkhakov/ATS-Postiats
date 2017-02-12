@@ -30,19 +30,25 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Sun Dec 18 22:03:02 2016
+** Time of generation: Mon Feb  6 22:24:18 2017
 *)
 
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
 (* Start time: March, 2012 *)
+(* Authoremail: hwxiATcsDOTbuDOTedu *)
 
 (* ****** ****** *)
 //
 staload
-UN = "prelude/SATS/unsafe.sats"
+UN =
+"prelude/SATS/unsafe.sats"
+//
+(* ****** ****** *)
+//
+implement
+patsopt_version() = "0.3.2"
 //
 (* ****** ****** *)
 //

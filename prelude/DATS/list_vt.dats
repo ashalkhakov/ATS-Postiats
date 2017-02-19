@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Fri Dec 30 12:59:09 2016
+** Time of generation: Wed Feb 15 16:26:34 2017
 *)
 
 (* ****** ****** *)
@@ -55,27 +55,34 @@ List0_vt_(a:vt@ype+) = List0_vt(a)
 //
 implement
 {a}(*tmp*)
-list_vt_make_sing (x) =
+list_vt_make_sing(x) =
   list_vt_cons{a}(x, list_vt_nil)
 implement
 {a}(*tmp*)
-list_vt_make_pair (x1, x2) =
-  list_vt_cons{a}(x1, list_vt_cons{a}(x2, list_vt_nil))
+list_vt_make_pair(x1, x2) =
+  list_vt_cons{a}
+  (
+    x1, list_vt_cons{a}(x2, list_vt_nil())
+  ) (* list_vt_cons *)
+//
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+print_list_vt(xs) =
+  fprint_list_vt<a>(stdout_ref, xs)
+//
+implement
+{a}(*tmp*)
+prerr_list_vt(xs) =
+  fprint_list_vt<a>(stderr_ref, xs)
 //
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
-print_list_vt (xs) = fprint_list_vt<a> (stdout_ref, xs)
-implement
-{a}(*tmp*)
-prerr_list_vt (xs) = fprint_list_vt<a> (stderr_ref, xs)
-
-(* ****** ****** *)
-
-implement
 {}(*tmp*)
-fprint_list_vt$sep (out) = fprint_list$sep<> (out)
+fprint_list_vt$sep
+  (out) = fprint_list$sep<(*none*)>(out)
 
 implement
 {a}(*tmp*)
@@ -85,9 +92,12 @@ fprint_list_vt
 implement(env)
 list_vt_iforeach$fwork<a><env>
   (i, x, env) = let
-  val () =
-    if i > 0 then fprint_list_vt$sep<(*none*)> (out)
-  // end of [val]
+//
+val () =
+if (i > 0)
+  then fprint_list_vt$sep<(*none*)>(out)
+// end of [val]
+//
 in
   fprint_ref<a> (out, x)
 end // end of [list_iforeach$fwork]
@@ -104,10 +114,11 @@ fprint_list_vt_sep
   (out, xs, sep) = let
 //
 implement
-fprint_list_vt$sep<(*none*)> (out) = fprint_string (out, sep)
+fprint_list_vt$sep<(*none*)>
+  (out) = fprint_string(out, sep)
 //
 in
-  fprint_list_vt<a> (out, xs)
+  fprint_list_vt<a>(out, xs)
 end // end of [fprint_list_vt_sep]
 
 (* ****** ****** *)

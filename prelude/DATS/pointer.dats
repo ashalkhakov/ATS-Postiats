@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/pointer.atxt
-** Time of generation: Tue Feb  7 09:28:16 2017
+** Time of generation: Mon Feb 20 10:57:45 2017
 *)
 
 (* ****** ****** *)
@@ -64,6 +64,15 @@ implement
 {a}(*tmp*)
 ptr0_pred(p) = sub_ptr_bsz(p, sizeof<a>)
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+ptr0_diff(p1, p2) =
+(
+  sub_ptr0_ptr0(p1, p2) / g0u2i(sizeof<a>)
+) (* end of [ptr0_diff] *)
+//
 (* ****** ****** *)
 //
 implement

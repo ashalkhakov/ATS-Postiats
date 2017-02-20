@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Sat Dec 31 03:54:06 2016
+** Time of generation: Mon Feb 20 12:15:44 2017
 *)
 
 (* ****** ****** *)
@@ -691,7 +691,7 @@ fun
 array_quicksort_stdlib
   {n:int}
 (
-  A: &(@[INV(a)][n]) >> @[a][n], n: size_t n, cmp: cmpref (a)
+  A: &(@[INV(a)][n]) >> @[a][n], n: size_t(n), cmp: cmpref(a)
 ) :<!wrt> void // end of [array_quicksort_stdlib]
 
 (* ****** ****** *)

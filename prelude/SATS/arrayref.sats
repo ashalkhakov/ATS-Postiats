@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Sun Jan  1 14:50:58 2017
+** Time of generation: Mon Feb 20 12:15:44 2017
 *)
 
 (* ****** ****** *)
@@ -402,10 +402,26 @@ a:vt0p}{env:vt0p
 
 (* ****** ****** *)
 //
+// HX-2017-02-19:
+// Using [gcompare_ref_ref] to check
+//
+fun
+{a:vt0p}
+arrayref_is_ordered
+  {n:int}(A: arrayref(a, n), asz: size_t(n)): bool
+//
+(* ****** ****** *)
+//
 fun
 {a:vt0p}
 arrayref_quicksort
   {n:int}(A: arrayref(a, n), asz: size_t(n)): void
+//
+fun
+{a:vt0p}
+arrayref_quicksort_stdlib
+  {n:int}
+  (A: arrayref(a, n), asz: size_t(n), cmp: cmpref(a)): void
 //
 (* ****** ****** *)
 (*

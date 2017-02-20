@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Sun Feb 19 10:27:57 2017
+** Time of generation: Sun Feb 19 14:47:56 2017
 *)
 
 (* ****** ****** *)
@@ -2498,6 +2498,40 @@ in
   list_foldright<x><res>(xs, snk)
 end // end of [list_foldright_cloref]
 
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+list_is_ordered
+  (xs) = let
+//
+fun
+loop
+(
+x0: a, xs: List(a)
+) : bool =
+(
+//
+case+ xs of
+| list_nil() => true
+| list_cons(x1, xs) => let
+    val
+    sgn =
+    gcompare_val_val<a>(x0, x1)
+  in
+    if sgn <= 0
+      then loop(x1, xs) else false
+    // end of [if]
+  end // end of [list_cons]
+//
+) (* end of [loop] *)
+//
+in
+  case+ xs of
+  | list_nil() => true
+  | list_cons(x0, xs) => loop(x0, xs)
+end // end of [list_is_ordered]
+  
 (* ****** ****** *)
 
 implement

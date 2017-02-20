@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Sun Feb 12 08:58:48 2017
+** Time of generation: Sun Feb 19 15:08:15 2017
 *)
 
 (* ****** ****** *)
@@ -954,10 +954,18 @@ x:t0p}{res:vt0p
 //
 (* ****** ****** *)
 //
-fun{
-a:t0p
-} list_mergesort{n:int}
-  (xs: list(INV(a), n)) :<!wrt> list_vt(a, n)
+// HX-2017-02-19:
+// Using [gcompare_val_val] to check
+//
+fun
+{a:t0p}
+list_is_ordered(xs: List(INV(a))): bool
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+list_mergesort{n:int}
+  (xs: list(INV(a), n)):<!wrt> list_vt(a, n)
 //
 fun{a:t0p}
 list_mergesort$cmp(x1: a, x2: a):<> int (* sign *)

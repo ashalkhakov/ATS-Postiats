@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Sun Feb 12 08:58:48 2017
+** Time of generation: Mon Feb 20 10:53:22 2017
 *)
 
 (* ****** ****** *)
@@ -132,8 +132,8 @@ overload - with sub_ptr0_ptr0 of 0
 
 (* ****** ****** *)
 //
-fun{a:vt0p} ptr0_succ (p: ptr):<> ptr
-fun{a:vt0p} ptr0_pred (p: ptr):<> ptr
+fun{a:vt0p} ptr0_succ(p: ptr):<> ptr
+fun{a:vt0p} ptr0_pred(p: ptr):<> ptr
 //
 overload ptr_succ with ptr0_succ of 0
 overload ptr_pred with ptr0_pred of 0
@@ -141,11 +141,17 @@ overload ptr_pred with ptr0_pred of 0
 (* ****** ****** *)
 //
 fun{
-a:vt0p}{tk:tk
-} ptr0_add_gint (p: ptr, ofs: g0int (tk)):<> ptr
+a:vt0p
+} ptr0_diff(p1: ptr, p2: ptr): ssize_t
+//
+(* ****** ****** *)
+//
 fun{
 a:vt0p}{tk:tk
-} ptr0_add_guint (p: ptr, ofs: g0uint (tk)):<> ptr
+} ptr0_add_gint(p: ptr, ofs: g0int(tk)):<> ptr
+fun{
+a:vt0p}{tk:tk
+} ptr0_add_guint(p: ptr, ofs: g0uint(tk)):<> ptr
 //
 overload ptr_add with ptr0_add_gint of 0
 overload ptr_add with ptr0_add_guint of 0

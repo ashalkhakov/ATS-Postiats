@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/pointer.atxt
-** Time of generation: Mon Feb 20 10:57:45 2017
+** Time of generation: Wed Mar  8 20:37:24 2017
 *)
 
 (* ****** ****** *)
@@ -169,7 +169,7 @@ $UN.cast(sub_ptr_bsz(cptr2ptr(cp), sizeof<a>))
 //
 (* ****** ****** *)
 
-  implement
+implement
 {a}(*tmp*)
 ptr_nullize
   (pf | x) =

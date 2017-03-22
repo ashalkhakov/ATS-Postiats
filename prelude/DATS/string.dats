@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Sun Jan  1 19:08:53 2017
+** Time of generation: Wed Mar  8 20:38:45 2017
 *)
 
 (* ****** ****** *)
@@ -41,10 +41,9 @@
 
 (* ****** ****** *)
 //
-//
 // HX:
-// there is no dynloading at
-#define ATS_DYNLOADFLAG 0 // run-time
+#define // there is no need
+ATS_DYNLOADFLAG 0 // for dynloading
 //
 (* ****** ****** *)
 //

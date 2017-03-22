@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Mon Feb  6 22:24:18 2017
+** Time of generation: Wed Mar  8 20:37:25 2017
 *)
 
 (* ****** ****** *)
@@ -41,14 +41,18 @@
 
 (* ****** ****** *)
 //
-staload
-UN =
-"prelude/SATS/unsafe.sats"
+// HX-2017-03-08:
+#define // there is no need
+ATS_DYNLOADFLAG 0 // for dynloading
+//
+(* ****** ****** *)
+//
+staload UN = "prelude/SATS/unsafe.sats"
 //
 (* ****** ****** *)
 //
 implement
-patsopt_version() = "0.3.2"
+patsopt_version((*void*)) = "0.3.4"
 //
 (* ****** ****** *)
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed Feb 15 16:26:34 2017
+** Time of generation: Mon Mar 27 16:55:22 2017
 *)
 
 (* ****** ****** *)
@@ -434,34 +434,35 @@ __assert (xs) where
 //
 implement
 {a}(*tmp*)
-list_vt_copy (xs) =
-  list_copy<a> ($UN.list_vt2t(xs))
+list_vt_copy(xs) =
+  list_copy<a>($UN.list_vt2t(xs))
 //
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-list_vt_free (xs) = let
+list_vt_free(xs) = let
 //
 implement
 (a2:t0p)
 list_vt_freelin$clear<a2>
   (x) = let
-  prval () = topize (x) in (*void*)
+  prval () = topize(x) in (*void*)
 end // end of [list_vt_freelin$clear]
 //
 in
-  list_vt_freelin<a> (xs)
+  list_vt_freelin<a>(xs)
 end // end of [list_vt_free]
 
 (* ****** ****** *)
 
 implement
 {a}(*tmp*)
-list_vt_freelin$clear (x) = gclear_ref (x)
+list_vt_freelin$clear
+  (x) = gclear_ref<a>(x)
 implement
 {a}(*tmp*)
-list_vt_freelin (xs) = let
+list_vt_freelin(xs) = let
 //
 prval () = lemma_list_vt_param (xs)
 //

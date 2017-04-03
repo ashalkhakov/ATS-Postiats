@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/pointer.atxt
-** Time of generation: Mon Feb 20 10:53:22 2017
+** Time of generation: Tue Mar 28 23:58:07 2017
 *)
 
 (* ****** ****** *)
@@ -491,43 +491,50 @@ typedef constcharptr1 = charptr1 // HX: for commenting purpose
 (* ****** ****** *)
 //
 absprop
-is_nullable (a: vt@ype+) // covariant
+is_nullable(a: vt@ype+) // covariant
 //
 fun{a:vt0p}
 ptr_nullize
   (pf: is_nullable (a) | x: &a? >> a):<!wrt> void
 fun
-ptr_nullize_tsz
-  {a:vt0p} (
-  pf: is_nullable (a) | x: &a? >> a, tsz: sizeof_t (a)
+ptr_nullize_tsz{a:vt0p}
+(
+  pf: is_nullable(a) | x: &a? >> a, tsz: sizeof_t(a)
 ) :<!wrt> void = "mac#%" // end of [ptr_nullize_tsz]
 //
 (* ****** ****** *)
 
-fun{
-a:vt0p
-} ptr_alloc ()
-  :<> [l:agz] (a? @ l, mfree_gc_v (l) | ptr l)
+fun
+{a:vt0p}
+ptr_alloc((*void*))
+  :<> [l:agz] (a? @ l, mfree_gc_v(l) | ptr(l))
 // end of [ptr_alloc]
 
-fun ptr_alloc_tsz
-  {a:vt0p} (tsz: sizeof_t a)
-  :<> [l:agz] (a? @ l, mfree_gc_v (l) | ptr l) = "mac#%"
+fun
+ptr_alloc_tsz
+  {a:vt0p}(tsz: sizeof_t(a))
+  :<> [l:agz] (a? @ l, mfree_gc_v(l) | ptr(l)) = "mac#%"
 // end of [ptr_alloc_tsz]
 
-fun ptr_free
-  {a:t@ype}{l:addr}
-  (pfgc: mfree_gc_v (l), pfat: a @ l | p: ptr l):<> void = "mac#%"
+(* ****** ****** *)
+
+fun
+ptr_free{a:t@ype}{l:addr}
+  (pfgc: mfree_gc_v(l), pfat: a @ l | p: ptr(l)):<> void = "mac#%"
 // end of [ptr_free]
 
 (* ****** ****** *)
 //
-absvtype ptrlin (l:addr) = ptr
+absvtype
+ptrlin_vtype(l:addr) = ptr
 //
-praxi ptrlin_free{l:addr} (p: ptrlin (l)): void
+vtypedef
+ptrlin(l:addr) = ptrlin_vtype(l)
 //
-castfn ptr2ptrlin{l:addr} (p: ptr l):<> ptrlin (l)
-castfn ptrlin2ptr{l:addr} (p: ptrlin l):<> ptr (l)
+praxi ptrlin_free{l:addr} (p: ptrlin(l)): void
+//
+castfn ptr2ptrlin{l:addr} (p: ptr(l)):<> ptrlin(l)
+castfn ptrlin2ptr{l:addr} (p: ptrlin(l)):<> ptr(l)
 //
 (* ****** ****** *)
 //
@@ -539,8 +546,8 @@ aptr_vt0ype_addr_type
   (a:vt@ype+, addr) = ptr // HX: for safe ATS pointers
 //
 stadef aptr = aptr_vt0ype_addr_type
-stadef aPtr0 (a:vt0p) = [l:addr] aptr (a, l)
-stadef aPtr1 (a:vt0p) = [l:addr | l > null] aptr (a, l)
+stadef aPtr0 (a:vt0p) = [l:addr] aptr(a, l)
+stadef aPtr1 (a:vt0p) = [l:addr | l > null] aptr(a, l)
 //
 castfn
 aptr2ptr{a:vt0p}{l:addr}(ap: !aptr(INV(a), l)):<> ptr(l)
@@ -560,7 +567,7 @@ aptr_get_elt
   {l:agz}
   (ap: !aptr(a, l) >> aptr(a?!, l)):<!wrt> (a)
 fun
-{a:t0p}
+{a:vt0p}
 aptr_set_elt
   {l:agz}
   (ap: !aptr(a?, l) >> aptr(a, l), x: a):<!wrt> void

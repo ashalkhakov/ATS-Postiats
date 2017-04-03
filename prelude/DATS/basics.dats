@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Wed Mar  8 20:37:25 2017
+** Time of generation: Mon Mar 27 16:55:22 2017
 *)
 
 (* ****** ****** *)
@@ -222,6 +222,12 @@ implement
 (a:t@ype)
 gfree_ref<a> (x) = ((*void*))
 *)
+//
+(* ****** ****** *)
+//
+implement
+(a:t@ype)
+gclear_ref<a> (x) = ((*void*))
 //
 (* ****** ****** *)
 //

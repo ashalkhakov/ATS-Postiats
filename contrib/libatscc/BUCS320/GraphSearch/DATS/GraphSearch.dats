@@ -30,16 +30,17 @@ process_node(nx: node): bool
 //
 extern
 fun{}
-theSearchStore_insert(node): void
-extern
-fun{}
-theSearchStore_insert_lst(nodelst): void
+theSearchStore_choose
+  ((*void*)): Option_vt(node)
 //
 (* ****** ****** *)
 //
 extern
 fun{}
-theSearchStore_choose((*void*)): Option_vt(node)
+theSearchStore_insert(node): void
+extern
+fun{}
+theSearchStore_insert_lst(nodelst): void
 //
 (* ****** ****** *)
 //

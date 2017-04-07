@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Dec  8 23:28:49 2016
+** Time of generation: Thu Apr  6 18:00:53 2017
 *)
 
 (* ****** ****** *)
@@ -686,8 +686,18 @@ in (* in of [local] *)
 implement
 {a}(*tmp*)
 stream_merge
-  (xs10, xs20) = $delay
+  (xs10, xs20) = let
+//
+fun
+auxmain:
+$d2ctype
 (
+stream_merge<a>
+) =
+lam
+(
+xs10, xs20
+) => $delay
 (
 case+ !xs10 of
 | x1 :: xs1 =>
@@ -699,18 +709,23 @@ case+ !xs10 of
       // end of [val]
     in
       if sgn <= 0 then
-        stream_cons{a}(x1, stream_merge (xs1, xs20))
+        stream_cons{a}(x1, auxmain(xs1, xs20))
       else
-        stream_cons{a}(x2, stream_merge (xs10, xs2))
+        stream_cons{a}(x2, auxmain(xs10, xs2))
       // end of [if]
     end // end of [::]
   | stream_nil() => stream_cons{a}(x1, xs1)
   ) (* end of [::] *)
 | stream_nil() => !xs20
-) : stream_con (a)
-) // end of [stream_merge]
+) (* end of [auxmain] *)
+//
+in
+  auxmain(xs10, xs20)
+end // end of [stream_merge]
 
 end // end of [local]
+
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)
@@ -718,11 +733,11 @@ stream_merge_fun
   (xs1, xs2, cmp) = let
 //
 implement{a2}
-stream_merge$cmp (x1, x2) =
+stream_merge$cmp(x1, x2) =
   cmp ($UN.cast{a}(x1), $UN.cast{a}(x2))
 //
 in
-  stream_merge (xs1, xs2)
+  stream_merge<a>(xs1, xs2)
 end // end of [stream_merge_fun]
 
 implement
@@ -731,11 +746,11 @@ stream_merge_cloref
   (xs1, xs2, cmp) = let
 //
 implement{a2}
-stream_merge$cmp (x1, x2) =
+stream_merge$cmp(x1, x2) =
   cmp ($UN.cast{a}(x1), $UN.cast{a}(x2))
 //
 in
-  stream_merge (xs1, xs2)
+  stream_merge<a>(xs1, xs2)
 end // end of [stream_merge_cloref]
 
 (* ****** ****** *)
@@ -756,7 +771,19 @@ in (* in of [local] *)
 implement
 {a}(*tmp*)
 stream_mergeq
-  (xs10, xs20) = $delay
+  (xs10, xs20) = let
+//
+fun
+auxmain:
+$d2ctype
+(
+stream_mergeq<a>
+) =
+lam
+(
+  xs10, xs20
+) =>
+$delay
 (
 case+ !xs10 of
 | x1 :: xs1 =>
@@ -768,19 +795,25 @@ case+ !xs10 of
       // end of [val]
     in
       if sgn < 0 then
-        stream_cons{a}(x1, stream_mergeq (xs1, xs20))
+        stream_cons{a}(x1, auxmain(xs1, xs20))
       else if sgn > 0 then
-        stream_cons{a}(x2, stream_mergeq (xs10, xs2))
+        stream_cons{a}(x2, auxmain(xs10, xs2))
       else
-        stream_cons{a}(x1(*=x2*), stream_mergeq (xs1, xs2))
+        stream_cons{a}(x1(*=x2*), auxmain(xs1, xs2))
       // end of [if]
     end // end of [::]
   | stream_nil() => stream_cons{a}(x1, xs1)
   ) (* end of [::] *)
 | stream_nil() => !xs20
-) // end of [stream_mergeq]
+) (* end of [auxmain] *)
+//
+in
+  auxmain(xs10, xs20)
+end // end of [stream_mergeq]
 
 end // end of [local]
+
+(* ****** ****** *)
 
 implement
 {a}(*tmp*)
@@ -788,11 +821,11 @@ stream_mergeq_fun
   (xs1, xs2, cmp) = let
 //
 implement{a2}
-stream_mergeq$cmp (x1, x2) =
+stream_mergeq$cmp(x1, x2) =
   cmp ($UN.cast{a}(x1), $UN.cast{a}(x2))
 //
 in
-  stream_mergeq (xs1, xs2)
+  stream_mergeq<a>(xs1, xs2)
 end // end of [stream_mergeq_fun]
 
 implement
@@ -801,11 +834,11 @@ stream_mergeq_cloref
   (xs1, xs2, cmp) = let
 //
 implement{a2}
-stream_mergeq$cmp (x1, x2) =
+stream_mergeq$cmp(x1, x2) =
   cmp ($UN.cast{a}(x1), $UN.cast{a}(x2))
 //
 in
-  stream_mergeq (xs1, xs2)
+  stream_mergeq<a>(xs1, xs2)
 end // end of [stream_mergeq_cloref]
 
 (* ****** ****** *)

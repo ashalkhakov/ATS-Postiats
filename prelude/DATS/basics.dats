@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/basics.atxt
-** Time of generation: Mon Mar 27 16:55:22 2017
+** Time of generation: Thu Apr  6 07:33:31 2017
 *)
 
 (* ****** ****** *)
@@ -203,14 +203,15 @@ implement
 gidentity_vt (x) = (x)
 
 (* ****** ****** *)
-
+//
 implement
-{a}(*tmp*)
-gcopy_val (x) = (x)
+(a:t@ype)
+gcopy_val<a> (x) = (x)
+//
 implement
 (a:t@ype)
 gcopy_ref<a> (x) = (x)
-
+//
 (* ****** ****** *)
 //
 implement

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Tue Dec 20 20:00:16 2016
+** Time of generation: Sun Apr 16 07:51:02 2017
 *)
 
 (* ****** ****** *)
@@ -170,10 +170,10 @@ strptr_free_null
 
 fun{}
 strptr_is_null
-  {l:addr} (x: !strptr l):<> bool (l==null)
+  {l:addr} (x: !strptr(l)):<> bool(l==null)
 fun{}
 strptr_isnot_null
-  {l:addr} (x: !strptr l):<> bool (l > null)
+  {l:addr} (x: !strptr(l)):<> bool(l > null)
 
 (* ****** ****** *)
 
@@ -197,7 +197,7 @@ strnptr_isnot_null
 //
 praxi
 strnptr_free_null
-  {l:addr|l <= null}{n:int} (x: strnptr(l, n)):<> void
+  {l:addr|l <= null}{n:int}(x: strnptr(l, n)):<> void
 // end of [strnptr_free_null]
 //
 (* ****** ****** *)

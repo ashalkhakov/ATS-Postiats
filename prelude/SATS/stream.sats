@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Thu Dec  8 23:28:10 2016
+** Time of generation: Sun Apr 16 07:51:02 2017
 *)
 
 (* ****** ****** *)
@@ -393,6 +393,10 @@ stream_skip_until_cloref
 //
 // overloading for certain symbols
 //
+(* ****** ****** *)
+
+overload + with stream_append
+
 (* ****** ****** *)
 
 overload [] with stream_nth_exn

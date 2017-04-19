@@ -77,16 +77,23 @@ all_in_one:: libatscc2clj_all
 DATE=/bin/date
 ECHO=/bin/echo -en
 #
+PRINTF=printf
+#
+######
+#
+# libatscc2clj_all:: ; \
+# $(ECHO) | $(CAT) - >$(LIBATSCC2CLJ_ALL_CLJ)
+#
 libatscc2clj_all:: ; \
-$(ECHO) | $(CAT) - >$(LIBATSCC2CLJ_ALL_CLJ)
+$(PRINTF) ';;\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
 libatscc2clj_all:: ; \
-$(ECHO) ';;\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
+$(PRINTF) ';; Time of Generation:\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
 libatscc2clj_all:: ; \
-$(ECHO) ';; Time of Generation:\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
+$(PRINTF) ';; ' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ) && $(DATE) | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
 libatscc2clj_all:: ; \
-$(ECHO) ';; ' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ) && $(DATE) | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
-libatscc2clj_all:: ; \
-$(ECHO) ';;\n\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
+$(PRINTF) ';;\n\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
+#
+######
 #
 libatscc2clj_all:: ; \
 $(CAT) >>$(LIBATSCC2CLJ_ALL_CLJ) \
@@ -122,9 +129,9 @@ output/DATS/ML/list0_dats.clj \
 ######
 #
 libatscc2clj_all:: ; \
-$(ECHO) '\n;; ****** ****** ;;\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
+$(PRINTF) '\n;; ****** ****** ;;\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
 libatscc2clj_all:: ; \
-$(ECHO) '\n;; end of [libatscc2clj_all.clj] ;;\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
+$(PRINTF) '\n;; end of [libatscc2clj_all.clj] ;;\n' | $(CAT) - >>$(LIBATSCC2CLJ_ALL_CLJ)
 #
 ######
 #

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Sun Apr 16 07:51:02 2017
+** Time of generation: Sat Apr 22 15:55:46 2017
 *)
 
 (* ****** ****** *)
@@ -334,6 +334,13 @@ fun
 {a:t0p}
 stream_tabulate_cloref
   (fopr: intGte(0) -<cloref1> a): stream(a)
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+stream_labelize
+  (stream(INV(a))): stream(@(intGte(0), a))
 //
 (* ****** ****** *)
 //

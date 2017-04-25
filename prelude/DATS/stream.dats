@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Thu Apr  6 18:00:53 2017
+** Time of generation: Sat Apr 22 15:55:14 2017
 *)
 
 (* ****** ****** *)
@@ -898,6 +898,38 @@ stream_tabulate$fopr
 in
   stream_tabulate ()
 end // end of [stream_tabulate_cloref]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+stream_labelize(xs) = let
+//
+vtypedef ia = @(intGte(0), a)
+//
+fun
+auxmain
+(
+i0: intGte(0)
+,
+xs: stream(a)
+) : stream(ia) = $delay
+(
+(
+case+ !xs of
+| stream_nil
+    () => stream_nil()
+  // end of [stream_nil]
+| stream_cons
+    (x, xs) =>
+    stream_cons((i0, x), auxmain(i0+1, xs))
+  // end of [stream_cons]
+)
+) (* end of [auxmain] *)
+//
+in
+  auxmain(0, xs)
+end // end of [stream_labelize]
 
 (* ****** ****** *)
 

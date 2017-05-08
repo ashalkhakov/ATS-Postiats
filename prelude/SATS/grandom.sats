@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/grandom.atxt
-** Time of generation: Sun Nov 20 21:18:19 2016
+** Time of generation: Wed May  3 17:36:12 2017
 *)
 
 (* ****** ****** *)
@@ -41,12 +41,10 @@
 
 (* ****** ****** *)
 //
-fun
-{a:vt0p}
-grandom_val((*void*)): a // for randval generation
+fun{a:vt0p}
+grandom_val (): a // for randval generation
 //
-fun
-{a:vt0p} // for random value
+fun{a:vt0p} // for random value
 grandom_ref (x: &(a?) >> a): void // initialization
 //
 (* ****** ****** *)

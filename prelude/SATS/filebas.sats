@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Mon Apr 24 22:47:01 2017
+** Time of generation: Wed May  3 17:36:11 2017
 *)
 
 (* ****** ****** *)
@@ -235,7 +235,7 @@ a:t0p
 
 macdef
 fileref_get_exnloc
-  (inp) = fileref_get_exnmsg (,(inp), $mylocation)
+  (inp) = fileref_get_exnmsg(,(inp), $mylocation)
 // end of [fileref_get_exnloc]
 
 (* ****** ****** *)

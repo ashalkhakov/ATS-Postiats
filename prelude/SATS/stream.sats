@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Sat Apr 22 15:55:46 2017
+** Time of generation: Wed May  3 17:36:14 2017
 *)
 
 (* ****** ****** *)
@@ -346,7 +346,7 @@ stream_labelize
 //
 fun
 {a:t0p}
-stream_foreach (xs: stream(a)): void
+stream_foreach(xs: stream(a)): void
 fun
 {a:t0p}
 {env:vt0p}

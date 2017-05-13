@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Wed May  3 17:36:14 2017
+** Time of generation: Tue May  9 20:24:00 2017
 *)
 
 (* ****** ****** *)
@@ -203,7 +203,7 @@ a:t0p}{b:t0p
 //
 fun{
 a:t0p}{b:t0p
-} stream_imap{n:int}
+} stream_imap
   (xs: stream(INV(a))):<!laz> stream(b)
 //
 fun{

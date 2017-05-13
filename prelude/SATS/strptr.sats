@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/strptr.atxt
-** Time of generation: Wed May  3 17:36:09 2017
+** Time of generation: Mon May  8 20:43:35 2017
 *)
 
 (* ****** ****** *)
@@ -106,22 +106,22 @@ lemma_strbuf_v_param
 
 castfn
 strptr2ptr
-  {l:addr} (x: !strptr l):<> ptr (l)
+  {l:addr}(x: !strptr l):<> ptr (l)
 castfn
 strnptr2ptr
-  {l:addr}{n:int} (x: !strnptr(l, n)):<> ptr(l)
+  {l:addr}{n:int}(x: !strnptr(l, n)):<> ptr(l)
 // end of [strnptr2ptr]
 
 (* ****** ****** *)
 //
 castfn
 strnptr2strptr
-  {l:addr}{n:int} (x: strnptr(l, n)):<> strptr(l)
+  {l:addr}{n:int}(x: strnptr(l, n)):<> strptr(l)
 // end of [strnptr2strptr]
 
 castfn
 strptr2strnptr
-  {l:addr} (x: strptr(l)):<> [n:int] strnptr(l, n)
+  {l:addr}(x: strptr(l)):<> [n:int] strnptr(l, n)
 // end of [strptr2strnptr]
 //
 (* ****** ****** *)

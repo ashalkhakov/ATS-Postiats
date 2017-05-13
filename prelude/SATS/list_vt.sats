@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed May  3 17:36:12 2017
+** Time of generation: Mon May  8 20:54:01 2017
 *)
 
 (* ****** ****** *)
@@ -239,7 +239,7 @@ list_vt_copylin_fun{n:int}{fe:eff}
 (* ****** ****** *)
 
 fun{x:t0p}
-list_vt_free (xs: List_vt(INV(x))):<!wrt> void
+list_vt_free(xs: List_vt(INV(x))):<!wrt> void
 
 (* ****** ****** *)
 //
@@ -328,17 +328,6 @@ list_vt_concat
 // end of [list_vt_concat]
 
 (* ****** ****** *)
-
-fun{x:vt0p}
-list_vt_separate{n:int}
-(
-  xs: &list_vt(INV(x), n) >> list_vt(x, n1)
-) : #[n1:nat|n1 <= n] list_vt(x, n-n1)
-
-fun{x:vt0p}
-list_vt_separate$pred (x: &RD(x)): bool
-
-(* ****** ****** *)
 //
 fun{x:t0p}
 list_vt_filter{n:int}
@@ -362,10 +351,35 @@ list_vt_filterlin$clear (x: &x >> x?):<!wrt> void
 (* ****** ****** *)
 
 fun{x:vt0p}
-list_vt_app (xs: !List_vt(INV(x))): void
-fun{x:vt0p}
-list_vt_app$fwork (x: &x >> _): void
+list_vt_separate{n:int}
+(
+xs: &list_vt(INV(x), n) >> list_vt(x, n1), n1: &int? >> int(n1)
+) : #[n1:nat|n1 <= n] list_vt(x, n-n1)
 
+fun{x:vt0p}
+list_vt_separate$pred(x: &RD(x)): bool
+
+(* ****** ****** *)
+
+fun{x:vt0p}
+list_vt_take_until{n:int}
+(
+xs: &list_vt(INV(x), n) >> list_vt(x, n-n1), n1: &int? >> int(n1)
+) : #[n1:nat|n1 <= n] list_vt(x, n1)
+
+fun{x:vt0p}
+list_vt_take_until$pred(x: &RD(x)): bool
+
+(* ****** ****** *)
+//
+fun
+{x:vt0p}
+list_vt_app
+  (xs: !List_vt(INV(x))): void
+fun
+{x:vt0p}
+list_vt_app$fwork (x: &x >> _): void
+//
 (* ****** ****** *)
 //
 fun{x:vt0p}

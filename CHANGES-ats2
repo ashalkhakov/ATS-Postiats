@@ -1,3 +1,35 @@
+0.3.6
+
+This is the 43rd release of ATS2, the successor of the
+ATS programming language. The compiler for ATS2 is given
+the name ATS/Positats, ATS2/Postiats or simply Postiats.
+
+The official website for ATS is:
+
+http://www.ats-lang.org
+
+ATS-Postiats is hosted at github:
+
+https://github.com/githwxi/ATS-Postiats
+
+Major releases of ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang/
+
+Major releases of external packages for ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang-contrib/
+
+Here is a list of major additions and changes since the last release:
+
+1. Fixing a bug involving 'reassume': the bug is serious but the fix
+   is very minor.
+2. Improving utils/atexting by merging atexting_all with atexting_mylib
+   Many clients of atexting (e.g., atsccomp-compilers) have been updated
+   with respect to the changes maded to atexting.
+
+######
+
 0.3.5
 
 This is the 42nd release of ATS2, the successor of the
@@ -44,8 +76,12 @@ Here is a list of major additions and changes since the last release:
    patsopt --constraint-ignore --dynamic $1 | \
    tcc -run -DATS_MEMALLOC_LIBC -I${PATSHOME} -I${PATSHOME}/ccomp/runtime - $arglst(2)
    *)
-6. Adding contrib/atscntrb-hx-getargs for building command-line support
-
+6. Adding ats1-libatsopt (npm-package)
+7. Adding contrib/atscntrb-hx-getargs for building command-line support
+8. Adding ATS-Postiats/npm-util/libats-hwxi/OpenSCAD:
+   Supporting meta-programming for OpenSCAD, that is, writing programs in
+   ATS for generating OpenSCAD code (that can create models for 3D-printing)
+  
 ######
 
 0.3.4

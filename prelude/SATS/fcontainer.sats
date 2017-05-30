@@ -27,17 +27,17 @@
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/fcontainer.atxt
-** Time of generation: Wed May  3 17:36:15 2017
-*)
+(* Author: Hongwei Xi *)
+(* Start time: February, 2012 *)
+(* Authoremail: hwxiATcsDOTbuDOTedu *)
 
 (* ****** ****** *)
 
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: February, 2012 *)
+(*
+** Source:
+** $PATSHOME/prelude/SATS/CODEGEN/fcontainer.atxt
+** Time of generation: Fri May 19 09:49:00 2017
+*)
 
 (* ****** ****** *)
 

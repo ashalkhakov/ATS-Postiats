@@ -27,10 +27,16 @@
 
 (* ****** ****** *)
 
+(* Author: Hongwei Xi *)
+(* Start time: February, 2012 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+
+(* ****** ****** *)
+
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Tue May  9 20:24:00 2017
+** Time of generation: Fri May 19 09:48:59 2017
 *)
 
 (* ****** ****** *)

@@ -27,17 +27,17 @@
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Mon May  8 20:54:01 2017
-*)
+(* Author: Hongwei Xi *)
+(* Start time: February, 2012 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
 
 (* ****** ****** *)
 
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: February, 2012 *)
+(*
+** Source:
+** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
+** Time of generation: Fri May 19 09:48:59 2017
+*)
 
 (* ****** ****** *)
 

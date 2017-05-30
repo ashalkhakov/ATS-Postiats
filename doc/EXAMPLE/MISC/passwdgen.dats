@@ -116,31 +116,40 @@ main (
 ) = 0 where {
   var n: int = 8
   val () =
-    if argc >= 2 then n := $STDLIB.atoi (argv[1])
+  if argc >= 2 then
+    (n := $STDLIB.atoi(argv[1]))
   // end of [val]
-  val [n:int] n = g1ofg0_int (n)
-  val () = assert (n >= 0)
-  val () = srand_with_time ((*void*))
-  val asz = g1int2uint (n)
-  val passwd =
-    arrayref_make_elt<char> (asz, '\000')
-  val () =
-    loop (passwd, n, 0) where
-  {
-    fun loop {i:nat | i <= n} .<n-i>.
-    (
-      passwd: arrayref (char, n), n: int n, i: int i
-    ) : void =
-      if (i < n) then let
-        val () = passwd[i] := int2char0 ($RANDGEN.randint (94) + 33)
-      in
-        loop (passwd, n, i+1)
-      end else () // end of [if]
-  } // end of [where]
 //
-  val out = stdout_ref
-  val () = fprint_arrayref_sep (out, passwd, asz, "")
-  val () = fprint_newline (out)
+  val n = g1ofg0_int(n)
+//
+  prval
+  [n:int]
+  EQINT() = eqint_make_gint(n)
+//
+  val () = assertloc(n >= 0)
+  val () = srand_with_time((*void*))
+//
+  fun
+  loop{i:nat | i <= n} .<n-i>.
+  (
+    passwd: arrayref(char, n), n: int(n), i: int(i)
+  ) : void =
+    if (i < n) then let
+      val () =
+      (passwd[i] := int2char0($RANDGEN.randint(94) + 33))
+    in
+      loop (passwd, n, i+1)
+    end else () // end of [if]
+//
+  val
+  asz = g1int2uint(n)
+  val
+  passwd =
+  arrayref_make_elt<char>(asz, '\0')
+  val ((*void*)) = loop(passwd, n, 0)
+  val ((*void*)) =
+  fprint_arrayref_sep<char>(stdout_ref, passwd, asz, "")
+  val ((*void*)) = fprint_newline(stdout_ref)
 //
 } // end of [main]
 

@@ -28,15 +28,15 @@
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: gmhwxiATgmailDOTcom *)
 (* Start time: February, 2012 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
 
 (* ****** ****** *)
 
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Wed May  3 18:41:03 2017
+** Time of generation: Fri May 19 09:48:59 2017
 *)
 
 (* ****** ****** *)
@@ -58,9 +58,9 @@ list_t0ype_int_type
 //
 // t@ype+: covariant
 //
-  | list_nil (a, 0) of ((*void*))
+  | list_nil(a, 0) of ((*void*))
   | {n:int | n >= 0}
-    list_cons (a, n+1) of (a, list_t0ype_int_type(a, n))
+    list_cons(a, n+1) of (a, list_t0ype_int_type(a, n))
 // end of [list_t0ype_int_type]
 //
 stadef
@@ -146,7 +146,7 @@ list_of_list_vt
 #define list_sing(x)
   list_cons(x, list_nil())
 #define list_pair(x1, x2)
-  list_cons(x1, list_cons (x2, list_nil()))
+  list_cons(x1, list_cons(x2, list_nil()))
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/gprint.atxt
-** Time of generation: Wed May  3 17:36:15 2017
+** Time of generation: Fri Jun  2 23:34:28 2017
 *)
 
 (* ****** ****** *)

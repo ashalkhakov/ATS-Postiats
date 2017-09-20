@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Fri Jun  2 23:34:28 2017
+** Time of generation: Fri Aug 18 03:29:55 2017
 *)
 
 (* ****** ****** *)
@@ -174,6 +174,15 @@ stream_vt_uncons_opt
 (* ****** ****** *)
 //
 fun{a:t0p}
+stream_vt_last_exn
+  (stream_vt(INV(a))):<!exnwrt> (a)
+fun{a:t0p}
+stream_vt_last_opt
+  (stream_vt(INV(a))):<!exnwrt> Option_vt(a)
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
 stream_vt_nth_exn
   (xs: stream_vt(INV(a)), n: intGte(0)):<!exnwrt> (a)
 fun{a:t0p}
@@ -273,32 +282,61 @@ xs: stream_vt(INV(a)), fopr: (intGte(0), &a >> a?!) -<cloptr1> b
 //
 (* ****** ****** *)
 //
+fun
+{a:vt0p}
+{b:vt0p}
+stream_vt_mapopt
+(xs: stream_vt(INV(a))): stream_vt(b)
+fun
+{a:vt0p}
+{b:vt0p}
+stream_vt_mapopt$fopr(x: &a >> a?!): Option_vt(b)
+//
 fun{
-a1,a2:t0p}{b:vt0p
-} stream_vt_map2
+a:vt0p}{b:vt0p
+} stream_vt_mapopt_fun
+(
+xs: stream_vt(INV(a)), fopr: (&a >> a?!) -<fun1> Option_vt(b)
+) : stream_vt(b) // end-of-function
+fun{
+a:vt0p}{b:vt0p
+} stream_vt_mapopt_cloptr
+(
+xs: stream_vt(INV(a)), fopr: (&a >> a?!) -<cloptr1> Option_vt(b)
+) : stream_vt(b) // end-of-function
+//
+(* ****** ****** *)
+//
+fun
+{a1
+,a2:t0p}
+{b0:vt0p}
+stream_vt_map2
 (
   xs1: stream_vt(INV(a1))
 , xs2: stream_vt(INV(a2))
-) : stream_vt(b) // end of [stream_vt_map2]
+) : stream_vt(b0) // end of [stream_vt_map2]
+//
+fun
+{a1
+,a2:t0p}
+{b0:vt0p}
+stream_vt_map2$fopr(x1: &a1 >> _, x2: &a2 >> _):<1> b0
 //
 fun{
-a1,a2:t0p}{b:vt0p
-} stream_vt_map2$fopr(x1: &a1 >> _, x2: &a2 >> _):<1> b
-//
-fun{
-a1,a2:t0p}{b:vt0p
+a1,a2:t0p}{b0:vt0p
 } stream_vt_map2_fun
 (
   xs1: stream_vt(INV(a1))
-, xs2: stream_vt(INV(a2)), fopr: (&a1 >> _, &a2 >> _) -<fun1> b
-) : stream_vt(b) // end of [stream_vt_map2_fun]
+, xs2: stream_vt(INV(a2)), fopr: (&a1 >> _, &a2 >> _) -<fun1> b0
+) : stream_vt(b0) // end of [stream_vt_map2_fun]
 fun{
-a1,a2:t0p}{b:vt0p
+a1,a2:t0p}{b0:vt0p
 } stream_vt_map2_cloptr
 (
   xs1: stream_vt(INV(a1))
-, xs2: stream_vt(INV(a2)), fopr: (&a1 >> _, &a2 >> _) -<cloptr1> b
-) : stream_vt(b) // end of [stream_vt_map2_cloptr]
+, xs2: stream_vt(INV(a2)), fopr: (&a1 >> _, &a2 >> _) -<cloptr1> b0
+) : stream_vt(b0) // end of [stream_vt_map2_cloptr]
 //
 (* ****** ****** *)
 //

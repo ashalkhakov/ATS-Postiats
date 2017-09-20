@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/integer.atxt
-** Time of generation: Wed May  3 17:36:16 2017
+** Time of generation: Fri Aug 18 03:29:57 2017
 *)
 
 (* ****** ****** *)
@@ -113,6 +113,21 @@ g0int_min<intknd> = g0int_min_int
 //
 implement
 fprint_val<int> (out, x) = fprint_int (out, x)
+//
+(* ****** ****** *)
+//
+implement
+{}(*tmp*)
+add_int1_size0(i, j) =
+let val i =
+  g1int2uint_int_size(i) in i + j
+end // end of [add_int1_size0]
+implement
+{}(*tmp*)
+add_size0_int1(i, j) =
+let val j =
+  g1int2uint_int_size(j) in i + j
+end // end of [add_size0_int1]
 //
 (* ****** ****** *)
 //

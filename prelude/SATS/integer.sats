@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Fri Jun  2 23:34:20 2017
+** Time of generation: Fri Aug 18 03:29:48 2017
 *)
 
 (* ****** ****** *)
@@ -165,6 +165,18 @@ fun
 g0int_mod : g0int_aop_type(tk)
 overload % with g0int_mod of 0
 overload mod with g0int_mod of 0
+
+(* ****** ****** *)
+
+fun{}
+add_int1_size0{i:nat}(int(i), size_t):<> size_t
+fun{}
+add_size0_int1{j:nat}(size_t, int(j)):<> size_t
+
+(* ****** ****** *)
+
+overload + with add_int1_size0 of 11
+overload + with add_size0_int1 of 11
 
 (* ****** ****** *)
 

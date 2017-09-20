@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Tue Jun 13 20:18:08 2017
+** Time of generation: Fri Aug 25 22:54:43 2017
 *)
 
 (* ****** ****** *)
@@ -1206,6 +1206,49 @@ loop(xs: stream(a)): void =
 //
 } (* end of [stream_foreach_cloref] *)
 
+(* ****** ****** *)
+//
+//
+implement
+{a}(*tmp*)
+stream_iforeach_fun
+  (xs, fwork) =
+  loop(0, xs) where
+{
+//
+fun
+loop
+( i: intGte(0)
+, xs: stream(a)): void =
+(
+case+ !xs of
+| stream_nil() => ()
+| stream_cons(x, xs) =>
+  let val () = fwork(i, x) in loop(i+1, xs) end
+)
+//
+} (* end of [stream_iforeach_fun] *)
+//
+implement
+{a}(*tmp*)
+stream_iforeach_cloref
+  (xs, fwork) =
+  loop(0, xs) where
+{
+//
+fun
+loop
+( i: intGte(0)
+, xs: stream(a)): void =
+(
+case+ !xs of
+| stream_nil() => ()
+| stream_cons(x, xs) =>
+  let val () = fwork(i, x) in loop(i+1, xs) end
+)
+//
+} (* end of [stream_iforeach_cloref] *)
+//
 (* ****** ****** *)
 
 implement

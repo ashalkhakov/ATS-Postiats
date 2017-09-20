@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/filebas.atxt
-** Time of generation: Fri Jun  2 23:34:24 2017
+** Time of generation: Fri Aug 18 03:29:52 2017
 *)
 
 (* ****** ****** *)
@@ -331,6 +331,18 @@ fun{}
 streamize_fileref_char(inp: FILEref): stream_vt(char)
 fun{}
 streamize_fileref_line(inp: FILEref): stream_vt(Strptr1)
+//
+(* ****** ****** *)
+//
+absvtype FILEptr1_vtype = ptr
+vtypedef FILEptr1 = FILEptr1_vtype
+//
+(*
+fun{}
+streamize_fileptr_char(inp: FILEptr1): stream_vt(char)
+*)
+fun{}
+streamize_fileptr_line(inp: FILEptr1): stream_vt(Strptr1)
 //
 (* ****** ****** *)
 

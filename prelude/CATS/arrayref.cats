@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/arrayref.atxt
-** Time of generation: Wed May  3 17:36:33 2017
+** Time of generation: Fri Aug 18 03:30:11 2017
 */
 
 /* ****** ****** */

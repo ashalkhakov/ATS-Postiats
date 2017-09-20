@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Fri Jun  2 23:34:27 2017
+** Time of generation: Tue Aug 29 08:31:46 2017
 *)
 
 (* ****** ****** *)
@@ -491,17 +491,17 @@ arrszref_get_refsize{a:vt0p}
 (* ****** ****** *)
 
 fun{a:t0p}
-arrszref_make_elt (asz: size_t, x: a):<!wrt> arrszref(a)
+arrszref_make_elt(asz: size_t, x: a):<!wrt> arrszref(a)
 // end of [arrszref_make_elt]
 
 (* ****** ****** *)
 
 fun{a:t0p}
-arrszref_make_list (xs: List (INV(a))):<!wrt> arrszref(a)
+arrszref_make_list(xs: List(INV(a))):<!wrt> arrszref(a)
 // end of [arrszref_make_list]
 
 fun{a:t0p}
-arrszref_make_rlist (xs: List (INV(a))):<!wrt> arrszref(a)
+arrszref_make_rlist(xs: List(INV(a))):<!wrt> arrszref(a)
 // end of [arrszref_make_rlist]
 
 (* ****** ****** *)

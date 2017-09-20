@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Tue May  9 20:27:56 2017
+** Time of generation: Fri Aug 18 03:30:02 2017
 *)
 
 (* ****** ****** *)
@@ -586,7 +586,7 @@ end // end of [list_takeout_at]
 
 implement
 {x}(*tmp*)
-list_length (xs) = let
+list_length(xs) = let
 //
 prval() = lemma_list_param (xs)
 //
@@ -595,16 +595,53 @@ loop
 {i,j:nat} .<i>.
 (
 xs: list(x, i), j: int j
-) :<> int(i+j) =
-(
+) :<> int(i+j) = (
+//
 case+ xs of
 | list_cons(_, xs) => loop(xs, j+1) | _ =>> j
+//
 ) (* end of [loop] *)
 //
 in
   loop(xs, 0)
 end // end of [list_length]
 
+(* ****** ****** *)
+//
+implement
+{x}(*tmp*)
+list_length_gte
+  (xs, n2) =
+  (list_length_compare<x>(xs, n2) >= 0)
+//
+implement
+{x}(*tmp*)
+list_length_compare
+  (xs, n2) =
+  loop(xs, n2) where
+{
+//
+fun
+loop
+{i:nat;j:int} .<i>.
+(xs: list(x, i), j: int j) :<> int(sgn(i-j)) =
+(
+if
+(j < 0)
+then 1 else
+(
+case+ xs of
+| list_cons
+    (_, xs) => loop(xs, j-1)
+  // list_cons
+| _ (*list_nil*) =>> (if j = 0 then 0 else ~1)
+)
+) (* end of [loop] *)
+//
+prval() = lemma_list_param(xs)
+//
+} (* end of [list_length_compare] *)
+//
 (* ****** ****** *)
 
 implement

@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Wed Jun 21 21:26:24 2017
+** Time of generation: Fri Aug 25 22:54:48 2017
 *)
 
 (* ****** ****** *)
@@ -414,6 +414,17 @@ stream_foreach_fun
 fun{a:t0p}
 stream_foreach_cloref
   (xs: stream(a), fwork: (a) -<cloref1> void): void
+//
+(* ****** ****** *)
+//
+fun{a:t0p}
+stream_iforeach_fun
+( xs: stream(a)
+, fwork: (intGte(0), a) -<fun1> void): void
+fun{a:t0p}
+stream_iforeach_cloref
+( xs: stream(a)
+, fwork: (intGte(0), a) -<cloref1> void): void
 //
 (* ****** ****** *)
 //

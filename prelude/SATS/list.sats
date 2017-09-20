@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Fri Jun  2 23:34:25 2017
+** Time of generation: Fri Aug 18 03:29:53 2017
 *)
 
 (* ****** ****** *)
@@ -97,8 +97,12 @@ typedef listBtwe
 exception
 ListSubscriptExn of ()
 (*
-fun ListSubscriptExn ():<> exn = "mac#%ListSubscriptExn_make"
-fun isListSubscriptExn (x: !exn):<> bool = "mac#%isListSubscriptExn"
+//
+fun
+ListSubscriptExn():<> exn = "mac#%ListSubscriptExn_make"
+fun
+isListSubscriptExn(x: !exn):<> bool = "mac#%isListSubscriptExn"
+//
 macdef
 ifListSubscriptExn
   {tres}(exn, body) =
@@ -348,6 +352,20 @@ list_length
   {n:int} (xs: list(INV(x), n)):<> int(n)
 // end of [list_length]
 
+(* ****** ****** *)
+//
+fun{x:t0p}
+list_length_gte
+  {n1,n2:int}
+  (xs: list(INV(x), n1), n2: int(n2)): bool(n1 >= n2)
+fun{x:t0p}
+list_length_compare
+  {n1,n2:int}
+  (xs: list(INV(x), n1), n2: int(n2)): int(sgn(n1-n2))
+//
+overload >= with list_length_gte
+overload compare with list_length_compare
+//
 (* ****** ****** *)
 
 fun
@@ -618,7 +636,7 @@ x:t0p}{y:vt0p
   (xs: list(INV(x), n)): list_vt(y, n)
 // end of [list_map]
 //
-fun{x:t0p}{y:vt0p} list_map$fopr (x: x): (y)
+fun{x:t0p}{y:vt0p} list_map$fopr(x: x): (y)
 //
 (* ****** ****** *)
 
@@ -652,31 +670,36 @@ x:t0p}{y:vt0p
 
 (* ****** ****** *)
 //
-fun{
-x:t0p}{y:vt0p
-} list_imap{n:int}
+fun
+{x:t0p}
+{y:vt0p}
+list_imap{n:int}
   (xs: list(INV(x), n)): list_vt(y, n)
 //
-fun{
-x:t0p}{y:vt0p
-} list_imap$fopr (i: intGte(0), x: x): (y)
+fun
+{x:t0p}
+{y:vt0p}
+list_imap$fopr(i: intGte(0), x: x): (y)
 //
 (* ****** ****** *)
-
-fun{
-x:t0p}{y:vt0p
-} list_mapopt{n:int}
+//
+fun
+{x:t0p}
+{y:vt0p}
+list_mapopt{n:int}
   (xs: list(INV(x), n)): listLte_vt(y, n)
 //
-fun{
-x:t0p}{y:vt0p
-} list_mapopt$fopr (x: x): Option_vt(y)
+fun
+{x:t0p}
+{y:vt0p}
+list_mapopt$fopr(x: x): Option_vt(y)
 //
 (*
 fun{
 x:t0p}{y:t0p
 } list_mapopt_funenv
-  {v:view}{vt:viewtype}{n:int}{fe:eff} (
+  {v:view}{vt:viewtype}{n:int}{fe:eff}
+(
   pfv: !v |
   xs: list(INV(x), n)
 , f: (!v | x, !vt) -<fun,fe> Option_vt(y), env: !vt

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/matrixref.atxt
-** Time of generation: Fri Jun  2 23:34:27 2017
+** Time of generation: Thu Aug 31 20:28:28 2017
 *)
 
 (* ****** ****** *)
@@ -208,11 +208,12 @@ matrixref_copy
 
 (*
 fun{a:vt0p}
-matrix_tabulate$fopr (i: size_t, j: size_t): (a)
+matrix_tabulate$fopr(i: size_t, j: size_t): (a)
 *)
 fun{a:vt0p}
 matrixref_tabulate
-  {m,n:int} (nrow: size_t m, ncol: size_t n): matrixref(a, m, n)
+  {m,n:int}
+  (nrow: size_t m, ncol: size_t n): matrixref(a, m, n)
 //
 fun{a:vt0p}
 matrixref_tabulate_cloref

@@ -288,7 +288,16 @@ in
 end // end of [string_make_rlist]
 //
 (* ****** ****** *)
-
+//
+implement
+{}(*tmp*)
+string_make_prefix
+  (x, ln) = let
+  val st = i2sz(0)
+in
+  string_make_substring<>(x, st, ln)
+end // end of [string_make_prefix]
+//
 implement
 {}(*tmp*)
 string_make_substring
@@ -297,21 +306,21 @@ string_make_substring
 val x = g1ofg0_string(x)
 val st = g1ofg0_uint(st)
 and ln = g1ofg0_uint(ln)
-val lnx = prelude_string1_length (x)
+val lnx = prelude_string1_length(x)
 //
-val st = min (st, lnx)
+val st = min(st, lnx)
 //
 val
 substr =
 $effmask_wrt
 (
-  prelude_string_make_substring (x, st, min (ln, lnx-st))
+  prelude_string_make_substring(x, st, min(ln, lnx-st))
 ) (* end of [val] *)
 //
 in
   $UN.castvwtp0{string}(substr)
 end // end of [string_make_substring]
-
+//
 (* ****** ****** *)
 
 implement

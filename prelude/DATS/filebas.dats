@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Wed May  3 17:36:20 2017
+** Time of generation: Fri Aug 18 03:30:00 2017
 *)
 
 (* ****** ****** *)
@@ -1039,6 +1039,54 @@ fileref_close(inp) // HX-2016-09-12: FILEref is not freed!
 //
 *)
 ) (* end of [auxmain] *)
+//
+} (* end of [streamize_fileref_line] *)
+
+(* ****** ****** *)
+
+implement
+{}(*tmp*)
+streamize_fileptr_line
+  (inp) = auxmain(inp) where
+{
+//
+vtypedef elt = Strptr1
+//
+fun
+auxmain
+(
+  inp
+: FILEref
+) : stream_vt(elt)= $ldelay
+(
+//
+let
+  val iseof = fileref_is_eof(inp)
+in
+  if iseof
+    then let
+      val () =
+        fileref_close(inp) // HX: FILEref is not freed!
+      // end of [val]
+    in
+      stream_vt_nil((*void*))
+    end // end of [then]
+    else let
+      val line =
+        fileref_get_line_string(inp)
+      // end of [val]
+    in
+      stream_vt_cons(line, auxmain(inp))
+    end // end of [else]
+end : stream_vt_con(elt)
+//
+,
+//
+fileref_close(inp) // HX-2016-09-12: FILEref is not freed!
+//
+) (* end of [auxmain] *)
+//
+val inp = $UN.castvwtp0{FILEref}(inp)
 //
 } (* end of [streamize_fileref_line] *)
 

@@ -34,6 +34,21 @@ ats2phppre_string_length
 /* ****** ****** */
 
 function
+ats2phppre_strcmp
+  ($x1, $x2)
+{
+  return strcmp($x1, $x2);
+}
+function
+ats2phppre_strncmp
+  ($x1, $x2, $n)
+{
+  return strncmp($x1, $x2, $n);
+}
+
+/* ****** ****** */
+
+function
 ats2phppre_lt_string_string
   ($x1, $x2)
 {
@@ -79,7 +94,7 @@ ats2phppre_neq_string_string
 /* ****** ****** */
 //
 function
-compare_string_string
+ats2phppre_compare_string_string
   ($x1, $x2)
 {
   $sgn = strcmp($x1, $x2) ;

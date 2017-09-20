@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Wed May  3 17:36:18 2017
+** Time of generation: Fri Aug 18 03:29:59 2017
 *)
 
 (* ****** ****** *)
@@ -344,7 +344,7 @@ val n1 = n + 1
 val (pf, pfgc | p0) =
   $effmask_wrt (malloc_gc(i2sz(n1)))
 //
-val p1 = $effmask_wrt (loop (cs, n, p0))
+val p1 = $effmask_wrt(loop(cs, n, p0))
 //
 val () =
   $effmask_wrt ($UN.ptr0_set<char>(p1, CNUL))
@@ -464,12 +464,12 @@ string_make_substring
   (str, st, ln) = $effmask_wrt let
 //
 val ln1 = succ(ln)
-val (pf, pfgc | p_dst) = malloc_gc (ln1)
+val (pf, pfgc | p_dst) = malloc_gc(ln1)
 //
 val
 p_src = string2ptr(str)
 val
-p_dst = memcpy (p_dst, p_src + st, ln)
+p_dst = memcpy(p_dst, p_src + st, ln)
 //
 val () = $UN.ptr0_set<char>(p_dst + ln, CNUL)
 //
@@ -677,11 +677,12 @@ string0_copy
   (str) = let
 //
 val str = g1ofg0(str)
-val str2 = string1_copy (str)
-prval () = lemma_strnptr_param (str2)
+val str2 = string1_copy(str)
+//
+prval () = lemma_strnptr_param(str2)
 //
 in
-  strnptr2strptr (str2)
+  strnptr2strptr(str2)
 end // end of [string0_copy]
 
 implement
@@ -689,10 +690,13 @@ implement
 string1_copy
   {n}(str) = let
 //
-val n = string1_length (str)
-val n1 = succ(n)
-val (pf, pfgc | p) = malloc_gc (n1)
-val _(*p*) = $effmask_wrt (memcpy (p, string2ptr(str), n1))
+val n =
+string1_length(str)
+val n1 = g1uint_succ(n)
+val (pf, pfgc | p) = malloc_gc(n1)
+//
+val _(*p*) =
+$effmask_wrt(memcpy(p, string2ptr(str), n1))
 //
 in
   castvwtp_trans{strnptr(n)}((pf, pfgc | p))
@@ -717,14 +721,17 @@ implement
 {}(*tmp*)
 strchr{n}(str, c0) = let
 //
-prval () = lemma_string_param (str)
-extern fun __strchr (string, int):<> ptr = "mac#atspre_strchr"
-extern fun __sub (ptr, ptr):<> ssizeBtw (0, n) = "mac#atspre_sub_ptr_ptr"
+prval () = lemma_string_param(str)
+extern
+fun __strchr__(string, int):<> ptr = "mac#atspre_strchr"
+extern
+fun sub_ptr_ptr(ptr, ptr):<> ssizeBtw(0, n) = "mac#atspre_sub_ptr_ptr"
+//
 val p0 = string2ptr(str)
-val p1 = __strchr (str, (char2int0)c0)
+val p1 = __strchr__(str, (char2int0)c0)
 //
 in
-  if p1 > the_null_ptr then __sub (p1, p0) else i2ssz(~1)
+  if p1 > the_null_ptr then sub_ptr_ptr(p1, p0) else i2ssz(~1)
 end // end of [strchr]
 
 implement
@@ -732,13 +739,16 @@ implement
 strrchr{n}(str, c0) = let
 //
 prval () = lemma_string_param (str)
-extern fun __strrchr (string, int):<> ptr = "mac#atspre_strrchr"
-extern fun __sub (ptr, ptr):<> ssizeBtw (0, n) = "mac#atspre_sub_ptr_ptr"
+extern
+fun __strrchr__(string, int):<> ptr = "mac#atspre_strrchr"
+extern
+fun sub_ptr_ptr(ptr, ptr):<> ssizeBtw(0, n) = "mac#atspre_sub_ptr_ptr"
+//
 val p0 = string2ptr(str)
-val p1 = __strrchr (str, (char2int0)c0)
+val p1 = __strrchr__(str, (char2int0)c0)
 //
 in
-  if p1 > the_null_ptr then __sub (p1, p0) else i2ssz(~1)
+  if p1 > the_null_ptr then sub_ptr_ptr(p1, p0) else i2ssz(~1)
 end // end of [strrchr]
 
 (* ****** ****** *)
@@ -749,13 +759,17 @@ strstr{n}
   (haystack, needle) = let
 //
 prval () = lemma_string_param (haystack)
-extern fun __strstr (string, string):<> ptr = "mac#atspre_strstr"
-extern fun __sub (ptr, ptr):<> ssizeBtw (0, n) = "mac#atspre_sub_ptr_ptr"
+//
+extern
+fun __strstr__(string, string):<> ptr = "mac#atspre_strstr"
+extern
+fun sub_ptr_ptr(ptr, ptr):<> ssizeBtw(0, n) = "mac#atspre_sub_ptr_ptr"
+//
 val p0 = string2ptr(haystack)
-val p1 = __strstr (haystack, needle)
+val p1 = __strstr__(haystack, needle)
 //
 in
-  if p1 > the_null_ptr then __sub (p1, p0) else i2ssz(~1)
+  if p1 > the_null_ptr then sub_ptr_ptr(p1, p0) else i2ssz(~1)
 end // end of [strstr]
 
 (* ****** ****** *)
@@ -763,31 +777,31 @@ end // end of [strstr]
 implement
 {}(*tmp*)
 strspn{n}
-  (str, accept) = let
+(subject, accept) = let
 //
-prval() = lemma_string_param (str)
+prval () = lemma_string_param(subject)
 //
 extern
 fun
-__strspn (string, string):<> sizeLte (n) = "mac#atspre_strspn"
+__strspn__(string, string):<> sizeLte(n) = "mac#atspre_strspn"
 //
 in
-  __strspn (str, accept)
+  __strspn__(subject, accept)
 end // end of [strspn]
 
 implement
 {}(*tmp*)
 strcspn{n}
-  (str, reject) = let
+(subject, reject) = let
 //
-prval() = lemma_string_param (str)
+prval() = lemma_string_param(subject)
 //
 extern
 fun
-__strcspn (string, string):<> sizeLte (n) = "mac#atspre_strcspn"
+__strcspn__(string, string):<> sizeLte(n) = "mac#atspre_strcspn"
 //
 in
-  __strcspn (str, reject)
+  __strcspn__(subject, reject)
 end // end of [strcspn]
 
 (* ****** ****** *)
@@ -795,13 +809,13 @@ end // end of [strcspn]
 implement
 {}(*tmp*)
 string_index
-  {n}(str, c) = $UN.cast{ssizeBtw(~1,n)}(strchr (str, c))
+  {n}(str, c) = $UN.cast{ssizeBtw(~1,n)}(strchr(str, c))
 // end of [string_index]
 
 implement
 {}(*tmp*)
 string_rindex
-  {n}(str, c) = $UN.cast{ssizeBtw(~1,n)}(strrchr (str, c))
+  {n}(str, c) = $UN.cast{ssizeBtw(~1,n)}(strrchr(str, c))
 // end of [string_rindex]
 
 (* ****** ****** *)
@@ -813,8 +827,8 @@ string0_append
 //
 val x1 = g1ofg0(x1)
 val x2 = g1ofg0(x2)
-val x12 = string1_append (x1, x2)
-prval () = lemma_strnptr_param (x12)
+val x12 = string1_append(x1, x2)
+prval () = lemma_strnptr_param(x12)
 //
 in
   strnptr2strptr (x12)
@@ -1074,18 +1088,25 @@ implement
 {}(*tmp*)
 string_tabulate{n}(n) = let
 //
-prval () = lemma_g1uint_param (n)
+prval () =
+lemma_g1uint_param(n)
 //
-fun loop (
-  p: ptr, n: size_t, i: size_t
+fun
+loop
+(
+ p: ptr, n: size_t, i: size_t
 ) : void = let
 in
 //
-if i < n then let
-  val c = string_tabulate$fopr (i)
-  val () = $UN.ptr0_set<char> (p, c)
+if
+(i < n)
+then let
+  val c =
+  string_tabulate$fopr(i)
+  val () =
+  $UN.ptr0_set<char>(p, c)
 in
-  loop (ptr_succ<char> (p), n, succ (i))
+  loop(ptr_succ<char>(p), n, succ(i))
 end else
   $UN.ptr0_set<char> (p, CNUL)
 // end of [if]
@@ -1093,8 +1114,8 @@ end else
 end // end of [loop]
 //
 val n1 = succ(n)
-val (pf, fpf | p0) = malloc_gc (n1)
-val () = loop (p0, n, g1int2uint (0))
+val (pf, fpf | p0) = malloc_gc(n1)
+val () = loop (p0, n, g1int2uint(0))
 //
 in
   castvwtp_trans{strnptr(n)}((pf, fpf | p0))

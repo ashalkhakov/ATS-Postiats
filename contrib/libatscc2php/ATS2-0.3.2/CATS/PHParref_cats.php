@@ -29,6 +29,12 @@ PHParref {
 /* ****** ****** */
 //
 function
+ats2phppre_PHParref2array
+  ($A) { return ($A->array); }
+//
+/* ****** ****** */
+//
+function
 ats2phppre_PHParref_nil
   ()
 {
@@ -55,6 +61,17 @@ ats2phppre_PHParref_pair
   return $res;
 }
 //
+/* ****** ****** */
+
+function
+ats2phppre_PHParref_make_elt
+  ($asz, $x0)
+{
+  $res = new PHParref;
+  $res->array = array_fill(0, $asz, $x0);
+  return $res;
+}
+
 /* ****** ****** */
 
 function
@@ -123,6 +140,15 @@ ats2phppre_PHParref_values
   return $A2; // end-of-body
 }
 
+/* ****** ****** */
+//
+function
+ats2phppre_PHParref_join
+  ($A) { return (implode($A->array)); }
+function
+ats2phppre_PHParref_join_sep
+  ($A, $sep) { return (implode($A->array, $sep)); }
+//
 /* ****** ****** */
 
 /* end of [PHParref_cats.php] */

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/string.atxt
-** Time of generation: Fri Jun  2 23:34:22 2017
+** Time of generation: Fri Aug 18 03:29:50 2017
 *)
 
 (* ****** ****** *)
@@ -378,13 +378,13 @@ strcspn{n:int} // complement spanning
 
 (* ****** ****** *)
 
-fun{
-} string_index{n:int}
+fun{}
+string_index{n:int}
   (str: string(n), c0: charNZ):<> ssizeBtw(~1, n)
 // end of [string_index]
 
-fun{
-} string_rindex{n:int}
+fun{}
+string_rindex{n:int}
   (str: string(n), c0: charNZ):<> ssizeBtw(~1, n)
 // end of [string_rindex]
 

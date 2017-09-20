@@ -64,16 +64,18 @@ typedef NSH(a:type) = a // for commenting purpose
 (* ****** ****** *)
 //
 #define
-list0_sing(x) list0_cons(x, list0_nil())
+list0_sing(x)
+list0_cons(x, list0_nil())
 //
 #define
 list0_pair(x1, x2)
-list0_cons(x1, list0_cons (x2, list0_nil()))
+list0_cons(x1, list0_cons(x2, list0_nil()))
 //
 (* ****** ****** *)
 //
 castfn
-list0_cast{x:t0p} (xs: list0(INV(x))):<> list0(x)
+list0_cast{x:t0p}
+  (xs: list0(INV(x))):<> list0(x)
 //
 (* ****** ****** *)
 //
@@ -87,9 +89,11 @@ list0_of_list_vt
 (* ****** ****** *)
 //
 castfn
-g0ofg1_list{a:t@ype}(List(INV(a))):<> list0(a)
+g0ofg1_list
+  {a:t@ype}(List(INV(a))):<> list0(a)
 castfn
-g0ofg1_list_vt{a:t@ype}(List_vt(INV(a))):<> list0(a)
+g0ofg1_list_vt
+  {a:t@ype}(List_vt(INV(a))):<> list0(a)
 //
 overload g0ofg1 with g0ofg1_list
 overload g0ofg1 with g0ofg1_list_vt
@@ -97,21 +101,22 @@ overload g0ofg1 with g0ofg1_list_vt
 (* ****** ****** *)
 //
 castfn
-g1ofg0_list{a:t@ype}(list0(INV(a))):<> List0(a)
+g1ofg0_list
+  {a:t@ype}(xs: list0(INV(a))):<> List0(a)
 //
 overload g1ofg0 with g1ofg0_list
 //
 (* ****** ****** *)
 
 fun{a:t0p}
-list0_make_sing (x: a):<> list0(a)
+list0_make_sing(x: a):<> list0(a)
 fun{a:t0p}
-list0_make_pair (x1: a, x2: a):<> list0(a)
+list0_make_pair(x1: a, x2: a):<> list0(a)
 
 (* ****** ****** *)
 
 fun{a:t0p}
-list0_make_elt (n: int, x: a):<!exn> list0(a)
+list0_make_elt(n: int, x: a):<!exn> list0(a)
 
 (* ****** ****** *)
 //
@@ -134,8 +139,10 @@ list0_make_intrange_lrd
 //
 symintr list0_make_intrange
 //
-overload list0_make_intrange with list0_make_intrange_lr
-overload list0_make_intrange with list0_make_intrange_lrd
+overload
+list0_make_intrange with list0_make_intrange_lr
+overload
+list0_make_intrange with list0_make_intrange_lrd
 //
 (* ****** ****** *)
 //
@@ -284,7 +291,7 @@ overload fprint with fprint_listlist0_sep
 fun{a:t0p}
 list0_insert_at_exn
 (
-  SHR(list0(INV(a))), i: int, x: a
+  SHR(list0(INV(a))), i: int, x: (a)
 ) :<!exn> list0(a) // endfun
 
 (* ****** ****** *)
@@ -305,7 +312,8 @@ overload takeout_at with list0_takeout_at_exn
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 list0_append
 (
   xs: NSH(list0(INV(a))), ys: SHR(list0(a))
@@ -324,7 +332,8 @@ macdef list0_snoc = list0_extend
 //
 (* ****** ****** *)
 //
-fun{a:t0p}
+fun
+{a:t0p}
 mul_int_list0
 (
   m0: intGte(0), xs: NSH(list0(INV(a)))
@@ -682,11 +691,12 @@ a,b:t0p
 fun
 {a:t0p}
 list0_filter
-  (xs: list0(INV(a)), pred: cfun(a, bool)): list0(a)
+(xs: list0(INV(a)), pred: cfun(a, bool)): list0(a)
+//
 fun
 {a:t0p}
 list0_filter_method
-  (xs: list0(INV(a)))(pred: cfun(a, bool)): list0(a)
+(xs: list0(INV(a)))(pred: cfun(a, bool)): list0(a)
 //
 overload .filter with list0_filter_method
 //
@@ -733,32 +743,75 @@ overload .mapopt with list0_mapopt_method
 //
 fun{a:t0p}
 list0_mapcons
-  (x0: a, xss: list0(list0(INV(a)))): list0(list0(a))
+(x0: a, xss: list0(list0(INV(a)))): list0(list0(a))
 //
 overload * with list0_mapcons
 //
 (* ****** ****** *)
 //
-fun{
-a:t0p}{b:t0p
-} list0_imap
-  (list0(INV(a)), fopr: cfun2(int, a, b)): list0(b)
-fun{
-a:t0p}{b:t0p
-} list0_imap_method
-  (list0(INV(a)), TYPE(b))(fopr: cfun2(int, a, b)): list0(b)
+fun
+{a:t0p}
+{b:t0p}
+list0_mapjoin
+(
+  xs: list0(INV(a)), fopr: cfun(a, list0(b))
+) : list0(b) // end-of-function
 //
-overload .imap with list0_imap_method
+fun
+{a:t0p}
+{b:t0p}
+list0_mapjoin_method
+(
+  xs: list0(INV(a)))(fopr: cfun(a, list0(b))
+) : list0(b) // end-of-function
 //
 (* ****** ****** *)
-
+//
+fun
+{a:t0p}
+{b:t0p}
+list0_imap
+(list0(INV(a)), fopr: cfun2(int, a, b)): list0(b)
+fun
+{a:t0p}
+{b:t0p}
+list0_imapopt
+(list0(INV(a)), fopr: cfun2(int, a, Option_vt(b))): list0(b)
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+{b:t0p}
+list0_imap_method
+(list0(INV(a)), TYPE(b))(fopr: cfun2(int, a, b)): list0(b)
+fun
+{a:t0p}
+{b:t0p}
+list0_imapopt_method
+(list0(INV(a)), TYPE(b))(fopr: cfun2(int, a, Option_vt(b))): list0(b)
+//
+overload .imap with list0_imap_method
+overload .imapopt with list0_imapopt_method
+//
+(* ****** ****** *)
+//
 fun{
-a1,a2:t0p}{b:t0p
+a1,
+a2:t0p}{b:t0p
 } list0_map2
 (
   list0(INV(a1)), list0(INV(a2)), fopr: cfun2(a1, a2, b)
 ) : list0(b) // end of [list0_map2]
-
+//
+fun{
+a1,
+a2:t0p}{b:t0p
+} list0_imap2
+(
+  list0(INV(a1)), list0(INV(a2)), fopr: cfun3(int, a1, a2, b)
+) : list0(b) // end of [list0_imap2]
+//
 (* ****** ****** *)
 //
 fun{a:t0p}
@@ -810,49 +863,51 @@ x,y:t0p}{z:t0p
 //
 fun
 {x:t0p}
-list0_foreach_choose2
+list0_choose2_foreach
 (
   list0(INV(x)), fwork: cfun2(x, x, void)
 ) : void // end-of-function
 fun
 {x:t0p}
-list0_foreach_choose2_method
+list0_choose2_foreach_method
 (
   list0(INV(x))) (fwork: cfun2(x, x, void)
 ) : void // end-of-function
 //
-overload .foreach_choose2 with list0_foreach_choose2_method
+overload .choose2_foreach with list0_choose2_foreach_method
 //
 (* ****** ****** *)
 //
 fun{
 x,y:t0p
-} list0_foreach_xprod2
+} list0_xprod2_foreach
 (
   list0(INV(x)), list0(INV(y)), fwork: cfun2(x, y, void)
 ) : void // end-of-function
 fun
 {x,y:t0p}
-list0_foreach_xprod2_method
+list0_xprod2_foreach_method
 (
   list0(INV(x)), list0(INV(y)))(fwork: cfun2(x, y, void)
 ) : void // end-of-function
 //
 fun{
 x,y:t0p
-} list0_iforeach_xprod2
+} list0_xprod2_iforeach
 (
-  list0(INV(x)), list0(INV(y)), fwork: cfun4(intGte(0), x, intGte(0), y, void)
+  list0(INV(x))
+, list0(INV(y)), fwork: cfun4(intGte(0), x, intGte(0), y, void)
 ) : void // end-of-function
 fun
 {x,y:t0p}
-list0_iforeach_xprod2_method
+list0_xprod2_iforeach_method
 (
-  list0(INV(x)), list0(INV(y)))(fwork: cfun4(intGte(0), x, intGte(0), y, void)
+  list0(INV(x))
+, list0(INV(y)))(fwork: cfun4(intGte(0), x, intGte(0), y, void)
 ) : void // end-of-function
 //
-overload .foreach_xprod2 with list0_foreach_xprod2_method
-overload .iforeach_xprod2 with list0_iforeach_xprod2_method
+overload .xprod2_foreach with list0_xprod2_foreach_method
+overload .xprod2_iforeach with list0_xprod2_iforeach_method
 //
 (* ****** ****** *)
 //

@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/basics.atxt
-** Time of generation: Fri Aug 18 03:30:07 2017
+** Time of generation: Sat Sep 30 14:43:11 2017
 */
 
 /* ****** ****** */
@@ -200,6 +200,28 @@ atspre_assert_errmsg2_bool
 #define atspre_assert_errmsg2_bool0 atspre_assert_errmsg2_bool
 #define atspre_assert_errmsg2_bool1 atspre_assert_errmsg2_bool
 //
+/* ****** ****** */
+//
+#if(0)
+//
+ATSinline()
+atsvoid_t0ype
+atspre_fprint_void
+(
+  atstype_ref out
+, atstype_void arg
+)
+{
+  return/*do-nothing*/;
+}
+//
+#define
+atspre_print_void(x) atspre_fprint_void(stdout, x)
+#define
+atspre_prerr_void(x) atspre_fprint_void(stderr, x)
+//
+#endif // end of [if(0)]
+//  
 /* ****** ****** */
 //
 ATSinline()

@@ -30,9 +30,48 @@ typedef char = int
 *)
 (* ****** ****** *)
 //
+abstype optarg // nominal
+//
+(* ****** ****** *)
+//
 abstype R34obj // generic
 //
 abstype R34filr // nominal!
+//
+(* ****** ****** *)
+//
+abstype
+R34list(a:t@ype, n:int)
+abstype
+R34vector(a:t@ype, n:int)
+abstype
+R34dframe(a:t@ype, m:int, n:int)
+abstype
+R34matrix(a:t@ype, m:int, n:int)
+//
+(* ****** ****** *)
+//
+typedef
+R34list
+(
+a:t@ype
+) = [n:nat] R34list(a:t@ype, n)
+//
+typedef
+R34vector
+(
+  a:t@ype
+) = [n:nat] R34vector(a:t@ype, n)
+//
+typedef
+R34dframe
+(a:t@ype) =
+[m,n:nat] R34dframe(a:t@ype, m, n)
+//
+typedef
+R34matrix
+(a:t@ype) =
+[m,n:nat] R34matrix(a:t@ype, m, n)
 //
 (* ****** ****** *)
 //
@@ -83,6 +122,25 @@ fun
 fun2cloref3
 {a1,a2,a3:t@ype}{res:t@ype}
   (fopr: (a1, a2, a3) -> res): cfun(a1, a2, a3, res) = "mac#%"
+//
+(* ****** ****** *)
+//
+fun
+cloref2fun0
+{res:t@ype}
+(fopr: cfun(res)): (() -> res) = "mac#%"
+fun
+cloref2fun1
+{a:t@ype}{res:t@ype}
+(fopr: cfun(a, res)): ((a) -> res) = "mac#%"
+fun
+cloref2fun2
+{a1,a2:t@ype}{res:t@ype}
+(fopr: cfun(a1, a2, res)): ((a1, a2) -> res) = "mac#%"
+fun
+cloref2fun3
+{a1,a2,a3:t@ype}{res:t@ype}
+(fopr: cfun(a1, a2, a3, res)): ((a1, a2, a3) -> res) = "mac#%"
 //
 (* ****** ****** *)
 

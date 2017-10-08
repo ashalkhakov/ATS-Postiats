@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Aug 18 03:30:02 2017
+** Time of generation: Wed Oct  4 21:37:16 2017
 *)
 
 (* ****** ****** *)
@@ -913,19 +913,24 @@ end // end of [list_reverse_append2_vt]
 
 (* ****** ****** *)
 
+(*
 implement
 {a}(*tmp*)
 list_concat(xss) = let
 //
+typedef T = List(a)
+//
 prval() = lemma_list_param(xss)
 //
-typedef T = List(a)
-fun aux {n:nat} .<n>.
+fun
+aux{n:nat} .<n>.
 (
   xs0: T
 , xss: list(T, n)
 ) :<!wrt> List0_vt(a) = let
-  prval() = lemma_list_param(xs0)
+//
+prval() = lemma_list_param(xs0)
+//
 in
   case+ xss of
   | list_nil
@@ -949,6 +954,65 @@ case+ xss of
 | list_cons
     (xs, xss) => aux (xs, xss)
   // list_cons
+//
+end // end of [list_concat]
+*)
+
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_concat(xss) = let
+//
+typedef xs = List(x)
+//
+prval() = lemma_list_param(xss)
+//
+fnx
+aux1
+{n1:nat} .<n1,0>.
+(
+  xss: list(xs, n1)
+, res: &ptr? >> List0_vt(x)
+) :<!wrt> void =
+(
+case+ xss of
+| list_nil() =>
+  (res := list_vt_nil())
+| list_cons(xs0, xss) => let
+    prval() =
+      lemma_list_param(xs0) in aux2(xs0, xss, res)
+    // end of [val]
+  end // end of [list_cons]
+)
+and
+aux2
+{n1,n2:nat} .<n1,n2+1>.
+(
+  xs0: list(x, n2)
+, xss: list(xs, n1)
+, res: &ptr? >> List0_vt(x)
+) :<!wrt> void = let
+in
+  case+ xs0 of
+  | list_nil() =>
+    aux1(xss, res)
+  | list_cons(x0, xs1) =>
+    {
+      val () =
+      (
+        res :=
+        list_vt_cons{x}{0}(x0, _)
+      ) (* end of [val] *)
+      val+list_vt_cons(_, res1) = res
+      val ((*void*)) = aux2(xs1, xss, res1)
+      prval ((*folded*)) = fold@(res)
+    }
+end // end of [aux2]
+//
+in
+//
+  let var res: ptr in aux1(xss, res); res end
 //
 end // end of [list_concat]
 

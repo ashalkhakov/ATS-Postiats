@@ -2292,6 +2292,8 @@ ac_config_files="$ac_config_files config.mk"
 
 ac_config_files="$ac_config_files bin/patscc_env.sh"
 
+ac_config_files="$ac_config_files bin/myatscc_env.sh"
+
 ac_config_files="$ac_config_files bin/patsopt_env.sh"
 
 
@@ -4414,6 +4416,7 @@ do
     "config.h") CONFIG_HEADERS="$CONFIG_HEADERS config.h" ;;
     "config.mk") CONFIG_FILES="$CONFIG_FILES config.mk" ;;
     "bin/patscc_env.sh") CONFIG_FILES="$CONFIG_FILES bin/patscc_env.sh" ;;
+    "bin/myatscc_env.sh") CONFIG_FILES="$CONFIG_FILES bin/myatscc_env.sh" ;;
     "bin/patsopt_env.sh") CONFIG_FILES="$CONFIG_FILES bin/patsopt_env.sh" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;

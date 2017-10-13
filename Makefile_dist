@@ -138,6 +138,7 @@ install_files: \
   install_files_11 \
   install_files_20 \
   install_files_30 \
+  install_files_31 \
   install_files_40 \
   install_files_50 \
 
@@ -165,6 +166,8 @@ install_files_20: bin/patsopt ; \
   $(INSTALL) -m755 $< $(PATSLIBHOME2)/bin/patsopt && echo $<
 install_files_30: bin/patscc_env.sh ; \
   $(INSTALL) -m755 $< $(bindir2)/patscc && echo $<
+install_files_31: bin/myatscc_env.sh ; \
+  $(INSTALL) -m755 $< $(bindir2)/myatscc && echo $<
 install_files_40: bin/patsopt_env.sh ; \
   $(INSTALL) -m755 $< $(bindir2)/patsopt && echo $<
 
@@ -184,6 +187,7 @@ uninstall:: uninstall_bin
 uninstall:: uninstall_home
 #
 uninstall_bin:: ; $(RMF) $(bindir2)/patscc
+uninstall_bin:: ; $(RMF) $(bindir2)/myatscc
 uninstall_bin:: ; $(RMF) $(bindir2)/patsopt
 uninstall_home:: ; $(RMRF) $(PATSLIBHOME2)
 #

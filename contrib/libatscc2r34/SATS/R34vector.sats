@@ -18,6 +18,55 @@ ATS_EXTERN_PREFIX "ats2r34pre_"
 (* ****** ****** *)
 //
 fun
+R34vector_rep
+{a:t0p}{n:nat}
+(
+x0: a, n: int(n)
+) : R34vector(a, n) = "mac#%"
+//
+overload rep with R34vector_rep
+//
+(* ****** ****** *)
+//
+fun
+R34vector_make_1
+{a:t0p}
+(x1: a): R34vector(a, 1) = "mac#%"
+fun
+R34vector_make_2
+{a:t0p}
+(x1: a, x2: a): R34vector(a, 2) = "mac#%"
+fun
+R34vector_make_3
+{a:t0p}
+(x1: a, x2: a, x3: a): R34vector(a, 3) = "mac#%"
+//
+fun
+R34vector_make_4
+{a:t0p}
+( x1: a, x2: a
+, x3: a, x4: a): R34vector(a, 4) = "mac#%"
+fun
+R34vector_make_5
+{a:t0p}
+( x1: a, x2: a
+, x3: a, x4: a, x5: a): R34vector(a, 5) = "mac#%"
+fun
+R34vector_make_6
+{a:t0p}
+( x1: a, x2: a, x3: a
+, x4: a, x5: a, x6: a): R34vector(a, 6) = "mac#%"
+//
+overload R34vector_make with R34vector_make_1
+overload R34vector_make with R34vector_make_2
+overload R34vector_make with R34vector_make_3
+overload R34vector_make with R34vector_make_4
+overload R34vector_make with R34vector_make_5
+overload R34vector_make with R34vector_make_6
+//
+(* ****** ****** *)
+//
+fun
 R34vector_length
 {a:t0p}{n:int}
 (R34vector(a, n)): int(n) = "mac#%"
@@ -87,6 +136,44 @@ R34vector_variance
 overload mean with R34vector_mean
 overload median with R34vector_median
 overload variance with R34vector_variance
+//
+(* ****** ****** *)
+//
+fun
+R34vector_sample_rep
+{a:t0p}
+{m:int}
+{n:nat}
+(R34vector(a, m), int(n)): R34vector(a, n) = "mac#%"
+fun
+R34vector_sample_norep
+{a:t0p}
+{m:int}
+{n:nat|n <= m}
+(R34vector(a, m), int(n)): R34vector(a, n) = "mac#%"
+//
+overload sample_rep with R34vector_sample_rep
+overload sample_norep with R34vector_sample_norep
+//
+(* ****** ****** *)
+//
+fun
+dotprod_R34vector_R34vector
+{a:t0p}
+{n:pos}
+(R34vector(a, n), R34vector(a, n)): (a) = "mac#%"
+//
+overload dotprod with dotprod_R34vector_R34vector
+//
+(* ****** ****** *)
+//
+fun
+tcrossprod_R34vector_R34vector
+{a:t0p}
+{n:pos}
+(R34vector(a, n), R34vector(a, n)): R34matrix(a, n, n) = "mac#%"
+//
+overload tcrossprod with tcrossprod_R34vector_R34vector
 //
 (* ****** ****** *)
 //

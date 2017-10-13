@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/integer.atxt
-** Time of generation: Fri Aug 18 03:29:48 2017
+** Time of generation: Fri Oct 13 04:36:28 2017
 *)
 
 (* ****** ****** *)
@@ -59,9 +59,10 @@ stadef uintknd = uint_kind
 //
 (* ****** ****** *)
 //
-fun{
-k1,k2:tk
-} g0int2int(x: g0int(k1)):<> g0int(k2)
+fun
+{k1
+,k2:tk}
+g0int2int(x: g0int(k1)):<> g0int(k2)
 //
 fun
 g0int2int_int_int(i0: int):<> int = "mac#%"
@@ -71,7 +72,8 @@ g0int2int_int_int(i0: int):<> int = "mac#%"
 // HX-2015-09-20:
 // These are implemented in prelude/string.cats:
 //
-fun{tk:tk}
+fun
+{tk:tk}
 g0int2string(g0int(tk)):<!wrt> Strptr1
 //
 fun

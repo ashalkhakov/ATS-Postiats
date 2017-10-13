@@ -12,7 +12,7 @@
 ######
 
 CPF=cp -f
-CPS=cp -s
+CPR=cp -r
 MVF=mv -f
 RMF=rm -f
 RMRF=rm -rf
@@ -154,7 +154,7 @@ install_files_00: install_dirs ; \
   for x in share ccomp/runtime prelude libats contrib ; do \
     cd "$(abs_top_srcdir)" && \
     $(INSTALL) -d $(PATSLIBHOME2)/"$$x" && \
-    find "$$x" -type l -exec $(CPS) \{} $(PATSLIBHOME2)/\{} \; -print && \
+    find "$$x" -type l -exec $(CPR) \{} $(PATSLIBHOME2)/\{} \; -print && \
     find "$$x" -type f -exec $(INSTALL) -m644 \{} $(PATSLIBHOME2)/\{} \; -print; \
   done
 

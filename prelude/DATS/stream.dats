@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Fri Aug 25 22:54:43 2017
+** Time of generation: Thu Nov  2 00:11:18 2017
 *)
 
 (* ****** ****** *)
@@ -97,7 +97,7 @@ in
       (x, xs) => let
       val () =
       res := list_vt_cons{a}{0}(x, _)
-      val+list_vt_cons (_, res1) = res
+      val+list_vt_cons(_, res1) = res
       val ((*void*)) = loop (xs, res1)
     in
       fold@ (res)

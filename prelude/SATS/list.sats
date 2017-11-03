@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Fri Aug 18 03:29:53 2017
+** Time of generation: Wed Nov  1 09:12:24 2017
 *)
 
 (* ****** ****** *)
@@ -210,7 +210,7 @@ fprint_list_sep
 // end of [fprint_list_sep]
 //
 fun{}
-fprint_list$sep (out: FILEref): void
+fprint_list$sep(out: FILEref): void
 //
 (* ****** ****** *)
 
@@ -531,6 +531,16 @@ list_equal(xs1: List(INV(x)), xs2: List(x)):<> bool
 fun{x:t0p}
 list_equal_cloref
   (List(INV(x)), List(x), eqfn: (x, x) -<cloref> bool):<> bool
+//
+(* ****** ****** *)
+//
+fun{x:t0p}
+list_compare$cmpfn(x1: x, x2: x):<> int
+fun{x:t0p}
+list_compare(xs1: List(INV(x)), xs2: List(x)):<> int
+fun{x:t0p}
+list_compare_cloref
+  (List(INV(x)), List(x), cmpfn: (x, x) -<cloref> int):<> int
 //
 (* ****** ****** *)
 //

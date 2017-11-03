@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/intrange.atxt
-** Time of generation: Fri Aug 18 03:30:01 2017
+** Time of generation: Mon Oct 16 23:10:44 2017
 *)
 
 (* ****** ****** *)
@@ -178,7 +178,7 @@ implement
 int_rforeach_cloref
   (n, fwork) = (
 //
-intrange_rforeach_cloref<> (0, n, fwork)
+intrange_rforeach_cloref<>(0, n, fwork)
 //
 ) (* end of [int_rforeach_cloref] *)
 
@@ -191,7 +191,7 @@ intrange_rforeach_cloref
 //
 implement
 (env)(*tmp*)
-intrange_rforeach$cont<env> (i, env) = true
+intrange_rforeach$cont<env>(i, env) = true
 implement
 (env)(*tmp*)
 intrange_rforeach$fwork<env>(i, env) = fwork(i)

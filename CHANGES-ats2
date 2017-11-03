@@ -2,6 +2,40 @@
 
 0.3.8
 
+This is the 45th release of ATS2, the successor of the
+ATS programming language. The compiler for ATS2 is given
+the name ATS/Positats, ATS2/Postiats or simply Postiats.
+
+The official website for ATS is:
+
+http://www.ats-lang.org
+
+ATS-Postiats is hosted at github:
+
+https://github.com/githwxi/ATS-Postiats
+
+Major releases of ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang/
+
+Major releases of external packages for ATS2 are available at:
+
+https://sourceforge.net/projects/ats2-lang-contrib/
+
+Here is a list of major additions and changes since the last release:
+
+1. Adding libatscc/ML/option0
+2. Minorly improving libatscc/ML/list0 and libatscc/ML/array0
+3. Adding libatscc/ML/matrix0
+4. Fixing missing cases in eval1_p2at (pats_dmacro2_eval1.dats)
+5. Fixing and improving libats/funarray
+6. Adding calls to the_dynconlst_add to ensure that every exception
+   constructor is declared in the generated C code.
+7. Initiating building the "unityped" library libats/ML/BOXED
+8. Fixing a glitch in compiling polymorphic functions that call
+   function templates (auxmat_env in [pats_ccomp_template.dats])
+   A simple use case is found in doc/EXAMPLE/TESTATS/tempboxed.dats
+
 ######
 
 0.3.7
@@ -1789,7 +1823,7 @@ make good use of ATS2 without any need for compiled library (libatslib.a).
 Also, GC support in ATS2 becomes optional; if needed, third-party GC (e.g.,
 Bohem-GC) can be readily employed.
 
-I will gradually list differences between ATS and ATS2, helping people
+I will gradually list differences between ATS1 and ATS2, helping people
 make the transition from ATS1 to ATS2.
 
 ###### end of [CHANGES-ats2] ######

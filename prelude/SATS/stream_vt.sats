@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Fri Aug 18 03:29:55 2017
+** Time of generation: Wed Nov  1 23:48:53 2017
 *)
 
 (* ****** ****** *)
@@ -112,9 +112,10 @@ stream_vt2t
 //
 (* ****** ****** *)
 
-fun{a:vt0p}
+fun
+{a:vt0p}
 stream2list_vt
-  (xs: stream_vt(INV(a))): List0_vt(a)
+(stream_vt(INV(a))):<!wrt> List0_vt(a)
 // end of [stream2list_vt]
 
 (* ****** ****** *)

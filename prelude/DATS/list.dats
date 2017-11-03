@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Wed Oct  4 21:37:16 2017
+** Time of generation: Wed Nov  1 09:13:42 2017
 *)
 
 (* ****** ****** *)
@@ -67,11 +67,11 @@ case+ xs of
 implement
 {x}(*tmp*)
 list_make_sing(x) =
-  list_vt_cons{x}(x, list_vt_nil)
+list_vt_cons{x}(x, list_vt_nil())
 implement
 {x}(*tmp*)
 list_make_pair(x1, x2) =
-  list_vt_cons{x}(x1, list_vt_cons{x}(x2, list_vt_nil))
+list_vt_cons{x}(x1, list_vt_cons{x}(x2, list_vt_nil()))
 //
 (* ****** ****** *)
 
@@ -1324,10 +1324,6 @@ end // end of [list_iforall_cloref]
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
-list_equal$eqfn = gequal_val_val<a>
-
-implement
 {x}(*tmp*)
 list_equal
 (
@@ -1343,14 +1339,12 @@ $d2ctype
 //
 case+ xs1 of
 | list_nil((*void*)) =>
-  (
-    case+ xs2 of
+  ( case+ xs2 of
     | list_nil _ => true
     | list_cons _ => false
   ) // end of [list_nil]
 | list_cons(x1, xs1) =>
-  (
-    case+ xs2 of
+  ( case+ xs2 of
     | list_nil() => false
     | list_cons(x2, xs2) => let
         val test =
@@ -1364,6 +1358,10 @@ case+ xs1 of
 } (* end of [list_equal] *)
 
 implement
+{a}(*tmp*)
+list_equal$eqfn = gequal_val_val<a>
+
+implement
 {x}(*tmp*)
 list_equal_cloref
   (xs1, xs2, eqfn) =
@@ -1371,9 +1369,63 @@ list_equal_cloref
 {
 //
 implement{y}
-list_equal$eqfn(x1, x2) = eqfn($UN.cast(x1), $UN.cast(x2))
+list_equal$eqfn
+  (x1, x2) = eqfn($UN.cast(x1), $UN.cast(x2))
 //
 } (* end of [list_equal_cloref] *)
+
+(* ****** ****** *)
+
+implement
+{x}(*tmp*)
+list_compare
+(
+  xs1, xs2
+) = loop(xs1, xs2) where
+{
+fun
+loop :
+$d2ctype
+(
+  list_compare<x>
+) = lam(xs1, xs2) =>
+//
+case+ xs1 of
+| list_nil((*void*)) =>
+  ( case+ xs2 of
+    | list_nil _ => 0
+    | list_cons _ => ~1
+  ) // end of [list_nil]
+| list_cons(x1, xs1) =>
+  ( case+ xs2 of
+    | list_nil() => (1)
+    | list_cons(x2, xs2) => let
+        val test =
+          list_compare$cmpfn<x>(x1, x2)
+        // end of [val]
+      in
+        if test = 0 then loop(xs1, xs2) else test
+      end // end of [list_cons]
+  ) (* end of [list_cons] *)
+//
+} (* end of [list_compare] *)
+
+implement
+{a}(*tmp*)
+list_compare$cmpfn = gcompare_val_val<a>
+
+implement
+{x}(*tmp*)
+list_compare_cloref
+  (xs1, xs2, cmpfn) =
+  list_compare<x>(xs1, xs2) where
+{
+//
+implement{y}
+list_compare$cmpfn
+  (x1, x2) = cmpfn($UN.cast(x1), $UN.cast(x2))
+//
+} (* end of [list_compare_cloref] *)
 
 (* ****** ****** *)
 

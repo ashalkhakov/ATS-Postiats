@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Mon Oct 30 20:33:35 2017
+** Time of generation: Sat Nov  4 12:59:59 2017
 *)
 
 (* ****** ****** *)
@@ -479,11 +479,6 @@ in
 end // end of [string_make_substring]
 
 (* ****** ****** *)
-//
-implement
-string_make_stream$bufsize<> ((*void*)) = 16
-//
-(* ****** ****** *)
 
 implement
 {}(*tmp*)
@@ -590,7 +585,11 @@ else let
   val ((*freed*)) = mfree_gc(pf, fpf | p0)
 //
 in
-  loop(pf2, fpf2 | cs, p02, ptr_add<char>(p02, i), n2, i)
+//
+  loop
+  ( pf2, fpf2
+  | cs, p02, ptr_add<char>(p02, i), n2, i)
+//
 end // end of [
 ) (* end of [loop] *)
 //
@@ -604,6 +603,11 @@ in
   $effmask_all(loop(pf, fpf | cs, p0, p0, n0, i2sz(0)))
 end // end of [string_make_stream_vt]
 
+(* ****** ****** *)
+//
+implement
+string_make_stream$bufsize<> ((*void*)) = 16
+//
 (* ****** ****** *)
 //
 implement

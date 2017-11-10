@@ -2,7 +2,7 @@
 //
 // HX-2017-10-30:
 // For dynloading
-// ATSLIB/libats/ML/BOXED
+// ATSLIB/libats/ML/COMPILE
 //
 (* ****** ****** *)
 //

@@ -7,6 +7,8 @@
 (* ****** ****** *)
 //
 #dynload
+"libats/ML/COMPILE/DATS/array0.dats"
+#dynload
 "libats/ML/COMPILE/DATS/string.dats"
 //
 #dynload

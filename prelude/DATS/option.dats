@@ -27,61 +27,88 @@
 
 (* ****** ****** *)
 
+(* Author: Hongwei Xi *)
+(* Start time: Feburary, 2012 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
+
+(* ****** ****** *)
+
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/option.atxt
-** Time of generation: Mon Oct 16 23:10:46 2017
+** Time of generation: Fri Nov 24 10:56:25 2017
 *)
 
 (* ****** ****** *)
 
-(* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
-(* Start time: Feburary, 2012 *)
-
-(* ****** ****** *)
-
-implement{a} option_some (x) = Some (x)
-implement{a} option_none ( ) = None ( )
+implement{a}
+option_some(x) = Some(x)
+implement{a}
+option_none( ) = None(*void*)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-option2bool(opt) =
-  case+ opt of Some _ => true | None _ => false
-// end of [option2bool]
+option2bool
+  (opt) =
+(
+case+ opt of
+| Some _ => true | None _ => false
+) (* end of [option2bool] *)
 
 (* ****** ****** *)
 
 implement
 {}(*tmp*)
-option_is_some (opt) =
-  case+ opt of Some _ => true | None _ => false
-// end of [option_is_some]
+option_is_some
+  (opt) =
+(
+case+ opt of
+| Some _ => true | None _ => false
+) (* end of [option_is_some] *)
 
 implement
 {}(*tmp*)
-option_is_none (opt) =
-  case+ opt of Some _ => false | None _ => true
-// end of [option_is_none]
+option_is_none
+  (opt) =
+(
+case+ opt of
+| Some _ => false | None _ => true
+) (* end of [option_is_none] *)
 
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
 option_unsome
-  (opt) = x where { val+Some (x) = opt }
-// end of [option_unsome]
-
+  (opt) =
+(
+  x0
+) where { val+Some(x0) = opt }
+//
 implement
 {a}(*tmp*)
 option_unsome_exn
-  (opt) = (
+  (opt) =
+(
+case+ opt of
+| Some x0 => x0
+| None () => $raise NotSomeExn()
+) (* option_unsome_exn *)
+//
+(* ****** ****** *)
+//
+implement
+{x}{y}
+option_map_cloref
+  (opt, fopr) =
+(
   case+ opt of
-  | Some x => x | None _ => $raise NotSomeExn()
-) // end of [option_unsome_exn]
-
+  | None() => None_vt()
+  | Some(x0) => Some_vt(fopr(x0))
+) (* option_map_cloref *)
+//
 (* ****** ****** *)
 
 implement
@@ -93,12 +120,14 @@ option_equal
 case+ opt1 of
 | None () =>
   (
-    case+ opt1 of None () => true | Some _ => false
+    case+ opt1 of
+    | None() => true | Some _ => false
   ) (* end of [None] *)
 | Some x1 =>
   (
     case+ opt2 of
-    | None () => false | Some x2 => option_equal$eqfn(x1, x2)
+    | None() => false
+    | Some(x2) => option_equal$eqfn(x1, x2)
   ) (* end of [Some] *)
 //
 ) (* end of [option_equal] *)
@@ -108,17 +137,17 @@ case+ opt1 of
 implement
 {a}(*tmp*)
 print_option(opt) =
-  fprint_option<a>(stdout_ref, opt)
+fprint_option<a>(stdout_ref, opt)
 implement
 {a}(*tmp*)
 prerr_option(opt) =
-  fprint_option<a>(stderr_ref, opt)
+fprint_option<a>(stderr_ref, opt)
 //
 implement
 {a}(*tmp*)
 fprint_option
-  (out, opt) = let
-in
+  (out, opt) =
+(
 //
 case+ opt of
 | Some x => {
@@ -130,7 +159,7 @@ case+ opt of
   } (* end of [Some] *)
 | None _ => fprint_string(out, "None()")
 //
-end // end of [fprint_option]
+) (* end of [fprint_option] *)
 //
 (* ****** ****** *)
 

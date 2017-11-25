@@ -42,16 +42,14 @@ overload [] with arrayref_set_at of 100
 fun
 arrayref_exists_cloref
   {a:vt0p}{n:int}
-(
-  arrayref(a, n)
+( A0: arrayref(a, n)
 , asz: int(n), ftest: natLt(n) -<cloref1> bool
 ) : bool = "mac#%" // end-of-fun
 //
 fun
 arrayref_forall_cloref
   {a:vt0p}{n:int}
-(
-  arrayref(a, n)
+( A0: arrayref(a, n)
 , asz: int(n), ftest: natLt(n) -<cloref1> bool
 ) : bool = "mac#%" // end-of-fun
 //
@@ -60,14 +58,36 @@ arrayref_forall_cloref
 fun
 arrayref_foreach_cloref
   {a:vt0p}{n:int}
-(
-  arrayref(a, n)
+( A0: arrayref(a, n)
 , asz: int(n), fwork: natLt(n) -<cloref1> void
 ) : void = "mac#%" // end-of-fun
 
 (* ****** ****** *)
 //
+fun
+arrayref_tabulate_cloref
+  {a:vt0p}{n:int}
+(
+  asz: int(n), fopr: (natLt(n)) -<cloref1> (a)
+) : arrayref(a, n) = "mac#%" // end-of-fun
+//
+(* ****** ****** *)
+//
 // HX: array-with-size
+//
+(* ****** ****** *)
+//
+fun
+arrszref_size
+  {a:vt0p}
+  (A: arrszref(a)): intGte(0) = "mac#%"
+fun
+arrszref_get_size
+  {a:vt0p}
+  (A: arrszref(a)): intGte(0) = "mac#%"
+//
+overload size with arrszref_size
+overload .size with arrszref_get_size
 //
 (* ****** ****** *)
 //
@@ -77,18 +97,17 @@ arrszref_make_elt
   (int(n), a): arrszref(a) = "mac#%"
 //
 (* ****** ****** *)
-
-fun
-arrszref_make_arrayref
-  {a:vt0p}{n:int}
-  (arrayref(a, n), int(n)): arrszref(a) = "mac#%"
-// end of [arrszref_make_arrayref]
-
-(* ****** ****** *)
 //
 fun
-arrszref_size
-  {a:vt0p}(A: arrszref(a)): intGte(0) = "mac#%"
+arrszref_get_arrayref
+  {a:t0p}
+  (arrszref(a)): [n:nat] arrayref(a,n) = "mac#%"
+//
+fun
+arrszref_make_arrayref
+  {a:t0p}{n:int}
+  (arrayref(a, n), int(n)): arrszref(a) = "mac#%"
+// end of [arrszref_make_arrayref]
 //
 (* ****** ****** *)
 //
@@ -172,6 +191,14 @@ arrszref_foreach_method
 //
 overload
 .foreach with arrszref_foreach_method of 100
+//
+(* ****** ****** *)
+//
+fun
+arrszref_tabulate_cloref
+  {a:vt0p}{n:int}
+( asz: int(n)
+, fopr: (natLt(n)) -<cloref1> (a)): arrszref(a) = "mac#%"
 //
 (* ****** ****** *)
 

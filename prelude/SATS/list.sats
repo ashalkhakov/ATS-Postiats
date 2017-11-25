@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Wed Nov  8 15:02:36 2017
+** Time of generation: Fri Nov 24 10:44:35 2017
 *)
 
 (* ****** ****** *)
@@ -674,7 +674,7 @@ x:t0p}{y:vt0p
   {v:view}{vt:viewtype}{n:int}{fe:eff} (
   pfv: !v |
   xs: list(INV(x), n)
-, f: (!v | x, !vt) -<fun,fe> y, env: !vt
+, fopr: (!v | x, !vt) -<fun,fe> y, env: !vt
 ) :<fe,!wrt> list_vt(y, n) // end of [list_map_funenv]
 *)
 

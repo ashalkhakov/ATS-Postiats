@@ -81,6 +81,9 @@ $(ATSCC2JS) -o ./output/DATS/gmatrixref_dats.js -i
 ######
 #
 all:: ; \
+$(PATSOPT) -d ./DATS/funarray.dats | \
+$(ATSCC2JS) -o ./output/DATS/funarray_dats.js -i
+all:: ; \
 $(PATSOPT) -d ./DATS/slistref.dats | \
 $(ATSCC2JS) -o ./output/DATS/slistref_dats.js -i
 all:: ; \
@@ -168,11 +171,11 @@ CATS/bool_cats.js \
 CATS/float_cats.js \
 CATS/string_cats.js \
 CATS/gvalue_cats.js \
-CATS/JSmath_cats.js \
-CATS/JSdate_cats.js \
 CATS/JSarray_cats.js \
-CATS/JSglobal_cats.js \
-CATS/Ajax/Ajax_cats.js \
+CATS/JSLIBC/JSmath_cats.js \
+CATS/JSLIBC/JSdate_cats.js \
+CATS/JSLIBC/JSglobal_cats.js \
+CATS/HTTP/Ajax/Ajax_cats.js \
 CATS/HTML/canvas-2d/canvas2d_cats.js \
 
 libatscc2js_all:: ; \
@@ -192,8 +195,9 @@ output/DATS/reference_dats.js \
 output/DATS/arrayref_dats.js \
 output/DATS/matrixref_dats.js \
 output/DATS/gmatrixref_dats.js \
-output/DATS/qlistref_dats.js \
+output/DATS/funarray_dats.js \
 output/DATS/slistref_dats.js \
+output/DATS/qlistref_dats.js \
 output/DATS/ML/list0_dats.js \
 output/DATS/ML/array0_dats.js \
 output/DATS/ML/option0_dats.js \

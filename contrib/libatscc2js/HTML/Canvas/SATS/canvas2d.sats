@@ -1,8 +1,8 @@
+(* ****** ****** *)
 (*
 ** For writing ATS code
 ** that translates into JavaScript
 *)
-
 (* ****** ****** *)
 
 (*
@@ -22,20 +22,20 @@
 (* ****** ****** *)
 
 (*
-** API in ATS for HTML5/canvas-2d
+** API in ATS for HTML/canvas-2d
 *)
 
 (* ****** ****** *)
 
 (*
-** Author: Will Blair
-** Authoremail: wdblairATgmailDOTcom
+** Author: Hongwei Xi
 ** Start Time: October, 2013
+** Authoremail: gmhwxiATgmailDOTcom
 *)
 (*
-** Author: Hongwei Xi
-** Authoremail: gmhwxi AT gmail DOT com
+** Author: William Blair
 ** Start Time: October, 2013
+** Authoremail: wdblairATgmailDOTcom
 *)
 
 (* ****** ****** *)
@@ -46,10 +46,12 @@ ATS_STALOADFLAG 0
 //
 *)
 //
-// prefix for external names
+// HX-2017-11:
 //
 #define
-ATS_EXTERN_PREFIX "ats2js_HTML5_"
+ATS_EXTERN_PREFIX
+"ats2js_html_" //
+// prefix for external names
 //
 (* ****** ****** *)
 //

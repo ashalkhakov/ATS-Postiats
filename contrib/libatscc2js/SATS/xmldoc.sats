@@ -1,8 +1,8 @@
+(* ****** ****** *)
 (*
 ** For writing ATS code
 ** that translates into JavaScript
 *)
-
 (* ****** ****** *)
 
 (*
@@ -20,47 +20,33 @@
 *)
 
 (* ****** ****** *)
-(*
-** API in ATS for HTML5/WebGL
-*)
-(* ****** ****** *)
+
 (*
 ** Author: Hongwei Xi
-** Start Time: November, 2014
+** Start Time: September, 2014
 ** Authoremail: gmhwxiATgmailDOTcom
 *)
+
 (* ****** ****** *)
+//
 (*
 #define
 ATS_STALOADFLAG 0
+#define
+ATS_EXTERN_PREFIX "ats2js_XMLDOC_"
+//
 *)
 //
-// prefix for external names
+(* ****** ****** *)
 //
-#define
-ATS_EXTERN_PREFIX "ats2js_HTML5_"
+abstype Xmldoc_type
 //
 (* ****** ****** *)
 //
-abstype canvas_type
-typedef canvas = canvas_type
-//
-abstype canvasgl_type
-typedef canvasgl = canvasgl_type
-//
-(* ****** ****** *)
-//
-// HX:
-// This one is also declared in Canvas
-//
-fun
-canvas_getById(id: string): canvas = "mac#%"
-//
-(* ****** ****** *)
-//
-fun
-canvasgl_getById(id: string): canvasgl = "mac#%"
+typedef Xmldoc = Xmldoc_type
+typedef Xmldoclst = List0(Xmldoc)
+typedef Xmldocopt = Option(Xmldoc)
 //
 (* ****** ****** *)
 
-(* end of [WebGL.sats] *)
+(* end of [xmldoc.sats] *)

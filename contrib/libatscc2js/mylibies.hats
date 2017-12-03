@@ -33,10 +33,12 @@
 (* ****** ****** *)
 //
 #staload "./SATS/list.sats"
-#staload _ = "./DATS/list.dats"
-//
 #staload "./SATS/list_vt.sats"
-#staload _ = "./DATS/list_vt.dats"
+//
+#staload
+_(*anon*) = "./DATS/list.dats"
+#staload
+_(*anon*) = "./DATS/list_vt.dats"
 //
 (* ****** ****** *)
 //
@@ -46,10 +48,12 @@
 (* ****** ****** *)
 //
 #staload "./SATS/stream.sats"
-#staload _ = "./DATS/stream.dats"
-//
 #staload "./SATS/stream_vt.sats"
-#staload _ = "./DATS/stream_vt.dats"
+//
+#staload
+_(*anon*) = "./DATS/stream.dats"
+#staload
+_(*anon*) = "./DATS/stream_vt.dats"
 //
 (* ****** ****** *)
 //
@@ -64,8 +68,15 @@
 //
 (* ****** ****** *)
 //
+// HX-2017-11-26
+//
+#staload // for xmldocs
+"./SATS/xmldoc.sats" // used by Ajax
+//
+(* ****** ****** *)
+//
 #staload
-"./SATS/JSLIBC/JSdate.sats" // JS library
+"./SATS/JSLIBC/JSmisc.sats" // JS library
 //
 #staload
 "./SATS/JSLIBC/JSmath.sats" // JS library
@@ -74,13 +85,13 @@ _(*anon*) =
 "./DATS/JSLIBC/JSmath.dats" // JS library
 //
 #staload
-"./SATS/JSLIBC/JSglobal.sats" // JS library
+"./SATS/JSLIBC/JSdate.sats" // JS library
 //
 (* ****** ****** *)
-
+//
 #staload "./SATS/slistref.sats" // list-based stack
 #staload "./SATS/qlistref.sats" // list-based queue
-
+//
 (* ****** ****** *)
 //
 #staload

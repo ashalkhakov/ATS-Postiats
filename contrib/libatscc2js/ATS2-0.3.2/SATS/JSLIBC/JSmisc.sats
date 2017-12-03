@@ -18,7 +18,7 @@ ATS_EXTERN_PREFIX "ats2jspre_"
 (* ****** ****** *)
 
 fun
-eval (code: string): JSobj = "mac#%"
+eval(code: string): JSobj = "mac#%"
 
 (* ****** ****** *)
 
@@ -77,4 +77,4 @@ fun decodeURIComponent(uri: string): string = "mac#%"
 
 (* ****** ****** *)
 
-(* end of [JSglobal.sats] *)
+(* end of [JSmisc.sats] *)

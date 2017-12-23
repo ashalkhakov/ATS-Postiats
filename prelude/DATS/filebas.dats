@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/filebas.atxt
-** Time of generation: Mon Oct 16 23:10:44 2017
+** Time of generation: Tue Dec  5 00:49:09 2017
 *)
 
 (* ****** ****** *)
@@ -964,23 +964,33 @@ auxmain
 (
   inp
 : FILEref
-) : stream_vt(elt)= $ldelay
+) : stream_vt(elt) = $ldelay
 (
 //
 let
   val c0 = fileref_getc(inp)
 in
-  if c0 >= 0
-    then (
-      stream_vt_cons(int2char0(c0), auxmain(inp))
-    ) else (
+  if
+  (c0 >= 0)
+  then
+  (
+    stream_vt_cons
+    (int2char0(c0), auxmain(inp))
+  ) else
+  (
+    stream_vt_nil((*void*)) where
+    {
 (*
-      fileref_close(inp); // HX: FILEref is not freed!
+      //
+      // HX:
+      // FILEref is not freed!
+      //
+      val () = fileref_close(inp)
+      //
 *)
-      stream_vt_nil((*void*))
-    ) (* else *)
-  // end of [[if]
-end : stream_vt_con(elt)
+    }
+  ) (* end-of-else *) // end-of-if
+end : stream_vt_con(elt) // end of [let]
 //
 (*
 ,
@@ -1007,7 +1017,7 @@ auxmain
 (
   inp
 : FILEref
-) : stream_vt(elt)= $ldelay
+) : stream_vt(elt) = $ldelay
 (
 //
 let
@@ -1030,7 +1040,7 @@ in
     in
       stream_vt_cons(line, auxmain(inp))
     end // end of [else]
-end : stream_vt_con(elt)
+end : stream_vt_con(elt) // end of [let]
 //
 (*
 ,
@@ -1057,7 +1067,7 @@ auxmain
 (
   inp
 : FILEref
-) : stream_vt(elt)= $ldelay
+) : stream_vt(elt) = $ldelay
 (
 //
 let
@@ -1078,7 +1088,7 @@ in
     in
       stream_vt_cons(line, auxmain(inp))
     end // end of [else]
-end : stream_vt_con(elt)
+end : stream_vt_con(elt) // end of [let]
 //
 ,
 //
@@ -1088,7 +1098,7 @@ fileref_close(inp) // HX-2016-09-12: FILEref is not freed!
 //
 val inp = $UN.castvwtp0{FILEref}(inp)
 //
-} (* end of [streamize_fileref_line] *)
+} (* end of [streamize_fileptr_line] *)
 
 (* ****** ****** *)
 

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Wed Nov  8 15:02:38 2017
+** Time of generation: Thu Jan 11 11:00:09 2018
 *)
 
 (* ****** ****** *)
@@ -315,13 +315,6 @@ array_tabulate$fopr(index: size_t): (a)
 fun{a:vt0p}
 arrayref_tabulate
   {n:int}(asz: size_t(n)): arrayref(a, n)
-//
-fun{a:vt0p}
-arrayref_tabulate_cloref
-  {n:int}
-(
-  asz: size_t(n), fopr: (sizeLt(n)) -<cloref> (a)
-) : arrayref(a, n) // end-of-function
 //
 (* ****** ****** *)
 
@@ -625,11 +618,6 @@ array_tabulate$fopr(size_t): (a)
 *)
 fun{a:vt0p}
 arrszref_tabulate(asz: size_t): arrszref(a)
-//
-fun{a:vt0p}
-arrszref_tabulate_cloref
-  {n:int}
-  (size_t(n), (sizeLt(n)) -<cloref> a): arrszref(a)
 //
 (* ****** ****** *)
 //

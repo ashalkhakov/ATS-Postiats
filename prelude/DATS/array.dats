@@ -30,23 +30,24 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/array.atxt
-** Time of generation: Mon Oct 16 23:10:46 2017
+** Time of generation: Thu Jan 11 11:00:18 2018
 *)
 
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
 (* Start time: Feburary, 2012 *)
+(* Authoremail: hwxiATcsDOTbuDOTedu *)
 
 (* ****** ****** *)
 
-staload UN = "prelude/SATS/unsafe.sats"
-staload IT = "prelude/SATS/giterator.sats"
+staload
+UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-macdef castvwtp_trans = $UN.castvwtp0 // former name
+macdef
+castvwtp_trans = $UN.castvwtp0 // former name
 
 (* ****** ****** *)
 
@@ -586,61 +587,16 @@ array_foreach$fwork (x, env) = ((*void*))
 
 implement
 {a}(*tmp*)
-array_foreach_fun
-  {n}{fe}
-  (A, asz, fwork) = let
-//
-typedef
-tfun =
-  (!unit_v | &a, !ptr) -<fun,fe> void
-// end of [typedef]
-//
-prval pfu = unit_v ()
-//
-var env: ptr = the_null_ptr
-val fwork = $UN.cast{tfun}(fwork)
-val ((*void*)) =
-  array_foreach_funenv<a>(pfu | A, asz, fwork, env)
-//
-prval ((*freed*)) = unit_v_elim(pfu)
-//
-in
-  // nothing
-end // end of [array_foreach_fun]
-
-implement
-{a}(*tmp*)
-array_foreach_cloref
-  {n}{fe}
-  (A, asz, fwork) = let
-//
-  viewdef v = unit_v
-  typedef vt = (&a) -<cloref,fe> void
-//
-  fun app .<>.
-    (pf: !v | x: &a, env: !vt):<fe> void = env (x)
-  // end of [fun]
-  var env = fwork
-  prval pfu = unit_v ()
-  val ((*void*)) =
-    array_foreach_funenv<a>{v}{vt}(pfu | A, asz, app, env)
-  // end of [val]
-  prval ((*freed*)) = unit_v_elim(pfu)
-in
-  // nothing
-end // end of [array_foreach_cloref]
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
 array_foreach_funenv
   {v}{vt}
 (
-  pf | A, asz, f, env
+  pf | A0, asz, fwork, env
 ) =
 (
-  array_foreach_funenv_tsz{a}{v}{vt}(pf | A, asz, sizeof<a>, f, env)
+//
+array_foreach_funenv_tsz
+  {a}{v}{vt}(pf | A0, asz, sizeof<a>, fwork, env)
+//
 ) (* end of [array_foreach_funenv] *)
 
 (* ****** ****** *)
@@ -1290,7 +1246,9 @@ val pa2 = ptr_add<a>(pa, n)
 val pb = addr@(B)
 val pc = addr@(C)
 //
-fun loop{la,lb,lc:addr}
+fun
+loop
+{la,lb,lc:addr}
 (
   pa: ptr la, pa2: ptr, pb: ptr lb, pc: ptr lc
 ) : void =
@@ -1299,12 +1257,12 @@ if pa < pa2 then let
   val (pfa, fpfa | pa) = $UN.ptr_vtake{a}(pa)
   val (pfb, fpfb | pb) = $UN.ptr_vtake{b}(pb)
   val (pfc, fpfc | pc) = $UN.ptr_vtake{c?}(pc)
-  val () = array_map2to$fwork<a,b><c> (!pa, !pb, !pc)
+  val () = array_map2to$fwork<a,b><c>(!pa, !pb, !pc)
   prval () = fpfa(pfa)
   prval () = fpfb(pfb)
   prval () = fpfc($UN.castview0{(c?)@lc}(pfc))
 in
-  loop(ptr_succ<a>(pa), pa2, ptr_succ<b> (pb), ptr_succ<c> (pc))
+  loop(ptr_succ<a>(pa), pa2, ptr_succ<b>(pb), ptr_succ<c>(pc))
 end (* end of [if] *)
 )
 //
@@ -1316,34 +1274,6 @@ prval () = view@(C) := $UN.castview0{array_v (c, lc, n)}(view@(C))
 in
   // nothing
 end (* end of [array_map2to] *)
-
-(* ****** ****** *)
-
-(*
-implement
-{a}(*tmp*)
-array_bsearch
-  (A, n) = $effmask_all let
-//
-val itr =
-  $IT.giter_make_array(view@(A) | addr@(A), n)
-// end of [val]
-//
-implement
-$IT.giter_bsearch$ford<a>(x) = array_bsearch$ford<a>(x)
-//
-val () = $IT.giter_bsearch(itr, n)
-//
-val ofs = $IT.giter_get_fofs (itr)
-//
-val (pf | ()) = $IT.giter_free_array (itr)
-//
-prval((*returned*)) = view@ (A) := pf
-//
-in
-  ofs
-end // end of [array_bsearch]
-*)
 
 (* ****** ****** *)
 

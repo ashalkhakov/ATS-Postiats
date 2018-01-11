@@ -30,7 +30,7 @@
 /*
 ** Source:
 ** $PATSHOME/prelude/CATS/CODEGEN/fprintf.atxt
-** Time of generation: Sun Dec  3 21:34:12 2017
+** Time of generation: Thu Jan 11 11:00:24 2018
 */
 
 /* ****** ****** */

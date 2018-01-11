@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream_vt.atxt
-** Time of generation: Wed Nov  8 15:02:39 2017
+** Time of generation: Thu Jan 11 11:00:10 2018
 *)
 
 (* ****** ****** *)
@@ -82,7 +82,8 @@ stream_vt_is_cons(stream_vt(a)): bool
 //
 fun
 {a:vt0p}
-stream_vt_make_nil():<> stream_vt(a)
+stream_vt_make_nil
+  ((*void*)):<> stream_vt(a)
 fun{a:t0p}
 stream_vt_make_cons
   (a, stream_vt(INV(a))):<> stream_vt(a)
@@ -90,25 +91,32 @@ stream_vt_make_cons
 (* ****** ****** *)
 //
 fun{a:t0p}
-stream_vt_sing(a):<> stream_vt_con(a)
+stream_vt_sing(x0: a):<> stream_vt_con(a)
 fun{a:t0p}
-stream_vt_make_sing(x: a):<> stream_vt(a)
+stream_vt_make_sing(x0: a):<> stream_vt(a)
 //
 (* ****** ****** *)
 //
 fun{a:t0p}
 stream_vt_make_con
-  (xs_con: stream_vt_con(INV(a))):<> stream_vt(a)
+( xs_con:
+  stream_vt_con(INV(a)) ):<> stream_vt(a)
 //
 (* ****** ****** *)
+//
+// HX-2017-12-27:
+// this is a regular function
+// instead of a cast function
+//
+fun{a:t0p}
+stream_t2vt(stream(INV(a))): stream_vt(a)
 //
 // HX-2014-04-07:
 // this is a regular function
 // instead of a cast function
 //
 fun{a:t0p}
-stream_vt2t
-  (xs: stream_vt(INV(a))): stream(a)
+stream_vt2t(stream_vt(INV(a))): stream(a)
 //
 (* ****** ****** *)
 
@@ -135,8 +143,6 @@ fun{a:vt0p}
 stream_vt_takeLte
   (xs: stream_vt(INV(a)), n: intGte(0)): stream_vt(a)
 // end of [stream_vt_takeLte]
-//
-overload .takeLte with stream_vt_takeLte
 //
 (* ****** ****** *)
 //
@@ -202,30 +208,42 @@ stream_vt_concat
 //
 (* ****** ****** *)
 //
+fun
+{a:t0p}
+stream_vt_delim_cloptr
+( xs: stream_vt(INV(a))
+, pred: (&a) -<cloptr> bool): stream_vt(List0_vt(a))
+//
+(* ****** ****** *)
+//
 fun{a:t0p}
 stream_vt_filter
   (xs: stream_vt(INV(a))): stream_vt(a)
 //
+fun{a:vt0p}
+stream_vt_filterlin
+  (xs: stream_vt(INV(a))): stream_vt(a)
+//
+(* ****** ****** *)
+//
 fun{a:t0p}
 stream_vt_filter_fun
 (
-  xs: stream_vt(INV(a)), pred: (&a) -<fun> bool
-) : stream_vt (a) // end of [stream_vt_filter_fun]
+xs: stream_vt(INV(a)), pred: (&a) -<fun> bool
+) : stream_vt(a) // end of [stream_vt_filter_fun]
 //
 fun{a:t0p}
 stream_vt_filter_cloptr
 (
-  xs: stream_vt(INV(a)), pred: (&a) -<cloptr1> bool
-) : stream_vt (a) // end of [stream_vt_filter_cloptr]
+xs: stream_vt(INV(a)), pred: (&a) -<cloptr1> bool
+) : stream_vt(a) // end of [stream_vt_filter_cloptr]
 fun{a:t0p}
 stream_vt_ifilter_cloptr
 (
-  xs: stream_vt(INV(a)), pred: (intGte(0), &a) -<cloptr1> bool
-) : stream_vt (a) // end of [stream_vt_ifilter_cloptr]
+xs: stream_vt(INV(a)), pred: (intGte(0), &a) -<cloptr1> bool
+) : stream_vt(a) // end of [stream_vt_ifilter_cloptr]
 //
-fun{a:vt0p}
-stream_vt_filterlin
-  (xs: stream_vt(INV(a))): stream_vt(a)
+(* ****** ****** *)
 //
 fun{a:t0p}
 stream_vt_filter$pred(x: &a):<> bool
@@ -410,7 +428,7 @@ res:vt0p
 }{a:vt0p}
 stream_vt_foldleft_cloptr
 (
-  xs: stream_vt(INV(a)), init: res, fopr: (res, &a >> a?!) -<cloptr1> res
+xs: stream_vt(INV(a)), init: res, fopr: (res, &a >> a?!) -<cloptr1> res
 ) : res // end of [stream_vt_foldleft_cloptr]
 //
 fun{
@@ -418,7 +436,7 @@ res:vt0p
 }{a:vt0p}
 stream_vt_ifoldleft_cloptr
 (
-  xs: stream_vt(INV(a)), init: res, fopr: (Nat, res, &a >> a?!) -<cloptr1> res
+xs: stream_vt(INV(a)), init: res, fopr: (Nat, res, &a >> a?!) -<cloptr1> res
 ) : res // end of [stream_vt_ifoldleft_cloptr]
 //
 (* ****** ****** *)
@@ -442,11 +460,11 @@ stream_vt_unfold_opt
 fun
 {x,y:t0p}
 cross_stream_vt_list
-  (xs: stream_vt(INV(x)), ys: List(INV(y))): stream_vt(@(x, y))
+(xs: stream_vt(INV(x)), ys: List(INV(y))): stream_vt(@(x, y))
 fun
 {x,y:t0p}
 cross_stream_vt_list_vt
-  (xs: stream_vt(INV(x)), ys: List_vt(INV(y))): stream_vt(@(x, y))
+(xs: stream_vt(INV(x)), ys: List_vt(INV(y))): stream_vt(@(x, y))
 //
 (* ****** ****** *)
 //
@@ -485,13 +503,14 @@ streamer_vt_free{a:vt0p}(streamer_vt(INV(a))): void
 fun{
 a:vt@ype
 } streamer_vt_eval_exn(xser: !streamer_vt(INV(a))): (a)
+fun{
+a:vt@ype
+} streamer_vt_eval_opt(xser: !streamer_vt(INV(a))): Option_vt(a)
 //
 (* ****** ****** *)
 //
 // overloading for certain symbols
 //
-(* ****** ****** *)
-
 (* ****** ****** *)
 
 overload ~ with streamer_vt_free
@@ -507,6 +526,10 @@ overload isneqz with stream_vt_is_cons
 
 (* ****** ****** *)
 //
+overload free with streamer_vt_free
+//
+(* ****** ****** *)
+//
 overload length with stream_vt_length
 //
 (* ****** ****** *)
@@ -514,6 +537,15 @@ overload length with stream_vt_length
 overload .head with stream_vt_head_exn
 overload .tail with stream_vt_tail_exn
 
+(* ****** ****** *)
+//
+overload .takeLte with stream_vt_takeLte
+//
+(* ****** ****** *)
+//
+overload .eval with streamer_vt_eval_exn
+overload .eval_opt with streamer_vt_eval_opt
+//
 (* ****** ****** *)
 
 (* end of [stream_vt.sats] *)

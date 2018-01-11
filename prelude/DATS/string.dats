@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Sat Nov  4 12:59:59 2017
+** Time of generation: Thu Jan 11 11:00:13 2018
 *)
 
 (* ****** ****** *)
@@ -1142,20 +1142,6 @@ end // end of [string_tabulate]
 
 implement
 {}(*tmp*)
-string_tabulate_cloref
-  {n}(n, fopr) = let
-//
-implement
-string_tabulate$fopr<>(i) = fopr($UN.cast{sizeLt(n)}(i))
-//
-in
-  string_tabulate<>(n)
-end // end of [string_tabulate_cloref]
-
-(* ****** ****** *)
-
-implement
-{}(*tmp*)
 string_forall
   (str) = let
 //
@@ -1171,7 +1157,9 @@ if
 c0 = CNUL
 then true else
 (
-  if string_forall$pred(c0) then loop(ptr0_succ<char>(p)) else false
+if
+string_forall$pred<>(c0)
+then loop(ptr0_succ<char>(p)) else false
 ) (* end of [if] *)
 //
 end // end of [loop]

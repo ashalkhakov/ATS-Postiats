@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/stream.atxt
-** Time of generation: Wed Nov  8 15:02:38 2017
+** Time of generation: Thu Jan 11 11:00:09 2018
 *)
 
 (* ****** ****** *)
@@ -134,12 +134,14 @@ stream_get_at_exn
 // end of [stream_get_at_exn]
 
 (* ****** ****** *)
-
+//
+// HX: this one returns a linear stream!!!
+//
 fun{a:t0p}
 stream_takeLte
   (xs: stream(INV(a)), n: intGte(0)): stream_vt(a)
 // end of [stream_takeLte]
-
+//
 (* ****** ****** *)
 
 fun{a:t0p}
@@ -479,6 +481,10 @@ overload length with stream_length
 //
 overload .head with stream_head_exn
 overload .tail with stream_tail_exn
+//
+(* ****** ****** *)
+//
+overload .takeLte with stream_takeLte
 //
 (* ****** ****** *)
 

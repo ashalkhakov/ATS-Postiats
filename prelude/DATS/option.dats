@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/option.atxt
-** Time of generation: Fri Nov 24 10:56:25 2017
+** Time of generation: Thu Jan 11 11:00:17 2018
 *)
 
 (* ****** ****** *)
@@ -96,18 +96,6 @@ case+ opt of
 | Some x0 => x0
 | None () => $raise NotSomeExn()
 ) (* option_unsome_exn *)
-//
-(* ****** ****** *)
-//
-implement
-{x}{y}
-option_map_cloref
-  (opt, fopr) =
-(
-  case+ opt of
-  | None() => None_vt()
-  | Some(x0) => Some_vt(fopr(x0))
-) (* option_map_cloref *)
 //
 (* ****** ****** *)
 

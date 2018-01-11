@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Wed Nov  8 15:02:37 2017
+** Time of generation: Thu Jan 11 11:00:08 2018
 *)
 
 (* ****** ****** *)
@@ -369,14 +369,6 @@ a:vt0p}{env:vt0p
 
 fun
 {a:vt0p}
-arrayptr_foreach_fun
-  {n:int}{fe:eff}
-(
-  A: !arrayptr(INV(a), n), asz: size_t(n), fwork: (&a) -<fun,fe> void
-) :<fe> void // end of [arrayptr_foreach_fun]
-
-fun
-{a:vt0p}
 arrayptr_foreach_funenv
   {v:view}
   {vt:vtype}
@@ -487,11 +479,6 @@ array_tabulate$fopr (index: size_t): (a)
 fun{a:vt0p}
 arrayptr_tabulate
   {n:int} (asz: size_t(n)): arrayptr(a, n)
-//
-fun{a:vt0p}
-arrayptr_tabulate_cloref
-  {n:int}
-  (size_t(n), (sizeLt(n)) -<cloref> a): arrayptr(a, n)
 //
 (* ****** ****** *)
 //

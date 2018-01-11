@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/list.atxt
-** Time of generation: Wed Nov  1 09:13:42 2017
+** Time of generation: Thu Jan 11 11:00:17 2018
 *)
 
 (* ****** ****** *)
@@ -62,6 +62,35 @@ case+ xs of
 //
 ) (* lemma_list_param *)
 
+(* ****** ****** *)
+//
+implement
+{a}(*tmp*)
+list_tuple_0() = list_nil()
+//
+implement
+{a}(*tmp*)
+list_tuple_1(x0) = $list{a}(x0)
+implement
+{a}(*tmp*)
+list_tuple_2(x0, x1) = $list{a}(x0, x1)
+implement
+{a}(*tmp*)
+list_tuple_3(x0, x1, x2) = $list{a}(x0, x1, x2)
+//
+implement
+{a}(*tmp*)
+list_tuple_4
+(x0, x1, x2, x3) = $list{a}(x0, x1, x2, x3)
+implement
+{a}(*tmp*)
+list_tuple_5
+(x0, x1, x2, x3, x4) = $list{a}(x0, x1, x2, x3, x4)
+implement
+{a}(*tmp*)
+list_tuple_6
+(x0, x1, x2, x3, x4, x5) = $list{a}(x0, x1, x2, x3, x4, x5)
+//
 (* ****** ****** *)
 //
 implement
@@ -232,19 +261,22 @@ let val () = arrayptr_free(A0) in res end
 end // end of [list_make_arrpsz]
 
 (* ****** ****** *)
-
+//
 implement
 {a}(*tmp*)
-print_list(xs) = fprint_list<a>(stdout_ref, xs)
+print_list(xs) =
+  fprint_list<a>(stdout_ref, xs)
 implement
 {a}(*tmp*)
-prerr_list(xs) = fprint_list<a>(stderr_ref, xs)
-
+prerr_list(xs) =
+  fprint_list<a>(stderr_ref, xs)
+//
 (* ****** ****** *)
 //
 implement
 {}(*tmp*)
-fprint_list$sep(out) = fprint_string(out, ", ")
+fprint_list$sep
+  (out) = fprint_string(out, ", ")
 // end of [fprint_list$sep]
 //
 implement
@@ -1218,47 +1250,6 @@ case+ xs of
 //
 } (* end of [list_exists] *)
 
-implement
-{x}(*tmp*)
-list_exists_cloref
-  (xs, pred) = let
-//
-implement(x2)
-list_exists$pred<x2>(x2) = pred($UN.cast{x}(x2))
-//
-in
-  list_exists<x>(xs)
-end // end of [list_exists_cloref]
-
-(* ****** ****** *)
-
-implement
-{x}(*tmp*)
-list_iexists_cloref
-  {n}(xs, pred) = let
-//
-prval() = lemma_list_param(xs)
-//
-fun
-loop
-{ i,j:nat
-| i+j == n
-} .<n-i>.
-(
-  i: int(i), xs: list(x, j)
-) :<> bool =
-(
-  case+ xs of
-  | list_nil() => false
-  | list_cons(x, xs) =>
-      if pred(i, x) then true else loop(i+1, xs)
-    // end of [list_cons]
-)
-//
-in
-  loop(0, xs)
-end // end of [list_iexists_cloref]
-
 (* ****** ****** *)
 
 implement
@@ -1277,49 +1268,6 @@ case+ xs of
   // end of [list_cons]
 //
 } (* end of [list_forall] *)
-
-(* ****** ****** *)
-
-implement
-{x}(*tmp*)
-list_forall_cloref
-  (xs, pred) = let
-//
-implement(x2)
-list_forall$pred<x2>(x2) = pred($UN.cast{x}(x2))
-//
-in
-  list_forall<x>(xs)
-end // end of [list_forall_cloref]
-
-(* ****** ****** *)
-
-implement
-{x}(*tmp*)
-list_iforall_cloref
-  {n}(xs, pred) = let
-//
-prval() = lemma_list_param(xs)
-//
-fun
-loop
-{ i,j:nat
-| i+j == n
-} .<n-i>.
-(
-  i: int(i), xs: list(x, j)
-) :<> bool =
-(
-  case+ xs of
-  | list_nil() => true
-  | list_cons(x, xs) =>
-      if pred(i, x) then loop(i+1, xs) else false
-    // end of [list_cons]
-)
-//
-in
-  loop(0, xs)
-end // end of [list_iforall_cloref]
 
 (* ****** ****** *)
 
@@ -1361,19 +1309,6 @@ implement
 {a}(*tmp*)
 list_equal$eqfn = gequal_val_val<a>
 
-implement
-{x}(*tmp*)
-list_equal_cloref
-  (xs1, xs2, eqfn) =
-  list_equal<x>(xs1, xs2) where
-{
-//
-implement{y}
-list_equal$eqfn
-  (x1, x2) = eqfn($UN.cast(x1), $UN.cast(x2))
-//
-} (* end of [list_equal_cloref] *)
-
 (* ****** ****** *)
 
 implement
@@ -1413,19 +1348,6 @@ case+ xs1 of
 implement
 {a}(*tmp*)
 list_compare$cmpfn = gcompare_val_val<a>
-
-implement
-{x}(*tmp*)
-list_compare_cloref
-  (xs1, xs2, cmpfn) =
-  list_compare<x>(xs1, xs2) where
-{
-//
-implement{y}
-list_compare$cmpfn
-  (x1, x2) = cmpfn($UN.cast(x1), $UN.cast(x2))
-//
-} (* end of [list_compare_cloref] *)
 
 (* ****** ****** *)
 
@@ -1678,7 +1600,7 @@ var res: ptr ; val () = loop(xs, 0, res)
 
 implement
 {x}(*tmp*)
-list_app (xs) = let
+list_app(xs) = let
 //
 prval() = lemma_list_param(xs)
 //
@@ -1693,56 +1615,6 @@ case+ xs of
 in
   loop(xs)
 end // end of [list_app]
-
-(* ****** ****** *)
-
-implement
-{x}(*tmp*)
-list_app_fun
-  (xs, fwork) = let
-//
-prval() = lemma_list_param(xs)
-//
-fun
-loop{n:nat} .<n>.
-(
-  xs: list(x, n), fwork: (x) -<fun1> void
-) : void = (
-//
-case+ xs of
-| list_nil() => ()
-| list_cons(x, xs) => (fwork(x); loop(xs, fwork))
-//
-) (* end of [loop] *)
-//
-in
-  loop(xs, fwork)
-end // end of [list_app_fun]
-
-implement
-{x}(*tmp*)
-list_app_cloref
-  (xs, fwork) = let
-//
-prval() = lemma_list_param(xs)
-//
-fun
-loop
-{n:nat} .<n>.
-(
-  xs: list(x, n)
-, fwork: (x) -<cloref1> void
-) : void = (
-//
-case+ xs of
-| list_nil() => ()
-| list_cons(x, xs) => (fwork(x); loop(xs, fwork))
-//
-) (* end of [loop] *)
-//
-in
-  loop(xs, fwork)
-end // end of [list_app_cloref]
 
 (* ****** ****** *)
 
@@ -1784,53 +1656,6 @@ val () = loop(xs, res)
 in
   res(*list_vt(y, n)*)
 end // end of [list_map]
-
-(* ****** ****** *)
-
-implement
-{x}{y}(*tmp*)
-list_map_fun
-  (xs, fopr) = let
-//
-implement
-{x2}{y2}
-list_map$fopr(x2) =
-  $UN.castvwtp0{y2}(fopr($UN.cast{x}(x2)))
-//
-in
-  list_map<x><y>(xs)
-end // end of [list_map_fun]
-
-implement
-{x}{y}(*tmp*)
-list_map_clo
-  (xs, fopr) = let
-//
-val fopr =
-  $UN.cast{(x) -<cloref1> y}(addr@fopr)
-//
-implement
-{x2}{y2}
-list_map$fopr(x2) =
-  $UN.castvwtp0{y2}(fopr($UN.cast{x}(x2)))
-//
-in
-  list_map<x><y>(xs)
-end // end of [list_map_clo]
-
-implement
-{x}{y}(*tmp*)
-list_map_cloref
-  (xs, fopr) = let
-//
-implement
-{x2}{y2}
-list_map$fopr(x2) =
-  $UN.castvwtp0{y2}(fopr($UN.cast{x}(x2)))
-//
-in
-  list_map<x><y>(xs)
-end // end of [list_map_cloref]
 
 (* ****** ****** *)
 
@@ -2115,53 +1940,6 @@ end // end of [list_tabulate]
 (* ****** ****** *)
 
 implement
-{a}(*tmp*)
-list_tabulate_fun
-  (n, fopr) = let
-//
-val fopr =
-$UN.cast{int -> a}(fopr)
-//
-implement(a2)
-list_tabulate$fopr<a2>(n) = $UN.castvwtp0{a2}(fopr(n))
-//
-in
-  list_tabulate<a>(n)
-end // end of [list_tabulate_fun]
-
-implement
-{a}(*tmp*)
-list_tabulate_clo
-  (n, fopr) = let
-//
-val fopr =
-$UN.cast{int -<cloref1> a}(addr@fopr)
-//
-implement(a2)
-list_tabulate$fopr<a2>(n) = $UN.castvwtp0{a2}(fopr(n))
-//
-in
-  list_tabulate<a>(n)
-end // end of [list_tabulate_clo]
-
-implement
-{a}(*tmp*)
-list_tabulate_cloref
-  (n, fopr) = let
-//
-val fopr =
-$UN.cast{int -<cloref1> a}(fopr)
-//
-implement(a2)
-list_tabulate$fopr<a2>(n) = $UN.castvwtp0{a2}(fopr(n))
-//
-in
-  list_tabulate<a>(n)
-end // end of [list_tabulate_cloref]
-
-(* ****** ****** *)
-
-implement
 {x,y}
 list_zip
   (xs, ys) = let
@@ -2300,7 +2078,9 @@ case+ ys2 of
 end // end of [loop2]
 //
 in
-  let var res: ptr; val () = loop1(xs, ys, res) in res end
+//
+let var res: ptr; val () = loop1(xs, ys, res) in res end
+//
 end // end of [list_crosswith]
 
 (* ****** ****** *)
@@ -2357,81 +2137,6 @@ implement
 {x}{env}
 list_foreach$cont(x, env) = true
 //
-(* ****** ****** *)
-
-implement
-{x}(*tmp*)
-list_foreach_fun
-  (xs, fwork) = let
-//
-fun
-loop(xs: List(x)): void =
-//
-case+ xs of
-| list_nil() => ()
-| list_cons(x, xs) => (fwork(x); loop(xs))
-//
-in
-  $effmask_all (loop(xs))
-end // end of [list_foreach_fun]
-
-(* ****** ****** *)
-//
-implement
-{x}(*tmp*)
-list_foreach_clo
-  (xs, fwork) =
-(
-$effmask_all
-  (list_foreach_cloref<x>(xs, $UN.cast(addr@fwork)))
-) (* list_foreach_clo *)
-implement
-{x}(*tmp*)
-list_foreach_vclo
-  (pf | xs, fwork) =
-(
-$effmask_all
-  (list_foreach_cloref<x>(xs, $UN.cast(addr@fwork)))
-) (* list_foreach_vclo *)
-//
-(* ****** ****** *)
-
-implement
-{x}(*tmp*)
-list_foreach_cloptr
-  (xs, fwork) =
-(
-$effmask_all
-  (list_foreach_cloref<x>(xs, $UN.castvwtp1(fwork)))
-) (* list_foreach_cloptr *)
-
-implement
-{x}(*tmp*)
-list_foreach_vcloptr
-  (pf | xs, fwork) =
-(
-$effmask_all
-  (list_foreach_cloref<x>(xs, $UN.castvwtp1(fwork)))
-) (* list_foreach_vcloptr *)
-
-(* ****** ****** *)
-
-implement
-{x}(*tmp*)
-list_foreach_cloref
-  (xs, fwork) = let
-//
-fun
-loop(xs: List(x)): void =
-//
-case+ xs of
-| list_nil() => ()
-| list_cons(x, xs) => (fwork(x); loop(xs))
-//
-in
-  $effmask_all (loop(xs))
-end // end of [list_foreach_cloref]
-
 (* ****** ****** *)
 
 implement
@@ -2569,33 +2274,6 @@ list_iforeach$cont(i, x, env) = true
 
 implement
 {x}(*tmp*)
-list_iforeach_cloref
-  {n}(xs, fwork) = let
-//
-prval() = lemma_list_param(xs)
-//
-fun
-loop
-{
-  i,j:nat
-| i+j == n
-} .<n-i>.
-(
-  i: int(i), xs: list(x, j)
-) : void =
-//
-case+ xs of
-| list_nil() => ()
-| list_cons(x, xs) => (fwork (i, x); loop(i+1, xs))
-//
-in
-  loop(0, xs)
-end // end of [list_iforeach_cloref]
-
-(* ****** ****** *)
-
-implement
-{x}(*tmp*)
 list_iforeach_funenv
   {v}{vt}{n}{fe}
 (
@@ -2720,26 +2398,6 @@ end // end of [list_foldleft]
 (* ****** ****** *)
 
 implement
-{res}{x}
-list_foldleft_cloref
-  (xs, ini, fopr) = let
-//
-implement
-{res2}{x2}
-list_foldleft$fopr
-  (res2, x2) =
-(
-$UN.castvwtp0{res2}
-  (fopr($UN.castvwtp0{res}(res2), $UN.cast{x}(x2)))
-)
-//
-in
-  list_foldleft<res><x>(xs, ini)
-end // end of [list_foldleft_cloref]
-
-(* ****** ****** *)
-
-implement
 {x}{res}
 list_foldright
   (xs, snk) = let
@@ -2762,26 +2420,6 @@ fun aux
 in
   aux (xs, snk)
 end // end of [list_foldright]
-
-(* ****** ****** *)
-
-implement
-{x}{res}
-list_foldright_cloref
-  (xs, fopr, snk) = let
-//
-implement
-{x2}{res2}
-list_foldright$fopr
-  (x2, res2) =
-(
-$UN.castvwtp0{res2}
-  (fopr($UN.cast{x}(x2), $UN.castvwtp0{res}(res2)))
-)
-//
-in
-  list_foldright<x><res>(xs, snk)
-end // end of [list_foldright_cloref]
 
 (* ****** ****** *)
 

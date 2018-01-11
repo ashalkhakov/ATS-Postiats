@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list_vt.atxt
-** Time of generation: Wed Nov  8 15:02:36 2017
+** Time of generation: Thu Jan 11 11:00:07 2018
 *)
 
 (* ****** ****** *)
@@ -115,6 +115,47 @@ list_vt_cast
 #define list_vt_pair(x1, x2)
   list_vt_cons(x1, list_vt_cons (x2, list_vt_nil()))
 
+(* ****** ****** *)
+//
+fun{a:vt0p}
+list_vt_tuple_0(): list_vt(a, 0)
+//
+fun{a:vt0p}
+list_vt_tuple_1(x0: a): list_vt(a, 1)
+fun{a:vt0p}
+list_vt_tuple_2(x0: a, x1: a): list_vt(a, 2)
+fun{a:vt0p}
+list_vt_tuple_3(x0: a, x1: a, x2: a): list_vt(a, 3)
+//
+fun{a:vt0p}
+list_vt_tuple_4
+  (x0: a, x1: a, x2: a, x3: a): list_vt(a, 4)
+fun{a:vt0p}
+list_vt_tuple_5
+  (x0: a, x1: a, x2: a, x3: a, x4: a): list_vt(a, 5)
+fun{a:vt0p}
+list_vt_tuple_6
+  (x0: a, x1: a, x2: a, x3: a, x4: a, x5: a): list_vt(a, 6)
+//
+(* ****** ****** *)
+//
+symintr list_vt_tuple
+//
+overload
+list_vt_tuple with list_vt_tuple_0
+overload
+list_vt_tuple with list_vt_tuple_1
+overload
+list_vt_tuple with list_vt_tuple_2
+overload
+list_vt_tuple with list_vt_tuple_3
+overload
+list_vt_tuple with list_vt_tuple_4
+overload
+list_vt_tuple with list_vt_tuple_5
+overload
+list_vt_tuple with list_vt_tuple_6
+//
 (* ****** ****** *)
 
 fun{x:vt0p}
@@ -378,7 +419,7 @@ list_vt_app
   (xs: !List_vt(INV(x))): void
 fun
 {x:vt0p}
-list_vt_app$fwork (x: &x >> _): void
+list_vt_app$fwork(x: &x >> _): void
 //
 (* ****** ****** *)
 //
@@ -387,7 +428,28 @@ list_vt_appfree
   (xs: List_vt(INV(x))): void
 //
 fun{x:vt0p}
-list_vt_appfree$fwork (x: &x >> x?): void
+list_vt_appfree$fwork(x: &x>>x?): void
+//
+(* ****** ****** *)
+//
+fun
+{x:vt0p}
+list_vt_iapp
+  (xs: !List_vt(INV(x))): void
+fun
+{x:vt0p}
+list_vt_iapp$fwork
+  (index: intGte(0), x: &x >> _): void
+//
+(* ****** ****** *)
+//
+fun{x:vt0p}
+list_vt_iappfree
+  (xs: List_vt(INV(x))): void
+//
+fun{x:vt0p}
+list_vt_iappfree$fwork
+  (index: intGte(0), x: &x >> x?): void
 //
 (* ****** ****** *)
 //
@@ -401,21 +463,6 @@ x:vt0p}{y:vt0p
   (xs: !list_vt(INV(x), n)): list_vt(y, n)
 //
 (* ****** ****** *)
-
-fun{
-x:vt0p}{y:vt0p
-} list_vt_map_fun{n:int}
-  (xs: !list_vt(INV(x), n), f: (&x) -<fun1> y): list_vt(y, n)
-fun{
-x:vt0p}{y:vt0p
-} list_vt_map_clo{n:int}
-  (xs: !list_vt(INV(x), n), f: &(&x) -<clo1> y): list_vt(y, n)
-fun{
-x:vt0p}{y:vt0p
-} list_vt_map_cloref{n:int}
-  (xs: !list_vt(INV(x), n), f: (&x) -<cloref1> y): list_vt(y, n)
-
-(* ****** ****** *)
 //
 fun{
 x:vt0p}{y:vt0p
@@ -427,51 +474,25 @@ x:vt0p}{y:vt0p
   (xs: list_vt(INV(x), n)) : list_vt(y, n)
 //
 (* ****** ****** *)
-
+//
 fun{
-x:vt0p}{y:vt0p
-} list_vt_mapfree_fun{n:int}
-  (xs: list_vt(INV(x), n), f: (&x>>_?) -<fun1> y): list_vt(y, n)
+x:vt0p
+} list_vt_foreach(xs: !List_vt(INV(x))): void
+//
 fun{
-x:vt0p}{y:vt0p
-} list_vt_mapfree_clo{n:int}
-  (xs: list_vt(INV(x), n), f: &(&x>>_?) -<clo1> y): list_vt(y, n)
+x:vt0p}{env:vt0p
+} list_vt_foreach_env
+  (xs: !List_vt(INV(x)), env: &(env) >> _): void
+//
 fun{
-x:vt0p}{y:vt0p
-} list_vt_mapfree_cloref{n:int}
-  (xs: list_vt(INV(x), n), f: ( &x>>_? ) -<cloref1> y): list_vt(y, n)
-
+x:vt0p}{env:vt0p
+} list_vt_foreach$cont(x: &x, env: &env): bool
+fun{
+x:vt0p}{env:vt0p
+} list_vt_foreach$fwork(x: &x >> _, env: &(env) >> _): void
+//
 (* ****** ****** *)
 //
-fun{
-x:vt0p
-} list_vt_foreach (xs: !List_vt(INV(x))): void
-//
-fun{
-x:vt0p}{env:vt0p
-} list_vt_foreach_env (xs: !List_vt(INV(x)), env: &(env) >> _): void
-//
-fun{
-x:vt0p}{env:vt0p
-} list_vt_foreach$cont (x: &x, env: &env): bool
-fun{
-x:vt0p}{env:vt0p
-} list_vt_foreach$fwork (x: &x >> _, env: &(env) >> _): void
-//
-(* ****** ****** *)
-
-fun{
-x:vt0p
-} list_vt_foreach_fun
-  {fe:eff} (
-  xs: !List_vt(INV(x)), f: (&x) -<fe> void
-) :<fe> void // end of [list_vt_foreach_fun]
-fun{
-x:vt0p
-} list_vt_foreach_cloref
-  {fe:eff} (
-  xs: !List_vt(INV(x)), f: (&x) -<cloref,fe> void
-) :<fe> void // end of [list_vt_foreach_cloref]
 fun{
 x:vt0p
 } list_vt_foreach_funenv
@@ -479,7 +500,7 @@ x:vt0p
   pfv: !v
 | xs: !List_vt(INV(x)), f: (!v | &x, !vt) -<fe> void, env: !vt
 ) :<fe> void // end of [list_vt_foreach_funenv]
-
+//
 (* ****** ****** *)
 //
 fun{
@@ -551,8 +572,14 @@ a:vt0p
 //
 (* ****** ****** *)
 //
-fun{a:vt0p}
+fun
+{a:vt0p}
 streamize_list_vt_elt(List_vt(INV(a))):<!wrt> stream_vt(a)
+//
+fun
+{a,b:vt0p}
+streamize_list_vt_zip{n:nat}
+(list_vt(INV(a), n), list_vt(INV(b), n)):<!wrt> stream_vt(@(a, b))
 //
 (* ****** ****** *)
 //
@@ -577,6 +604,10 @@ overload prerr with prerr_list_vt
 overload fprint with fprint_list_vt
 overload fprint with fprint_list_vt_sep
 //
+(* ****** ****** *)
+
+overload reverse with list_vt_reverse
+
 (* ****** ****** *)
 
 (* end of [list_vt.sats] *)

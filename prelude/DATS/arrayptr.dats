@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Mon Oct 16 23:10:47 2017
+** Time of generation: Thu Jan 11 11:00:18 2018
 *)
 
 (* ****** ****** *)
@@ -334,23 +334,6 @@ prval () = arrayptr_addback{a}(pfarr | A)
 
 implement
 {a}(*tmp*)
-arrayptr_foreach_fun
-  (A, asz, f) = let
-//
-val p = ptrcast(A)
-prval pfarr = arrayptr_takeout(A)
-//
-val () = array_foreach_fun<a>(!p, asz, f)
-prval () = arrayptr_addback{a}(pfarr | A)
-//
-in
-  // nothing
-end // end of [arrayptr_foreach_fun]
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
 arrayptr_foreach_funenv
   (pfv | A, asz, f, env) = let
 //
@@ -464,21 +447,6 @@ arrayptr_tabulate
   (asz) =
   arrayptr_encode2(array_ptr_tabulate<a>(asz))
 // end of [arrayptr_tabulate]
-
-(* ****** ****** *)
-
-implement
-{a}(*tmp*)
-arrayptr_tabulate_cloref
-  {n} (asz, f) = let
-//
-implement(a2)
-array_tabulate$fopr<a2>
-  (i) = $UN.castvwtp0{a2}(f($UN.cast{sizeLt(n)}(i)))
-//
-in
-  arrayptr_tabulate<a>(asz)
-end // end of [arrayptr_tabulate_cloref]
 
 (* ****** ****** *)
 

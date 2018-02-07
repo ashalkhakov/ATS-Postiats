@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/unsafe.atxt
-** Time of generation: Thu Jan 11 11:00:05 2018
+** Time of generation: Fri Jan 26 00:16:28 2018
 *)
 
 (* ****** ****** *)
@@ -289,7 +289,7 @@ castfn
 cptr_vtake
   {a:vt0p}{l:agz}
 (
-  cp: cptr(INV(a), l)
+cp: cptr(INV(a), l)
 ) :<> (a@l, a@l -<lin,prf> void | ptr l)
 // end of [cptr_vtake]
 //
@@ -298,10 +298,12 @@ fun
 cptr_get(cp: cPtr1(INV(a))):<> a
 fun
 {a:vt0p}
-cptr_set(cp: cPtr1(INV(a)), x: a):<!wrt> void
+cptr_set
+(cp: cPtr1(INV(a)), x: a):<!wrt> void
 fun
 {a:vt0p}
-cptr_exch(cp: cPtr1(INV(a)), xr: &a >> a):<!wrt> void
+cptr_exch
+(cp: cPtr1(INV(a)), xr: &a >> a):<!wrt> void
 //
 (*
 overload .get with cptr_get
@@ -309,6 +311,11 @@ overload .set with cptr_set
 overload .exch with cptr_exch
 *)
 //
+(* ****** ****** *)
+
+fun{}
+string_get_at(src: string, i: intGte(0)): char
+
 (* ****** ****** *)
 
 (* end of [unsafe.sats] *)

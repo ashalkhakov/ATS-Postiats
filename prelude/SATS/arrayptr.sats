@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayptr.atxt
-** Time of generation: Thu Jan 11 11:00:08 2018
+** Time of generation: Sun Feb 25 10:09:23 2018
 *)
 
 (* ****** ****** *)
@@ -64,7 +64,7 @@ arrayptr = arrayptr_vt0ype_addr_int_vtype
 //
 vtypedef
 arrayptr
-  (a:vt0p, n:int) = [l:addr] arrayptr(a, l, n)
+(a:vt0p, n:int) = [l:addr] arrayptr(a, l, n)
 //
 #endif
 
@@ -88,39 +88,46 @@ lemma_arrayptr_param{a:vt0p}
 
 castfn
 arrayptr_encode :
-  {a:vt0p}{l:addr}{n:int}
+  {a:vt0p}
+  {l:addr}{n:int}
   (array_v(INV(a), l, n), mfree_gc_v(l) | ptr(l)) -<0> arrayptr(a, l, n)
 // end of [arrayptr_encode]
 castfn
 arrayptr_encode2 :
-  {a:vt0p}{l:addr}{n:int}
+  {a:vt0p}
+  {l:addr}{n:int}
   @(array_v(INV(a), l, n), mfree_gc_v(l) | ptr(l)) -<0> arrayptr(a, l, n)
 // end of [arrayptr_encode2]
 
 (* ****** ****** *)
-
+//
 castfn
 arrayptr_objectify
-  {a:vt0p}{l:addr}{n:int}
-  (array_v(INV(a), l, n) | ptr(l)):<> (mfree_ngc_v(l) | arrayptr(a, l, n))
+  {a:vt0p}
+  {l:addr}{n:int}
+  ( pf: array_v(INV(a), l, n)
+  | p0: ptr(l) // starting address
+  ) :<> (mfree_ngc_v(l) | arrayptr(a, l, n))
 // end of [arrayptr_objectify]
+//
 castfn
 arrayptr_unobjectify
   {a:vt0p}{l:addr}{n:int}
-  (mfree_ngc_v(l) | arrayptr(INV(a), l, n)):<> (array_v(a, l, n) | ptr(l))
+( pf: mfree_ngc_v(l)
+| A0: arrayptr(INV(a), l, n)):<> (array_v(a, l, n) | ptr(l))
 // end of [arrayptr_objectify]
-
+//
 (* ****** ****** *)
 //
 castfn
 arrayptr2ptr
   {a:vt0p}
   {l:addr}{n:int}
-  (A: !arrayptr(INV(a), l, n)):<> ptr(l)
+  (A0: !arrayptr(INV(a), l, n)):<> ptr(l)
 castfn
 arrayptrout2ptr
   {a:t0p}{l:addr}{n:int}
-  (A: !arrayptrout(INV(a), l, n)):<> ptr(l)
+  (A0: !arrayptrout(INV(a), l, n)):<> ptr(l)
 //
 (* ****** ****** *)
 
@@ -128,14 +135,16 @@ praxi
 arrayptr_takeout
   {a:vt0p}{l:addr}{n:int}
 (
-  A: !arrayptr(INV(a), l, n) >> arrayptrout(a?, l, n)
+A0: !arrayptr(INV(a), l, n) >> arrayptrout(a?, l, n)
 ) : array_v(a, l, n) // end of [arrayptr_takeout]
 
 praxi
 arrayptr_addback
-  {a:vt0p}{l:addr}{n:int}
+  {a:vt0p}
+  {l:addr}{n:int}
 (
-  pf: array_v(INV(a), l, n) | A: !arrayptrout(a?, l, n) >> arrayptr(a, l, n)
+  pf: array_v(INV(a), l, n)
+| A0: !arrayptrout(a?, l, n) >> arrayptr(a, l, n)
 ) : void // end of [arrayptr_addback]
 
 (* ****** ****** *)
@@ -144,21 +153,21 @@ castfn
 arrayptr_takeout_viewptr
   {a:vt0p}{l:addr}{n:int}
 (
-  A: !arrayptr(INV(a), l, n) >> arrayptrout(a?, l, n)
+ A: !arrayptr(INV(a), l, n) >> arrayptrout(a?, l, n)
 ) : (array_v(a, l, n) | ptr(l)) // endfun
 
 (* ****** ****** *)
 
 castfn
 arrpsz_encode :
-  {a:vt0p}{n:int}
-  @(arrayptr(INV(a), n), size_t(n)) -<0> arrpsz(a, n)
+{a:vt0p}{n:int}
+@(arrayptr(INV(a), n), size_t(n)) -<0> arrpsz(a, n)
 // end of [arrpsz_encode]
 
 castfn
 arrpsz_decode :
-  {a:vt0p}{n:int}
-  arrpsz(INV(a), n) -<0> @(arrayptr(a, n), size_t(n))
+{a:vt0p}{n:int}
+arrpsz(INV(a), n) -<0> @(arrayptr(a, n), size_t(n))
 // end of [arrpsz_decode]
 
 (* ****** ****** *)
@@ -176,10 +185,11 @@ symintr arrayptr
 
 (* ****** ****** *)
 
-fun{
-a:t0p
-} arrayptr_make_elt
-  {n:int} (asz: size_t(n), x: a):<!wrt> arrayptr(a, n)
+fun
+{a:t0p}
+arrayptr_make_elt
+  {n:int}
+  (asz: size_t(n), x: a):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_elt]
 
 (* ****** ****** *)
@@ -187,7 +197,7 @@ a:t0p
 fun{}
 arrayptr_make_intrange
   {l,r:int | l <= r}
-  (l: int l, r: int r):<!wrt> arrayptr(intBtw(l, r), r-l)
+  (int(l), int(r)):<!wrt> arrayptr(intBtw(l, r), r-l)
 // end of [arrayptr_make_intrange]
 
 (* ****** ****** *)
@@ -205,22 +215,29 @@ overload arrayptr with arrayptr_make_arrpsz
 //
 fun
 {a:t0p}
-arrayptr_make_list{n:int}
-  (asz: int n, xs: list(INV(a), n)):<!wrt> arrayptr(a, n)
+arrayptr_make_list
+{n:int}
+( asz: int(n)
+, xs0: list(INV(a), n)):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_list]
 //
 fun
 {a:t0p}
-arrayptr_make_rlist{n:int}
-  (asz: int n, xs: list(INV(a), n)):<!wrt> arrayptr(a, n)
+arrayptr_make_rlist
+{n:int}
+( asz: int(n)
+, xs0: list(INV(a), n)):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_rlist]
 //
 (* ****** ****** *)
 
 fun{a:t0p}
 arrayptr_make_subarray
-  {n:int}{st,ln:int | st+ln <= n}
-  (A: RD(arrayref(a, n)), size_t(st), size_t(ln)): arrayptr(a, ln)
+{n:int}
+{st,ln:int | st+ln <= n}
+(
+A0: RD(arrayref(a, n)), st: size_t(st), ln: size_t(ln)
+) :<!wrt> arrayptr(a, ln)
 // end of [arrayptr_make_subarray]
 
 (* ****** ****** *)
@@ -228,21 +245,49 @@ arrayptr_make_subarray
 fun
 {a:vt0p}
 arrayptr_make_list_vt{n:int}
-  (asz: int n, xs: list_vt (INV(a), n)):<!wrt> arrayptr(a, n)
+  ( asz: int(n)
+  , xs0: list_vt(INV(a), n)):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_list_vt]
 fun
 {a:vt0p}
 arrayptr_make_rlist_vt{n:int}
-  (asz: int n, xs: list_vt (INV(a), n)):<!wrt> arrayptr(a, n)
+  ( asz: int(n)
+  , xs0: list_vt(INV(a), n)):<!wrt> arrayptr(a, n)
 // end of [arrayptr_make_rlist_vt]
 
 (* ****** ****** *)
-
+//
 fun
 {a:vt0p}
 arrayptr_make_uninitized
   {n:int} (asz: size_t(n)):<!wrt> arrayptr(a?, n)
 // end of [arrayptr_make_uninitized]
+//
+(* ****** ****** *)
+//
+fun
+{a:t0p}
+arrayptr_make_stream
+( xs0: stream(INV(a))
+, asz: &(size_t)? >> size_t(n)):<!wrt> #[n:nat] arrayptr(a, n)
+fun
+{a:vt0p}
+arrayptr_make_stream_vt
+( xs0: stream_vt(INV(a))
+, asz: &(size_t)? >> size_t(n)):<!wrt> #[n:nat] arrayptr(a, n)
+//
+fun{}
+arrayptr_make_stream$bufsize
+  ((*void*)):<> intGte(1) // HX: default = 16
+//
+(* ****** ****** *)
+
+fun
+arrayptr_free
+  {a:t0p}
+  {l:addr}{n:int}
+  (A: arrayptr(INV(a), l, n)):<!wrt> void = "mac#%"
+// end of [arrayptr_free]
 
 (* ****** ****** *)
 
@@ -250,16 +295,9 @@ fun
 {a:vt0p}
 arrayptr_imake_list{n:int}
 (
-  A: !arrayptr(INV(a), n) >> arrayptr(a?!, n), n: size_t(n)
-) : list_vt (a, n) // end of [arrayptr_imake_list]
-
-(* ****** ****** *)
-
-fun
-arrayptr_free
-  {a:t0p}{l:addr}{n:int}
-  (A: arrayptr(INV(a), l, n)):<!wrt> void = "mac#%"
-// end of [arrayptr_free]
+A0:
+!arrayptr(INV(a), n) >> arrayptr(a?!, n), n: size_t(n)
+) : list_vt(a, n) // end of [arrayptr_imake_list]
 
 (* ****** ****** *)
 
@@ -474,18 +512,33 @@ arrayptr_freelin
 //
 (*
 fun{a:vt0p}
-array_tabulate$fopr (index: size_t): (a)
+array_tabulate$fopr(index: size_t): (a)
 *)
 fun{a:vt0p}
 arrayptr_tabulate
-  {n:int} (asz: size_t(n)): arrayptr(a, n)
+  {n:int}(asz: size_t(n)): arrayptr(a, n)
+//
+(* ****** ****** *)
+//
+(*
+fun
+{a:vt0p}
+array_bsearch$ford(x: &RD(a)):<> int
+*)
+//
+fun
+{a:vt0p}
+arrayptr_bsearch
+  {n:int}
+  (A: !arrayptr(a, n), n: size_t(n)):<> sizeLte(n)
 //
 (* ****** ****** *)
 //
 fun
 {a:vt0p}
 arrayptr_quicksort
-  {n:int}(A: !arrayptr(a, n) >> _, asz: size_t(n)): void
+  {n:int}
+  (A: !arrayptr(a, n) >> _, asz: size_t(n)): void
 //
 (* ****** ****** *)
 //

@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/array.atxt
-** Time of generation: Thu Jan 11 11:00:08 2018
+** Time of generation: Sun Feb 25 10:09:22 2018
 *)
 
 (* ****** ****** *)
@@ -570,7 +570,7 @@ fun
 array_uninitize
   {n:int}
 (
-  A: &(@[INV(a)][n]) >> @[a?][n], asz: size_t n
+A0: &(@[INV(a)][n]) >> @[a?][n], asz: size_t(n)
 ) : void // end of [array_uninitize]
 //
 fun{a:vt0p}
@@ -607,7 +607,7 @@ fun
 array_bsearch_stdlib
   {n:int}
 (
-A0: &RD(@[a][n]), asz: size_t (n), key: &RD(a), cmp: cmpref(a)
+A0: &RD(@[a][n]), asz: size_t(n), key: &RD(a), cmp: cmpref(a)
 ) :<> Ptr0 (* found/~found : ~null/null *)
 //
 (* ****** ****** *)

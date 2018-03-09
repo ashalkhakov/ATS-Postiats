@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayref.atxt
-** Time of generation: Thu Jan 11 11:00:19 2018
+** Time of generation: Sun Feb 25 10:13:10 2018
 *)
 
 (* ****** ****** *)
@@ -339,6 +339,19 @@ if (asz > 0)
 end // end of [arrayref_is_ordered]
 
 (* ****** ****** *)
+
+implement
+{a}(*tmp*)
+arrayref_bsearch
+  (A, asz) = let
+//
+val
+(vbox(pf) | p0) =
+arrayref_get_viewptr{a}(A)
+//
+in
+  $effmask_ref(array_bsearch<a>(!p0, asz))
+end // end of [arrayref_bsearch]
 
 implement
 {a}(*tmp*)

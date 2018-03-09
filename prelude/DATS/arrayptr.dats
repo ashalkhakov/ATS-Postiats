@@ -30,19 +30,30 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/arrayptr.atxt
-** Time of generation: Thu Jan 11 11:00:18 2018
+** Time of generation: Sun Feb 25 10:11:17 2018
 *)
 
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Authoremail: hwxi AT cs DOT bu DOT edu *)
 (* Start time: May, 2012 *)
+(* Authoremail: hwxi AT cs DOT bu DOT edu *)
 
 (* ****** ****** *)
 
 staload UN = "prelude/SATS/unsafe.sats"
 
+(* ****** ****** *)
+//
+extern
+fun
+memcpy
+( d0: ptr
+, s0: ptr
+, n0: size_t
+) :<!wrt> ptr = "mac#atspre_array_memcpy"
+// end of [memcpy]
+//
 (* ****** ****** *)
 
 implement
@@ -216,6 +227,149 @@ val res = list_make_array (!p, asz)
 prval () = arrayptr_addback (pf | A)
 } // end of [arrayptr_imake_list]
 
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+arrayptr_make_stream
+  (xs, asz) = let
+//
+fun
+loop
+{n:int|0 < n}
+{i:nat|i <= n}
+( xs: stream(a)
+, p0: ptr, pi: ptr
+, n0: size_t(n), i0: size_t(i)
+) : (ptr, Size_t) = (
+//
+case+ !xs of
+| stream_nil() =>
+  (
+    p0, i0
+  ) (* stream_nil *)
+| stream_cons(x, xs) =>
+  if
+  (i0 < n0)
+  then
+  let
+    val () = $UN.ptr0_set<a>(pi, x)
+  in
+    loop
+    (xs, p0, ptr_succ<a>(pi), n0, succ(i0))
+  end // end of [then]
+  else let
+//
+    val n02 = n0 + n0
+    val A02 =
+    arrayptr_make_uninitized<a>(n02)
+    val p02 = $UN.castvwtp0{ptr}(A02)
+//
+    val _(*p02*) =
+      memcpy(p02, p0, i0*sizeof<a>)
+    val ((*freed*)) =
+      arrayptr_free($UN.castvwtp0(p0))
+//
+    val pi = ptr_add<a>(p02, i0)
+    val () = $UN.ptr0_set<a>(pi, x)
+//
+  in
+    loop
+    (xs, p02, ptr_succ<a>(pi), n02, succ(i0))
+  end // end of [else]
+) (* end of [loop] *)
+//
+val n0 =
+arrayptr_make_stream$bufsize<>
+  ((*void*))
+//
+val n0 = i2sz(n0)
+val A0 = arrayptr_make_uninitized<a>(n0)
+val p0 = $UN.castvwtp0{ptr}(A0)
+//
+val (p0, n0) =
+  $effmask_all(loop(xs, p0, p0, n0, i2sz(0)))
+//
+in
+//
+  let val () = asz := n0 in $UN.castvwtp0(p0) end
+//
+end // end of [arrayptr_make_stream]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+arrayptr_make_stream_vt
+  (xs, asz) = let
+//
+fun
+loop
+{n:int|0 < n}
+{i:nat|i <= n}
+( xs: stream_vt(a)
+, p0: ptr, pi: ptr
+, n0: size_t(n), i0: size_t(i)
+) : (ptr, Size_t) = (
+//
+case+ !xs of
+| ~stream_vt_nil() =>
+  (
+    p0, i0
+  )
+| ~stream_vt_cons(x, xs) =>
+  if
+  (i0 < n0)
+  then
+  let
+    val () = $UN.ptr0_set<a>(pi, x)
+  in
+    loop
+    (xs, p0, ptr_succ<a>(pi), n0, succ(i0))
+  end // end of [then]
+  else let
+//
+    val n02 = n0 + n0
+    val A02 =
+    arrayptr_make_uninitized<a>(n02)
+    val p02 = $UN.castvwtp0{ptr}(A02)
+//
+    val _(*p02*) =
+      memcpy(p02, p0, i0*sizeof<a>)
+    val ((*freed*)) =
+      arrayptr_free($UN.castvwtp0(p0))
+//
+    val pi = ptr_add<a>(p02, i0)
+    val () = $UN.ptr0_set<a>(pi, x)
+//
+  in
+    loop
+    (xs, p02, ptr_succ<a>(pi), n02, succ(i0))
+  end // end of [else]
+) (* end of [loop] *)
+//
+val n0 =
+arrayptr_make_stream$bufsize<>
+  ((*void*))
+//
+val n0 = i2sz(n0)
+val A0 = arrayptr_make_uninitized<a>(n0)
+val p0 = $UN.castvwtp0{ptr}(A0)
+//
+val (p0, n0) =
+  $effmask_all(loop(xs, p0, p0, n0, i2sz(0)))
+//
+in
+//
+  let val () = asz := n0 in $UN.castvwtp0(p0) end
+//
+end // end of [arrayptr_make_stream_vt]
+
+(* ****** ****** *)
+//
+implement
+arrayptr_make_stream$bufsize<> ((*void*)) = 16
+//
 (* ****** ****** *)
 
 (*
@@ -447,6 +601,22 @@ arrayptr_tabulate
   (asz) =
   arrayptr_encode2(array_ptr_tabulate<a>(asz))
 // end of [arrayptr_tabulate]
+
+(* ****** ****** *)
+
+implement
+{a}(*tmp*)
+arrayptr_bsearch
+  (A, asz) = res where
+{
+//
+val p = ptrcast(A)
+prval pfarr = arrayptr_takeout(A)
+//
+val res = array_bsearch<a>(!p, asz)
+prval () = arrayptr_addback{a}(pfarr | A)
+//
+} (* end of [arrayptr_bsearch] *)
 
 (* ****** ****** *)
 

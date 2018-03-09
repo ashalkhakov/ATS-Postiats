@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/arrayref.atxt
-** Time of generation: Thu Jan 11 11:00:09 2018
+** Time of generation: Sun Feb 25 10:15:36 2018
 *)
 
 (* ****** ****** *)
@@ -401,7 +401,22 @@ a:vt0p}{env:vt0p
 fun
 {a:vt0p}
 arrayref_is_ordered
-  {n:int}(A: arrayref(a, n), asz: size_t(n)): bool
+  {n:int}
+  (A: arrayref(a, n), asz: size_t(n)): bool
+//
+(* ****** ****** *)
+//
+(*
+fun
+{a:vt0p}
+array_bsearch$ford(x: &RD(a)):<> int
+*)
+//
+fun
+{a:vt0p}
+arrayref_bsearch
+  {n:int}
+  (A: arrayref(a, n), n: size_t(n)): sizeLte(n)
 //
 (* ****** ****** *)
 //

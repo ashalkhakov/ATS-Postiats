@@ -36,7 +36,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/SATS/CODEGEN/list.atxt
-** Time of generation: Thu Jan 11 11:00:07 2018
+** Time of generation: Sat Feb 24 18:53:54 2018
 *)
 
 (* ****** ****** *)
@@ -109,10 +109,13 @@ ifListSubscriptExn
 (
 let val x = ,(exn) in
 (
-if isListSubscriptExn(x)
-  then
-    let prval () = __vfree_exn (x) in ,(body) end
-  else $raise (x)
+//
+if
+isListSubscriptExn(x)
+then
+  let prval () = __vfree_exn(x) in ,(body) end
+else $raise (x)
+//
 ) : tres // end of [if]
 end (* end of [let] *)
 ) // end of [ifListSubscriptExn]
@@ -196,9 +199,9 @@ list_tuple with list_tuple_6
 (* ****** ****** *)
 
 fun{x:t0p}
-list_make_sing (x: x):<!wrt> list_vt(x, 1)
+list_make_sing(x: x):<!wrt> list_vt(x, 1)
 fun{x:t0p}
-list_make_pair (x1: x, x2: x):<!wrt> list_vt(x, 2)
+list_make_pair(x1: x, x2: x):<!wrt> list_vt(x, 2)
 
 (* ****** ****** *)
 
@@ -209,8 +212,8 @@ list_make_elt
 
 (* ****** ****** *)
 
-fun{
-} list_make_intrange
+fun{}
+list_make_intrange
   {l,r:int | l <= r}
   (l: int l, r: int r):<!wrt> list_vt(intBtw(l, r), r-l)
 // end of [list_make_intrange]

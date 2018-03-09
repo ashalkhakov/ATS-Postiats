@@ -30,7 +30,7 @@
 (*
 ** Source:
 ** $PATSHOME/prelude/DATS/CODEGEN/string.atxt
-** Time of generation: Thu Jan 11 11:00:13 2018
+** Time of generation: Sat Feb 24 21:01:48 2018
 *)
 
 (* ****** ****** *)
@@ -489,7 +489,7 @@ fun
 loop
 {l:addr}
 {n:int}
-{i:nat | i <= n}
+{i:nat|i <= n}
 (
   pf: b0ytes(n)@l
 , fpf: mfree_gc_v(l)
@@ -552,7 +552,7 @@ fun
 loop
 {l:addr}
 {n:int}
-{i:nat | i <= n}
+{i:nat|i <= n}
 (
   pf: b0ytes(n)@l
 , fpf: mfree_gc_v(l)

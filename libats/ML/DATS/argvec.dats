@@ -6,7 +6,7 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2010-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
@@ -28,74 +28,59 @@
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Start time: April, 2012 *)
-(* Authoremail: hwxiATcsDOTbuDOTedu *)
+(* Start time: March, 2018 *)
+(* Authoremail: gmhwxiATgmailDOTcom *)
 
 (* ****** ****** *)
 
-(*
-** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/parray.atxt
-** Time of generation: Fri May 25 20:16:42 2018
-*)
+#define ATS_DYNLOADFLAG 0
+  
+(* ****** ****** *)
+  
+staload
+UN = "prelude/SATS/unsafe.sats"
 
 (* ****** ****** *)
 
-sortdef vtp = viewtype
+staload "libats/ML/SATS/basis.sats"
 
 (* ****** ****** *)
+
+staload "libats/ML/SATS/list0.sats"
+staload "libats/ML/SATS/argvec.sats"
+
+(* ****** ****** *)
+
+staload _ = "prelude/DATS/integer.dats"
+
+(* ****** ****** *)
+
+implement
+listize_argc_argv
+{n}(argc, argv) = let
 //
-(*
-** HX: for null-pointer terminated arrays
-*)
+fun
+loop
+{i:nat | i <= n}
+( i: int(i)
+,
+argv: !argv(n)
+,
+args: list0(string)): list0(string) =
+if
+(i >= 1)
+then let
+  val
+  arg = argv[i-1]
+in
+  loop
+  (i-1, argv, list0_cons(arg, args))
+end else args
 //
-dataview
-parray_v
-(
- a:vt@ype+, addr(*l*), int(*n*)
-) = // for arrays with a sentinel at the end
-  | {l:addr}
-    parray_v_nil(a, l, 0) of ptr(null) @ l
-  | {l:addr}{n:nat}
-    parray_v_cons(a, l, n+1) of
-      (a @ l, parray_v(a, l + sizeof(a), n))
-    // parray_v_cons
-// end of [parray_v]
-//
+in
+  loop(argc, argv, list0_nil((*void*)))
+end // end of [listize_argc_argv]
 
 (* ****** ****** *)
 
-prfun
-lemma_parray_v_params
-{a:vtp}{l:addr}{n:int}
-(pf: !parray_v(INV(a), l, n)): [l > null;n >= 0] void
-// end of [lemma_parray_v_params]
-
-(* ****** ****** *)
-
-fun{
-a:vtp
-} parray_is_empty
-  {l:addr}{n:int}
-  (pf: !parray_v(INV(a), l, n) | ptr(l)):<> bool(n==0)
-// end of [parray_is_empty]
-
-fun{
-a:vtp
-} parray_isnot_empty
-  {l:addr}{n:int}
-  (pf: !parray_v(INV(a), l, n) | ptr(l)):<> bool(n > 0)
-// end of [parray_isnot_empty]
-
-(* ****** ****** *)
-
-fun{
-a:vtp
-} parray_size
-  {l:addr}{n:int}
-  (pf: !parray_v(INV(a), l, n) | p: ptr(l)):<> size_t(n)
-// end of [parray_size]
-
-(* ****** ****** *)
-
-(* end of [parray.sats] *)
+(* end of [argvec.dats] *)

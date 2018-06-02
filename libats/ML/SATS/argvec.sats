@@ -6,19 +6,19 @@
 
 (*
 ** ATS/Postiats - Unleashing the Potential of Types!
-** Copyright (C) 2010-2015 Hongwei Xi, ATS Trustful Software, Inc.
+** Copyright (C) 2011-2013 Hongwei Xi, ATS Trustful Software, Inc.
 ** All rights reserved
 **
 ** ATS is free software;  you can  redistribute it and/or modify it under
 ** the terms of  the GNU GENERAL PUBLIC LICENSE (GPL) as published by the
 ** Free Software Foundation; either version 3, or (at  your  option)  any
 ** later version.
-**
+** 
 ** ATS is distributed in the hope that it will be useful, but WITHOUT ANY
 ** WARRANTY; without  even  the  implied  warranty  of MERCHANTABILITY or
 ** FITNESS FOR A PARTICULAR PURPOSE.  See the  GNU General Public License
 ** for more details.
-**
+** 
 ** You  should  have  received  a  copy of the GNU General Public License
 ** along  with  ATS;  see the  file COPYING.  If not, please write to the
 ** Free Software Foundation,  51 Franklin Street, Fifth Floor, Boston, MA
@@ -28,74 +28,28 @@
 (* ****** ****** *)
 
 (* Author: Hongwei Xi *)
-(* Start time: April, 2012 *)
-(* Authoremail: hwxiATcsDOTbuDOTedu *)
-
-(* ****** ****** *)
-
-(*
-** Source:
-** $PATSHOME/prelude/SATS/CODEGEN/parray.atxt
-** Time of generation: Fri May 25 20:16:42 2018
-*)
-
-(* ****** ****** *)
-
-sortdef vtp = viewtype
+(* Start time: March, 2018 *)
+(* Authoremail: gmmhwxiATgmailDOTcom *)
 
 (* ****** ****** *)
 //
-(*
-** HX: for null-pointer terminated arrays
-*)
+#define
+ATS_PACKNAME "ATSLIB.libats.ML"
 //
-dataview
-parray_v
-(
- a:vt@ype+, addr(*l*), int(*n*)
-) = // for arrays with a sentinel at the end
-  | {l:addr}
-    parray_v_nil(a, l, 0) of ptr(null) @ l
-  | {l:addr}{n:nat}
-    parray_v_cons(a, l, n+1) of
-      (a @ l, parray_v(a, l + sizeof(a), n))
-    // parray_v_cons
-// end of [parray_v]
+#define
+ATS_EXTERN_PREFIX "atslib_ML_" // prefix for external names
 //
-
 (* ****** ****** *)
 
-prfun
-lemma_parray_v_params
-{a:vtp}{l:addr}{n:int}
-(pf: !parray_v(INV(a), l, n)): [l > null;n >= 0] void
-// end of [lemma_parray_v_params]
+staload "libats/ML/SATS/basis.sats"
 
 (* ****** ****** *)
-
-fun{
-a:vtp
-} parray_is_empty
-  {l:addr}{n:int}
-  (pf: !parray_v(INV(a), l, n) | ptr(l)):<> bool(n==0)
-// end of [parray_is_empty]
-
-fun{
-a:vtp
-} parray_isnot_empty
-  {l:addr}{n:int}
-  (pf: !parray_v(INV(a), l, n) | ptr(l)):<> bool(n > 0)
-// end of [parray_isnot_empty]
-
+//
+fun
+listize_argc_argv
+  {n:pos}
+  (argc: int(n), argv: !argv(n)): list0(string)
+//
 (* ****** ****** *)
 
-fun{
-a:vtp
-} parray_size
-  {l:addr}{n:int}
-  (pf: !parray_v(INV(a), l, n) | p: ptr(l)):<> size_t(n)
-// end of [parray_size]
-
-(* ****** ****** *)
-
-(* end of [parray.sats] *)
+(* end of [list0.sats] *)
